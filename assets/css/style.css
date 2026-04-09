@@ -540,30 +540,38 @@
   /* ================================================
      RESPONSIVE LAYOUT
      ================================================ */
+  /* Tablet / narrow screens: single column — calendar, then recurring, then featured */
   @media (max-width: 1100px) {
     .site-layout,
     .layout,
     .page-layout {
-      flex-wrap: wrap;
-    }
-  
-    .site-sidebar-left,
-    .sidebar-left {
-      flex: 0 0 100%;
-      min-width: 0;
-      order: 2;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-items: stretch;
     }
   
     .site-main,
     .main-content,
     .page-content {
-      flex: 0 0 100%;
+      flex: 1 1 auto;
+      width: 100%;
+      min-width: 0;
       order: 1;
+    }
+  
+    .site-sidebar-left,
+    .sidebar-left {
+      flex: 1 1 auto;
+      width: 100%;
+      min-width: 0;
+      max-width: none;
+      order: 2;
     }
   
     .site-sidebar-right,
     .sidebar-right {
-      flex: 0 0 100%;
+      flex: 1 1 auto;
+      width: 100%;
       max-width: none;
       min-width: 0;
       order: 3;
@@ -576,10 +584,22 @@
     }
   }
   
+  /* Mobile: full-width sections (no sidebar rails), single-column featured, shorter calendar */
   @media (max-width: 768px) {
     .site-wrapper,
     .wrapper {
       padding: 0.75rem;
+    }
+  
+    /* Nav first in page flow, then pin to viewport top while scrolling */
+    .site-shell > nav.site-nav,
+    .site-shell > nav.navbar {
+      order: -1;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      align-self: stretch;
+      box-shadow: 0 3px 12px rgba(80, 120, 150, 0.18);
     }
   
     .site-header,
@@ -597,13 +617,76 @@
       padding-right: 0.85rem;
     }
   
+    .site-layout,
+    .layout,
+    .page-layout {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      gap: 1rem;
+    }
+  
+    .site-main,
+    .main-content,
+    .page-content {
+      order: 1;
+      width: 100%;
+    }
+  
+    .site-sidebar-left,
+    .sidebar-left {
+      order: 2;
+      width: 100%;
+      max-width: none;
+      padding: 1rem;
+    }
+  
+    .site-sidebar-right,
+    .sidebar-right {
+      order: 3;
+      width: 100%;
+      max-width: none;
+      padding: 1rem;
+    }
+  
+    .site-nav,
+    .navbar {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+  
     .site-nav-list,
     .navbar ul {
-      gap: 0.5rem;
+      flex-wrap: nowrap;
+      justify-content: stretch;
+      gap: 0.3rem;
+      width: 100%;
+    }
+  
+    /* Nav pills: one horizontal row; share width; compact type (text may wrap inside pill) */
+    .site-nav-item {
+      flex: 1 1 0;
+      min-width: 0;
     }
   
     .site-nav-link,
-    .navbar a,
+    .navbar a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
+      min-height: 2.5rem;
+      padding: 0.4rem 0.35rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      line-height: 1.15;
+      white-space: normal;
+      text-align: center;
+      hyphens: auto;
+    }
+  
     .btn,
     button,
     .site-button {
@@ -623,7 +706,19 @@
     }
   
     .featured-events-grid {
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
+      grid-template-columns: unset;
+      gap: 1rem;
+    }
+  
+    .featured-card-image {
+      width: 100%;
+      max-width: 320px;
+    }
+  
+    .calendar-container iframe {
+      height: min(560px, 72vh);
     }
   
     h1 {

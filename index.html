@@ -23,10 +23,11 @@
       </div>
 
       <!-- NAVIGATION -->
-      <nav class="site-nav navbar">
+      <nav class="site-nav navbar" aria-label="Main navigation">
         <ul class="site-nav-list">
-          <li class="site-nav-item"><a class="site-nav-link" href="about.html">Learn More</a></li>
+          <li class="site-nav-item"><a class="site-nav-link" href="contents/learn-more.html">Learn More</a></li>
           <li class="site-nav-item"><a class="site-nav-link" href="contents/submit.html">Submit Event</a></li>
+          <li class="site-nav-item"><a class="site-nav-link" href="contents/contact.html">Contact Event Coordinator</a></li>
         </ul>
       </nav>
 
@@ -51,8 +52,9 @@
             <h2>Community Calendar</h2>
 
             <div class="calendar-container">
-              <iframe 
-                src="https://calendar.google.com/calendar/embed?src=mmhpevents%40gmail.com&ctz=America%2FChicago"
+              <iframe
+                title="McAllen Mobile Park Google Calendar"
+                src="https://calendar.google.com/calendar/embed?src=mmhpevents%40gmail.com&amp;ctz=America%2FChicago"
                 frameborder="0"
                 scrolling="no">
               </iframe>
@@ -67,15 +69,15 @@
 
           <div class="featured-events-grid">
             <article class="site-card featured-card">
-              <a href="about.html">
-                <img src="assets/images/dinner.png" alt="McAllen Mobile Park Dinner Image">
+              <a class="featured-card-link" href="contents/learn-more.html">
+                <img class="featured-card-image" src="assets/images/dinner.png" alt="McAllen Mobile Park community dinner">
                 <p class="featured-card-caption">Community Dinner</p>
               </a>
             </article>
 
             <article class="site-card featured-card">
-              <a href="about.html">
-                <img src="assets/images/rec-hall.png" alt="Featured Event 2 Image">
+              <a class="featured-card-link" href="contents/learn-more.html">
+                <img class="featured-card-image" src="assets/images/rec-hall.png" alt="McAllen Mobile Park rec hall event">
                 <p class="featured-card-caption">DJ Dance</p>
               </a>
             </article>
@@ -89,15 +91,17 @@
         <h2>McAllen Mobile Park</h2>
         <div class="site-footer-address-row">
           <address class="site-footer-address">
-            4900 N McColl Rd<br>
-            McAllen, TX 78504
+            McAllen Mobile<br>
+            4900 N Mc Coll Rd<br>
+            Mcallen, TX 78504
           </address>
-          <a class="btn site-button" 
-             href="https://www.google.com/maps/search/?api=1&query=4900%20N%20McColl%20Rd%2C%20McAllen%2C%20TX"
-             target="_blank">
-             Navigate
-          </a>
+          <a class="btn site-button site-footer-nav-btn"
+            href="https://www.google.com/maps/search/?api=1&amp;query=4900%20N%20Mc%20Coll%20Rd%2C%20McAllen%2C%20TX%2078504"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open address in Google Maps">Navigate</a>
         </div>
+        <p class="site-footer-proposal"><a href="assets/docs/Barkle-w3a1-project-proposal-and-research.pdf" target="_blank" rel="noopener noreferrer">Capstone proposal &amp; research (PDF)</a></p>
       </footer>
 
     </div>

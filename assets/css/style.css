@@ -413,6 +413,23 @@
     flex-shrink: 0;
   }
   
+  .site-footer-proposal {
+    margin: 1rem 0 0;
+    font-size: 0.95rem;
+    text-align: center;
+  }
+  
+  .site-footer-proposal a {
+    color: var(--color-driftwood-dark);
+    font-weight: 600;
+    text-decoration: underline;
+  }
+  
+  .site-footer-proposal a:hover,
+  .site-footer-proposal a:focus {
+    color: var(--color-driftwood);
+  }
+  
   .footer-buttons,
   .site-footer-actions,
   .button-row {

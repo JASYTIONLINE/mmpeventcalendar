@@ -106,6 +106,8 @@
   p {
     margin-bottom: 1rem;
     color: var(--color-text);
+    font-size: 2rem;
+    line-height: 1.45;
   }
   
   /* ================================================
@@ -163,7 +165,7 @@
   .site-header-subtitle {
     margin: 0;
     color: var(--color-text-soft);
-    font-size: 1rem;
+    font-size: 2rem;
   }
   
   /* ================================================
@@ -315,7 +317,7 @@
   .site-hero p {
     margin-bottom: 0;
     color: var(--color-text-soft);
-    font-size: 1.05rem;
+    font-size: 2.1rem;
   }
   
   /* ================================================
@@ -336,6 +338,34 @@
   
   .content-section:last-child {
     margin-bottom: 0;
+  }
+  
+  /* Contact page only: center all text and blocks inside main content */
+  .page-contact .site-main-content {
+    text-align: center;
+  }
+  
+  .page-contact .site-main-content .site-footer-address {
+    text-align: center;
+  }
+  
+  .page-contact .site-main-content h1,
+  .page-contact .site-main-content h2,
+  .page-contact .site-main-content h3 {
+    text-align: center;
+  }
+  
+  /* Contact page: headings 2× global sizes */
+  .page-contact h1 {
+    font-size: clamp(4rem, 8vw, 5.6rem);
+  }
+  
+  .page-contact h2 {
+    font-size: clamp(2.7rem, 5vw, 3.8rem);
+  }
+  
+  .page-contact h3 {
+    font-size: clamp(2.3rem, 4vw, 2.8rem);
   }
   
   /* ================================================
@@ -415,7 +445,7 @@
   
   .site-footer-proposal {
     margin: 1rem 0 0;
-    font-size: 0.95rem;
+    font-size: 1.9rem;
     text-align: center;
   }
   
@@ -731,6 +761,18 @@
   
     h3 {
       font-size: 1.15rem;
+    }
+  
+    .page-contact h1 {
+      font-size: 4rem;
+    }
+  
+    .page-contact h2 {
+      font-size: 2.7rem;
+    }
+  
+    .page-contact h3 {
+      font-size: 2.3rem;
     }
   }
   

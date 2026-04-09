@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>McAllen Mobile Park Events</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+  <div class="site-wrapper">
+    <div class="site-shell">
+
+      <!-- HEADER -->
+      <header class="site-header">
+        <h1 class="site-header-title">McAllen Mobile Park Events</h1>
+        <p class="site-header-subtitle">Simple, clear community event information in one place</p>
+      </header>
+
+      <!-- HERO IMAGE -->
+      <div class="hero-image">
+        <img src="assets/images/park-banner.png" alt="McAllen Mobile Park Banner">
+      </div>
+
+      <!-- NAVIGATION -->
+      <nav class="site-nav navbar">
+        <ul class="site-nav-list">
+          <li class="site-nav-item"><a class="site-nav-link" href="about.html">Learn More</a></li>
+          <li class="site-nav-item"><a class="site-nav-link" href="contents/submit.html">Submit Event</a></li>
+        </ul>
+      </nav>
+
+      <!-- MAIN LAYOUT -->
+      <div class="site-layout">
+
+        <!-- LEFT -->
+        <aside class="site-sidebar site-sidebar-left">
+          <h2 class="site-sidebar-title">Recurring Events</h2>
+          <ul class="recurring-events-list">
+            <li class="recurring-events-item">Weekly Card Game</li>
+            <li class="recurring-events-item">Association Meeting</li>
+            <li class="recurring-events-item">Thursday Potluck</li>
+            <li class="recurring-events-item">Saturday Coffee Social</li>
+          </ul>
+        </aside>
+
+        <!-- CENTER -->
+        <main class="site-main">
+
+          <section class="site-main-content content">
+            <h2>Community Calendar</h2>
+
+            <div class="calendar-container">
+              <iframe 
+                src="https://calendar.google.com/calendar/embed?src=mmhpevents%40gmail.com&ctz=America%2FChicago"
+                frameborder="0"
+                scrolling="no">
+              </iframe>
+            </div>
+          </section>
+
+        </main>
+
+        <!-- RIGHT -->
+        <aside class="site-sidebar site-sidebar-right">
+          <h2 class="site-sidebar-title">Featured Events</h2>
+
+          <div class="featured-events-grid">
+            <article class="site-card featured-card">
+              <a href="about.html">
+                <img src="assets/images/dinner.png" alt="McAllen Mobile Park Dinner Image">
+                <p class="featured-card-caption">Community Dinner</p>
+              </a>
+            </article>
+
+            <article class="site-card featured-card">
+              <a href="about.html">
+                <img src="assets/images/rec-hall.png" alt="Featured Event 2 Image">
+                <p class="featured-card-caption">DJ Dance</p>
+              </a>
+            </article>
+          </div>
+        </aside>
+
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="site-footer">
+        <h2>McAllen Mobile Park</h2>
+        <div class="site-footer-address-row">
+          <address class="site-footer-address">
+            4900 N McColl Rd<br>
+            McAllen, TX 78504
+          </address>
+          <a class="btn site-button" 
+             href="https://www.google.com/maps/search/?api=1&query=4900%20N%20McColl%20Rd%2C%20McAllen%2C%20TX"
+             target="_blank">
+             Navigate
+          </a>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+</body>
+</html>

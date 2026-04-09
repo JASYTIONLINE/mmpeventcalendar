@@ -1,0 +1,687 @@
+/* ================================================
+   McAllen Mobile Park Event Site
+   Consolidated single-file stylesheet
+   Theme: Neutral light blue, white, sand, brown
+   Purpose: Shared structure + shared theme in one file
+   ================================================ */
+
+/* ================================================
+   ROOT THEME VARIABLES
+   ================================================ */
+   :root {
+    /* UPDATED SKY BLUE BEACH THEME */
+    --color-sky: #87CEEB;          /* true sky blue */
+    --color-ocean-mist: #E6F7FF;   /* light airy blue */
+  
+    --color-white: #ffffff;
+  
+    --color-sand: #EAD7B7;
+    --color-sand-dark: #D4BD94;
+  
+    --color-driftwood: #9C7B5B;
+    --color-driftwood-dark: #7A5E44;
+  
+    --color-text: #2F3A40;
+    --color-text-soft: #5F6F77;
+  
+    --color-border: #BFDDEA;
+    --color-shadow: rgba(80, 120, 150, 0.12);
+  
+    --site-max-width: 2300px;
+  
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+  
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+  
+    --sidebar-left-width: 8%;
+    --sidebar-left-extra: 50px;
+    --sidebar-right-width: 282px; /* featured events column; fits 250px image + padding */
+  
+    --font-main: Arial, Helvetica, sans-serif;
+  }
+  
+  /* ================================================
+     GLOBAL ELEMENTS
+     ================================================ */
+  body {
+    overflow-x:    hidden;
+  }
+  
+  img {
+    max-width: 100%;
+    display: block;
+    height: auto;
+  }
+  
+  a {
+    color: var(--color-driftwood-dark);
+    text-decoration: none;
+    transition: 0.2s ease;
+  }
+  
+  a:hover,
+  a:focus {
+    color: var(--color-driftwood);
+  }
+  
+  ul,
+  ol {
+    margin-left: 1.25rem;
+  }
+  
+  li {
+    margin-bottom: 0.5rem;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-driftwood-dark);
+    line-height: 1.2;
+    margin-bottom: 0.5em;
+  }
+  
+  h1 {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    text-align: center;
+  }
+  
+  h2 {
+    font-size: clamp(1.35rem, 2.5vw, 1.9rem);
+  }
+  
+  h3 {
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+  }
+  
+  p {
+    margin-bottom: 1rem;
+    color: var(--color-text);
+  }
+  
+  /* ================================================
+     SITE WRAPPER
+     ================================================ */
+  .site-wrapper,
+  .wrapper {
+    max-width: var(--site-max-width);
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  /* ================================================
+     SHARED STRUCTURE SHELL
+     ================================================ */
+  .site-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .site-section {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 14px var(--color-shadow);
+  }
+  
+  .site-card,
+  .card,
+  .box {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 14px var(--color-shadow);
+    padding: 1rem;
+  }
+  
+  /* ================================================
+     HEADER
+     ================================================ */
+  .site-header {
+    background: linear-gradient(180deg, var(--color-sky), var(--color-white));
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 14px var(--color-shadow);
+    padding: 8px 1rem;
+    text-align: center;
+  }
+  
+  .site-header-title {
+    margin-bottom: 0.25rem;
+  }
+  
+  .site-header-subtitle {
+    margin: 0;
+    color: var(--color-text-soft);
+    font-size: 1rem;
+  }
+  
+  /* ================================================
+     NAVIGATION
+     ================================================ */
+  .site-nav,
+  .navbar {
+    background-color: var(--color-sand);
+    border: 1px solid var(--color-sand-dark);
+    border-radius: var(--radius-md);
+    box-shadow: 0 3px 10px var(--color-shadow);
+    padding: 0.75rem 1rem;
+  }
+  
+  .site-nav-list,
+  .navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  
+  .site-nav-item {
+    margin: 0;
+  }
+  
+  .site-nav-link,
+  .navbar a {
+    display: inline-block;
+    padding: 0.65rem 1rem;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-sand-dark);
+    border-radius: 999px;
+    color: var(--color-driftwood-dark);
+    font-weight: 700;
+    min-width: 110px;
+    text-align: center;
+  }
+  
+  .site-nav-link:hover,
+  .site-nav-link:focus,
+  .navbar a:hover,
+  .navbar a:focus {
+    background-color: var(--color-sky);
+    border-color: var(--color-border);
+  }
+  
+  /* Use this class on current page link if ever needed */
+  .is-current-page {
+    display: none !important;
+  }
+  
+  /* ================================================
+     MAIN PAGE LAYOUT
+     ================================================ */
+  .site-layout,
+  .layout,
+  .page-layout {
+    display: flex;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .site-sidebar-left,
+  .sidebar-left {
+    flex: 0 0 calc(var(--sidebar-left-width) + var(--sidebar-left-extra));
+    min-width: calc(90px + var(--sidebar-left-extra));
+  }
+  
+  .site-main,
+  .main-content,
+  .page-content {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .site-sidebar-right,
+  .sidebar-right {
+    flex: 0 0 var(--sidebar-right-width);
+    max-width: var(--sidebar-right-width);
+    min-width: 0;
+  }
+  
+  .site-sidebar,
+  .sidebar-left,
+  .sidebar-right {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 14px var(--color-shadow);
+    padding: 1rem;
+  }
+  
+  .site-sidebar-right {
+    padding: 1rem 0.5rem;
+  }
+  
+  .site-sidebar-title {
+    text-align: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-sky);
+    margin-bottom: 1rem;
+  }
+  
+  /* ================================================
+     LEFT SIDEBAR - RECURRING EVENTS
+     ================================================ */
+  .recurring-events-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .recurring-events-item {
+    background-color: var(--color-ocean-mist);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-text);
+    font-weight: 600;
+  }
+  
+  /* ================================================
+     HERO SECTION
+     ================================================ */
+  .hero,
+  .site-hero {
+    background: linear-gradient(180deg, var(--color-sky), var(--color-ocean-mist));
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 14px var(--color-shadow);
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+  
+  .hero h2,
+  .site-hero h2 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero p,
+  .site-hero p {
+    margin-bottom: 0;
+    color: var(--color-text-soft);
+    font-size: 1.05rem;
+  }
+  
+  /* ================================================
+     MAIN CONTENT
+     ================================================ */
+  .content,
+  .site-main-content {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 14px var(--color-shadow);
+    padding: 1.5rem;
+  }
+  
+  .content-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .content-section:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* ================================================
+     RIGHT SIDEBAR - FEATURED EVENTS
+     ================================================ */
+  .featured-events-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .featured-card,
+  .card {
+    overflow: hidden;
+  }
+  
+  .site-sidebar-right .featured-card {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .featured-card-link {
+    display: block;
+  }
+  
+  .featured-card-image {
+    width: min(250px, 100%);
+    aspect-ratio: 1;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    margin: 0 auto 0.5rem;
+    background-color: var(--color-sky);
+  }
+  
+  .featured-card-caption {
+    text-align: center;
+    font-weight: 700;
+    color: var(--color-driftwood-dark);
+    margin: 0;
+  }
+  
+  /* ================================================
+     FOOTER
+     ================================================ */
+  .site-footer {
+    background-color: var(--color-sand);
+    border: 1px solid var(--color-sand-dark);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 14px var(--color-shadow);
+    padding: 1.25rem 1rem;
+    text-align: center;
+  }
+  
+  .site-footer h2 {
+    margin-bottom: 0.75rem;
+  }
+  
+  .site-footer-address-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem 1.25rem;
+  }
+  
+  .site-footer-address {
+    font-style: normal;
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.6;
+    text-align: left;
+  }
+  
+  .site-footer-nav-btn {
+    flex-shrink: 0;
+  }
+  
+  .footer-buttons,
+  .site-footer-actions,
+  .button-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  
+  /* ================================================
+     BUTTONS
+     ================================================ */
+  .btn,
+  button,
+  .site-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 48px;
+    padding: 0.75rem 1.1rem;
+    border: 1px solid var(--color-driftwood);
+    border-radius: 999px;
+    background-color: var(--color-white);
+    color: var(--color-driftwood-dark);
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+  
+  .btn:hover,
+  .btn:focus,
+  button:hover,
+  button:focus,
+  .site-button:hover,
+  .site-button:focus {
+    background-color: var(--color-sky);
+    border-color: var(--color-border);
+    color: var(--color-driftwood-dark);
+  }
+  
+  /* ================================================
+     FORMS
+     ================================================ */
+  input,
+  select,
+  textarea {
+    width: 100%;
+    font: inherit;
+    color: var(--color-text);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: 2px solid var(--color-sky);
+    outline-offset: 2px;
+  }
+  
+  /* ================================================
+     MISC
+     ================================================ */
+  hr {
+    border: 0;
+    height: 1px;
+    background-color: var(--color-border);
+    margin: 1rem 0;
+  }
+  
+  blockquote {
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: var(--color-ocean-mist);
+    border-left: 4px solid var(--color-driftwood);
+    border-radius: var(--radius-sm);
+  }
+  
+  code,
+  pre {
+    font-family: "Courier New", Courier, monospace;
+    background-color: var(--color-ocean-mist);
+    color: var(--color-text);
+    border-radius: var(--radius-sm);
+  }
+  
+  code {
+    padding: 0.2rem 0.45rem;
+  }
+  
+  pre {
+    padding: 1rem;
+    overflow-x: auto;
+  }
+  
+  /* ================================================
+     MOBILE NAV SUPPORT
+     ================================================ */
+  .site-nav--mobile-top,
+  .site-nav--mobile-bottom {
+    display: none;
+  }
+  
+  /* ================================================
+     RESPONSIVE LAYOUT
+     ================================================ */
+  @media (max-width: 1100px) {
+    .site-layout,
+    .layout,
+    .page-layout {
+      flex-wrap: wrap;
+    }
+  
+    .site-sidebar-left,
+    .sidebar-left {
+      flex: 0 0 100%;
+      min-width: 0;
+      order: 2;
+    }
+  
+    .site-main,
+    .main-content,
+    .page-content {
+      flex: 0 0 100%;
+      order: 1;
+    }
+  
+    .site-sidebar-right,
+    .sidebar-right {
+      flex: 0 0 100%;
+      max-width: none;
+      min-width: 0;
+      order: 3;
+    }
+  
+    .featured-events-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .site-wrapper,
+    .wrapper {
+      padding: 0.75rem;
+    }
+  
+    .site-header,
+    .hero,
+    .site-hero,
+    .content,
+    .site-main-content,
+    .site-sidebar,
+    .sidebar-left,
+    .sidebar-right,
+    .site-footer,
+    .site-nav,
+    .navbar {
+      padding-left: 0.85rem;
+      padding-right: 0.85rem;
+    }
+  
+    .site-nav-list,
+    .navbar ul {
+      gap: 0.5rem;
+    }
+  
+    .site-nav-link,
+    .navbar a,
+    .btn,
+    button,
+    .site-button {
+      width: 100%;
+    }
+  
+    .site-footer-nav-btn {
+      width: auto;
+      max-width: 100%;
+      align-self: center;
+    }
+  
+    .footer-buttons,
+    .site-footer-actions,
+    .button-row {
+      flex-direction: column;
+    }
+  
+    .featured-events-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    h1 {
+      font-size: 2rem;
+    }
+  
+    h2 {
+      font-size: 1.35rem;
+    }
+  
+    h3 {
+      font-size: 1.15rem;
+    }
+  }
+  
+  @media (max-width: 420px) {
+    .hero,
+    .site-hero {
+      padding: 1.5rem 1rem;
+    }
+  
+    .content,
+    .site-main-content {
+      padding: 1rem;
+    }
+  }
+  /* HERO IMAGE BANNER */
+.hero-image {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.hero-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.site-header .hero-image img {
+  height: 220px;
+  object-fit: cover;
+}
+
+.site-main-content .hero-image img {
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  margin-inline: auto;
+}
+/* ================================================
+   HERO IMAGE (FULL WIDTH BANNER)
+   ================================================ */
+   .hero-image {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-image img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  
+  /* ================================================
+     GOOGLE CALENDAR EMBED
+     ================================================ */
+  .calendar-container {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+  
+  .calendar-container iframe {
+    width: 100%;
+    height: 650px;
+    border: none;
+  }

@@ -1,0 +1,35 @@
+[
+    {
+      "key": "e0001",
+      "Object": "event",
+      "Date": "2/20/2026",
+      "Name": "Justin Terry",
+      "Type": "Dance",
+      "start time": "7pm",
+      "End Time": "10PM",
+      "Location": "Hall A",
+      "Feature": "Yes"
+    },
+    {
+      "key": "e0002",
+      "Object": "event",
+      "Date": "2/13/2026",
+      "Name": "Dinner",
+      "Type": "Community Dinner",
+      "start time": "7pm",
+      "End Time": "10PM",
+      "Location": "Hall A",
+      "Feature": "Yes"
+    },
+    {
+      "key": "e0003",
+      "Object": "event",
+      "Date": "11/28/2026",
+      "Name": "DJ dance",
+      "Type": "Dance/Karaoke",
+      "start time": "7pm",
+      "End Time": "10PM",
+      "Location": "Hall A",
+      "Feature": "No"
+    }
+  ]

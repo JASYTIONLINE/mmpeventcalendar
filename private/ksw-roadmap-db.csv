@@ -1,0 +1,456 @@
+﻿Object,Count,Key,Rank,Word,Translation,Type,Definition,
+Glossary,1,G425,1,Huin ddi,White Belt,Rank,White Belt,
+Glossary,2,G426,2,Huin ddi,Yellow Stripe,Rank,Yellow Stripe,
+Glossary,3,G427,3,Norang ddi,Yellow Belt,Rank,Yellow Belt,
+Glossary,4,G428,4,Norang ddi,Blue Stripe,Rank,Blue Stripe,
+Glossary,5,G429,5,Cheong ddi,Blue Belt,Rank,Blue Belt,
+Glossary,6,G430,6,Cheong ddi,Red Stripe,Rank,Red Stripe,
+Glossary,7,G431,7,Hong ddi,Red Belt,Rank,Red Belt,
+Glossary,8,G432,8,Hong ddi,Brown Stripe,Rank,Brown Stripe,
+Glossary,9,G433,9,Ja ddi,Brown Belt,Rank,Brown Belt,
+Glossary,10,G434,10,Ja ddi,1 Black Stripe,Rank,1 Black Stripe,
+Glossary,11,G435,11,Dahnbo Nim,2 Black Stripes,Rank,2 Black Stripes,
+Glossary,12,G436,12,Dahnbo Nim,3 Black Stripes,Rank,3 Black Stripes,
+Glossary,13,G437,13,Dahnbo Nim,4 Black Stripes,Rank,4 Black Stripes,
+Glossary,14,G438,14,Dahnbo Nim,5 Black Stripes,Rank,5 Black Stripes,
+Glossary,15,G439,15,Dahnbo Nim,6 Black Stripes,Rank,6 Black Stripes,
+Glossary,16,G440,16,Jyo Kyo Nim,Black Belt,Rank,Black Belt,
+,,,,,,,,
+Object,Count,Key,Rank,Learning Objective,Name,Type,Status,Descriptiion
+Syllibus,1,S57,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,1-Forward/Back Stretch
+Syllibus,2,S58,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,2-Look Up/Down
+Syllibus,3,S59,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,3-Look Side/Side
+Syllibus,4,S60,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,4-Rotate Head
+Syllibus,5,S61,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,5-Rotate Arms
+Syllibus,6,S62,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,6-Rotate Hips
+Syllibus,7,S63,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,7-Knee Bends
+Syllibus,8,S64,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,8-Rotate Knees
+Syllibus,9,S65,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,9-Stretch Over knees
+Syllibus,10,S66,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,10-Long Stretch
+Syllibus,11,S67,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,11-Grab Toes
+Syllibus,12,S68,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,12-Ankle Circles
+Syllibus,13,S69,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,13-Knee Extensions
+Syllibus,14,S70,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,14-Bent Leg Stretch
+Syllibus,15,S71,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,15-Bent Leg Long Stretch
+Syllibus,16,S72,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,16-Straddle Stretch
+Syllibus,17,S73,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,17-Rowing Motion
+Syllibus,18,S74,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,18-Forward Straddle Stretch
+Syllibus,19,S75,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,19-Butterfly Bounce
+Syllibus,20,S76,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,20-Butterfly Knees
+Syllibus,21,S77,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,21-Finger Stretch
+Syllibus,22,S78,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,22-Wrist Twist
+Syllibus,23,S79,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,23-Roll Back
+Syllibus,24,S80,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,24-Shoulder Stand
+Syllibus,25,S81,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,25-Bicycle Kick
+Syllibus,26,S82,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,26-Back Arch
+Syllibus,27,S83,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,27-Hip Raise
+Syllibus,28,S84,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,28-Hip Raise with Support
+Syllibus,29,S85,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,29-Full Bridge
+Syllibus,30,S86,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,30-Raise Head/Shoulders
+Syllibus,31,S87,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,31-Raise Leg/Feet
+Syllibus,32,S88,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,32-Raise head and Feet
+Syllibus,33,S89,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,33-Grab Ankles
+Syllibus,34,S90,1,Warm-up,Mohm Puhl Ki ,Conditioning,Untrained,34-Back Stretch
+Syllibus,35,S154,1,Escape/Fall,Ahp Nak Bub,Escape/Fall,Untrained,Front Fall
+Syllibus,36,S155,1,Escape/Fall,Dee Nak Bub,Escape/Fall,Untrained,Back Fall
+Syllibus,37,S156,1,Escape/Fall,Yuhp Nak Bub,Escape/Fall,Untrained,Side Fall
+Syllibus,38,S157,1,Escape/Fall,Ahp Yuhp Nak Bub,Escape/Fall,Untrained,Front Side Fall
+Syllibus,39,S158,1,Escape/Fall,Hweh Juhn Nak Bub,Escape/Fall,Untrained,Rolling Fall
+Syllibus,40,S159,2,Escape/Fall,Goh Yahng Ee Nak Bub,Escape/Fall,Untrained,Cat Roll
+Syllibus,41,S160,2,Escape/Fall,Doo Sohn Poong Cha,Escape/Fall,Untrained,Cart Wheel
+Syllibus,42,S161,3,Escape/Fall,Hahn Sohn Poong Cha,Escape/Fall,Untrained,One Hand Cart-wheel
+Syllibus,43,S162,4,Escape/Fall,Gong Joong Hweh Juhn Nak Bub,Escape/Fall,Untrained,High Roll Fall
+Syllibus,44,S163,5,Escape/Fall,Gong Joong Ahp Nak Bub,Escape/Fall,Untrained,High Front Fall
+Syllibus,45,S164,5,Escape/Fall,Pahl Kum Chi Poong Cha,Escape/Fall,Untrained,Elbow Cart-wheel
+Syllibus,46,S165,6,Escape/Fall,Gong Joong Dee Nak Bub,Escape/Fall,Untrained,High Back Fall
+Syllibus,47,S166,6,Escape/Fall,Gon Joong Poong Cha,Escape/Fall,Untrained,Aerial (No Hand)
+Syllibus,48,S167,7,Escape/Fall,Gong Joong Hweh Juhn Nak Bub,Escape/Fall,Untrained,High Roll Fall
+Syllibus,49,S168,8,Escape/Fall,Doo Sohn Aho Poong Cha,Escape/Fall,Untrained,Hand Spring
+Syllibus,50,S169,10,Escape/Fall,Ahp Gong Joong Hweh Juhn Nak Bub,Escape/Fall,Untrained,Front Flip
+Syllibus,51,S377,1,Fundamental Form Part 1,Ki Cho Hyung 1,Form,Untrained,Fundamental Form Part 1
+Syllibus,52,S378,1,Fundamental Form Part 2,Ki Cho Hyung 2,Form,Untrained,Fundamental Form Part 1
+Syllibus,53,S379,1,Fundamental Form Part 3,Ki Cho Hyung 3,Form,Untrained,Fundamental Form Part 1
+Syllibus,54,S380,2,Fundamental Form Part 4,Ki Cho Hyung 4,Form,Untrained,Fundamental Form Part 1
+Syllibus,55,S381,2,Fundamental Form Part 5,Ki Cho Hyung 5,Form,Untrained,Fundamental Form Part 1
+Syllibus,56,S382,2,Fundamental Form Part 6,Ki Cho Hyung 6,Form,Untrained,Fundamental Form Part 1
+Syllibus,57,S383,3,Elementary Level Form Part 1,Cho Geup Hyung Part 1,Form,Untrained,Elementary Level Form Part 1
+Syllibus,58,S384,4,Elementary Level Form Part 2,Cho Geup Hyung Part 2,Form,Untrained,Elementary Level Form Part 2
+Syllibus,59,S385,5,Intermediate Level form part 1,Joong Geup Hyung Part 1,Form,Untrained,Intermediate Level form part 1
+Syllibus,60,S386,6,Intermediate Level form part 2,Joong Geup Hyung Part 2,Form,Untrained,Intermediate Level form part 2
+Syllibus,61,S387,7,Advanced Level form part 1,Goh Geup Hyung Part 1,Form,Untrained,Advanced Level form part 1
+Syllibus,62,S388,8,Advanced Level form part 2,Goh Geup Hyung Part 2,Form,Untrained,Advanced Level form part 2
+Syllibus,63,S389,9,Advanced Level form part 1,Dae Geup Hyung Part 1,Form,Untrained,Advanced Level form part 1
+Syllibus,64,S260,10,Defense Against Clothing Grab,Joong Geup Sohn Mok Soo 1,Form,Untrained,Intermediate Defense Against Wrist Grab
+Syllibus,65,S261,10,Defense Against Clothing Grab,Joong Geup Sohn Mok Soo 2,Form,Untrained,Intermediate Defense Against Wrist Grab
+Syllibus,66,S262,10,Defense Against Clothing Grab,Joong Geup Sohn Mok Soo 3,Form,Untrained,Intermediate Defense Against Wrist Grab
+Syllibus,67,S263,10,Defense Against Clothing Grab,Joong Geup Sohn Mok Soo 4,Form,Untrained,Intermediate Defense Against Wrist Grab
+Syllibus,68,S264,10,Defense Against Clothing Grab,Joong Geup Sohn Mok Soo 5,Form,Untrained,Intermediate Defense Against Wrist Grab
+Syllibus,69,S265,10,Defense Against Clothing Grab,Joong Geup Sohn Mok Soo 6,Form,Untrained,Intermediate Defense Against Wrist Grab
+Syllibus,70,S266,10,Defense Against Clothing Grab,Joong Geup Sohn Mok Soo 7,Form,Untrained,Intermediate Defense Against Wrist Grab
+Syllibus,71,S267,10,Defense Against Clothing Grab,Joong Geup Sohn Mok Soo 8,Form,Untrained,Intermediate Defense Against Wrist Grab
+Syllibus,72,S268,10,Defense Against Clothing Grab,Joong Geup Sohn Mok Soo 9,Form,Untrained,Intermediate Defense Against Wrist Grab
+Syllibus,73,S269,10,Defense Against Clothing Grab,Joong Geup Sohn Mok Soo 10,Form,Untrained,Intermediate Defense Against Wrist Grab
+Syllibus,74,S270,10,Defense Against Clothing Grab,Joong Geup Sohn Mok Soo 11,Form,Untrained,Intermediate Defense Against Wrist Grab
+Syllibus,75,S271,10,Defense Against Clothing Grab,Joong Geup Sohn Mok Soo 12,Form,Untrained,Intermediate Defense Against Wrist Grab
+Syllibus,76,S272,10,Defense Against Clothing Grab,Joong Geup Sohn Mok Soo 13,Form,Untrained,Intermediate Defense Against Wrist Grab
+Syllibus,77,S273,10,Defense Against Clothing Grab,Joong Geup Sohn Mok Soo 14,Form,Untrained,Intermediate Defense Against Wrist Grab
+Syllibus,78,S274,10,Defense Against Clothing Grab,Joong Geup Sohn Mok Soo 15,Form,Untrained,Intermediate Defense Against Wrist Grab
+Syllibus,79,S390,10,Sword Form Part 1,Guhm Moo Hyung Part 1,Form,Untrained,Sword Form Part 1
+Syllibus,80,S391,11,Sword Form Part 2,Guhm Moo Hyung Part 2,Form,Untrained,Sword Form Part 2
+Syllibus,81,S39,1,Breating Excercises,Dahn Juhn Ki Bub 1,Meditation,Untrained,Dahn Juhn Ki Bub 1
+Syllibus,82,S40,1,Breating Excercises,Dahn Juhn Ki Bub 2,Meditation,Untrained,Dahn Juhn Ki Bub 2
+Syllibus,83,S51,1,Ki Exercise 1,Ki Cho Jah Ki 1,Meditation,Untrained,Winging out: Technique : Horse Stance
+Syllibus,84,S52,1,Ki Exercise 2,Ki Cho Jah Ki 2,Meditation,Untrained,Winging out: Crossed Arms
+Syllibus,85,S53,1,Ki Exercise 3,Ki Cho Jah Ki 3,Meditation,Untrained,Winging out: iron Cross
+Syllibus,86,S54,1,Ki Exercise 4,Ki Cho Jah Ki 4,Meditation,Untrained,Winging out: Squat
+Syllibus,87,S55,1,Ki Exercise 5,Ki Cho Jah Ki 5,Meditation,Untrained,Winging out: Arm thrust
+Syllibus,88,S56,1,Ki Exercise 6,Ki Cho Jah Ki 6,Meditation,Untrained,Winging out: Side
+Syllibus,89,S41,2,Breating Excercises,Dahn Juhn Ki Bub 3,Meditation,Untrained,Dahn Juhn Ki Bub 3
+Syllibus,90,S42,2,Breating Excercises,Dahn Juhn Ki Bub 4,Meditation,Untrained,Dahn Juhn Ki Bub 4
+Syllibus,91,S43,3,Breating Excercises,Dahn Juhn Ki Bub 5,Meditation,Untrained,Dahn Juhn Ki Bub 5
+Syllibus,92,S44,3,Breating Excercises,Dahn Juhn Ki Bub 6,Meditation,Untrained,Dahn Juhn Ki Bub 6
+Syllibus,93,S45,4,Breating Excercises,Dahn Juhn Ki Bub 7,Meditation,Untrained,Dahn Juhn Ki Bub 7
+Syllibus,94,S46,4,Breating Excercises,Dahn Juhn Ki Bub 8,Meditation,Untrained,Dahn Juhn Ki Bub 8
+Syllibus,95,S47,5,Breating Excercises,Dahn Juhn Ki Bub 9,Meditation,Untrained,Dahn Juhn Ki Bub 9
+Syllibus,96,S48,5,Breating Excercises,Dahn Juhn Ki Bub 10,Meditation,Untrained,Dahn Juhn Ki Bub 10
+Syllibus,97,S49,6,Breating Excercises,Dahn Juhn Ki Bub 11,Meditation,Untrained,Dahn Juhn Ki Bub 11
+Syllibus,98,S50,6,Breating Excercises,Dahn Juhn Ki Bub 12,Meditation,Untrained,Dahn Juhn Ki Bub 12
+Syllibus,99,S25,1,Jah Se 1,Cha Ryuht,Stance,Untrained,Attention
+Syllibus,100,S26,1,Jah Se 2,Kong Kyuk Jah Se,Stance,Untrained,Left Fighting Stance
+Syllibus,101,S27,1,Jah Se 3,Bahng Uh Jah Se,Stance,Untrained,Right Fighting Stance
+Syllibus,102,S28,1,Jah Se 4,Ki Mah Jah Se,Stance,Untrained,Horse Stance
+Syllibus,103,S29,1,Jah Se 5,Juhn Guhl Jah se,Stance,Untrained,Front Stance
+Syllibus,104,S30,1,Jah Se 6,Crane  Stance,Stance,Untrained,Front Stance
+Syllibus,105,S31,2,Jah Se 7,Dragon Stance,Stance,Untrained,Dragon Stance
+Syllibus,106,S32,2,Jah Se 8,Cat Stance,Stance,Untrained,Cat Stance
+Syllibus,107,S1,1,Etiquette,Do Jahng Etiquette,Standard,Untrained,Customs/Courtesies
+Syllibus,108,S2,1,Etiquette,Bowing,Standard,Untrained,Types/occasions involving bowing
+Syllibus,109,S3,1,Etiquette,Uniforms,Standard,Untrained,Proper way to wear the uniform
+Syllibus,110,S4,2,Etiquette,Hwarang Do Sesok O-Gye,Standard,Untrained,Code Of Ethics
+Syllibus,111,S5,2,Etiquette,Kuk Sool Won Creed,Standard,Untrained,Student Oath
+Syllibus,112,S6,3,Etiquette,Handling Weapons,Standard,Untrained,Handling Weapons
+Syllibus,113,S7,3,Etiquette,Sparring,Standard,Untrained,Sparring
+Syllibus,114,S9,3,Foundation,Stances,Standard,Untrained,Foundations of  a Mmatial Arts Stance
+Syllibus,115,S8,4,Etiquette,Teaching Others,Standard,Untrained,Teaching Others
+Syllibus,116,S175,1,Fundamental Technique,Ki Bohn Soo 1,Technique,Untrained,Fundamental Technique
+Syllibus,117,S176,1,Fundamental Technique,Ki Bohn Soo 2,Technique,Untrained,Fundamental Technique
+Syllibus,118,S177,1,Fundamental Technique,Ki Bohn Soo 3,Technique,Untrained,Fundamental Technique
+Syllibus,119,S178,1,Fundamental Technique,Ki Bohn Soo 4,Technique,Untrained,Fundamental Technique
+Syllibus,120,S179,1,Fundamental Technique,Ki Bohn Soo 5,Technique,Untrained,Fundamental Technique
+Syllibus,121,S132,1,Leg Strikes,Johk Sool 1,Technique,Untrained,Straight Leg Kick
+Syllibus,122,S133,1,Leg Strikes,Johk Sool 2,Technique,Untrained,Front Kick
+Syllibus,123,S134,1,Leg Strikes,Johk Sool 3,Technique,Untrained,Inside Kick
+Syllibus,124,S135,1,Leg Strikes,Johk Sool 4,Technique,Untrained,Side Kick
+Syllibus,125,S91,1,Open Hand Strikes,Soo Ki 1,Technique,Untrained,Inside Block
+Syllibus,126,S92,1,Open Hand Strikes,Soo Ki 2,Technique,Untrained,High Low Cover
+Syllibus,127,S93,1,Open Hand Strikes,Soo Ki 3,Technique,Untrained,High Low Middle Block
+Syllibus,128,S94,1,Open Hand Strikes,Soo Ki 4,Technique,Untrained,Up Cover
+Syllibus,129,S95,1,Open Hand Strikes,Soo Ki 5,Technique,Untrained,Cross Block (X-Cover)
+Syllibus,130,S96,1,Open Hand Strikes,Soo Ki 6,Technique,Untrained,Straight Punch
+Syllibus,131,S97,1,Open Hand Strikes,Soo Ki 7,Technique,Untrained,Palm Strike
+Syllibus,132,S98,1,Open Hand Strikes,Soo Ki 8,Technique,Untrained,Ridge Hand Strike
+Syllibus,133,S99,1,Open Hand Strikes,Soo Ki 9,Technique,Untrained,Spear Hand Chop
+Syllibus,134,S100,1,Open Hand Strikes,Soo Ki 10,Technique,Untrained,Elbow Strike
+Syllibus,135,S101,1,Open Hand Strikes,Soo Ki 11,Technique,Untrained,Circle Knife Hand
+Syllibus,136,S170,1,Wrist Escapes: ,Sohnh Ppae Ki 1,Technique,Untrained,Thumb Up: Rotate up and out.
+Syllibus,137,S171,1,Wrist Escapes: ,Sohnh Ppae Ki 2,Technique,Untrained,Thumb Left; Rotate Left Horizontally and out
+Syllibus,138,S172,1,Wrist Escapes: ,Sohnh Ppae Ki 3,Technique,Untrained,"Thumb Down; Rotate forward, down, and out"
+Syllibus,139,S173,1,Wrist Escapes: ,Sohnh Ppae Ki 4,Technique,Untrained,"Thumb Right, Palm Up Shoot Out 45 degree"
+Syllibus,140,S174,1,Wrist Escapes: ,Sohnh Ppae Ki 5,Technique,Untrained,"Rotate Clockwise, Knife Edge Left"
+Syllibus,141,S180,2,Fundamental Technique,Ki Bohn Soo 6,Technique,Untrained,Fundamental Technique
+Syllibus,142,S181,2,Fundamental Technique,Ki Bohn Soo 7,Technique,Untrained,Fundamental Technique
+Syllibus,143,S182,2,Fundamental Technique,Ki Bohn Soo 8,Technique,Untrained,Fundamental Technique
+Syllibus,144,S183,2,Fundamental Technique,Ki Bohn Soo 9,Technique,Untrained,Fundamental Technique
+Syllibus,145,S184,2,Fundamental Technique,Ki Bohn Soo 10,Technique,Untrained,Fundamental Technique
+Syllibus,146,S185,2,Fundamental Technique,Ki Bohn Soo 11,Technique,Untrained,Fundamental Technique
+Syllibus,147,S186,2,Fundamental Technique,Ki Bohn Soo 12,Technique,Untrained,Fundamental Technique
+Syllibus,148,S187,2,Fundamental Technique,Ki Bohn Soo 13,Technique,Untrained,Fundamental Technique
+Syllibus,149,S188,2,Fundamental Technique,Ki Bohn Soo 14,Technique,Untrained,Fundamental Technique
+Syllibus,150,S189,2,Fundamental Technique,Ki Bohn Soo 15,Technique,Untrained,Fundamental Technique
+Syllibus,151,S136,2,Leg Strikes,Johk Sool 5,Technique,Untrained,Side Kick
+Syllibus,152,S137,2,Leg Strikes,Johk Sool 6,Technique,Untrained,Knee Kick
+Syllibus,153,S138,2,Leg Strikes,Johk Sool 7,Technique,Untrained,Round Kick
+Syllibus,154,S139,2,Leg Strikes,Johk Sool 8,Technique,Untrained,Outside Kick
+Syllibus,155,S102,2,Open Hand Strikes,Soo Ki 12,Technique,Untrained,Four Winds Block
+Syllibus,156,S103,2,Open Hand Strikes,Soo Ki 13,Technique,Untrained,Double High Knife Block
+Syllibus,157,S104,2,Open Hand Strikes,Soo Ki 14,Technique,Untrained,One Two Punch
+Syllibus,158,S105,2,Open Hand Strikes,Soo Ki 15,Technique,Untrained,Circle Back Fist
+Syllibus,159,S106,2,Open Hand Strikes,Soo Ki 16,Technique,Untrained,Vertical Spear Hand Strike
+Syllibus,160,S107,2,Open Hand Strikes,Soo Ki 17,Technique,Untrained,Double Knife Chop
+Syllibus,161,S108,2,Open Hand Strikes,Soo Ki 18,Technique,Untrained,Parallel-Double Palm Strike
+Syllibus,162,S190,3,Defense Against Wrist Grab,Sohn Mohk Soo 1,Technique,Untrained,Fundamental Technique
+Syllibus,163,S191,3,Defense Against Wrist Grab,Sohn Mohk Soo 2,Technique,Untrained,Fundamental Technique
+Syllibus,164,S192,3,Defense Against Wrist Grab,Sohn Mohk Soo 3,Technique,Untrained,Fundamental Technique
+Syllibus,165,S193,3,Defense Against Wrist Grab,Sohn Mohk Soo 4,Technique,Untrained,Fundamental Technique
+Syllibus,166,S194,3,Defense Against Wrist Grab,Sohn Mohk Soo 5,Technique,Untrained,Fundamental Technique
+Syllibus,167,S195,3,Defense Against Wrist Grab,Sohn Mohk Soo 6,Technique,Untrained,Fundamental Technique
+Syllibus,168,S109,3,Open Hand Strikes,Soo Ki 19,Technique,Untrained,Hand Techniques
+Syllibus,169,S110,3,Open Hand Strikes,Soo Ki 20,Technique,Untrained,Hand Techniques
+Syllibus,170,S111,3,Open Hand Strikes,Soo Ki 21,Technique,Untrained,Hand Techniques
+Syllibus,171,S112,3,Open Hand Strikes,Soo Ki 22,Technique,Untrained,Hand Techniques
+Syllibus,172,S113,3,Open Hand Strikes,Soo Ki 23,Technique,Untrained,Hand Techniques
+Syllibus,173,S114,3,Open Hand Strikes,Soo Ki 24,Technique,Untrained,Hand Techniques
+Syllibus,174,S115,3,Open Hand Strikes,Soo Ki 25,Technique,Untrained,Hand Techniques
+Syllibus,175,S116,3,Open Hand Strikes,Soo Ki 26,Technique,Untrained,Hand Techniques
+Syllibus,176,S117,3,Open Hand Strikes,Soo Ki 27,Technique,Untrained,Hand Techniques
+Syllibus,177,S118,3,Open Hand Strikes,Soo Ki 28,Technique,Untrained,Hand Techniques
+Syllibus,178,S119,3,Open Hand Strikes,Soo Ki 29,Technique,Untrained,Hand Techniques
+Syllibus,179,S140,4,Leg Strikes,Johk Sool 9,Technique,Untrained,Axe Kick
+Syllibus,180,S120,4,Open Hand Strikes,Soo Ki 30,Technique,Untrained,One two Spin Chop
+Syllibus,181,S121,4,Open Hand Strikes,Soo Ki 31,Technique,Untrained,Tiger's Mouth
+Syllibus,182,S122,4,Open Hand Strikes,Soo Ki 32,Technique,Untrained,Tiger's Claw
+Syllibus,183,S196,5,Defense Against Clothing Grab,Eue Bohk Soo 1,Technique,Untrained,Fundamental Technique
+Syllibus,184,S197,5,Defense Against Clothing Grab,Eue Bohk Soo 2,Technique,Untrained,Fundamental Technique
+Syllibus,185,S198,5,Defense Against Clothing Grab,Eue Bohk Soo 3,Technique,Untrained,Fundamental Technique
+Syllibus,186,S199,5,Defense Against Clothing Grab,Eue Bohk Soo 4,Technique,Untrained,Fundamental Technique
+Syllibus,187,S200,5,Defense Against Clothing Grab,Eue Bohk Soo 5,Technique,Untrained,Fundamental Technique
+Syllibus,188,S201,5,Defense Against Clothing Grab,Eue Bohk Soo 6,Technique,Untrained,Fundamental Technique
+Syllibus,189,S141,5,Leg Strikes,Johk Sool 10,Technique,Untrained,High Spin Kick
+Syllibus,190,S142,5,Leg Strikes,Johk Sool 11,Technique,Untrained,Jump Front Kick
+Syllibus,191,S123,5,Open Hand Strikes,Soo Ki 33,Technique,Proficient,Praying Mantis Block
+Syllibus,192,S124,5,Open Hand Strikes,Soo Ki 34,Technique,Proficient,Triple Punch
+Syllibus,193,S125,5,Open Hand Strikes,Soo Ki 35,Technique,Proficient,Little Finger hammer Fist
+Syllibus,194,S126,5,Open Hand Strikes,Soo Ki 36,Technique,Proficient,One Finger Fist
+Syllibus,195,S202,6,Defense Against Clothing Grab,Eue Bohk Soo 7,Technique,Untrained,Fundamental Technique
+Syllibus,196,S203,6,Defense Against Clothing Grab,Eue Bohk Soo 8,Technique,Untrained,Fundamental Technique
+Syllibus,197,S204,6,Defense Against Clothing Grab,Eue Bohk Soo 9,Technique,Untrained,Fundamental Technique
+Syllibus,198,S205,6,Defense Against Clothing Grab,Eue Bohk Soo 10,Technique,Untrained,Over-Belt Burn
+Syllibus,199,S206,6,Defense Against Clothing Grab,Eue Bohk Soo 11,Technique,Untrained,Over-Belt Chop
+Syllibus,200,S207,6,Defense Against Clothing Grab,Eue Bohk Soo 12,Technique,Untrained,Yuhl-Gyuhl Takedown
+Syllibus,201,S208,6,Defense Against Clothing Grab,Eue Bohk Soo 13,Technique,Untrained,Choon BooTakedown
+Syllibus,202,S143,6,Leg Strikes,Johk Sool 12,Technique,Untrained,Jump Side Kick
+Syllibus,203,S144,6,Leg Strikes,Johk Sool 13,Technique,Untrained,Jump Round Kick
+Syllibus,204,S127,6,Open Hand Strikes,Soo Ki 37,Technique,Proficient,Thumb Strike
+Syllibus,205,S128,6,Open Hand Strikes,Soo Ki 38,Technique,Proficient,One Finger Poke
+Syllibus,206,S129,6,Open Hand Strikes,Soo Ki 39,Technique,Proficient,Two Finger Poke
+Syllibus,207,S130,6,Open Hand Strikes,Soo Ki 40,Technique,Proficient,Five Finger Strike
+Syllibus,208,S209,7,Defense Against Clothing Grab,An Sohn Mok Soo 1,Technique,Untrained,Fingers
+Syllibus,209,S210,7,Defense Against Clothing Grab,An Sohn Mok Soo 2,Technique,Untrained,Elbow Drop
+Syllibus,210,S211,7,Defense Against Clothing Grab,An Sohn Mok Soo 3,Technique,Untrained,Backstreet
+Syllibus,211,S212,7,Defense Against Clothing Grab,An Sohn Mok Soo 4,Technique,Untrained,Elbow Chop
+Syllibus,212,S213,7,Defense Against Clothing Grab,An Sohn Mok Soo 5,Technique,Untrained,Hyperfoot
+Syllibus,213,S214,7,Defense Against Clothing Grab,An Sohn Mok Soo 6,Technique,Untrained,Indian Burm
+Syllibus,214,S145,7,Leg Strikes,Johk Sool 14,Technique,Untrained,Back Kick
+Syllibus,215,S146,7,Leg Strikes,Johk Sool 15,Technique,Untrained,Hook Kick
+Syllibus,216,S215,8,Defense Against Clothing Grab,Maek Chi Ki 1,Technique,Untrained,Yuhl Gyuhl
+Syllibus,217,S216,8,Defense Against Clothing Grab,Maek Chi Ki 2,Technique,Untrained,Soo Sahm
+Syllibus,218,S217,8,Defense Against Clothing Grab,Maek Chi Ki 3,Technique,Untrained,Chuhn Boo
+Syllibus,219,S218,8,Defense Against Clothing Grab,Maek Chi Ki 4,Technique,Untrained,Geuk Chuhn
+Syllibus,220,S219,8,Defense Against Clothing Grab,Maek Chi Ki 5,Technique,Untrained,Hohn Soo
+Syllibus,221,S220,8,Defense Against Clothing Grab,Maek Chi Ki 6,Technique,Untrained,Gaek Joo In
+Syllibus,222,S221,8,Defense Against Clothing Grab,Maek Chi Ki 7,Technique,Untrained,Hahn Soo
+Syllibus,223,S222,8,Defense Against Clothing Grab,Maek Chi Ki 8,Technique,Untrained,Dae Po
+Syllibus,224,S223,8,Defense Against Clothing Grab,Maek Chi Ki 9,Technique,Untrained,UmKyo
+Syllibus,225,S224,8,Defense Against Clothing Grab,Maek Chi Ki 10,Technique,Untrained,Goo Mi
+Syllibus,226,S225,8,Defense Against Clothing Grab,Maek Chi Ki 11,Technique,Untrained,Yuhm Chuhn
+Syllibus,227,S226,8,Defense Against Clothing Grab,Maek Chi Ki 12,Technique,Untrained,Jahng Moon
+Syllibus,228,S227,8,Defense Against Clothing Grab,Maek Chi Ki 13,Technique,Untrained,Ah Moon
+Syllibus,229,S228,8,Defense Against Clothing Grab,Maek Chi Ki 14,Technique,Untrained,Shin Juhng
+Syllibus,230,S229,8,Defense Against Clothing Grab,Maek Chi Ki 15,Technique,Untrained,Yoo Geun
+Syllibus,231,S147,8,Leg Strikes,Johk Sool 16,Technique,Untrained,Inverted Stomp Kick
+Syllibus,232,S148,8,Leg Strikes,Johk Sool 17,Technique,Untrained,Inverted Round Kick
+Syllibus,233,S149,8,Leg Strikes,Johk Sool 18,Technique,Untrained,Inverted Side kick
+Syllibus,234,S131,8,Open Hand Strikes,Soo Ki 41,Technique,Proficient,V-Double Palm Strike
+Syllibus,235,S230,9,Defense Against Clothing Grab,Maek Cha Ki 1,Technique,Untrained,Sam Um Kyo
+Syllibus,236,S231,9,Defense Against Clothing Grab,Maek Cha Ki 2,Technique,Untrained,Dohk Bi
+Syllibus,237,S232,9,Defense Against Clothing Grab,Maek Cha Ki 3,Technique,Untrained,Wee Joong
+Syllibus,238,S233,9,Defense Against Clothing Grab,Maek Cha Ki 4,Technique,Untrained,Hyul Hae
+Syllibus,239,S234,9,Defense Against Clothing Grab,Maek Cha Ki 5,Technique,Untrained,Jahng Moon
+Syllibus,240,S235,9,Defense Against Clothing Grab,Maek Cha Ki 6,Technique,Untrained,Geuk Chuhn
+Syllibus,241,S236,9,Defense Against Clothing Grab,Maek Cha Ki 7,Technique,Untrained,Ki Hae
+Syllibus,242,S237,9,Defense Against Clothing Grab,Maek Cha Ki 8,Technique,Untrained,Goo Mi
+Syllibus,243,S238,9,Defense Against Clothing Grab,Maek Cha Ki 9,Technique,Untrained,Yuhm Chuhn
+Syllibus,244,S239,9,Defense Against Clothing Grab,Maek Cha Ki 10,Technique,Untrained,Hohn Soo
+Syllibus,245,S240,9,Defense Against Clothing Grab,Maek Cha Ki 11,Technique,Untrained,You Geun
+Syllibus,246,S241,9,Defense Against Clothing Grab,Maek Cha Ki 12,Technique,Untrained,Ah Moon
+Syllibus,247,S242,9,Defense Against Clothing Grab,Maek Cha Ki 13,Technique,Untrained,Gaek Joo
+Syllibus,248,S243,9,Defense Against Clothing Grab,Maek Cha Ki 14,Technique,Untrained,Dae Choo
+Syllibus,249,S244,9,Defense Against Clothing Grab,Maek Cha Ki 15,Technique,Untrained,Yahng Neung Chung
+Syllibus,250,S245,9,Defense Against Clothing Grab,Joo Muhk Maga Ki Bon Soo 1,Technique,Untrained,Throw Right
+Syllibus,251,S246,9,Defense Against Clothing Grab,Joo Muhk Maga Ki Bon Soo 2,Technique,Untrained,Throw Left
+Syllibus,252,S247,9,Defense Against Clothing Grab,Joo Muhk Maga Ki Bon Soo 3,Technique,Untrained,Elbow Throw
+Syllibus,253,S248,9,Defense Against Clothing Grab,Joo Muhk Maga Ki Bon Soo 4,Technique,Untrained,Cross Block Up
+Syllibus,254,S249,9,Defense Against Clothing Grab,Joo Muhk Maga Ki Bon Soo 5,Technique,Untrained,Cross Block down
+Syllibus,255,S250,9,Defense Against Clothing Grab,Joo Muhk Maga Ki Bon Soo 6,Technique,Untrained,Circle Block Chop
+Syllibus,256,S251,9,Defense Against Clothing Grab,Joo Muhk Maga Ki Bon Soo 7,Technique,Untrained,Cover down Left
+Syllibus,257,S252,9,Defense Against Clothing Grab,Joo Muhk Maga Ki Bon Soo 8,Technique,Untrained,Knife Attack
+Syllibus,258,S253,9,Defense Against Clothing Grab,Joo Muhk Maga Ki Bon Soo 9,Technique,Untrained,Hook Knee
+Syllibus,259,S254,9,Defense Against Clothing Grab,Joo Muhk Maga Ki Bon Soo 10,Technique,Untrained,Temple Thro
+Syllibus,260,S255,9,Defense Against Clothing Grab,Joo Muhk Maga Ki Bon Soo 11,Technique,Untrained,Chin Throw
+Syllibus,261,S256,9,Defense Against Clothing Grab,Joo Muhk Maga Ki Bon Soo 12,Technique,Untrained,Throat 
+Syllibus,262,S257,9,Defense Against Clothing Grab,Joo Muhk Maga Ki Bon Soo 13,Technique,Untrained,Kneel 
+Syllibus,263,S258,9,Defense Against Clothing Grab,Joo Muhk Maga Ki Bon Soo 14,Technique,Untrained,Low High
+Syllibus,264,S259,9,Defense Against Clothing Grab,Joo Muhk Maga Ki Bon Soo 15,Technique,Untrained,High Low
+Syllibus,265,S150,9,Leg Strikes,Johk Sool 19,Technique,Untrained,Jump Spin Side Kick
+Syllibus,266,S151,9,Leg Strikes,Johk Sool 20,Technique,Untrained,Jump Spin Kick
+Syllibus,267,S152,9,Leg Strikes,Johk Sool 21,Technique,Untrained,R-Jump Round Kick
+Syllibus,268,S153,9,Leg Strikes,Johk Sool 22,Technique,Untrained,Low Spin Kick
+Syllibus,269,S275,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 1,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,270,S276,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 2,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,271,S277,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 3,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,272,S278,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 4,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,273,S279,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 5,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,274,S280,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 6,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,275,S281,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 7,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,276,S282,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 8,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,277,S283,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 9,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,278,S284,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 10,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,279,S285,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 11,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,280,S286,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 12,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,281,S287,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 13,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,282,S288,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 14,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,283,S289,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 15,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,284,S290,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 16,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,285,S291,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 17,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,286,S292,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 18,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,287,S293,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 19,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,288,S294,11,Defense Against Clothing Grab,Ap Eue Bohk Soo 20,Technique,Untrained,Defense Against Front Clothing Grab
+Syllibus,289,S295,12,Defense Against Clothing Grab,Dae Eue Bok Soo 1,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,290,S296,12,Defense Against Clothing Grab,Dae Eue Bok Soo 2,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,291,S297,12,Defense Against Clothing Grab,Dae Eue Bok Soo 3,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,292,S298,12,Defense Against Clothing Grab,Dae Eue Bok Soo 4,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,293,S299,12,Defense Against Clothing Grab,Dae Eue Bok Soo 5,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,294,S300,12,Defense Against Clothing Grab,Dae Eue Bok Soo 6,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,295,S301,12,Defense Against Clothing Grab,Dae Eue Bok Soo 7,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,296,S302,12,Defense Against Clothing Grab,Dae Eue Bok Soo 8,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,297,S303,12,Defense Against Clothing Grab,Dae Eue Bok Soo 9,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,298,S304,12,Defense Against Clothing Grab,Dae Eue Bok Soo 10,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,299,S305,12,Defense Against Clothing Grab,Dae Eue Bok Soo 11,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,300,S306,12,Defense Against Clothing Grab,Dae Eue Bok Soo 12,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,301,S307,12,Defense Against Clothing Grab,Dae Eue Bok Soo 13,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,302,S308,12,Defense Against Clothing Grab,Dae Eue Bok Soo 14,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,303,S309,12,Defense Against Clothing Grab,Dae Eue Bok Soo 15,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,304,S310,12,Defense Against Clothing Grab,Dae Eue Bok Soo 16,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,305,S311,12,Defense Against Clothing Grab,Dae Eue Bok Soo 17,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,306,S312,12,Defense Against Clothing Grab,Dae Eue Bok Soo 18,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,307,S313,12,Defense Against Clothing Grab,Dae Eue Bok Soo 19,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,308,S314,12,Defense Against Clothing Grab,Dae Eue Bok Soo 20,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,309,S315,12,Defense Against Clothing Grab,Dae Eue Bok Soo 21,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,310,S316,12,Defense Against Clothing Grab,Dae Eue Bok Soo 22,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,311,S317,12,Defense Against Clothing Grab,Dae Eue Bok Soo 23,Technique,Untrained,Defense Against Rear Clothing Grab
+Syllibus,312,S318,13,Defense Against Clothing Grab,Kwahn Juhl Ki 1,Technique,Untrained,Defense Against 
+Syllibus,313,S319,13,Defense Against Clothing Grab,Kwahn Juhl Ki 2,Technique,Untrained,Defense Against 
+Syllibus,314,S320,13,Defense Against Clothing Grab,Kwahn Juhl Ki 3,Technique,Untrained,Defense Against 
+Syllibus,315,S321,13,Defense Against Clothing Grab,Kwahn Juhl Ki 4,Technique,Untrained,Defense Against 
+Syllibus,316,S322,13,Defense Against Clothing Grab,Kwahn Juhl Ki 5,Technique,Untrained,Defense Against 
+Syllibus,317,S323,13,Defense Against Clothing Grab,Kwahn Juhl Ki 6,Technique,Untrained,Defense Against 
+Syllibus,318,S324,13,Defense Against Clothing Grab,Kwahn Juhl Ki 7,Technique,Untrained,Defense Against 
+Syllibus,319,S325,13,Defense Against Clothing Grab,Kwahn Juhl Ki 8,Technique,Untrained,Defense Against 
+Syllibus,320,S326,13,Defense Against Clothing Grab,Kwahn Juhl Ki 9,Technique,Untrained,Defense Against 
+Syllibus,321,S327,13,Defense Against Clothing Grab,Kwahn Juhl Ki 10,Technique,Untrained,Defense Against 
+Syllibus,322,S328,13,Defense Against Clothing Grab,Kwahn Juhl Ki 11,Technique,Untrained,Defense Against 
+Syllibus,323,S329,13,Defense Against Clothing Grab,Kwahn Juhl Ki 12,Technique,Untrained,Defense Against 
+Syllibus,324,S330,13,Defense Against Clothing Grab,Kwahn Juhl Ki 13,Technique,Untrained,Defense Against 
+Syllibus,325,S331,14,Defense Against Clothing Grab,Bahng Too Ki 1,Technique,Untrained,Defense Against 
+Syllibus,326,S332,14,Defense Against Clothing Grab,Bahng Too Ki 2,Technique,Untrained,Defense Against 
+Syllibus,327,S333,14,Defense Against Clothing Grab,Bahng Too Ki 3,Technique,Untrained,Defense Against 
+Syllibus,328,S334,14,Defense Against Clothing Grab,Bahng Too Ki 4,Technique,Untrained,Defense Against 
+Syllibus,329,S335,14,Defense Against Clothing Grab,Bahng Too Ki 5,Technique,Untrained,Defense Against 
+Syllibus,330,S336,14,Defense Against Clothing Grab,Mohk Joh Leu Ki 1,Technique,Untrained,Defense Against 
+Syllibus,331,S337,14,Defense Against Clothing Grab,Mohk Joh Leu Ki 2,Technique,Untrained,Defense Against 
+Syllibus,332,S338,14,Defense Against Clothing Grab,Mohk Joh Leu Ki 3,Technique,Untrained,Defense Against 
+Syllibus,333,S339,14,Defense Against Clothing Grab,Mohk Joh Leu Ki 4,Technique,Untrained,Defense Against 
+Syllibus,334,S340,14,Defense Against Clothing Grab,Mohk Joh Leu Ki 5,Technique,Untrained,Defense Against 
+Syllibus,335,S341,15,Defense Against Clothing Grab,Too Ki 1,Technique,Untrained,Defense Against 
+Syllibus,336,S342,15,Defense Against Clothing Grab,Too Ki 2,Technique,Untrained,Defense Against 
+Syllibus,337,S343,15,Defense Against Clothing Grab,Too Ki 3,Technique,Untrained,Defense Against 
+Syllibus,338,S344,15,Defense Against Clothing Grab,Too Ki 4,Technique,Untrained,Defense Against 
+Syllibus,339,S345,15,Defense Against Clothing Grab,Too Ki 5,Technique,Untrained,Defense Against 
+Syllibus,340,S346,15,Defense Against Clothing Grab,Too Ki 6,Technique,Untrained,Defense Against 
+Syllibus,341,S347,15,Defense Against Clothing Grab,Too Ki 7,Technique,Untrained,Defense Against 
+Syllibus,342,S348,15,Defense Against Clothing Grab,Too Ki 8,Technique,Untrained,Defense Against 
+Syllibus,343,S349,15,Defense Against Clothing Grab,Yahng Sahn Mok Soo 1,Technique,Untrained,Defense Against Two Handed Wrist Grab
+Syllibus,344,S350,15,Defense Against Clothing Grab,Yahng Sahn Mok Soo 2,Technique,Untrained,Defense Against Two Handed Wrist Grab
+Syllibus,345,S351,15,Defense Against Clothing Grab,Yahng Sahn Mok Soo 3,Technique,Untrained,Defense Against Two Handed Wrist Grab
+Syllibus,346,S352,15,Defense Against Clothing Grab,Yahng Sahn Mok Soo 4,Technique,Untrained,Defense Against Two Handed Wrist Grab
+Syllibus,347,S353,15,Defense Against Clothing Grab,Yahng Sahn Mok Soo 5,Technique,Untrained,Defense Against Two Handed Wrist Grab
+Syllibus,348,S354,15,Defense Against Clothing Grab,Yahng Sahn Mok Soo 6,Technique,Untrained,Defense Against Two Handed Wrist Grab
+Syllibus,349,S355,15,Defense Against Clothing Grab,Yahng Sahn Mok Soo 7,Technique,Untrained,Defense Against Two Handed Wrist Grab
+Syllibus,350,S356,15,Defense Against Clothing Grab,Yahng Sahn Mok Soo 8,Technique,Untrained,Defense Against Two Handed Wrist Grab
+Syllibus,351,S357,16,Defense Against Clothing Grab,Ssahng Soo 1,Technique,Untrained,Defense Against Both Wrists Grabbed
+Syllibus,352,S358,16,Defense Against Clothing Grab,Ssahng Soo 2,Technique,Untrained,Defense Against Both Wrists Grabbed
+Syllibus,353,S359,16,Defense Against Clothing Grab,Ssahng Soo 3,Technique,Untrained,Defense Against Both Wrists Grabbed
+Syllibus,354,S360,16,Defense Against Clothing Grab,Ssahng Soo 4,Technique,Untrained,Defense Against Both Wrists Grabbed
+Syllibus,355,S361,16,Defense Against Clothing Grab,Ssahng Soo 5,Technique,Untrained,Defense Against Both Wrists Grabbed
+Syllibus,356,S362,16,Defense Against Clothing Grab,Dahn Do Mahk Ki 1,Technique,Untrained,Defense Against Knife Attacks
+Syllibus,357,S363,16,Defense Against Clothing Grab,Dahn Do Mahk Ki 2,Technique,Untrained,Defense Against Knife Attacks
+Syllibus,358,S364,16,Defense Against Clothing Grab,Dahn Do Mahk Ki 3,Technique,Untrained,Defense Against Knife Attacks
+Syllibus,359,S365,16,Defense Against Clothing Grab,Dahn Do Mahk Ki 4,Technique,Untrained,Defense Against Knife Attacks
+Syllibus,360,S366,16,Defense Against Clothing Grab,Dahn Do Mahk Ki 5,Technique,Untrained,Defense Against Knife Attacks
+Syllibus,361,S367,16,Defense Against Clothing Grab,Dahn Do Mahk Ki 6,Technique,Untrained,Defense Against Knife Attacks
+Syllibus,362,S368,16,Defense Against Clothing Grab,Dahn Do Mahk Ki 7,Technique,Untrained,Defense Against Knife Attacks
+Syllibus,363,S369,16,Defense Against Clothing Grab,Dahn Do Mahk Ki 8,Technique,Untrained,Defense Against Knife Attacks
+Syllibus,364,S370,16,Defense Against Clothing Grab,Dahn Do Mahk Ki 9,Technique,Untrained,Defense Against Knife Attacks
+Syllibus,365,S371,16,Defense Against Clothing Grab,Dahn Do Mahk Ki 10,Technique,Untrained,Defense Against Knife Attacks
+Syllibus,366,S372,16,Defense Against Clothing Grab,Dahn Do Mahk Ki 11,Technique,Untrained,Defense Against Knife Attacks
+Syllibus,367,S373,16,Defense Against Clothing Grab,Dahn Do Mahk Ki 12,Technique,Untrained,Defense Against Knife Attacks
+Syllibus,368,S374,16,Defense Against Clothing Grab,Dahn Do Mahk Ki 13,Technique,Untrained,Defense Against Knife Attacks
+Syllibus,369,S375,16,Defense Against Clothing Grab,Dahn Do Mahk Ki 14,Technique,Untrained,Defense Against Knife Attacks
+Syllibus,370,S376,16,Defense Against Clothing Grab,Dahn Do Mahk Ki 15,Technique,Untrained,Defense Against Knife Attacks
+Syllibus,371,S33,1,Learning Korean,Count to 10,Terminology,Untrained,Counting in Korean
+Syllibus,372,S34,2,Learning Korean,Names of Ranks,Terminology,Untrained,Names and Titles
+Syllibus,373,S35,2,Learning Korean,Names of Foots Attacks,Terminology,Untrained,Names of Foots Attacks
+Syllibus,374,S36,3,Learning Korean,Commands and Terminology,Terminology,Untrained,Commands and Terminology
+Syllibus,375,S37,4,Learning Korean,Parts of the Body,Terminology,Untrained,Parts of the Body
+Syllibus,376,S38,4,Learning Korean,"Directions, Relationships, and Movements",Terminology,Untrained,"Directions, Relationships, and Movements"
+Syllibus,377,S18,1,Foundation,Five Principles of a Warrior,Theory,Untrained,Moral Character
+Syllibus,378,S19,1,Foundation,Forms,Theory,Untrained,Purpose/Execution of forms
+Syllibus,379,S20,1,Foundation,Basic Techniques,Theory,Untrained,"What is a ""Technique""?"
+Syllibus,380,S21,2,Foundation,You-Won-Hwa,Theory,Untrained,Water
+Syllibus,381,S10,3,Foundation,History of Kuk Sool Weapons,Theory,Untrained,History of Kuk Sool Weapons
+Syllibus,382,S22,3,Foundation,History of Kuk Sool Weapons,Theory,Untrained,History of Kuk Sool Weapons
+Syllibus,383,S23,3,Foundation,What is Ki,Theory,Untrained,What is Ki
+Syllibus,384,S24,3,Foundation,Breathing,Theory,Untrained,Breathing
+Syllibus,385,S11,4,Foundation,Modern History of Kuk Sool Won,Theory,Untrained,Modern History of Kuk Sool Won
+Syllibus,386,S12,4,Foundation,Basic Pressure Points,Theory,Untrained,Basic Pressure Points
+Syllibus,387,S13,4,Foundation,Blocking,Theory,Untrained,Blocking
+Syllibus,388,S14,5,Foundation,Locating the Target,Theory,Untrained,Locating the Target
+Syllibus,389,S15,7,Foundation,Sah Doh Mu Sool,Theory,Untrained,History of Tribal/Family Martial Arts In Korea
+Syllibus,390,S16,8,Foundation,Bool Kyo MU Sool,Theory,Untrained,History of Buddhist Temple
+Syllibus,391,S17,9,Foundation,Koong Joong Mu Sool,Theory,Untrained, History of the Korean Royal Palace
+Syllibus,392,S401,7,Jointed Staff-Form,Juhl Bong Hyung Part 1,Weapons (Form),Untrained,Jointed Staff-Form
+Syllibus,393,S402,8,Jointed Staff-Form,Juhl Bong Hyung Part 2,Weapons (Form),Untrained,Jointed Staff-Form
+Syllibus,394,S417,14,Long Staff-Form,Joong Bong Il Hyung Part 1,Weapons (Form),Untrained,Long Staff-Form
+Syllibus,395,S418,15,Long Staff-Form,Joong Bong Il Hyung Part 2,Weapons (Form),Untrained,Long Staff-Form
+Syllibus,396,S392,3,Jointed Staff-Spinnig 1,Juhl Bong 1,Weapons (Technique),Untrained,Jointed Staff-Spinnig 1
+Syllibus,397,S393,3,Jointed Staff-Spinnig 2,Juhl Bong 2,Weapons (Technique),Untrained,Jointed Staff-Spinnig 2
+Syllibus,398,S394,4,Jointed Staff-Spinnig 3,Juhl Bong 3,Weapons (Technique),Untrained,Jointed Staff-Spinnig 3
+Syllibus,399,S395,4,Jointed Staff-Spinnig 4,Juhl Bong 4,Weapons (Technique),Untrained,Jointed Staff-Spinnig 4
+Syllibus,400,S396,5,Jointed Staff-Spinnig 5,Juhl Bong 5,Weapons (Technique),Untrained,Jointed Staff-Spinnig 5
+Syllibus,401,S397,5,Jointed Staff-Spinnig 6,Juhl Bong 6,Weapons (Technique),Untrained,Jointed Staff-Spinnig 6
+Syllibus,402,S398,6,Jointed Staff-Striking 1,Juhl Bong 7,Weapons (Technique),Untrained,Jointed Staff-Striking 1
+Syllibus,403,S399,6,Jointed Staff-Striking 2,Juhl Bong 8,Weapons (Technique),Untrained,Jointed Staff-Striking 2
+Syllibus,404,S400,7,Jointed Staff-Striking 3,Juhl Bong 9,Weapons (Technique),Untrained,Jointed Staff-Striking 3
+Syllibus,405,S403,8,Long Staff-Spinnig 1,Bong Do Liki 1,Weapons (Technique),Untrained,Long Staff-Spinnig 1
+Syllibus,406,S404,8,Long Staff-Spinnig 2,Bong Do Liki 2,Weapons (Technique),Untrained,Long Staff-Spinnig 2
+Syllibus,407,S405,8,Long Staff-Spinnig 3,Bong Do Liki 3,Weapons (Technique),Untrained,Long Staff-Spinnig 3
+Syllibus,408,S406,9,Long Staff-Spinnig 4,Bong Do Liki 4,Weapons (Technique),Untrained,Long Staff-Spinnig 4
+Syllibus,409,S407,9,Long Staff-Spinnig 5,Bong Do Liki 5,Weapons (Technique),Untrained,Long Staff-Spinnig 5
+Syllibus,410,S408,10,Long Staff-Spinnig 6,Bong Do Liki 6,Weapons (Technique),Untrained,Long Staff-Spinnig 6
+Syllibus,411,S409,10,Long Staff-Spinnig 7,Bong Do Liki 7,Weapons (Technique),Untrained,Long Staff-Spinnig 7
+Syllibus,412,S410,10,Long Staff-Spinnig 8,Bong Do Liki 8,Weapons (Technique),Untrained,Long Staff-Spinnig 8
+Syllibus,413,S411,11,Long Staff-Spinnig 9,Bong Do Liki  9a/9b,Weapons (Technique),Untrained,Long Staff-Spinnig 9
+Syllibus,414,S412,12,Long Staff-Spinnig 10,Bong Do Liki 11A/11B,Weapons (Technique),Untrained,Long Staff-Spinnig 10
+Syllibus,415,S413,12,Long Staff-Spinnig 11,Bong Do Liki 12A/12B,Weapons (Technique),Untrained,Long Staff-Spinnig 11
+Syllibus,416,S414,13,Long Staff-Spinnig 12,Bong Do Liki 13A/B,Weapons (Technique),Untrained,Long Staff-Spinnig 12
+Syllibus,417,S415,13,Long Staff-Spinnig 13,Bong Do Liki 14A/B,Weapons (Technique),Untrained,Long Staff-Spinnig 13
+Syllibus,418,S416,13,Long Staff-Spinnig 14,Bong Do Liki 15A/B,Weapons (Technique),Untrained,Long Staff-Spinnig 14
+Syllibus,419,S419,16,Sword Cutting Technique 1,Sword Cutting Technique 1,Weapons (Technique),Untrained,Sword Cutting Technique 1
+Syllibus,420,S420,16,Sword Cutting Technique 2,Sword Cutting Technique 2,Weapons (Technique),Untrained,Sword Cutting Technique 2
+Syllibus,421,S421,16,Sword Cutting Technique 3,Sword Cutting Technique 3,Weapons (Technique),Untrained,Sword Cutting Technique 3
+Syllibus,422,S422,16,Sword Cutting Technique 4,Sword Cutting Technique 4,Weapons (Technique),Untrained,Sword Cutting Technique 4
+Syllibus,423,S423,16,Sword Cutting Technique 5,Sword Cutting Technique 5,Weapons (Technique),Untrained,Sword Cutting Technique 5
+Syllibus,424,S424,16,Sword Cutting Technique 6,Sword Cutting Technique 6,Weapons (Technique),Untrained,Sword Cutting Technique 6
+,,,,,,,,
+Object,Count,Key,Rank,Type,,,,
+Priority,426,S427,1,Standard,,,,
+Priority,426,S428,3,Meditation,,,,
+Priority,426,S429,3,Terminology,,,,
+Priority,426,S430,4,Theory,,,,
+Priority,426,S431,5,Conditioning,,,,
+Priority,426,S432,6,Escape/Fall,,,,
+Priority,426,S433,7,Stance,,,,
+Priority,426,S434,8,Technique,,,,
+Priority,426,S435,9,Form,,,,
+Priority,426,S436,10,Weapons (Technique),,,,
+Priority,427,S437,11,Weapons (Form),,,,

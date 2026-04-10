@@ -50,6 +50,10 @@
                 There are two ways to submit your event. If you want to upload images, you must be signed into a Google
                 account. If you do not want to sign in, you can submit image links instead.
               </p>
+              <p class="submission-decision__placeholder-notice" id="submission-placeholder-notice" hidden role="status">
+                The Google Form buttons are not linked yet. Edit <code>contents/submit.html</code> and set each form
+                button’s <code>href</code> to your published URL (for example <code>https://forms.gle/…</code>).
+              </p>
             </div>
 
             <div class="content-section submission-decision__step" id="submission-step-question" data-submission-step="question">
@@ -70,9 +74,9 @@
                 in, you can still submit your event by providing image links instead.
               </p>
               <div class="submission-decision__actions footer-buttons site-footer-actions">
-                <!-- REPLACE: URL_FORM_URL — paste your Google Form URL for link-based (no upload) submissions -->
+                <!-- Set href to your link-only Google Form, e.g. https://forms.gle/xxxxxxxx -->
                 <a class="btn site-button" id="submission-url-form-link"
-                  href="https://forms.gle/REPLACE_URL_FORM_URL"
+                  href="#"
                   target="_blank" rel="noopener noreferrer">Go to URL Submission Form</a>
                 <a class="btn site-button" href="../index.html">I Will Come Back Later</a>
               </div>
@@ -81,9 +85,9 @@
             <div class="content-section submission-decision__step submission-decision__panel" id="submission-step-yes" data-submission-step="yes" hidden>
               <p>Please make sure you are logged into your Google account before continuing.</p>
               <div class="submission-decision__actions footer-buttons site-footer-actions">
-                <!-- REPLACE: UPLOAD_FORM_URL — paste your Google Form URL that accepts file uploads -->
+                <!-- Set href to your upload Google Form, e.g. https://forms.gle/xxxxxxxx -->
                 <a class="btn site-button" id="submission-upload-form-link"
-                  href="https://forms.gle/REPLACE_UPLOAD_FORM_URL"
+                  href="#"
                   target="_blank" rel="noopener noreferrer">I Am Logged In</a>
               </div>
             </div>
@@ -154,6 +158,31 @@
       var stepYes = document.getElementById('submission-step-yes');
       var btnYes = document.getElementById('submission-choose-yes');
       var btnNo = document.getElementById('submission-choose-no');
+      var notice = document.getElementById('submission-placeholder-notice');
+      var urlFormLink = document.getElementById('submission-url-form-link');
+      var uploadFormLink = document.getElementById('submission-upload-form-link');
+
+      function isFormLinkPlaceholder(anchor) {
+        if (!anchor) return true;
+        var raw = anchor.getAttribute('href');
+        if (!raw || raw === '#' || raw.charAt(0) === '#') return true;
+        return raw.indexOf('REPLACE_') !== -1;
+      }
+
+      function wireFormLink(anchor) {
+        if (!anchor) return;
+        anchor.addEventListener('click', function (e) {
+          if (!isFormLinkPlaceholder(anchor)) return;
+          e.preventDefault();
+          if (notice) {
+            notice.hidden = false;
+            notice.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        });
+      }
+
+      wireFormLink(urlFormLink);
+      wireFormLink(uploadFormLink);
 
       function showYesPath() {
         if (stepQuestion) stepQuestion.hidden = true;

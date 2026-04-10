@@ -43,80 +43,50 @@
         <!-- CENTER CONTENT -->
         <main class="site-main main-content">
 
-          <!-- HERO SECTION -->
-          <section class="site-hero hero">
-            <h2>Event Submission Form</h2>
-            <p>Use this form to request that a new event be added to the community calendar.</p>
-          </section>
-
-          <!-- MAIN CONTENT -->
-          <section class="site-main-content content">
+          <section class="site-main-content content submission-decision" id="submission-decision">
             <div class="content-section">
               <h2>Submit an Event</h2>
               <p>
-                Complete the form below with the event details. Include as much information as possible so the event
-                coordinator can review your request and prepare the event page.
+                There are two ways to submit your event. If you want to upload images, you must be signed into a Google
+                account. If you do not want to sign in, you can submit image links instead.
               </p>
             </div>
 
-            <form action="#" method="post" enctype="multipart/form-data" class="event-submission-form">
-
-              <div class="content-section">
-                <label for="submitter-name"><strong>Name of Person Submitting the Request</strong></label>
-                <input type="text" id="submitter-name" name="submitter-name" placeholder="Enter your name" required>
+            <div class="content-section submission-decision__step" id="submission-step-question" data-submission-step="question">
+              <p class="submission-decision__question"><strong>Do you have a Google account?</strong></p>
+              <div class="submission-decision__actions footer-buttons site-footer-actions">
+                <button type="button" class="btn site-button" id="submission-choose-yes" aria-controls="submission-step-yes">
+                  Yes
+                </button>
+                <button type="button" class="btn site-button" id="submission-choose-no" aria-controls="submission-step-no">
+                  No
+                </button>
               </div>
+            </div>
 
-              <div class="content-section">
-                <label for="event-title"><strong>Title of Event</strong></label>
-                <input type="text" id="event-title" name="event-title" placeholder="Enter the event title" required>
+            <div class="content-section submission-decision__step submission-decision__panel" id="submission-step-no" data-submission-step="no" hidden>
+              <p>
+                To upload photos, Google requires you to be signed into a Google account. If you do not want to sign
+                in, you can still submit your event by providing image links instead.
+              </p>
+              <div class="submission-decision__actions footer-buttons site-footer-actions">
+                <!-- REPLACE: URL_FORM_URL — paste your Google Form URL for link-based (no upload) submissions -->
+                <a class="btn site-button" id="submission-url-form-link"
+                  href="https://forms.gle/REPLACE_URL_FORM_URL"
+                  target="_blank" rel="noopener noreferrer">Go to URL Submission Form</a>
+                <a class="btn site-button" href="../index.html">I Will Come Back Later</a>
               </div>
+            </div>
 
-              <div class="content-section">
-                <label for="event-date"><strong>Date</strong></label>
-                <input type="date" id="event-date" name="event-date" required>
+            <div class="content-section submission-decision__step submission-decision__panel" id="submission-step-yes" data-submission-step="yes" hidden>
+              <p>Please make sure you are logged into your Google account before continuing.</p>
+              <div class="submission-decision__actions footer-buttons site-footer-actions">
+                <!-- REPLACE: UPLOAD_FORM_URL — paste your Google Form URL that accepts file uploads -->
+                <a class="btn site-button" id="submission-upload-form-link"
+                  href="https://forms.gle/REPLACE_UPLOAD_FORM_URL"
+                  target="_blank" rel="noopener noreferrer">I Am Logged In</a>
               </div>
-
-              <div class="content-section">
-                <label for="start-time"><strong>Start Time</strong></label>
-                <input type="time" id="start-time" name="start-time" required>
-              </div>
-
-              <div class="content-section">
-                <label for="event-description"><strong>Event Description</strong></label>
-                <textarea id="event-description" name="event-description" rows="6" placeholder="Enter the event description" required></textarea>
-              </div>
-
-              <div class="content-section">
-                <label for="feature-photo"><strong>Feature Photo</strong></label>
-                <input type="file" id="feature-photo" name="feature-photo" accept="image/*">
-              </div>
-
-              <div class="content-section">
-                <label for="image-2"><strong>Image 2</strong></label>
-                <input type="file" id="image-2" name="image-2" accept="image/*">
-              </div>
-
-              <div class="content-section">
-                <label for="image-3"><strong>Image 3</strong></label>
-                <input type="file" id="image-3" name="image-3" accept="image/*">
-              </div>
-
-              <div class="content-section">
-                <label for="image-4"><strong>Image 4</strong></label>
-                <input type="file" id="image-4" name="image-4" accept="image/*">
-              </div>
-
-              <div class="content-section">
-                <label for="image-5"><strong>Image 5</strong></label>
-                <input type="file" id="image-5" name="image-5" accept="image/*">
-              </div>
-
-              <div class="site-footer-actions footer-buttons">
-                <button type="submit" class="btn site-button">Submit Request</button>
-                <button type="reset" class="btn site-button">Clear Form</button>
-              </div>
-
-            </form>
+            </div>
           </section>
 
         </main>
@@ -176,5 +146,36 @@
 
     </div>
   </div>
+  <script>
+    (function () {
+      var main = document.getElementById('submission-decision');
+      var stepQuestion = document.getElementById('submission-step-question');
+      var stepNo = document.getElementById('submission-step-no');
+      var stepYes = document.getElementById('submission-step-yes');
+      var btnYes = document.getElementById('submission-choose-yes');
+      var btnNo = document.getElementById('submission-choose-no');
+
+      function showYesPath() {
+        if (stepQuestion) stepQuestion.hidden = true;
+        stepNo.hidden = true;
+        stepYes.hidden = false;
+        if (main) {
+          main.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
+      function showNoPath() {
+        if (stepQuestion) stepQuestion.hidden = true;
+        stepYes.hidden = true;
+        stepNo.hidden = false;
+        if (main) {
+          main.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
+      if (btnYes) btnYes.addEventListener('click', showYesPath);
+      if (btnNo) btnNo.addEventListener('click', showNoPath);
+    })();
+  </script>
 </body>
 </html>

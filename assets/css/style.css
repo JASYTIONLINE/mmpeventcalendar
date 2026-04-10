@@ -343,6 +343,14 @@
   .content-section:last-child {
     margin-bottom: 0;
   }
+
+  .submission-decision__question {
+    margin: 0 0 var(--space-md);
+  }
+
+  .submission-decision__actions {
+    margin-top: var(--space-md);
+  }
   
   /* Section variant: all headings inside use black text */
   .content-section-black h1,

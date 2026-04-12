@@ -818,103 +818,4470 @@
       "isFullTime": "Unknown",
       "notes": "Librarian; Lady's Luncheon",
       "imagePath": ""
-    },
-    {
-      "id": "re0091",
-      "name": "Hicks, Fred & Betty Lou",
-      "phone": "217-433-0365",
-      "memberSince": "0000-00-00",
-      "isFullTime": "Unknown",
-      "notes": "Welcome Committee; Librarian",
-      "imagePath": ""
-    },
-    {
-      "id": "re0092",
-      "name": "Behrens, Lyle & Diane",
-      "phone": "913-515-8302",
-      "memberSince": "0000-00-00",
-      "isFullTime": "Unknown",
-      "notes": "Swedish Weaving",
-      "imagePath": ""
-    },
-    {
-      "id": "re0093",
-      "name": "Caron, Andre & Jacqueline",
-      "phone": "365-688-7334",
-      "memberSince": "0000-00-00",
-      "isFullTime": "Unknown",
-      "notes": "Line Dancing",
-      "imagePath": ""
-    },
-    {
-      "id": "re0094",
-      "name": "Baker, Ron & Jean",
-      "phone": "402-677-1705",
-      "memberSince": "0000-00-00",
-      "isFullTime": "Unknown",
-      "notes": "Bible Study; Vespers",
-      "imagePath": ""
-    },
-    {
-      "id": "re0095",
-      "name": "Brian, Tom & Carolyn",
-      "phone": "248-660-6805",
-      "memberSince": "0000-00-00",
-      "isFullTime": "Unknown",
-      "notes": "Activities Calendar",
-      "imagePath": ""
-    },
-    {
-      "id": "re0096",
-      "name": "Beilke, Tom & Barb",
-      "phone": "312-320-8110",
-      "memberSince": "0000-00-00",
-      "isFullTime": "Unknown",
-      "notes": "Kitchen Inventory",
-      "imagePath": ""
     }
   ],
   "spaces": [
     {
-      "id": 1,
-      "spaceNumber": "Unknown",
-      "street": "Unknown",
-      "residentId": "re0000",
+      "id": "sp0001",
+      "spaceNumber": "2",
+      "street": "Aspen",
       "status": "Unavailable",
       "notes": "",
-      "imagePath": ""
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0002",
+      "spaceNumber": "3",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0003",
+      "spaceNumber": "4",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0004",
+      "spaceNumber": "5",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0005",
+      "spaceNumber": "6",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0006",
+      "spaceNumber": "7",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0007",
+      "spaceNumber": "8",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0008",
+      "spaceNumber": "9",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0009",
+      "spaceNumber": "10",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0010",
+      "spaceNumber": "11",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0011",
+      "spaceNumber": "12",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0012",
+      "spaceNumber": "13",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0013",
+      "spaceNumber": "14",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0014",
+      "spaceNumber": "15",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0015",
+      "spaceNumber": "16",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0016",
+      "spaceNumber": "17",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0017",
+      "spaceNumber": "18",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0018",
+      "spaceNumber": "19",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0019",
+      "spaceNumber": "20",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0020",
+      "spaceNumber": "21",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0021",
+      "spaceNumber": "22",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0022",
+      "spaceNumber": "23",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0023",
+      "spaceNumber": "24",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0024",
+      "spaceNumber": "25",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0025",
+      "spaceNumber": "26",
+      "street": "Aspen",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0026",
+      "spaceNumber": "47",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0027",
+      "spaceNumber": "48",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0028",
+      "spaceNumber": "49",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0029",
+      "spaceNumber": "50",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0030",
+      "spaceNumber": "51",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0031",
+      "spaceNumber": "52",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0032",
+      "spaceNumber": "53",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0033",
+      "spaceNumber": "54",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0034",
+      "spaceNumber": "55",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0035",
+      "spaceNumber": "56",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0036",
+      "spaceNumber": "57",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0037",
+      "spaceNumber": "58",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0038",
+      "spaceNumber": "59",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0039",
+      "spaceNumber": "60",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0040",
+      "spaceNumber": "61",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0041",
+      "spaceNumber": "82",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0042",
+      "spaceNumber": "83",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0043",
+      "spaceNumber": "84",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0044",
+      "spaceNumber": "85",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0045",
+      "spaceNumber": "86",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0046",
+      "spaceNumber": "87",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0047",
+      "spaceNumber": "88",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0048",
+      "spaceNumber": "89",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0049",
+      "spaceNumber": "90",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0050",
+      "spaceNumber": "91",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0051",
+      "spaceNumber": "92",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0052",
+      "spaceNumber": "93",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0053",
+      "spaceNumber": "94",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0054",
+      "spaceNumber": "95",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0055",
+      "spaceNumber": "96",
+      "street": "Banana",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0056",
+      "spaceNumber": "98",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0057",
+      "spaceNumber": "99",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0058",
+      "spaceNumber": "100",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0059",
+      "spaceNumber": "101",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0060",
+      "spaceNumber": "102",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0061",
+      "spaceNumber": "103",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0062",
+      "spaceNumber": "104",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0063",
+      "spaceNumber": "105",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0064",
+      "spaceNumber": "106",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0065",
+      "spaceNumber": "107",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0066",
+      "spaceNumber": "108",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0067",
+      "spaceNumber": "109",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0068",
+      "spaceNumber": "139",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0069",
+      "spaceNumber": "140",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0070",
+      "spaceNumber": "141",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0071",
+      "spaceNumber": "142",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0072",
+      "spaceNumber": "143",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0073",
+      "spaceNumber": "144",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0074",
+      "spaceNumber": "145",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0075",
+      "spaceNumber": "146",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0076",
+      "spaceNumber": "147",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0077",
+      "spaceNumber": "148",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0078",
+      "spaceNumber": "149",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0079",
+      "spaceNumber": "150",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0080",
+      "spaceNumber": "151",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0081",
+      "spaceNumber": "152",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0082",
+      "spaceNumber": "153",
+      "street": "Cypress",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0083",
+      "spaceNumber": "191",
+      "street": "Dogwood",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0084",
+      "spaceNumber": "192",
+      "street": "Dogwood",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0085",
+      "spaceNumber": "193",
+      "street": "Dogwood",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0086",
+      "spaceNumber": "194",
+      "street": "Dogwood",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0087",
+      "spaceNumber": "195",
+      "street": "Dogwood",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0088",
+      "spaceNumber": "196",
+      "street": "Dogwood",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0089",
+      "spaceNumber": "197",
+      "street": "Dogwood",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0090",
+      "spaceNumber": "198",
+      "street": "Dogwood",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0091",
+      "spaceNumber": "199",
+      "street": "Dogwood",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0092",
+      "spaceNumber": "200",
+      "street": "Dogwood",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0093",
+      "spaceNumber": "201",
+      "street": "Dogwood",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0094",
+      "spaceNumber": "202",
+      "street": "Dogwood",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0095",
+      "spaceNumber": "203",
+      "street": "Dogwood",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0096",
+      "spaceNumber": "204",
+      "street": "Dogwood",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0097",
+      "spaceNumber": "205",
+      "street": "Dogwood",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0098",
+      "spaceNumber": "206",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0099",
+      "spaceNumber": "207",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0100",
+      "spaceNumber": "208",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0101",
+      "spaceNumber": "209",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0102",
+      "spaceNumber": "210",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0103",
+      "spaceNumber": "211",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0104",
+      "spaceNumber": "212",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0105",
+      "spaceNumber": "213",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0106",
+      "spaceNumber": "214",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0107",
+      "spaceNumber": "215",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0108",
+      "spaceNumber": "216",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0109",
+      "spaceNumber": "217",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0110",
+      "spaceNumber": "218",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0111",
+      "spaceNumber": "219",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0112",
+      "spaceNumber": "220",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0113",
+      "spaceNumber": "221",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0114",
+      "spaceNumber": "222",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0115",
+      "spaceNumber": "223",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0116",
+      "spaceNumber": "224",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0117",
+      "spaceNumber": "225",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0118",
+      "spaceNumber": "226",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0119",
+      "spaceNumber": "227",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0120",
+      "spaceNumber": "228",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0121",
+      "spaceNumber": "252",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0122",
+      "spaceNumber": "253",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0123",
+      "spaceNumber": "254",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0124",
+      "spaceNumber": "255",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0125",
+      "spaceNumber": "256",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0126",
+      "spaceNumber": "257",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0127",
+      "spaceNumber": "258",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0128",
+      "spaceNumber": "259",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0129",
+      "spaceNumber": "260",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0130",
+      "spaceNumber": "261",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0131",
+      "spaceNumber": "262",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0132",
+      "spaceNumber": "263",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0133",
+      "spaceNumber": "264",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0134",
+      "spaceNumber": "265",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0135",
+      "spaceNumber": "266",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0136",
+      "spaceNumber": "267",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0137",
+      "spaceNumber": "268",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0138",
+      "spaceNumber": "269",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0139",
+      "spaceNumber": "270",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0140",
+      "spaceNumber": "271",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0141",
+      "spaceNumber": "272",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0142",
+      "spaceNumber": "273",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0143",
+      "spaceNumber": "274",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0144",
+      "spaceNumber": "275",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0145",
+      "spaceNumber": "296",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0146",
+      "spaceNumber": "297",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0147",
+      "spaceNumber": "298",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0148",
+      "spaceNumber": "299",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0149",
+      "spaceNumber": "300",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0150",
+      "spaceNumber": "301",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0151",
+      "spaceNumber": "302",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0152",
+      "spaceNumber": "303",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0153",
+      "spaceNumber": "304",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0154",
+      "spaceNumber": "305",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0155",
+      "spaceNumber": "306",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0156",
+      "spaceNumber": "307",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0157",
+      "spaceNumber": "308",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0158",
+      "spaceNumber": "309",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0159",
+      "spaceNumber": "310",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0160",
+      "spaceNumber": "311",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0161",
+      "spaceNumber": "312",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0162",
+      "spaceNumber": "313",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0163",
+      "spaceNumber": "314",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0164",
+      "spaceNumber": "315",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0165",
+      "spaceNumber": "316",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0166",
+      "spaceNumber": "317",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0167",
+      "spaceNumber": "318",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0168",
+      "spaceNumber": "319",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0169",
+      "spaceNumber": "320",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0170",
+      "spaceNumber": "321",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0171",
+      "spaceNumber": "322",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0172",
+      "spaceNumber": "323",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0173",
+      "spaceNumber": "324",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0174",
+      "spaceNumber": "325",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0175",
+      "spaceNumber": "326",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0176",
+      "spaceNumber": "327",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0177",
+      "spaceNumber": "328",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0178",
+      "spaceNumber": "329",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0179",
+      "spaceNumber": "330",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0180",
+      "spaceNumber": "331",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0181",
+      "spaceNumber": "332",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0182",
+      "spaceNumber": "333",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0183",
+      "spaceNumber": "334",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0184",
+      "spaceNumber": "335",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0185",
+      "spaceNumber": "336",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0186",
+      "spaceNumber": "337",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0187",
+      "spaceNumber": "338",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0188",
+      "spaceNumber": "339",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0189",
+      "spaceNumber": "340",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0190",
+      "spaceNumber": "341",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0191",
+      "spaceNumber": "342",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0192",
+      "spaceNumber": "343",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0193",
+      "spaceNumber": "344",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0194",
+      "spaceNumber": "345",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0195",
+      "spaceNumber": "346",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0196",
+      "spaceNumber": "347",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0197",
+      "spaceNumber": "348",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0198",
+      "spaceNumber": "349",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0199",
+      "spaceNumber": "350",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0200",
+      "spaceNumber": "351",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0201",
+      "spaceNumber": "352",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0202",
+      "spaceNumber": "353",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0203",
+      "spaceNumber": "354",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0204",
+      "spaceNumber": "355",
+      "street": "Begonia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0205",
+      "spaceNumber": "357",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0206",
+      "spaceNumber": "358",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0207",
+      "spaceNumber": "359",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0208",
+      "spaceNumber": "360",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0209",
+      "spaceNumber": "361",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0210",
+      "spaceNumber": "362",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0211",
+      "spaceNumber": "363",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0212",
+      "spaceNumber": "364",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0213",
+      "spaceNumber": "365",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0214",
+      "spaceNumber": "366",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0215",
+      "spaceNumber": "367",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0216",
+      "spaceNumber": "368",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0217",
+      "spaceNumber": "369",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0218",
+      "spaceNumber": "370",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0219",
+      "spaceNumber": "371",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0220",
+      "spaceNumber": "372",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0221",
+      "spaceNumber": "373",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0222",
+      "spaceNumber": "374",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0223",
+      "spaceNumber": "375",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0224",
+      "spaceNumber": "376",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0225",
+      "spaceNumber": "377",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0226",
+      "spaceNumber": "378",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0227",
+      "spaceNumber": "379",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0228",
+      "spaceNumber": "380",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0229",
+      "spaceNumber": "381",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0230",
+      "spaceNumber": "382",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0231",
+      "spaceNumber": "383",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0232",
+      "spaceNumber": "384",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0233",
+      "spaceNumber": "385",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0234",
+      "spaceNumber": "404",
+      "street": "Fir",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0235",
+      "spaceNumber": "405",
+      "street": "Fir",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0236",
+      "spaceNumber": "406",
+      "street": "Fir",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0237",
+      "spaceNumber": "410",
+      "street": "Fir",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0238",
+      "spaceNumber": "411",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0239",
+      "spaceNumber": "412",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0240",
+      "spaceNumber": "413",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0241",
+      "spaceNumber": "414",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0242",
+      "spaceNumber": "415",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0243",
+      "spaceNumber": "416",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0244",
+      "spaceNumber": "417",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0245",
+      "spaceNumber": "418",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0246",
+      "spaceNumber": "419",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0247",
+      "spaceNumber": "420",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0248",
+      "spaceNumber": "421",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0249",
+      "spaceNumber": "422",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0250",
+      "spaceNumber": "423",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0251",
+      "spaceNumber": "424",
+      "street": "Aster",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0252",
+      "spaceNumber": "433",
+      "street": "Grapefruit",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0253",
+      "spaceNumber": "434",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0254",
+      "spaceNumber": "435",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0255",
+      "spaceNumber": "436",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0256",
+      "spaceNumber": "437",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0257",
+      "spaceNumber": "438",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0258",
+      "spaceNumber": "439",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0259",
+      "spaceNumber": "440",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0260",
+      "spaceNumber": "441",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0261",
+      "spaceNumber": "442",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0262",
+      "spaceNumber": "443",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0263",
+      "spaceNumber": "444",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0264",
+      "spaceNumber": "445",
+      "street": "Cactus",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0265",
+      "spaceNumber": "446",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0266",
+      "spaceNumber": "447",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0267",
+      "spaceNumber": "448",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0268",
+      "spaceNumber": "449",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0269",
+      "spaceNumber": "450",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0270",
+      "spaceNumber": "451",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0271",
+      "spaceNumber": "452",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0272",
+      "spaceNumber": "453",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0273",
+      "spaceNumber": "454",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0274",
+      "spaceNumber": "455",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0275",
+      "spaceNumber": "456",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0276",
+      "spaceNumber": "457",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0277",
+      "spaceNumber": "458",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0278",
+      "spaceNumber": "459",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0279",
+      "spaceNumber": "460",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0280",
+      "spaceNumber": "461",
+      "street": "Grapefruit",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0281",
+      "spaceNumber": "462",
+      "street": "Grapefruit",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0282",
+      "spaceNumber": "466",
+      "street": "Grapefruit",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0283",
+      "spaceNumber": "467",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0284",
+      "spaceNumber": "468",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0285",
+      "spaceNumber": "469",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0286",
+      "spaceNumber": "470",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0287",
+      "spaceNumber": "471",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0288",
+      "spaceNumber": "472",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0289",
+      "spaceNumber": "473",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0290",
+      "spaceNumber": "474",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0291",
+      "spaceNumber": "475",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0292",
+      "spaceNumber": "476",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0293",
+      "spaceNumber": "477",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0294",
+      "spaceNumber": "478",
+      "street": "Daisy",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0295",
+      "spaceNumber": "479",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0296",
+      "spaceNumber": "480",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0297",
+      "spaceNumber": "481",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0298",
+      "spaceNumber": "482",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0299",
+      "spaceNumber": "483",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0300",
+      "spaceNumber": "484",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0301",
+      "spaceNumber": "485",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0302",
+      "spaceNumber": "486",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0303",
+      "spaceNumber": "487",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0304",
+      "spaceNumber": "488",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0305",
+      "spaceNumber": "489",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0306",
+      "spaceNumber": "490",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0307",
+      "spaceNumber": "491",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0308",
+      "spaceNumber": "492",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0309",
+      "spaceNumber": "493",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0310",
+      "spaceNumber": "494",
+      "street": "Grapefruit",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0311",
+      "spaceNumber": "495",
+      "street": "Grapefruit",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0312",
+      "spaceNumber": "500",
+      "street": "Grapefruit",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0313",
+      "spaceNumber": "501",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0314",
+      "spaceNumber": "502",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0315",
+      "spaceNumber": "503",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0316",
+      "spaceNumber": "504",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0317",
+      "spaceNumber": "505",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0318",
+      "spaceNumber": "506",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0319",
+      "spaceNumber": "507",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0320",
+      "spaceNumber": "508",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0321",
+      "spaceNumber": "509",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0322",
+      "spaceNumber": "510",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0323",
+      "spaceNumber": "511",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0324",
+      "spaceNumber": "512",
+      "street": "East Palm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0325",
+      "spaceNumber": "513",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0326",
+      "spaceNumber": "514",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0327",
+      "spaceNumber": "515",
+      "street": "Elm",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0328",
+      "spaceNumber": "516",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0329",
+      "spaceNumber": "517",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0330",
+      "spaceNumber": "518",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0331",
+      "spaceNumber": "519",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0332",
+      "spaceNumber": "520",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0333",
+      "spaceNumber": "521",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0334",
+      "spaceNumber": "522",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0335",
+      "spaceNumber": "523",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0336",
+      "spaceNumber": "524",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0337",
+      "spaceNumber": "525",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0338",
+      "spaceNumber": "526",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0339",
+      "spaceNumber": "527",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0340",
+      "spaceNumber": "528",
+      "street": "Grapefruit",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0341",
+      "spaceNumber": "529",
+      "street": "Grapefruit",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0342",
+      "spaceNumber": "530",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0343",
+      "spaceNumber": "531",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0344",
+      "spaceNumber": "532",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0345",
+      "spaceNumber": "533",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0346",
+      "spaceNumber": "534",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0347",
+      "spaceNumber": "535",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0348",
+      "spaceNumber": "536",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0349",
+      "spaceNumber": "537",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0350",
+      "spaceNumber": "538",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0351",
+      "spaceNumber": "539",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0352",
+      "spaceNumber": "540",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0353",
+      "spaceNumber": "541",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0354",
+      "spaceNumber": "542",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0355",
+      "spaceNumber": "543",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0356",
+      "spaceNumber": "544",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0357",
+      "spaceNumber": "545",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0358",
+      "spaceNumber": "546",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0359",
+      "spaceNumber": "547",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0360",
+      "spaceNumber": "548",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0361",
+      "spaceNumber": "549",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0362",
+      "spaceNumber": "550",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0363",
+      "spaceNumber": "551",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0364",
+      "spaceNumber": "552",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0365",
+      "spaceNumber": "553",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0366",
+      "spaceNumber": "554",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0367",
+      "spaceNumber": "555",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0368",
+      "spaceNumber": "556",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0369",
+      "spaceNumber": "557",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0370",
+      "spaceNumber": "558",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0371",
+      "spaceNumber": "559",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0372",
+      "spaceNumber": "560",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0373",
+      "spaceNumber": "561",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0374",
+      "spaceNumber": "562",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0375",
+      "spaceNumber": "563",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0376",
+      "spaceNumber": "564",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0377",
+      "spaceNumber": "565",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0378",
+      "spaceNumber": "566",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0379",
+      "spaceNumber": "567",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0380",
+      "spaceNumber": "568",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0381",
+      "spaceNumber": "569",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0382",
+      "spaceNumber": "570",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0383",
+      "spaceNumber": "571",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0384",
+      "spaceNumber": "572",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0385",
+      "spaceNumber": "573",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0386",
+      "spaceNumber": "574",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0387",
+      "spaceNumber": "575",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0388",
+      "spaceNumber": "576",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0389",
+      "spaceNumber": "577",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0390",
+      "spaceNumber": "578",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0391",
+      "spaceNumber": "579",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0392",
+      "spaceNumber": "580",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0393",
+      "spaceNumber": "581",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0394",
+      "spaceNumber": "582",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0395",
+      "spaceNumber": "583",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0396",
+      "spaceNumber": "584",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0397",
+      "spaceNumber": "585",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0398",
+      "spaceNumber": "586",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0399",
+      "spaceNumber": "589",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0400",
+      "spaceNumber": "590",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0401",
+      "spaceNumber": "591",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0402",
+      "spaceNumber": "592",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0403",
+      "spaceNumber": "593",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0404",
+      "spaceNumber": "594",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0405",
+      "spaceNumber": "595",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0406",
+      "spaceNumber": "596",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0407",
+      "spaceNumber": "597",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0408",
+      "spaceNumber": "598",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0409",
+      "spaceNumber": "599",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0410",
+      "spaceNumber": "600",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0411",
+      "spaceNumber": "601",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0412",
+      "spaceNumber": "602",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0413",
+      "spaceNumber": "603",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0414",
+      "spaceNumber": "604",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0415",
+      "spaceNumber": "605",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0416",
+      "spaceNumber": "606",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0417",
+      "spaceNumber": "607",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0418",
+      "spaceNumber": "608",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0419",
+      "spaceNumber": "609",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0420",
+      "spaceNumber": "610",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0421",
+      "spaceNumber": "611",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0422",
+      "spaceNumber": "612",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0423",
+      "spaceNumber": "613",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0424",
+      "spaceNumber": "614",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0425",
+      "spaceNumber": "615",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0426",
+      "spaceNumber": "616",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0427",
+      "spaceNumber": "617",
+      "street": "Gardenia",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0428",
+      "spaceNumber": "618",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0429",
+      "spaceNumber": "619",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
+    },
+    {
+      "id": "sp0430",
+      "spaceNumber": "620",
+      "street": "Fern",
+      "status": "Unavailable",
+      "notes": "",
+      "imagePath": "",
+      "residentId": "re0000"
     }
   ],
   "activities": [
     {
-      "id": 1,
-      "activityName": "Unknown",
-      "description": "",
-      "chairpersonId": "re0001",
-      "coChairIds": [],
-      "notes": "",
-      "imagePath": ""
+      "id": "ac0001",
+      "description": "Community karaoke night",
+      "location": "Rec Hall",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {},
+      "keywords": [
+        "music",
+        "social"
+      ],
+      "imagePath": "",
+      "activityName": "Karaoke",
+      "contactResidentId": "re0088",
+      "chairpersonId": "re0088"
+    },
+    {
+      "id": "ac0002",
+      "description": "DJ hosted karaoke event",
+      "location": "Rec Hall",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {},
+      "keywords": [
+        "music",
+        "dj"
+      ],
+      "imagePath": "",
+      "activityName": "DJ Karaoke",
+      "contactResidentId": "re0088",
+      "chairpersonId": "re0088"
+    },
+    {
+      "id": "ac0003",
+      "description": "Regular card playing group",
+      "location": "Clubhouse",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {},
+      "keywords": [
+        "cards",
+        "social"
+      ],
+      "imagePath": "",
+      "activityName": "Card Games",
+      "contactResidentId": "re0000",
+      "chairpersonId": "re0000"
+    },
+    {
+      "id": "ac0004",
+      "description": "Organized pool games",
+      "location": "Pool Room",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {},
+      "keywords": [
+        "pool",
+        "games"
+      ],
+      "imagePath": "",
+      "activityName": "Pool / 8 Ball",
+      "contactResidentId": "re0088",
+      "chairpersonId": "re0088"
+    },
+    {
+      "id": "ac0005",
+      "description": "Line dancing sessions",
+      "location": "Rec Hall",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {},
+      "keywords": [
+        "dance"
+      ],
+      "imagePath": "",
+      "activityName": "Line Dancing",
+      "contactResidentId": "re0045",
+      "chairpersonId": "re0045"
+    },
+    {
+      "id": "ac0006",
+      "description": "General crafting activities",
+      "location": "Clubhouse",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {},
+      "keywords": [
+        "crafts"
+      ],
+      "imagePath": "",
+      "activityName": "Crafts",
+      "contactResidentId": "re0097",
+      "chairpersonId": "re0097"
+    },
+    {
+      "id": "ac0007",
+      "description": "Sewing group",
+      "location": "Clubhouse",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {},
+      "keywords": [
+        "sewing"
+      ],
+      "imagePath": "",
+      "activityName": "Sewing",
+      "contactResidentId": "re0097",
+      "chairpersonId": "re0097"
+    },
+    {
+      "id": "ac0008",
+      "description": "Reading and discussion group",
+      "location": "Library",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {},
+      "keywords": [
+        "books"
+      ],
+      "imagePath": "",
+      "activityName": "Book Club",
+      "contactResidentId": "re0097",
+      "chairpersonId": "re0097"
+    },
+    {
+      "id": "ac0009",
+      "description": "Weaving craft group",
+      "location": "Clubhouse",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {},
+      "keywords": [
+        "crafts"
+      ],
+      "imagePath": "",
+      "activityName": "Swedish Weaving",
+      "contactResidentId": "re0034",
+      "chairpersonId": "re0034"
+    },
+    {
+      "id": "ac0010",
+      "description": "Group Bible study",
+      "location": "Clubhouse",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {},
+      "keywords": [
+        "religious"
+      ],
+      "imagePath": "",
+      "activityName": "Bible Study",
+      "contactResidentId": "re0029",
+      "chairpersonId": "re0029"
+    },
+    {
+      "id": "ac0011",
+      "description": "Evening worship service",
+      "location": "Clubhouse",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {},
+      "keywords": [
+        "religious"
+      ],
+      "imagePath": "",
+      "activityName": "Vespers",
+      "contactResidentId": "re0029",
+      "chairpersonId": "re0029"
+    },
+    {
+      "id": "ac0012",
+      "description": "Community gardening",
+      "location": "Garden Area",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {},
+      "keywords": [
+        "garden"
+      ],
+      "imagePath": "",
+      "activityName": "Garden Club",
+      "contactResidentId": "re0087",
+      "chairpersonId": "re0087"
+    },
+    {
+      "id": "ac0013",
+      "description": "Community yard sale",
+      "location": "Park Wide",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {},
+      "keywords": [
+        "sale"
+      ],
+      "imagePath": "",
+      "activityName": "Patio Sale",
+      "contactResidentId": "re0088",
+      "chairpersonId": "re0088"
+    },
+    {
+      "id": "ac0014",
+      "description": "Group lunch event",
+      "location": "Clubhouse",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {},
+      "keywords": [
+        "social"
+      ],
+      "imagePath": "",
+      "activityName": "Ladies Luncheon",
+      "contactResidentId": "re0090",
+      "chairpersonId": "re0090"
+    },
+    {
+      "id": "ac0015",
+      "description": "Support committee",
+      "location": "Office",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {},
+      "keywords": [
+        "support"
+      ],
+      "imagePath": "",
+      "activityName": "Bereavement Committee",
+      "contactResidentId": "re0089",
+      "chairpersonId": "re0089"
+    },
+    {
+      "id": "ac0016",
+      "description": "Kitchen supply management",
+      "location": "Kitchen",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {},
+      "keywords": [
+        "operations"
+      ],
+      "imagePath": "",
+      "activityName": "Kitchen Inventory",
+      "contactResidentId": "re0036",
+      "chairpersonId": "re0036"
+    },
+    {
+      "id": "ac0017",
+      "description": "One-off and special dance events",
+      "location": "Hall A",
+      "recurrenceType": "",
+      "recurrenceDetails": {},
+      "keywords": [
+        "dance",
+        "music",
+        "band"
+      ],
+      "imagePath": "",
+      "activityName": "Dance",
+      "contactResidentId": "re0011",
+      "chairpersonId": "re0011"
+    },
+    {
+      "id": "ac0018",
+      "description": "One-off theater performances",
+      "location": "Hall A",
+      "recurrenceType": "",
+      "recurrenceDetails": {},
+      "keywords": [
+        "theater",
+        "performance",
+        "drama"
+      ],
+      "imagePath": "",
+      "activityName": "Theater",
+      "contactResidentId": "re0011",
+      "chairpersonId": "re0011"
+    },
+    {
+      "id": "ac0019",
+      "description": "One-off comedy performances",
+      "location": "Hall A",
+      "recurrenceType": "",
+      "recurrenceDetails": {},
+      "keywords": [
+        "comedy",
+        "show"
+      ],
+      "imagePath": "",
+      "activityName": "Comedy",
+      "contactResidentId": "re0011",
+      "chairpersonId": "re0011"
+    },
+    {
+      "id": "ac0020",
+      "description": "One-off live music performances",
+      "location": "Hall A",
+      "recurrenceType": "",
+      "recurrenceDetails": {},
+      "keywords": [
+        "music",
+        "live",
+        "performance"
+      ],
+      "imagePath": "",
+      "activityName": "Music Performance",
+      "contactResidentId": "re0011",
+      "chairpersonId": "re0011"
+    },
+    {
+      "id": "ac0021",
+      "description": "One-off interactive mystery performances",
+      "location": "Hall A",
+      "recurrenceType": "",
+      "recurrenceDetails": {},
+      "keywords": [
+        "mystery",
+        "interactive",
+        "performance"
+      ],
+      "imagePath": "",
+      "activityName": "Murder Mystery",
+      "contactResidentId": "re0011",
+      "chairpersonId": "re0011"
+    },
+    {
+      "id": "ac0022",
+      "description": "One-off talent and showcase events",
+      "location": "Hall A",
+      "recurrenceType": "",
+      "recurrenceDetails": {},
+      "keywords": [
+        "talent",
+        "show",
+        "performance"
+      ],
+      "imagePath": "",
+      "activityName": "Talent Show",
+      "contactResidentId": "re0011",
+      "chairpersonId": "re0011"
     }
   ],
   "events": [
     {
-      "id": 1,
-      "eventName": "Unknown",
-      "activityId": 1,
-      "chairpersonId": "re0001",
-      "locationId": 1,
-      "date": "0000-00-00",
-      "time": "00:00",
-      "recurrenceType": "OneTime",
-      "isSpecialEvent": "No",
-      "isActive": "Yes",
-      "notes": "",
-      "imagePath": ""
+      "id": "ev0001",
+      "activityId": "ac0017",
+      "date": "2027-01-06",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "Warman Trio Sock Hop"
+    },
+    {
+      "id": "ev0002",
+      "activityId": "ac0017",
+      "date": "2027-02-10",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "Justin Terry Valentines Dance"
+    },
+    {
+      "id": "ev0003",
+      "activityId": "ac0017",
+      "date": "2027-03-15",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "High Carbon Steel Band"
+    },
+    {
+      "id": "ev0004",
+      "activityId": "ac0019",
+      "date": "2027-01-20",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "Mayham Comedy Show"
+    },
+    {
+      "id": "ev0005",
+      "activityId": "ac0018",
+      "date": "2027-03-10",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "Players Studio Theater Performance"
+    },
+    {
+      "id": "ev0006",
+      "activityId": "ac0021",
+      "date": "2027-02-17",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "Julia Lane Cooper Mardi Gras Murder Mystery Party"
+    },
+    {
+      "id": "ev0007",
+      "activityId": "ac0020",
+      "date": "2027-01-27",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "Singing Ambassadors Performance"
+    },
+    {
+      "id": "ev0008",
+      "activityId": "ac0022",
+      "date": "2027-03-17",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "St. Patricks Day Talent Show"
+    },
+    {
+      "id": "ev0009",
+      "activityId": "ac0001",
+      "date": "2026-11-07",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "Karaoke"
+    },
+    {
+      "id": "ev0010",
+      "activityId": "ac0001",
+      "date": "2026-11-14",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "Karaoke"
+    },
+    {
+      "id": "ev0011",
+      "activityId": "ac0002",
+      "date": "2026-11-21",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "DJ Dance"
+    },
+    {
+      "id": "ev0012",
+      "activityId": "ac0002",
+      "date": "2026-11-28",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "DJ Dance"
+    },
+    {
+      "id": "ev0013",
+      "activityId": "ac0001",
+      "date": "2026-12-05",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "Karaoke"
+    },
+    {
+      "id": "ev0014",
+      "activityId": "ac0002",
+      "date": "2026-12-12",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "DJ Dance"
+    },
+    {
+      "id": "ev0015",
+      "activityId": "ac0001",
+      "date": "2026-12-19",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "Karaoke"
+    },
+    {
+      "id": "ev0016",
+      "activityId": "ac0002",
+      "date": "2026-12-26",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "DJ Dance"
+    },
+    {
+      "id": "ev0017",
+      "activityId": "ac0001",
+      "date": "2027-01-09",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "Karaoke"
+    },
+    {
+      "id": "ev0018",
+      "activityId": "ac0002",
+      "date": "2027-01-16",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "DJ Dance"
+    },
+    {
+      "id": "ev0019",
+      "activityId": "ac0001",
+      "date": "2027-01-23",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "Karaoke"
+    },
+    {
+      "id": "ev0020",
+      "activityId": "ac0017",
+      "date": "2027-01-30",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "Warman Trio Sock Hop"
+    },
+    {
+      "id": "ev0021",
+      "activityId": "ac0001",
+      "date": "2027-02-06",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "Karaoke"
+    },
+    {
+      "id": "ev0022",
+      "activityId": "ac0017",
+      "date": "2027-02-13",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "Justin Terry Valentines Dance"
+    },
+    {
+      "id": "ev0023",
+      "activityId": "ac0001",
+      "date": "2027-02-20",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "Karaoke"
+    },
+    {
+      "id": "ev0024",
+      "activityId": "ac0002",
+      "date": "2027-02-27",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "DJ Dance"
+    },
+    {
+      "id": "ev0025",
+      "activityId": "ac0017",
+      "date": "2027-03-06",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "High Carbon Steel Band"
+    },
+    {
+      "id": "ev0026",
+      "activityId": "ac0001",
+      "date": "2027-03-13",
+      "startTime": "19:00",
+      "endTime": "",
+      "isActive": true,
+      "location": "Hall A",
+      "eventName": "Karaoke"
     }
   ],
   "committees": [
     {
-      "id": 1,
+      "id": "cm0001",
       "committeeName": "Unknown",
       "description": "",
       "notes": ""
@@ -922,15 +5289,15 @@
   ],
   "committeeMembers": [
     {
-      "id": 1,
-      "committeeId": 1,
+      "id": "mb0001",
+      "committeeId": "cm0001",
       "residentId": "re0001",
       "position": "Member"
     }
   ],
   "parkStaff": [
     {
-      "id": 1,
+      "id": "ps0001",
       "name": "Unknown",
       "imagePath": "",
       "notes": ""
@@ -938,7 +5305,7 @@
   ],
   "announcements": [
     {
-      "id": 1,
+      "id": "an0001",
       "title": "Unknown",
       "description": "",
       "datePosted": "0000-00-00",
@@ -950,7 +5317,7 @@
   ],
   "locations": [
     {
-      "id": 1,
+      "id": "lo0001",
       "locationName": "Unknown",
       "description": "",
       "notes": ""
@@ -958,41 +5325,41 @@
   ],
   "roles": [
     {
-      "id": 1,
+      "id": "ro0001",
       "roleName": "Resident",
       "description": "Base resident role."
     },
     {
-      "id": 2,
+      "id": "ro0002",
       "roleName": "Committee Member",
       "description": "Resident listed as part of a committee."
     },
     {
-      "id": 3,
+      "id": "ro0003",
       "roleName": "Committee Admin",
       "description": "Resident with committee edit authority."
     },
     {
-      "id": 4,
+      "id": "ro0004",
       "roleName": "Chairperson",
       "description": "Resident identified as chairperson for an activity or event."
     },
     {
-      "id": 5,
+      "id": "ro0005",
       "roleName": "Park Admin",
       "description": "Park-designated administrator role."
     },
     {
-      "id": 6,
+      "id": "ro0006",
       "roleName": "Webmaster",
       "description": "Full site edit authority."
     }
   ],
   "residentRoles": [
     {
-      "id": 1,
+      "id": "rr0001",
       "residentId": "re0001",
-      "roleId": 1
+      "roleId": "ro0001"
     }
   ]
 }

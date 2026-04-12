@@ -47,7 +47,7 @@ The system is built around the following **11 core objects**:
 
 This section is the **canonical schema** for long-term site data. A developer can recreate the master JSON structure from the object list, relationships, and field definitions below. For **concrete shape and typing** (field names, nesting, sample values), use [`assets/data/json/mmhp-master-data.json`](assets/data/json/mmhp-master-data.json).
 
-Each object uses **`id`** as its primary identifier. **Residents** use string ids `re0000`, `re0001`, … (zero-padded to four digits; `re0000` is the Vacant placeholder). Other types currently use numeric ids. Foreign references use **`*Id`** fields (for example `residentId`, `activityId`).
+Each object uses a **string** `id` with a type prefix and four digits (for example `re0001`, `sp0001`). **Residents:** `re####` (`re0000` = Vacant). **Spaces:** `sp####`. **Activities:** `ac####`. **Events:** `ev####`. **Committees:** `cm####`. **Committee members:** `mb####`. **Park staff:** `ps####`. **Announcements:** `an####`. **Locations:** `lo####`. **Roles:** `ro####`. **Resident–role links:** `rr####`. Foreign references use **`*Id`** fields (`residentId`, `activityId`, `committeeId`, `roleId`, etc.) and match those string ids.
 
 ## Overview
 **MVP (current academic deliverable):** Events shown on the site come from **Google Calendar**; event submissions use **Google Forms**. The live pages **do not read** `mmhp-master-data.json`.

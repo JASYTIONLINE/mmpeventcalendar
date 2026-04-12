@@ -45,7 +45,9 @@ The system is built around the following **11 core objects**:
 
 # Data Model (Schema Specification)
 
-This section is the **canonical schema** for long-term site data. A developer can recreate the master JSON structure from the object list, relationships, and field definitions below. For **concrete shape and typing** (keys, nesting, sample values), use [`assets/data/json/mmhp-master-data.json`](assets/data/json/mmhp-master-data.json).
+This section is the **canonical schema** for long-term site data. A developer can recreate the master JSON structure from the object list, relationships, and field definitions below. For **concrete shape and typing** (field names, nesting, sample values), use [`assets/data/json/mmhp-master-data.json`](assets/data/json/mmhp-master-data.json).
+
+Each object type uses **`id`** as its primary identifier (numeric). Foreign references use **`*Id`** fields (for example `residentId`, `activityId`).
 
 ## Overview
 **MVP (current academic deliverable):** Events shown on the site come from **Google Calendar**; event submissions use **Google Forms**. The live pages **do not read** `mmhp-master-data.json`.
@@ -64,41 +66,41 @@ Design goals:
 
 ### Activities → Events
 - An **activity becomes an event when scheduled**
-- `events.activityKey → activities.key`
+- `events.activityId → activities.id`
 
 ---
 
 ### Residents → Spaces
-- `spaces.residentKey → residents.key`
+- `spaces.residentId → residents.id`
 - Multiple residents may occupy one space
 
 ---
 
 ### Activities → Residents
-- `activities.chairpersonKey → residents.key`
-- Optional: `coChairKeys[]`
+- `activities.chairpersonId → residents.id`
+- Optional: `coChairIds[]`
 
 ---
 
 ### Events → Residents
-- `events.chairpersonKey → residents.key`
+- `events.chairpersonId → residents.id`
 
 ---
 
 ### Events → Locations
-- `events.locationKey → locations.key`
+- `events.locationId → locations.id`
 
 ---
 
 ### Committees → Committee Members
-- `committeeMembers.committeeKey → committees.key`
-- `committeeMembers.residentKey → residents.key`
+- `committeeMembers.committeeId → committees.id`
+- `committeeMembers.residentId → residents.id`
 
 ---
 
 ### Residents → Roles
-- `residentRoles.residentKey → residents.key`
-- `residentRoles.roleKey → roles.key`
+- `residentRoles.residentId → residents.id`
+- `residentRoles.roleId → roles.id`
 
 ---
 
@@ -108,7 +110,7 @@ Design goals:
 People in the park
 
 Fields:
-- key
+- id
 - name
 - phone
 - memberSince
@@ -122,10 +124,10 @@ Fields:
 Physical lots
 
 Fields:
-- key
+- id
 - spaceNumber
 - street
-- residentKey
+- residentId
 - status
 - notes
 - imagePath
@@ -141,11 +143,11 @@ Allowed status:
 Ongoing programs
 
 Fields:
-- key
+- id
 - activityName
 - description
-- chairpersonKey
-- coChairKeys[]
+- chairpersonId
+- coChairIds[]
 - notes
 - imagePath
 
@@ -155,11 +157,11 @@ Fields:
 Scheduled occurrences
 
 Fields:
-- key
+- id
 - eventName
-- activityKey
-- chairpersonKey
-- locationKey
+- activityId
+- chairpersonId
+- locationId
 - date
 - time
 - recurrenceType
@@ -179,7 +181,7 @@ Recurrence types:
 Standing groups
 
 Fields:
-- key
+- id
 - committeeName
 - description
 - notes
@@ -194,9 +196,9 @@ Each record represents:
 - assigned to a resident
 
 Fields:
-- key
-- committeeKey
-- residentKey
+- id
+- committeeId
+- residentId
 - position
 
 Examples of position:
@@ -211,7 +213,7 @@ Examples of position:
 Display-only staff listing
 
 Fields:
-- key
+- id
 - name
 - imagePath
 - notes
@@ -227,7 +229,7 @@ Notes:
 General notices
 
 Fields:
-- key
+- id
 - title
 - description
 - datePosted
@@ -247,7 +249,7 @@ Priority:
 Standardized event locations
 
 Fields:
-- key
+- id
 - locationName
 - description
 - notes
@@ -258,7 +260,7 @@ Fields:
 Permission roles
 
 Fields:
-- key
+- id
 - roleName
 - description
 
@@ -276,9 +278,9 @@ Standard roles:
 Links residents to roles
 
 Fields:
-- key
-- residentKey
-- roleKey
+- id
+- residentId
+- roleId
 
 ---
 

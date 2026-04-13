@@ -3,6 +3,8 @@
   var __dataAdminBrowseInitGen = 0;
   /** Ignore rapid repeat clicks on Add event. */
   var __dataAdminLastAddEventMs = 0;
+  /** Ignore rapid repeat clicks on Purge before today. */
+  var __dataAdminLastPurgePastMs = 0;
 
   var ADMIN_UNLOCK_STORAGE_KEY = "mmhp_data_admin_unlocked";
   var MASTER_JSON_REL_PATH_STORAGE_KEY = "mmhp-master-json-rel-path";
@@ -463,6 +465,7 @@
       startTime: "19:00",
       endTime: "",
       isActive: true,
+      isSpecialEvent: false,
       location: loc,
       cardLine1: "New event",
     };
@@ -689,6 +692,8 @@
       if (key === "cardLine1") return "Event title (card line 1 — shown on featured cards)";
       if (key === "date") return "Event date (card line 3)";
       if (key === "startTime") return "Start & end time";
+      if (key === "isSpecialEvent")
+        return "Featured on home page (special / one-off highlight)";
     }
     return key;
   }
@@ -701,6 +706,7 @@
     "endTime",
     "location",
     "isActive",
+    "isSpecialEvent",
   ];
 
   function sortEventFormKeys(keys) {
@@ -734,6 +740,7 @@
       var hasET = keys.indexOf("endTime") !== -1;
       if (hasET && !hasST) keys.push("startTime");
       if (hasST && keys.indexOf("endTime") === -1) keys.push("endTime");
+      if (keys.indexOf("isSpecialEvent") === -1) keys.push("isSpecialEvent");
       keys = sortEventFormKeys(keys);
     }
     for (let i = 0; i < keys.length; i++) {
@@ -741,6 +748,9 @@
       if (collectionKey === "activities" && key === "recurrenceDetails") continue;
       if (collectionKey === "events" && key === "endTime") continue;
       let val = obj[key];
+      if (collectionKey === "events" && key === "isSpecialEvent" && val !== true && val !== false) {
+        val = false;
+      }
       if (collectionKey === "events" && key === "cardLine1" && (val === undefined || val === null)) {
         val = "";
       }
@@ -932,6 +942,13 @@
         row.__readField = function () {
           return t.getAttribute("aria-pressed") === "true";
         };
+        if (collectionKey === "events" && key === "isSpecialEvent") {
+          let hintSp = document.createElement("p");
+          hintSp.className = "data-admin-edit-field-hint";
+          hintSp.textContent =
+            "Turn On for this instance to appear in “Upcoming Featured Events” and the right “This week” column (with the event’s date in range). Recurring activities stay off here unless you set On — otherwise only one-off activities are featured automatically.";
+          row.appendChild(hintSp);
+        }
       } else if (typeof val === "number" && !isNaN(val)) {
         let inp = document.createElement("input");
         inp.type = "number";
@@ -1749,6 +1766,62 @@
               "Added event " +
                 nu.id +
                 ". Complete the form and click Apply, then use Save changes to the Master Data File."
+            );
+          };
+        }
+
+        var purgePastBtn = document.getElementById("mmhp-purge-past-events-btn");
+        if (purgePastBtn) {
+          purgePastBtn.onclick = function () {
+            var nowMs = Date.now();
+            if (nowMs - __dataAdminLastPurgePastMs < 900) {
+              return;
+            }
+            __dataAdminLastPurgePastMs = nowMs;
+            if (!masterData) {
+              setStatus("No data loaded.", true);
+              return;
+            }
+            if (!document.getElementById("collection-events")) {
+              setStatus(
+                "Cannot purge events: this JSON has no events collection.",
+                true
+              );
+              return;
+            }
+            if (!Array.isArray(masterData.events)) masterData.events = [];
+            var today = todayIsoLocal();
+            var evs = masterData.events;
+            var toRemove = 0;
+            for (var pi = 0; pi < evs.length; pi++) {
+              var ds = String(evs[pi] && evs[pi].date != null ? evs[pi].date : "").trim();
+              if (ds.length === 10 && ds < today) toRemove++;
+            }
+            if (toRemove === 0) {
+              setStatus("No events dated before " + today + " to remove.");
+              return;
+            }
+            var msg =
+              "Remove " +
+              toRemove +
+              " event(s) dated before " +
+              today +
+              " (this browser's local calendar date)?\n\nRows stay in memory until you save or reload.";
+            if (!window.confirm(msg)) {
+              setStatus("Purge cancelled.");
+              return;
+            }
+            var kept = [];
+            for (var pj = 0; pj < evs.length; pj++) {
+              var d2 = String(evs[pj] && evs[pj].date != null ? evs[pj].date : "").trim();
+              if (d2.length === 10 && d2 < today) continue;
+              kept.push(evs[pj]);
+            }
+            masterData.events = kept;
+            setDataAdminUnsaved(true);
+            refreshSectionByKey("events");
+            setStatus(
+              "Removed " + toRemove + " past event(s). " + kept.length + " remain. Save to write the Master Data File."
             );
           };
         }

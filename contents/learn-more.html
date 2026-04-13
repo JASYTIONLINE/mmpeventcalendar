@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
-<body id="top">
+<body id="top" data-mmhp-master-json="../assets/data/json/mmhp-master-data.json">
   <div class="site-wrapper">
     <div class="site-shell">
 
@@ -41,14 +41,18 @@
       <div class="site-layout layout">
 
         <!-- LEFT SIDEBAR -->
-        <aside class="site-sidebar site-sidebar-left sidebar-left" aria-labelledby="recurring-events-heading">
-          <h2 id="recurring-events-heading" class="site-sidebar-title">Recurring Events</h2>
-          <ul class="recurring-events-list">
-            <li class="recurring-events-item">Weekly Card Game</li>
-            <li class="recurring-events-item">Association Meeting</li>
-            <li class="recurring-events-item">Thursday Potluck</li>
-            <li class="recurring-events-item">Saturday Coffee Social</li>
-          </ul>
+        <aside class="site-sidebar site-sidebar-left sidebar-left" aria-labelledby="schedule-sidebar-heading">
+          <h2 id="schedule-sidebar-heading" class="site-sidebar-title">Recurring schedule</h2>
+          <div class="sidebar-left-body">
+            <ul class="recurring-events-list" aria-busy="true"></ul>
+            <div class="sidebar-schedule-io" aria-label="Schedule CSV export and import">
+              <p class="sidebar-schedule-io-hint">Export/import require a password. Export to edit activities and events in Excel; import downloads JSON to replace in the repo.</p>
+              <button type="button" class="btn site-button sidebar-schedule-io-btn" id="mmhp-export-schedule-csv">Export CSV</button>
+              <button type="button" class="btn site-button sidebar-schedule-io-btn" id="mmhp-import-schedule-csv">Import CSV</button>
+              <input type="file" id="mmhp-import-schedule-file" accept=".csv,text/csv" hidden />
+              <p class="sidebar-schedule-io-status" id="mmhp-schedule-io-status" role="status" aria-live="polite"></p>
+            </div>
+          </div>
         </aside>
 
         <!-- CENTER CONTENT -->
@@ -132,25 +136,7 @@
         <aside class="site-sidebar site-sidebar-right sidebar-right" aria-labelledby="featured-events-heading">
           <h2 id="featured-events-heading" class="site-sidebar-title">Featured Events</h2>
 
-          <div class="featured-events-grid">
-
-            <article class="site-card featured-card card">
-              <a class="featured-card-link" href="learn-more.html">
-                <img class="featured-card-image" src="https://via.placeholder.com/400x300"
-                  alt="Featured event placeholder for Karaoke Night">
-                <p class="featured-card-caption">Karaoke Night</p>
-              </a>
-            </article>
-
-            <article class="site-card featured-card card">
-              <a class="featured-card-link" href="learn-more.html">
-                <img class="featured-card-image" src="https://via.placeholder.com/400x300"
-                  alt="Featured event placeholder for DJ Dance">
-                <p class="featured-card-caption">DJ Dance</p>
-              </a>
-            </article>
-
-          </div>
+          <div class="featured-events-grid" aria-live="polite"></div>
         </aside>
 
       </div>
@@ -173,6 +159,8 @@
 
     </div>
   </div>
+  <script src="../assets/js/activities-sidebar.js" defer></script>
+  <script src="../assets/js/schedule-csv-io.js" defer></script>
 </body>
 
 </html>

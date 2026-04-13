@@ -4728,7 +4728,16 @@
       "description": "Regular card playing group",
       "location": "Clubhouse",
       "recurrenceType": "Recurring",
-      "recurrenceDetails": {},
+      "recurrenceDetails": {
+        "weekdays": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "startTime": "13:00"
+      },
       "keywords": [
         "cards",
         "social"
@@ -4743,7 +4752,16 @@
       "description": "Organized pool games",
       "location": "Pool Room",
       "recurrenceType": "Recurring",
-      "recurrenceDetails": {},
+      "recurrenceDetails": {
+        "weekdays": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "startTime": "13:00"
+      },
       "keywords": [
         "pool",
         "games"
@@ -4758,7 +4776,16 @@
       "description": "Line dancing sessions",
       "location": "Rec Hall",
       "recurrenceType": "Recurring",
-      "recurrenceDetails": {},
+      "recurrenceDetails": {
+        "weekdays": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "startTime": "14:00"
+      },
       "keywords": [
         "dance"
       ],
@@ -4772,7 +4799,16 @@
       "description": "General crafting activities",
       "location": "Clubhouse",
       "recurrenceType": "Recurring",
-      "recurrenceDetails": {},
+      "recurrenceDetails": {
+        "weekdays": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "startTime": "10:00"
+      },
       "keywords": [
         "crafts"
       ],
@@ -4786,7 +4822,16 @@
       "description": "Sewing group",
       "location": "Clubhouse",
       "recurrenceType": "Recurring",
-      "recurrenceDetails": {},
+      "recurrenceDetails": {
+        "weekdays": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "startTime": "10:00"
+      },
       "keywords": [
         "sewing"
       ],
@@ -4800,7 +4845,12 @@
       "description": "Reading and discussion group",
       "location": "Library",
       "recurrenceType": "Recurring",
-      "recurrenceDetails": {},
+      "recurrenceDetails": {
+        "weekdays": [
+          "Wednesday"
+        ],
+        "startTime": "14:00"
+      },
       "keywords": [
         "books"
       ],
@@ -4814,7 +4864,16 @@
       "description": "Weaving craft group",
       "location": "Clubhouse",
       "recurrenceType": "Recurring",
-      "recurrenceDetails": {},
+      "recurrenceDetails": {
+        "weekdays": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "startTime": "09:00"
+      },
       "keywords": [
         "crafts"
       ],
@@ -4828,7 +4887,12 @@
       "description": "Group Bible study",
       "location": "Clubhouse",
       "recurrenceType": "Recurring",
-      "recurrenceDetails": {},
+      "recurrenceDetails": {
+        "weekdays": [
+          "Wednesday"
+        ],
+        "startTime": "10:00"
+      },
       "keywords": [
         "religious"
       ],
@@ -4842,7 +4906,12 @@
       "description": "Evening worship service",
       "location": "Clubhouse",
       "recurrenceType": "Recurring",
-      "recurrenceDetails": {},
+      "recurrenceDetails": {
+        "weekdays": [
+          "Sunday"
+        ],
+        "startTime": "17:00"
+      },
       "keywords": [
         "religious"
       ],
@@ -4856,7 +4925,13 @@
       "description": "Community gardening",
       "location": "Garden Area",
       "recurrenceType": "Recurring",
-      "recurrenceDetails": {},
+      "recurrenceDetails": {
+        "weekdays": [
+          "Tuesday",
+          "Thursday"
+        ],
+        "startTime": "09:00"
+      },
       "keywords": [
         "garden"
       ],
@@ -4884,7 +4959,12 @@
       "description": "Group lunch event",
       "location": "Clubhouse",
       "recurrenceType": "Recurring",
-      "recurrenceDetails": {},
+      "recurrenceDetails": {
+        "weekdays": [
+          "Thursday"
+        ],
+        "startTime": "12:00"
+      },
       "keywords": [
         "social"
       ],
@@ -5026,7 +5106,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Warman Trio Sock Hop"
+      "eventName": "Warman Trio Sock Hop",
+      "cardLine1": "Warman Trio",
+      "cardLine2": "Sock Hop",
+      "cardLine3": "Jan 6 2027"
     },
     {
       "id": "ev0002",
@@ -5036,7 +5119,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Justin Terry Valentines Dance"
+      "eventName": "Justin Terry Valentines Dance",
+      "cardLine1": "Justin Terry",
+      "cardLine2": "Valentines Dance",
+      "cardLine3": "Feb 10 2027"
     },
     {
       "id": "ev0003",
@@ -5046,7 +5132,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "High Carbon Steel Band"
+      "eventName": "High Carbon Steel Band",
+      "cardLine1": "High Carbon",
+      "cardLine2": "Steel Band",
+      "cardLine3": "Mar 15 2027"
     },
     {
       "id": "ev0004",
@@ -5056,7 +5145,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Mayham Comedy Show"
+      "eventName": "Mayham Comedy Show",
+      "cardLine1": "Mayham",
+      "cardLine2": "Comedy Show",
+      "cardLine3": "Jan 20 2027"
     },
     {
       "id": "ev0005",
@@ -5066,7 +5158,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Players Studio Theater Performance"
+      "eventName": "Players Studio Theater Performance",
+      "cardLine1": "Players Studio",
+      "cardLine2": "Theater Performance",
+      "cardLine3": "Mar 10 2027"
     },
     {
       "id": "ev0006",
@@ -5076,7 +5171,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Julia Lane Cooper Mardi Gras Murder Mystery Party"
+      "eventName": "Julia Lane Cooper Mardi Gras Murder Mystery Party",
+      "cardLine1": "Julia Lane",
+      "cardLine2": "Cooper Mardi Gras Murder Mystery Party",
+      "cardLine3": "Feb 17 2027"
     },
     {
       "id": "ev0007",
@@ -5086,7 +5184,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Singing Ambassadors Performance"
+      "eventName": "Singing Ambassadors Performance",
+      "cardLine1": "Singing",
+      "cardLine2": "Ambassadors Performance",
+      "cardLine3": "Jan 27 2027"
     },
     {
       "id": "ev0008",
@@ -5096,7 +5197,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "St. Patricks Day Talent Show"
+      "eventName": "St. Patricks Day Talent Show",
+      "cardLine1": "St. Patricks",
+      "cardLine2": "Day Talent Show",
+      "cardLine3": "Mar 17 2027"
     },
     {
       "id": "ev0009",
@@ -5106,7 +5210,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke"
+      "eventName": "Karaoke",
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Nov 7 2026"
     },
     {
       "id": "ev0010",
@@ -5116,7 +5223,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke"
+      "eventName": "Karaoke",
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Nov 14 2026"
     },
     {
       "id": "ev0011",
@@ -5126,7 +5236,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "DJ Dance"
+      "eventName": "DJ Dance",
+      "cardLine1": "DJ",
+      "cardLine2": "Dance",
+      "cardLine3": "Nov 21 2026"
     },
     {
       "id": "ev0012",
@@ -5136,7 +5249,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "DJ Dance"
+      "eventName": "DJ Dance",
+      "cardLine1": "DJ",
+      "cardLine2": "Dance",
+      "cardLine3": "Nov 28 2026"
     },
     {
       "id": "ev0013",
@@ -5146,7 +5262,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke"
+      "eventName": "Karaoke",
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Dec 5 2026"
     },
     {
       "id": "ev0014",
@@ -5156,7 +5275,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "DJ Dance"
+      "eventName": "DJ Dance",
+      "cardLine1": "DJ",
+      "cardLine2": "Dance",
+      "cardLine3": "Dec 12 2026"
     },
     {
       "id": "ev0015",
@@ -5166,7 +5288,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke"
+      "eventName": "Karaoke",
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Dec 19 2026"
     },
     {
       "id": "ev0016",
@@ -5176,7 +5301,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "DJ Dance"
+      "eventName": "DJ Dance",
+      "cardLine1": "DJ",
+      "cardLine2": "Dance",
+      "cardLine3": "Dec 26 2026"
     },
     {
       "id": "ev0017",
@@ -5186,7 +5314,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke"
+      "eventName": "Karaoke",
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Jan 9 2027"
     },
     {
       "id": "ev0018",
@@ -5196,7 +5327,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "DJ Dance"
+      "eventName": "DJ Dance",
+      "cardLine1": "DJ",
+      "cardLine2": "Dance",
+      "cardLine3": "Jan 16 2027"
     },
     {
       "id": "ev0019",
@@ -5206,7 +5340,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke"
+      "eventName": "Karaoke",
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Jan 23 2027"
     },
     {
       "id": "ev0020",
@@ -5216,7 +5353,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Warman Trio Sock Hop"
+      "eventName": "Warman Trio Sock Hop",
+      "cardLine1": "Warman Trio",
+      "cardLine2": "Sock Hop",
+      "cardLine3": "Jan 30 2027"
     },
     {
       "id": "ev0021",
@@ -5226,7 +5366,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke"
+      "eventName": "Karaoke",
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Feb 6 2027"
     },
     {
       "id": "ev0022",
@@ -5236,7 +5379,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Justin Terry Valentines Dance"
+      "eventName": "Justin Terry Valentines Dance",
+      "cardLine1": "Justin Terry",
+      "cardLine2": "Valentines Dance",
+      "cardLine3": "Feb 13 2027"
     },
     {
       "id": "ev0023",
@@ -5246,7 +5392,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke"
+      "eventName": "Karaoke",
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Feb 20 2027"
     },
     {
       "id": "ev0024",
@@ -5256,7 +5405,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "DJ Dance"
+      "eventName": "DJ Dance",
+      "cardLine1": "DJ",
+      "cardLine2": "Dance",
+      "cardLine3": "Feb 27 2027"
     },
     {
       "id": "ev0025",
@@ -5266,7 +5418,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "High Carbon Steel Band"
+      "eventName": "High Carbon Steel Band",
+      "cardLine1": "High Carbon",
+      "cardLine2": "Steel Band",
+      "cardLine3": "Mar 6 2027"
     },
     {
       "id": "ev0026",
@@ -5276,7 +5431,10 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke"
+      "eventName": "Karaoke",
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Mar 13 2027"
     }
   ],
   "committees": [

@@ -25,6 +25,50 @@ All park-related issues must be directed to the park office.
 
 ---
 
+## Workflow (operations plan)
+
+This section is the **agreed plan** for how calendar and sidebar content move from sponsors to residents. The goals are a **simple volunteer experience**, **few moving parts that can break**, and **documentation** (standard operating procedures) so every step is repeatable.
+
+### Principles
+
+1. **The website is driven by JSON in this repository.** The pages load schedule-related data from a file under [`assets/data/json/`](assets/data/json/) (today [`mmhp-master-data.json`](assets/data/json/mmhp-master-data.json); a slimmer `schedule.json` or equivalent may replace or complement it as the model evolves). That JSON is the **source of truth for the site**—left sidebar (recurring / weekly outline), right sidebar (featured / special items), and any future calendar UI that reads the same file.
+
+2. **Google Calendar is parallel, not a parser for the site.** The park’s **public Google Calendar** is what people can subscribe to on their phones. It is kept **in sync with the same schedule** the webmaster approves—typically by **importing CSV** (Google’s format) once per season and making small edits during the year. The site does **not** depend on parsing ICS in the browser for day one; that avoids fragile parsing and lost metadata (for example “featured” flags) unless we deliberately encode them later.
+
+3. **Low frequency justifies manual, documented steps.** The **main season** is usually planned and entered **once a year**. **Ad-hoc** submissions (sponsors, one-off adds) are expected **only a handful of times per year**. A short checklist and GitHub Desktop are enough; we do not need a custom server or automated git pushes for the typical webmaster.
+
+### End-to-end story
+
+**Intake.** A sponsor or committee member opens the **Google Form** (linked from the site). Answers land in a **Google Sheet** that the webmaster owns. Alternatively, trusted editors may work **directly in the Sheet** using the same columns the form would populate.
+
+**Review and approve.** The **webmaster** cleans up wording, dates, and times; checks locations; and marks each row **approved** (for example an `Approved` column or a `Status` value). Only approved rows are exported.
+
+**Export (target automation).** When the webmaster runs **Export** (planned: a **Google Apps Script** menu or button on the Sheet), **two outputs** are produced in one action:
+
+- **Calendar CSV** — Rows in the format Google Calendar expects for **Import** (see [Google’s CSV import help](https://support.google.com/calendar/answer/37118)). The webmaster imports this into the park calendar (or merges carefully to avoid duplicates).
+
+- **Site JSON** — A file (or a defined fragment) that matches what the **sidebar scripts** expect: which items are **recurring** (same time each week), which are **featured / special**, **categories**, titles, times, locations, and dated instances as needed.
+
+Until Apps Script is in place, the webmaster can produce these two artifacts manually or with a one-off tool; the **roles** stay the same: **one approved dataset → two files**.
+
+**Publish the site.** The webmaster saves the exported JSON into the **correct path** in their **local clone** of this repo (per SOP), opens **GitHub Desktop**, reviews the diff, writes a short commit message (for example `Update schedule from Sheet export 2026-04-08`), and **pushes** to the branch that deploys the site (usually `main`). The live site then serves the new JSON on the next deploy.
+
+**Calendar only.** Importing the CSV into Google Calendar is a **separate** step from git. Both steps should be on the same SOP checklist so the **website** and **subscriber calendar** stay aligned.
+
+### Roles
+
+| Role | Responsibility |
+|------|----------------|
+| **Sponsor / editor** | Submit via Form or edit Sheet per instructions |
+| **Webmaster** | Approve, export CSV + JSON, import calendar, commit and push JSON |
+| **Residents** | Use the site and/or subscribe to Google Calendar |
+
+### What we document next (SOP)
+
+Operational docs (separate checklist or wiki page) should spell out: **Sheet column definitions**; meaning of **featured** vs **recurring**; **time zone** (America/Chicago); **exact repo paths** and filenames; **backup before replace**; and **how to avoid duplicate** calendar imports.
+
+---
+
 # Object List (Core Data Model)
 
 The system is built around the following **11 core objects**:
@@ -50,9 +94,9 @@ This section is the **canonical schema** for long-term site data. A developer ca
 Each object uses a **string** `id` with a type prefix and four digits (for example `re0001`, `sp0001`). **Residents:** `re####` (`re0000` = Vacant). **Spaces:** `sp####`. **Activities:** `ac####`. **Events:** `ev####`. **Committees:** `cm####`. **Committee members:** `mb####`. **Park staff:** `ps####`. **Announcements:** `an####`. **Locations:** `lo####`. **Roles:** `ro####`. **Resident–role links:** `rr####`. Foreign references use **`*Id`** fields (`residentId`, `activityId`, `committeeId`, `roleId`, etc.) and match those string ids.
 
 ## Overview
-**MVP (current academic deliverable):** Events shown on the site come from **Google Calendar**; event submissions use **Google Forms**. The live pages **do not read** `mmhp-master-data.json`.
+**Current site behavior:** The **center** calendar is typically a **Google Calendar embed**; **sidebars** (and any JSON-driven UI) load data from [`assets/data/json/mmhp-master-data.json`](assets/data/json/mmhp-master-data.json) via the static pages. **Submissions** use **Google Forms** (see [Workflow](#workflow-operations-plan) for the target Sheet → export → publish story).
 
-**Future:** The site can be powered by **one master JSON file** containing all objects below, maintained (for example) via form workflows or other tooling—not part of the MVP.
+**Schema:** The objects below describe the long-term **master data model**; the operational **workflow** above is how approved data is expected to reach the repo and Google Calendar.
 
 Design goals:
 - simple

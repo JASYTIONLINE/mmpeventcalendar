@@ -6,7 +6,7 @@
   <title>Submit an Event | McAllen Mobile Park Events</title>
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body id="top">
+<body id="top" data-mmhp-master-json="../assets/data/json/mmhp-master-data.json">
   <div class="site-wrapper">
     <div class="site-shell">
 
@@ -30,14 +30,18 @@
       <div class="site-layout layout">
 
         <!-- LEFT SIDEBAR -->
-        <aside class="site-sidebar site-sidebar-left sidebar-left" aria-labelledby="recurring-events-heading">
-          <h2 id="recurring-events-heading" class="site-sidebar-title">Recurring Events</h2>
-          <ul class="recurring-events-list">
-            <li class="recurring-events-item">Weekly Card Game</li>
-            <li class="recurring-events-item">Association Meeting</li>
-            <li class="recurring-events-item">Thursday Potluck</li>
-            <li class="recurring-events-item">Saturday Coffee Social</li>
-          </ul>
+        <aside class="site-sidebar site-sidebar-left sidebar-left" aria-labelledby="schedule-sidebar-heading">
+          <h2 id="schedule-sidebar-heading" class="site-sidebar-title">Recurring schedule</h2>
+          <div class="sidebar-left-body">
+            <ul class="recurring-events-list" aria-busy="true"></ul>
+            <div class="sidebar-schedule-io" aria-label="Schedule CSV export and import">
+              <p class="sidebar-schedule-io-hint">Export/import require a password. Export to edit activities and events in Excel; import downloads JSON to replace in the repo.</p>
+              <button type="button" class="btn site-button sidebar-schedule-io-btn" id="mmhp-export-schedule-csv">Export CSV</button>
+              <button type="button" class="btn site-button sidebar-schedule-io-btn" id="mmhp-import-schedule-csv">Import CSV</button>
+              <input type="file" id="mmhp-import-schedule-file" accept=".csv,text/csv" hidden />
+              <p class="sidebar-schedule-io-status" id="mmhp-schedule-io-status" role="status" aria-live="polite"></p>
+            </div>
+          </div>
         </aside>
 
         <!-- CENTER CONTENT -->
@@ -49,6 +53,20 @@
               <p>
                 There are two ways to submit your event. If you want to upload images, you must be signed into a Google
                 account. If you do not want to sign in, you can submit image links instead.
+              </p>
+              <p>
+                <strong>Featured card text (Google Form):</strong> add three short-answer questions so each event can supply
+                the three lines shown on site cards. Use <strong>response validation</strong> (character count &mdash; maximum)
+                so entries stay within limits:
+              </p>
+              <ul>
+                <li><strong>Card line 1</strong> &mdash; name or headliner (e.g. <em>Justin Terry</em>). <strong>Max 36 characters.</strong></li>
+                <li><strong>Card line 2</strong> &mdash; what the event is (e.g. <em>Valentines Dance</em>). <strong>Max 48 characters.</strong></li>
+                <li><strong>Card line 3</strong> &mdash; date line as residents should read it (e.g. <em>Feb 10 2027</em>), or leave blank to use the event date automatically when data is merged into JSON. <strong>Max 32 characters.</strong></li>
+              </ul>
+              <p style="margin-top: 0.75rem; font-size: 1rem; line-height: 1.45; color: var(--color-text-soft);">
+                Map these fields to <code>cardLine1</code>, <code>cardLine2</code>, and <code>cardLine3</code> on each event in
+                <code>mmhp-master-data.json</code> (or use <strong>Export CSV</strong> on the calendar page after merging Sheet data).
               </p>
               <p class="submission-decision__placeholder-notice" id="submission-placeholder-notice" hidden role="status">
                 The Google Form buttons are not linked yet. Edit <code>contents/submit.html</code> and set each form
@@ -99,37 +117,7 @@
         <aside class="site-sidebar site-sidebar-right sidebar-right" aria-labelledby="featured-events-heading">
           <h2 id="featured-events-heading" class="site-sidebar-title">Featured Events</h2>
 
-          <div class="featured-events-grid">
-
-            <article class="site-card featured-card card">
-              <a class="featured-card-link" href="learn-more.html">
-                <img class="featured-card-image" src="https://via.placeholder.com/400x300" alt="Featured event placeholder for Karaoke Night">
-                <p class="featured-card-caption">Karaoke Night</p>
-              </a>
-            </article>
-
-            <article class="site-card featured-card card">
-              <a class="featured-card-link" href="learn-more.html">
-                <img class="featured-card-image" src="https://via.placeholder.com/400x300" alt="Featured event placeholder for DJ Dance">
-                <p class="featured-card-caption">DJ Dance</p>
-              </a>
-            </article>
-
-            <article class="site-card featured-card card">
-              <a class="featured-card-link" href="learn-more.html">
-                <img class="featured-card-image" src="https://via.placeholder.com/400x300" alt="Featured event placeholder for Live Band">
-                <p class="featured-card-caption">Live Band</p>
-              </a>
-            </article>
-
-            <article class="site-card featured-card card">
-              <a class="featured-card-link" href="learn-more.html">
-                <img class="featured-card-image" src="https://via.placeholder.com/400x300" alt="Featured event placeholder for Community Dinner">
-                <p class="featured-card-caption">Community Dinner</p>
-              </a>
-            </article>
-
-          </div>
+          <div class="featured-events-grid" aria-live="polite"></div>
         </aside>
 
       </div>
@@ -206,5 +194,7 @@
       if (btnNo) btnNo.addEventListener('click', showNoPath);
     })();
   </script>
+  <script src="../assets/js/activities-sidebar.js" defer></script>
+  <script src="../assets/js/schedule-csv-io.js" defer></script>
 </body>
 </html>

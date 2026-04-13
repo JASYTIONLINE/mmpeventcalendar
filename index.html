@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body id="top">
+<body id="top" class="page-home" data-mmhp-master-json="assets/data/json/mmhp-master-data.json">
   <div class="site-wrapper">
     <div class="site-shell">
 
@@ -37,20 +37,24 @@
       <div class="site-layout">
 
         <!-- LEFT -->
-        <aside class="site-sidebar site-sidebar-left">
-          <h2 class="site-sidebar-title">Recurring Events</h2>
-          <ul class="recurring-events-list">
-            <li class="recurring-events-item">Weekly Card Game</li>
-            <li class="recurring-events-item">Association Meeting</li>
-            <li class="recurring-events-item">Thursday Potluck</li>
-            <li class="recurring-events-item">Saturday Coffee Social</li>
-          </ul>
+        <aside class="site-sidebar site-sidebar-left" aria-labelledby="schedule-sidebar-heading">
+          <h2 id="schedule-sidebar-heading" class="site-sidebar-title">Recurring schedule</h2>
+          <div class="sidebar-left-body">
+            <ul class="recurring-events-list" aria-busy="true"></ul>
+            <div class="sidebar-schedule-io" aria-label="Schedule CSV export and import">
+              <p class="sidebar-schedule-io-hint">Export/import require a password. Export to edit activities and events in Excel; import downloads JSON to replace in the repo.</p>
+              <button type="button" class="btn site-button sidebar-schedule-io-btn" id="mmhp-export-schedule-csv">Export CSV</button>
+              <button type="button" class="btn site-button sidebar-schedule-io-btn" id="mmhp-import-schedule-csv">Import CSV</button>
+              <input type="file" id="mmhp-import-schedule-file" accept=".csv,text/csv" hidden />
+              <p class="sidebar-schedule-io-status" id="mmhp-schedule-io-status" role="status" aria-live="polite"></p>
+            </div>
+          </div>
         </aside>
 
         <!-- CENTER -->
         <main class="site-main">
 
-          <section class="site-main-content content">
+          <section class="site-main-content content page-home-calendar-stack">
             <h2>Community Calendar</h2>
 
             <div class="calendar-container">
@@ -58,30 +62,28 @@
                 width="100%" height="650" frameborder="0" scrolling="no">
               </iframe>
             </div>
+
+            <section class="page-home-featured" aria-labelledby="home-featured-heading">
+              <h3 id="home-featured-heading" class="page-home-featured-heading">Upcoming Featured Events</h3>
+              <div class="featured-events-grid page-home-featured-grid" aria-live="polite"></div>
+            </section>
           </section>
 
         </main>
 
-        <!-- RIGHT -->
-        <aside class="site-sidebar site-sidebar-right">
-          <h2 class="site-sidebar-title">Featured Events</h2>
+        <!-- RIGHT: next Wednesday & Saturday highlights -->
+        <aside class="site-sidebar site-sidebar-right" aria-labelledby="week-spotlight-heading">
+          <h2 id="week-spotlight-heading" class="site-sidebar-title">This Week's Featured Events</h2>
 
-          <div class="featured-events-grid">
-            <article class="site-card featured-card">
-              <a class="featured-card-link" href="contents/learn-more.html">
-                <img class="featured-card-image" src="assets/images/dinner.png"
-                  alt="McAllen Mobile Park community dinner">
-                <p class="featured-card-caption">Community Dinner</p>
-              </a>
-            </article>
-
-            <article class="site-card featured-card">
-              <a class="featured-card-link" href="contents/learn-more.html">
-                <img class="featured-card-image" src="assets/images/rec-hall.png"
-                  alt="McAllen Mobile Park rec hall event">
-                <p class="featured-card-caption">DJ Dance</p>
-              </a>
-            </article>
+          <div class="featured-events-grid week-spotlight-grid" aria-live="polite">
+            <div class="week-spotlight-slot">
+              <div class="week-spotlight-daylabel">Coming This Wednesday</div>
+              <div class="week-spotlight-card-mount" id="mmhp-week-spotlight-wednesday"></div>
+            </div>
+            <div class="week-spotlight-slot">
+              <div class="week-spotlight-daylabel">Coming This Saturday</div>
+              <div class="week-spotlight-card-mount" id="mmhp-week-spotlight-saturday"></div>
+            </div>
           </div>
         </aside>
 
@@ -106,6 +108,8 @@
 
     </div>
   </div>
+  <script src="assets/js/activities-sidebar.js" defer></script>
+  <script src="assets/js/schedule-csv-io.js" defer></script>
 </body>
 
 </html>

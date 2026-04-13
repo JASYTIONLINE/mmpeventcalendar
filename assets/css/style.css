@@ -279,6 +279,61 @@
     border-bottom: 2px solid var(--color-sky);
     margin-bottom: 1rem;
   }
+
+  .site-sidebar-left {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .site-sidebar-left .sidebar-left-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .site-sidebar-left .recurring-events-list {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  .sidebar-schedule-io {
+    flex-shrink: 0;
+    margin-top: auto;
+    padding-top: 0.65rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .sidebar-schedule-io-hint {
+    font-size: 0.72rem;
+    line-height: 1.35;
+    color: var(--color-text-soft);
+    margin: 0 0 0.45rem 0;
+  }
+
+  .sidebar-schedule-io-btn {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0.4rem;
+    font-size: 0.78rem;
+    padding: 0.4rem 0.55rem;
+  }
+
+  .sidebar-schedule-io-status {
+    font-size: 0.72rem;
+    line-height: 1.35;
+    color: var(--color-text-soft);
+    margin: 0.4rem 0 0 0;
+    min-height: 1.25em;
+  }
+
+  .sidebar-schedule-io-status--error {
+    color: #b42318;
+    font-weight: 600;
+  }
   
   /* ================================================
      LEFT SIDEBAR - RECURRING EVENTS
@@ -297,6 +352,72 @@
     margin-bottom: 0.75rem;
     color: var(--color-text);
     font-weight: 600;
+  }
+
+  .schedule-by-day .sidebar-schedule-day {
+    list-style: none;
+    margin: 0 0 1.1rem 0;
+    padding: 0;
+  }
+
+  .schedule-by-day .sidebar-schedule-day:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Outline-style: weekday as heading, indented lines below */
+  .schedule-by-day .sidebar-schedule-dayname {
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: left;
+    margin: 0 0 0.35rem 0;
+    padding: 0 0 0.2rem 0;
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .schedule-by-day .sidebar-schedule-slots {
+    list-style: none;
+    margin: 0 0 0 0;
+    padding: 0.35rem 0 0 0.85rem;
+    border-left: 2px solid var(--color-sky);
+  }
+
+  .schedule-by-day .sidebar-schedule-line {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.12rem;
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0.32rem 0;
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    line-height: 1.3;
+    list-style: none;
+  }
+
+  .schedule-by-day .sidebar-schedule-line__title {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .schedule-by-day .sidebar-schedule-line__meta {
+    font-weight: 500;
+    font-size: 0.82rem;
+    color: var(--color-text-soft);
+    line-height: 1.35;
+  }
+
+  .schedule-by-day .sidebar-schedule-line:last-child {
+    padding-bottom: 0;
+  }
+
+  .schedule-by-day .sidebar-schedule-line--empty {
+    font-weight: 500;
+    color: var(--color-text-soft);
+    opacity: 0.9;
   }
   
   /* ================================================
@@ -416,6 +537,38 @@
   /* ================================================
      RIGHT SIDEBAR - FEATURED EVENTS
      ================================================ */
+  .site-sidebar-right-subtitle {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-soft);
+    margin: -0.35rem 0 0.75rem 0;
+    line-height: 1.3;
+  }
+
+  .week-spotlight-slot {
+    margin-bottom: 1rem;
+  }
+
+  .week-spotlight-slot:last-child {
+    margin-bottom: 0;
+  }
+
+  .week-spotlight-daylabel {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-driftwood-dark);
+    margin-bottom: 0.35rem;
+    text-align: center;
+  }
+
+  .week-spotlight-empty {
+    padding: 0.5rem 0.25rem;
+    font-weight: 600;
+  }
+
   .featured-events-grid {
     display: flex;
     flex-direction: column;
@@ -446,10 +599,41 @@
   }
   
   .featured-card-caption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
     text-align: center;
     font-weight: 700;
     color: var(--color-driftwood-dark);
     margin: 0;
+    line-height: 1.25;
+    min-height: calc(1.25em * 3 + 0.4rem);
+    justify-content: center;
+  }
+
+  .featured-card-line--name {
+    font-weight: 800;
+    font-size: clamp(0.75rem, 2.1vw, 0.95rem);
+    color: var(--color-driftwood-dark);
+    line-height: 1.2;
+  }
+
+  .featured-card-line--detail {
+    font-weight: 600;
+    font-size: clamp(0.68rem, 1.85vw, 0.85rem);
+    color: var(--color-text);
+    line-height: 1.2;
+  }
+
+  .featured-card-line--date {
+    font-weight: 600;
+    font-size: clamp(0.65rem, 1.7vw, 0.8rem);
+    color: var(--color-text-soft);
+    line-height: 1.2;
+  }
+
+  .week-spotlight-empty.featured-card-caption {
+    min-height: auto;
   }
   
   /* ================================================
@@ -834,6 +1018,13 @@
       grid-template-columns: unset;
       gap: 1rem;
     }
+
+    /* Home main featured: stay grid, single column on phone */
+    body.page-home .page-home-featured .featured-events-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+    }
   
     .featured-card-image {
       width: 100%;
@@ -931,4 +1122,100 @@
     width: 100%;
     height: 650px;
     border: none;
+  }
+
+  /* Home index: shorter hero; main column height matched to left sidebar in JS */
+  body.page-home .hero-image img {
+    height: min(160px, 20vw);
+    object-fit: cover;
+  }
+
+  body.page-home .site-layout {
+    align-items: flex-start;
+  }
+
+  body.page-home .site-main {
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  body.page-home .page-home-calendar-stack {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  body.page-home .page-home-calendar-stack > h2 {
+    flex-shrink: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  body.page-home .page-home-calendar-stack .calendar-container {
+    flex: 1 1 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.page-home .page-home-calendar-stack .calendar-container iframe {
+    flex: 1 1 0;
+    width: 100%;
+    min-height: 140px;
+    height: 100%;
+    max-height: none;
+    border: none;
+  }
+
+  body.page-home .page-home-featured {
+    flex: 0 0 auto;
+    flex-shrink: 1;
+    min-height: 0;
+    margin-top: 0.65rem;
+  }
+
+  body.page-home .page-home-featured-heading {
+    font-size: clamp(1rem, 2vw, 1.35rem);
+    text-align: center;
+    margin: 0 0 0.4rem 0;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-driftwood-dark);
+  }
+
+  /* Featured under calendar: 4 columns on wide desktop → 2 → 1 on narrow / mobile */
+  body.page-home .page-home-featured .featured-events-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.65rem;
+    max-width: 100%;
+    align-items: start;
+  }
+
+  @media (max-width: 991px) {
+    body.page-home .page-home-featured .featured-events-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 600px) {
+    body.page-home .page-home-featured .featured-events-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  body.page-home .page-home-featured .featured-card {
+    padding: 0.5rem 0.35rem;
+    min-width: 0;
+  }
+
+  body.page-home .page-home-featured .featured-card-image {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 4 / 3;
+    max-height: 140px;
+    object-fit: cover;
   }

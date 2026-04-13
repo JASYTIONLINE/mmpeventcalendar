@@ -140,7 +140,7 @@ def build_event_row(act: dict, ymd: str, start_time: str, eid: str) -> dict:
         "startTime": st,
         "endTime": "",
         "isActive": True,
-        "isSpecialEvent": False,
+        "isFeatured": False,
         "location": loc,
         "eventName": derive_event_name(card1, aname),
         "cardLine1": card1,

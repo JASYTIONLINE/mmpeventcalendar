@@ -546,6 +546,13 @@
 
   function finalizeEventRow(parsed, masterData) {
     if (!parsed || typeof parsed !== "object") return;
+    if (Object.prototype.hasOwnProperty.call(parsed, "isSpecialEvent")) {
+      if (parsed.isFeatured === undefined) {
+        if (parsed.isSpecialEvent === true) parsed.isFeatured = true;
+        else if (parsed.isSpecialEvent === false) parsed.isFeatured = false;
+      }
+      delete parsed.isSpecialEvent;
+    }
     var aid = parsed.activityId != null ? String(parsed.activityId).trim() : "";
     if (aid) parsed.activityId = aid;
     var c1 = parsed.cardLine1 != null ? String(parsed.cardLine1).trim() : "";
@@ -617,7 +624,7 @@
       startTime: "19:00",
       endTime: "",
       isActive: true,
-      isSpecialEvent: false,
+      isFeatured: false,
       location: loc,
       cardLine1: "New event",
     };
@@ -857,8 +864,8 @@
       if (key === "cardLine1") return "Event title (card line 1 — shown on featured cards)";
       if (key === "date") return "Event date (card line 3)";
       if (key === "startTime") return "Start & end time";
-      if (key === "isSpecialEvent")
-        return "Featured on home page (special / one-off highlight)";
+      if (key === "isFeatured")
+        return "Featured (home: center strip, right Wed/Sat, left schedule when dated)";
     }
     return key;
   }
@@ -871,7 +878,7 @@
     "endTime",
     "location",
     "isActive",
-    "isSpecialEvent",
+    "isFeatured",
   ];
 
   function sortEventFormKeys(keys) {
@@ -905,7 +912,7 @@
       var hasET = keys.indexOf("endTime") !== -1;
       if (hasET && !hasST) keys.push("startTime");
       if (hasST && keys.indexOf("endTime") === -1) keys.push("endTime");
-      if (keys.indexOf("isSpecialEvent") === -1) keys.push("isSpecialEvent");
+      if (keys.indexOf("isFeatured") === -1) keys.push("isFeatured");
       keys = sortEventFormKeys(keys);
     }
     for (let i = 0; i < keys.length; i++) {
@@ -913,7 +920,7 @@
       if (collectionKey === "activities" && key === "recurrenceDetails") continue;
       if (collectionKey === "events" && key === "endTime") continue;
       let val = obj[key];
-      if (collectionKey === "events" && key === "isSpecialEvent" && val !== true && val !== false) {
+      if (collectionKey === "events" && key === "isFeatured" && val !== true && val !== false) {
         val = false;
       }
       if (collectionKey === "events" && key === "cardLine1" && (val === undefined || val === null)) {
@@ -1107,11 +1114,11 @@
         row.__readField = function () {
           return t.getAttribute("aria-pressed") === "true";
         };
-        if (collectionKey === "events" && key === "isSpecialEvent") {
+        if (collectionKey === "events" && key === "isFeatured") {
           let hintSp = document.createElement("p");
           hintSp.className = "data-admin-edit-field-hint";
           hintSp.textContent =
-            "Turn On for this instance to appear in “Upcoming Featured Events” and the right “This week” column (with the event’s date in range). Recurring activities stay off here unless you set On — otherwise only one-off activities are featured automatically.";
+            "Turn On so this instance is featured: center “Upcoming Featured Events”, right Wed/Sat spotlight, and the left recurring-by-day list. Off = not featured unless the activity is a one-off (then it is treated as featured when this flag is unset).";
           row.appendChild(hintSp);
         }
       } else if (typeof val === "number" && !isNaN(val)) {

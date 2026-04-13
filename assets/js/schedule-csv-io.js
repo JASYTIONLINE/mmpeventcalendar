@@ -23,7 +23,7 @@
     "eventCardLine1",
     "eventCardLine2",
     "eventCardLine3",
-    "isSpecialEvent",
+    "isFeatured",
   ];
 
   var UNLOCK_STORAGE_KEY = "mmhp_schedule_io_unlocked";
@@ -258,8 +258,9 @@
       location: String(o.eventLocation || "").trim(),
       eventName: name,
     };
-    var sp = parseOptionalBool(o.isSpecialEvent);
-    if (sp !== undefined) ev.isSpecialEvent = sp;
+    var sp = parseOptionalBool(o.isFeatured);
+    if (sp === undefined) sp = parseOptionalBool(o.isSpecialEvent);
+    if (sp !== undefined) ev.isFeatured = sp;
     ev.cardLine1 = String(o.eventCardLine1 || "").trim();
     ev.cardLine2 = String(o.eventCardLine2 || "").trim();
     ev.cardLine3 = String(o.eventCardLine3 || "").trim();
@@ -337,7 +338,7 @@
         c1,
         c2,
         c3,
-        ev.isSpecialEvent === true ? "true" : ev.isSpecialEvent === false ? "false" : "",
+        ev.isFeatured === true ? "true" : ev.isFeatured === false ? "false" : "",
       ];
     }
     return [
@@ -364,7 +365,7 @@
       c1,
       c2,
       c3,
-      ev.isSpecialEvent === true ? "true" : ev.isSpecialEvent === false ? "false" : "",
+      ev.isFeatured === true ? "true" : ev.isFeatured === false ? "false" : "",
     ];
   }
 
@@ -476,7 +477,11 @@
           if (table.length < 2) throw new Error("CSV has no data rows.");
           var header = table[0].map(function (h) { return String(h || "").trim(); });
           var body = table.slice(1);
-          var missing = CSV_COLUMNS.filter(function (c) { return header.indexOf(c) < 0; });
+          var missing = CSV_COLUMNS.filter(function (c) {
+            if (header.indexOf(c) >= 0) return false;
+            if (c === "isFeatured" && header.indexOf("isSpecialEvent") >= 0) return false;
+            return true;
+          });
           if (missing.length) throw new Error("Missing columns: " + missing.join(", "));
           var objectRows = rowsToObjects(header, body);
           var imported = importFromRows(objectRows);

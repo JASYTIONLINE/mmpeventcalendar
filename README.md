@@ -209,7 +209,7 @@ Fields:
 - date
 - time
 - recurrenceType
-- isSpecialEvent
+- isFeatured
 - isActive
 - notes
 - imagePath

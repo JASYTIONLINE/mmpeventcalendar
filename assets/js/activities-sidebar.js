@@ -299,7 +299,7 @@
     var acts = activityById(data.activities || []);
     var events = (data.events || []).filter(function (ev) {
       if (ev.isActive === false) return false;
-      return isSpecialFeaturedEvent(ev, acts);
+      return isFeaturedEvent(ev, acts);
     });
 
     var today = startOfTodayLocal();
@@ -418,10 +418,10 @@
     return String(ev.startTime || "00:00").trim();
   }
 
-  /** Prefer explicit isSpecialEvent; else infer from linked activity (legacy). */
-  function isSpecialFeaturedEvent(ev, acts) {
-    if (ev.isSpecialEvent === true) return true;
-    if (ev.isSpecialEvent === false) return false;
+  /** Prefer explicit isFeatured; else infer from linked activity when unset (legacy one-offs). */
+  function isFeaturedEvent(ev, acts) {
+    if (ev.isFeatured === true) return true;
+    if (ev.isFeatured === false) return false;
     var act = lookupActivity(acts, ev.activityId);
     return isOneOffActivity(act);
   }
@@ -499,7 +499,6 @@
       var ev = events[i];
       var act = lookupActivity(acts, ev.activityId);
       if (!isRecurringActivity(act)) continue;
-      if (ev.isSpecialEvent === true) continue;
 
       var dt = parseISODateLocal(ev.date);
       if (!dt) continue;
@@ -598,7 +597,7 @@
     renderFeaturedFromEnriched(enriched.slice(0, cap), grid, jsonUrl, 0);
   }
 
-  /** Next upcoming event on a given JS weekday (0=Sun … 6=Sat), date order. */
+  /** Next upcoming featured event on a given JS weekday (0=Sun … 6=Sat), date order. */
   function nextEventOnWeekday(data, targetJsWeekday) {
     var acts = activityById(data.activities || []);
     var events = data.events || [];
@@ -607,6 +606,7 @@
     for (var i = 0; i < events.length; i++) {
       var ev = events[i];
       if (ev.isActive === false) continue;
+      if (!isFeaturedEvent(ev, acts)) continue;
       var dt = parseISODateLocal(ev.date);
       if (!dt || dt < today) continue;
       if (dt.getDay() !== targetJsWeekday) continue;

@@ -42,10 +42,21 @@
 
 /* Save master JSON — centered under header subtitle */
 .page-data-admin .data-admin-header-save {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   margin-top: 1rem;
   padding-top: 0.85rem;
   border-top: 1px solid var(--color-border, #ddd);
+}
+
+button.data-admin-add-event-btn {
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.55rem 1.25rem;
 }
 
 button.data-admin-save-json-btn {
@@ -255,6 +266,41 @@ table.data-admin-table td {
 .data-admin-status--error {
   color: #b00020;
   font-weight: 600;
+}
+
+/* Strong notice for duplicate date/time/location (modal + status line). */
+.data-admin-duplicate-slot-alert {
+  padding: 0.65rem 0.85rem;
+  border: 2px solid #b00020;
+  border-radius: 8px;
+  background: #fff5f5;
+  color: #6a0012;
+  font-weight: 700;
+  line-height: 1.4;
+  box-sizing: border-box;
+}
+
+.data-admin-modal__error.data-admin-duplicate-slot-alert {
+  min-height: unset;
+}
+
+@keyframes data-admin-duplicate-slot-flash {
+  0% {
+    background-color: #ffc9c9;
+    box-shadow: 0 0 0 2px rgba(176, 0, 32, 0.45);
+  }
+  50% {
+    background-color: #fff5f5;
+    box-shadow: 0 0 0 10px rgba(176, 0, 32, 0.12);
+  }
+  100% {
+    background-color: #fff5f5;
+    box-shadow: 0 0 0 0 rgba(176, 0, 32, 0);
+  }
+}
+
+.data-admin-duplicate-slot-alert--flash {
+  animation: data-admin-duplicate-slot-flash 0.48s ease-out 2;
 }
 
 .data-admin-schedule-panel {

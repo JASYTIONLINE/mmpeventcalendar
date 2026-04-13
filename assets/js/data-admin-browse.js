@@ -1,4 +1,9 @@
 (function () {
+  /** Only the latest initBrowseApp completion may wire UI (avoids duplicate/racy loads). */
+  var __dataAdminBrowseInitGen = 0;
+  /** Ignore rapid repeat clicks on Add event. */
+  var __dataAdminLastAddEventMs = 0;
+
   var ADMIN_UNLOCK_STORAGE_KEY = "mmhp_data_admin_unlocked";
   var MASTER_JSON_REL_PATH_STORAGE_KEY = "mmhp-master-json-rel-path";
   var DEFAULT_MASTER_JSON_REL_PATH =
@@ -34,6 +39,23 @@
     return masterUrl.replace(/json\/[^/?#]+$/i, "doc/syuper-secret-squirrel");
   }
 
+  var DATA_ADMIN_BEFOREUNLOAD_REGISTERED = false;
+
+  /** In-memory master data differs from last disk save; warn on tab close / navigation. */
+  function ensureDataAdminBeforeUnloadListener() {
+    if (DATA_ADMIN_BEFOREUNLOAD_REGISTERED) return;
+    DATA_ADMIN_BEFOREUNLOAD_REGISTERED = true;
+    window.addEventListener("beforeunload", function (e) {
+      if (!window.__mmhpDataAdminUnsaved) return;
+      e.preventDefault();
+      e.returnValue = "";
+    });
+  }
+
+  function setDataAdminUnsaved(on) {
+    window.__mmhpDataAdminUnsaved = !!on;
+  }
+
   var RECURRENCE_WEEKDAY_NAMES = [
     "Monday",
     "Tuesday",
@@ -57,6 +79,12 @@
   }
 
   function fileDateStamp() {
+    var n = new Date();
+    return n.getFullYear() + "-" + pad2(n.getMonth() + 1) + "-" + pad2(n.getDate());
+  }
+
+  /** Local calendar date as YYYY-MM-DD (for comparisons with event `date` fields). */
+  function todayIsoLocal() {
     var n = new Date();
     return n.getFullYear() + "-" + pad2(n.getMonth() + 1) + "-" + pad2(n.getDate());
   }
@@ -245,6 +273,52 @@
     return objectEntries;
   }
 
+  function eventRowIsoDate(obj) {
+    var d = obj && obj.date != null ? String(obj.date).trim() : "";
+    return /^\d{4}-\d{2}-\d{2}$/.test(d) ? d : null;
+  }
+
+  /** Valid ISO event date is strictly before today (local). These rows are treated as archived. */
+  function isArchivedPastEvent(obj) {
+    var d = eventRowIsoDate(obj);
+    if (!d) return false;
+    return d < todayIsoLocal();
+  }
+
+  function compareDisplayEventEntries(a, b) {
+    var da = eventRowIsoDate(a.obj);
+    var db = eventRowIsoDate(b.obj);
+    if (da && db) {
+      if (da !== db) return da < db ? -1 : 1;
+    } else if (da && !db) return -1;
+    else if (!da && db) return 1;
+    var ta = a.obj && a.obj.startTime != null ? String(a.obj.startTime).trim() : "";
+    var tb = b.obj && b.obj.startTime != null ? String(b.obj.startTime).trim() : "";
+    if (ta !== tb) return ta < tb ? -1 : ta > tb ? 1 : 0;
+    return a.idx - b.idx;
+  }
+
+  /**
+   * Events: sorted by date then start time. If hidePastEvents, only rows with date on or after today (local).
+   * Other collections: original order.
+   */
+  function buildObjectEntriesForDisplay(val, collectionKey, hidePastEvents) {
+    var all = buildObjectEntries(val);
+    if (collectionKey !== "events") return all;
+    if (hidePastEvents) {
+      var ymd = todayIsoLocal();
+      var upcoming = [];
+      for (var ui = 0; ui < all.length; ui++) {
+        var d = eventRowIsoDate(all[ui].obj);
+        if (d && d >= ymd) upcoming.push(all[ui]);
+      }
+      all = upcoming;
+    }
+    var sorted = all.slice();
+    sorted.sort(compareDisplayEventEntries);
+    return sorted;
+  }
+
   /** Data page section order: events → activities → everything else A–Z */
   function sortMasterDataCollectionKeys(keys) {
     function rank(name) {
@@ -307,16 +381,99 @@
     return c1 + " — " + an;
   }
 
+  /** Matches deriveEventName separator; activity name is the segment after the last separator. */
+  function activityNameFromListingTitle(listingTitle) {
+    var t = String(listingTitle || "").trim();
+    var sep = " — ";
+    var idx = t.lastIndexOf(sep);
+    if (idx === -1) return "";
+    return t.slice(idx + sep.length).trim();
+  }
+
   function finalizeEventRow(parsed, masterData) {
     if (!parsed || typeof parsed !== "object") return;
-    delete parsed.cardLine2;
     var aid = parsed.activityId != null ? String(parsed.activityId).trim() : "";
+    if (aid) parsed.activityId = aid;
     var c1 = parsed.cardLine1 != null ? String(parsed.cardLine1).trim() : "";
     parsed.eventName = deriveEventName(c1, aid, masterData || {});
+    var act = activityByIdFromMaster(masterData, aid);
+    var line2 = act && act.activityName != null ? String(act.activityName).trim() : "";
+    if (!line2) line2 = activityNameFromListingTitle(parsed.eventName);
+    if (line2) parsed.cardLine2 = line2;
+    else delete parsed.cardLine2;
+    if (isArchivedPastEvent(parsed)) {
+      parsed.isActive = false;
+    }
+  }
+
+  function computeNextEventId(events) {
+    if (!Array.isArray(events)) return "ev0001";
+    var max = 0;
+    for (var i = 0; i < events.length; i++) {
+      var id = events[i] && events[i].id;
+      if (id == null) continue;
+      var m = /^ev(\d+)$/i.exec(String(id).trim());
+      if (m) {
+        var n = parseInt(m[1], 10);
+        if (!isNaN(n)) max = Math.max(max, n);
+      }
+    }
+    var used = {};
+    for (var u = 0; u < events.length; u++) {
+      var eid = events[u] && events[u].id;
+      if (eid != null) used[String(eid).trim()] = true;
+    }
+    var next = max + 1;
+    var candidate;
+    do {
+      var numStr = String(next);
+      while (numStr.length < 4) numStr = "0" + numStr;
+      candidate = "ev" + numStr;
+      next++;
+    } while (used[candidate]);
+    return candidate;
+  }
+
+  function firstActivityIdForNewEvent(masterData) {
+    var acts = masterData && Array.isArray(masterData.activities) ? masterData.activities : [];
+    for (var i = 0; i < acts.length; i++) {
+      if (acts[i] && acts[i].id != null && String(acts[i].id).trim()) {
+        return String(acts[i].id).trim();
+      }
+    }
+    return "";
+  }
+
+  function isoDateLocalYmd() {
+    return todayIsoLocal();
+  }
+
+  function buildNewEventRow(masterData) {
+    var events = masterData && Array.isArray(masterData.events) ? masterData.events : [];
+    var aid = firstActivityIdForNewEvent(masterData);
+    var loc = "Hall A";
+    var act = activityByIdFromMaster(masterData, aid);
+    if (act && act.location != null && String(act.location).trim()) {
+      loc = String(act.location).trim();
+    }
+    var row = {
+      id: computeNextEventId(events),
+      activityId: aid,
+      date: isoDateLocalYmd(),
+      startTime: "19:00",
+      endTime: "",
+      isActive: true,
+      location: loc,
+      cardLine1: "New event",
+    };
+    finalizeEventRow(row, masterData || {});
+    row.cardLine3 = formatEventCardLine3FromIso(row.date);
+    return row;
   }
 
   function validateEventRow(ev) {
     if (!ev || typeof ev !== "object") return "Invalid event row.";
+    if (isArchivedPastEvent(ev)) return "";
     var req = ["id", "activityId", "date", "startTime", "cardLine1", "eventName", "location"];
     for (var i = 0; i < req.length; i++) {
       var k = req[i];
@@ -327,6 +484,145 @@
     }
     if (ev.isActive === undefined || ev.isActive === null) {
       return "Events require isActive (true or false).";
+    }
+    return "";
+  }
+
+  var DATA_ADMIN_DUPLICATE_SLOT_PREFIX =
+    "Two active events overlap in time at the same location";
+
+  /** When endTime is blank, assume this span for venue conflict checks (typical 7–10pm hall use). */
+  var DATA_ADMIN_DEFAULT_EVENT_DURATION_MIN = 180;
+
+  function isDataAdminDuplicateSlotMessage(msg) {
+    var s = String(msg || "");
+    if (s.indexOf(DATA_ADMIN_DUPLICATE_SLOT_PREFIX) !== -1) return true;
+    return s.indexOf("Two active events share the same date, start time, and location") !== -1;
+  }
+
+  function stripDuplicateSlotAlertStyle(el) {
+    if (!el) return;
+    if (el.__dataAdminDupFlashT) {
+      window.clearTimeout(el.__dataAdminDupFlashT);
+      el.__dataAdminDupFlashT = 0;
+    }
+    el.classList.remove("data-admin-duplicate-slot-alert", "data-admin-duplicate-slot-alert--flash");
+  }
+
+  function flashDuplicateSlotAlert(el) {
+    if (!el) return;
+    el.classList.add("data-admin-duplicate-slot-alert");
+    el.classList.remove("data-admin-duplicate-slot-alert--flash");
+    void el.offsetWidth;
+    el.classList.add("data-admin-duplicate-slot-alert--flash");
+    if (el.__dataAdminDupFlashT) window.clearTimeout(el.__dataAdminDupFlashT);
+    el.__dataAdminDupFlashT = window.setTimeout(function () {
+      el.classList.remove("data-admin-duplicate-slot-alert--flash");
+      el.__dataAdminDupFlashT = 0;
+    }, 1100);
+  }
+
+  /** Normalize HH:MM for duplicate slot checks (e.g. 9:05 → 09:05). */
+  function normalizeEventSlotTime(raw) {
+    var s = String(raw || "").trim();
+    var m = /^(\d{1,2}):(\d{2})$/.exec(s);
+    if (!m) return s;
+    var h = parseInt(m[1], 10);
+    var min = parseInt(m[2], 10);
+    if (isNaN(h) || isNaN(min)) return s;
+    return pad2(h) + ":" + pad2(min);
+  }
+
+  function parseHHMMToMinutes(raw) {
+    var st = normalizeEventSlotTime(raw);
+    var m = /^(\d{2}):(\d{2})$/.exec(st);
+    if (!m) return NaN;
+    var h = parseInt(m[1], 10);
+    var min = parseInt(m[2], 10);
+    if (isNaN(h) || isNaN(min) || h > 23 || min > 59) return NaN;
+    return h * 60 + min;
+  }
+
+  function formatMinutesRangeLabel(startMin, endMin) {
+    var sh = Math.floor(startMin / 60);
+    var sm = startMin % 60;
+    var eh = Math.floor(endMin / 60);
+    var em = endMin % 60;
+    return pad2(sh) + ":" + pad2(sm) + "–" + pad2(eh) + ":" + pad2(em);
+  }
+
+  /**
+   * Same calendar date + location: interval [startMin, endMin) from start/endTime.
+   * Blank or invalid endTime uses DATA_ADMIN_DEFAULT_EVENT_DURATION_MIN after start.
+   */
+  function getEventVenueInterval(ev) {
+    if (!ev || typeof ev !== "object") return null;
+    var d = ev.date != null ? String(ev.date).trim() : "";
+    var loc = ev.location != null ? String(ev.location).trim().replace(/\s+/g, " ") : "";
+    var stRaw = ev.startTime != null ? String(ev.startTime).trim() : "";
+    if (!d || !loc || !stRaw) return null;
+    var startMin = parseHHMMToMinutes(stRaw);
+    if (isNaN(startMin)) return null;
+    var endRaw = ev.endTime != null ? String(ev.endTime).trim() : "";
+    var endMin = endRaw ? parseHHMMToMinutes(endRaw) : NaN;
+    if (!isNaN(endMin) && endMin > startMin) {
+      return { date: d, loc: loc, locKey: loc.toLowerCase(), startMin: startMin, endMin: endMin };
+    }
+    return {
+      date: d,
+      loc: loc,
+      locKey: loc.toLowerCase(),
+      startMin: startMin,
+      endMin: startMin + DATA_ADMIN_DEFAULT_EVENT_DURATION_MIN,
+    };
+  }
+
+  function venueIntervalsOverlap(a, b) {
+    return a.startMin < b.endMin && b.startMin < a.endMin;
+  }
+
+  /**
+   * Block two scheduling-active events that overlap in time at the same date and location.
+   * Past-dated (archived) and inactive rows are skipped.
+   * @param replaceIndex If >= 0, row at this index is treated as replacementEv for the check (edit / Apply).
+   */
+  function validateEventsNoDuplicateDateTimeLocation(evs, replaceIndex, replacementEv) {
+    if (!Array.isArray(evs)) return "";
+    var slots = [];
+    for (var i = 0; i < evs.length; i++) {
+      var ev = evs[i];
+      if (replaceIndex >= 0 && i === replaceIndex && replacementEv) ev = replacementEv;
+      if (!ev || typeof ev !== "object") continue;
+      if (isArchivedPastEvent(ev)) continue;
+      if (ev.isActive === false) continue;
+      var it = getEventVenueInterval(ev);
+      if (!it) continue;
+      var lid = ev.id != null ? String(ev.id).trim() : "row " + i;
+      slots.push({ it: it, lid: lid });
+    }
+    for (var a = 0; a < slots.length; a++) {
+      for (var b = a + 1; b < slots.length; b++) {
+        var ia = slots[a].it;
+        var ib = slots[b].it;
+        if (ia.date !== ib.date || ia.locKey !== ib.locKey) continue;
+        if (!venueIntervalsOverlap(ia, ib)) continue;
+        return (
+          DATA_ADMIN_DUPLICATE_SLOT_PREFIX +
+          " (" +
+          ia.date +
+          " " +
+          ia.loc +
+          "): " +
+          slots[a].lid +
+          " (" +
+          formatMinutesRangeLabel(ia.startMin, ia.endMin) +
+          ") and " +
+          slots[b].lid +
+          " (" +
+          formatMinutesRangeLabel(ib.startMin, ib.endMin) +
+          ")."
+        );
+      }
     }
     return "";
   }
@@ -346,6 +642,8 @@
         var emsg = validateEventRow(evs[ei]);
         if (emsg) return "events[" + ei + "] " + (evs[ei] && evs[ei].id ? "(" + evs[ei].id + ") " : "") + emsg;
       }
+      var dupSlot = validateEventsNoDuplicateDateTimeLocation(evs, -1, null);
+      if (dupSlot) return dupSlot;
     }
     var acts = data.activities;
     if (Array.isArray(acts)) {
@@ -396,9 +694,8 @@
   }
 
   var EVENT_FORM_KEY_ORDER = [
-    "id",
-    "activityId",
     "cardLine1",
+    "activityId",
     "date",
     "startTime",
     "endTime",
@@ -407,7 +704,11 @@
   ];
 
   function sortEventFormKeys(keys) {
-    return keys.slice().sort(function (a, b) {
+    var hasId = keys.indexOf("id") !== -1;
+    var rest = keys.filter(function (k) {
+      return k !== "id";
+    });
+    rest.sort(function (a, b) {
       var ia = EVENT_FORM_KEY_ORDER.indexOf(a);
       var ib = EVENT_FORM_KEY_ORDER.indexOf(b);
       if (ia === -1) ia = 999;
@@ -415,6 +716,8 @@
       if (ia !== ib) return ia - ib;
       return a.localeCompare(b);
     });
+    if (hasId) rest.push("id");
+    return rest;
   }
 
   function buildEditFormFields(fieldsForm, obj, collectionKey, masterData) {
@@ -433,26 +736,26 @@
       if (hasST && keys.indexOf("endTime") === -1) keys.push("endTime");
       keys = sortEventFormKeys(keys);
     }
-    for (var i = 0; i < keys.length; i++) {
-      var key = keys[i];
+    for (let i = 0; i < keys.length; i++) {
+      let key = keys[i];
       if (collectionKey === "activities" && key === "recurrenceDetails") continue;
       if (collectionKey === "events" && key === "endTime") continue;
-      var val = obj[key];
+      let val = obj[key];
       if (collectionKey === "events" && key === "cardLine1" && (val === undefined || val === null)) {
         val = "";
       }
-      var row = document.createElement("div");
+      let row = document.createElement("div");
       row.className = "data-admin-edit-field-row";
       row.dataset.editFieldKey = key;
 
-      var lbl = document.createElement("div");
+      let lbl = document.createElement("div");
       lbl.className = "data-admin-edit-field-label";
       lbl.textContent = fieldLabelForForm(collectionKey, key);
       row.appendChild(lbl);
 
       if (key === "id") {
-        var origId = obj.id;
-        var roInp = document.createElement("input");
+        let origId = obj.id;
+        let roInp = document.createElement("input");
         roInp.type = "text";
         roInp.readOnly = true;
         roInp.className = "data-admin-edit-field-input data-admin-edit-field--readonly";
@@ -467,25 +770,25 @@
       }
 
       if (collectionKey === "events" && key === "activityId") {
-        var sel = document.createElement("select");
+        let sel = document.createElement("select");
         sel.className = "data-admin-edit-field-select";
         sel.setAttribute("aria-label", "Activity");
-        var optBlank = document.createElement("option");
+        let optBlank = document.createElement("option");
         optBlank.value = "";
         optBlank.textContent = "— Select activity —";
         sel.appendChild(optBlank);
-        var actOpts = buildActivitySelectOptions(masterData);
-        var curAct = val != null && val !== undefined ? String(val).trim() : "";
-        var foundAct = false;
-        for (var ao = 0; ao < actOpts.length; ao++) {
-          var opt = document.createElement("option");
+        let actOpts = buildActivitySelectOptions(masterData);
+        let curAct = val != null && val !== undefined ? String(val).trim() : "";
+        let foundAct = false;
+        for (let ao = 0; ao < actOpts.length; ao++) {
+          let opt = document.createElement("option");
           opt.value = actOpts[ao].id;
           opt.textContent = actOpts[ao].name;
           sel.appendChild(opt);
           if (actOpts[ao].id === curAct) foundAct = true;
         }
         if (curAct && !foundAct) {
-          var optOr = document.createElement("option");
+          let optOr = document.createElement("option");
           optOr.value = curAct;
           optOr.textContent = "Other (id: " + curAct + ")";
           sel.appendChild(optOr);
@@ -493,7 +796,7 @@
         sel.value = curAct;
         row.appendChild(sel);
         row.dataset.mmhpRowKind = "activityId";
-        var actHint = document.createElement("p");
+        let actHint = document.createElement("p");
         actHint.className = "data-admin-edit-field-hint";
         actHint.textContent =
           "Card line 2 on the public site is the activity name from this choice (not stored on the event).";
@@ -508,12 +811,12 @@
       }
 
       if (collectionKey === "events" && key === "date") {
-        var dateInp = document.createElement("input");
+        let dateInp = document.createElement("input");
         dateInp.type = "date";
         dateInp.className = "data-admin-edit-field-input data-admin-edit-field-input--date";
-        var iso = String(obj.date != null ? obj.date : "").trim();
+        let iso = String(obj.date != null ? obj.date : "").trim();
         if (/^\d{4}-\d{2}-\d{2}$/.test(iso)) dateInp.value = iso;
-        var preview = document.createElement("p");
+        let preview = document.createElement("p");
         preview.className = "data-admin-edit-field-hint";
         function updateDatePreview() {
           var ymd = String(dateInp.value || "").trim();
@@ -542,36 +845,36 @@
 
       if (collectionKey === "events" && key === "startTime") {
         lbl.textContent = "Start & end time";
-        var timePair = document.createElement("div");
+        let timePair = document.createElement("div");
         timePair.className = "data-admin-edit-field-time-pair";
-        var idSuffix = String(obj.id != null ? obj.id : "row").replace(/[^a-zA-Z0-9_-]/g, "-");
+        let idSuffix = String(obj.id != null ? obj.id : "row").replace(/[^a-zA-Z0-9_-]/g, "-");
 
-        var stWrap = document.createElement("div");
+        let stWrap = document.createElement("div");
         stWrap.className = "data-admin-edit-field-time-item";
-        var stLab = document.createElement("div");
+        let stLab = document.createElement("div");
         stLab.className = "data-admin-edit-field-time-label";
         stLab.textContent = "Start";
-        var startSeed =
+        let startSeed =
           String(obj.startTime != null ? obj.startTime : "").trim() || "19:00";
-        var startSp = createTimeSpinner12(startSeed);
+        let startSp = createTimeSpinner12(startSeed);
         stWrap.appendChild(stLab);
         stWrap.appendChild(startSp.el);
 
-        var etWrap = document.createElement("div");
+        let etWrap = document.createElement("div");
         etWrap.className = "data-admin-edit-field-time-item";
-        var etLab = document.createElement("div");
+        let etLab = document.createElement("div");
         etLab.className = "data-admin-edit-field-time-label";
         etLab.textContent = "End";
-        var endHasValue = !!toHtmlTimeValue(obj.endTime);
-        var noEndChk = document.createElement("input");
+        let endHasValue = !!toHtmlTimeValue(obj.endTime);
+        let noEndChk = document.createElement("input");
         noEndChk.type = "checkbox";
         noEndChk.id = "data-admin-ev-noend-" + idSuffix;
-        var noEndLbl = document.createElement("label");
+        let noEndLbl = document.createElement("label");
         noEndLbl.className = "data-admin-edit-field-noend";
         noEndLbl.htmlFor = noEndChk.id;
         noEndLbl.appendChild(noEndChk);
         noEndLbl.appendChild(document.createTextNode(" No end time"));
-        var endSp = createTimeSpinner12(endHasValue ? obj.endTime : startSeed);
+        let endSp = createTimeSpinner12(endHasValue ? obj.endTime : startSeed);
         function syncEndSpinner() {
           endSp.setDimmed(noEndChk.checked);
         }
@@ -585,7 +888,7 @@
         timePair.appendChild(stWrap);
         timePair.appendChild(etWrap);
         row.appendChild(timePair);
-        var timeHint = document.createElement("p");
+        let timeHint = document.createElement("p");
         timeHint.className = "data-admin-edit-field-hint";
         timeHint.textContent =
           "Use the up and down buttons for hour, minutes, and AM/PM. Values are saved as 24-hour HH:MM. Uncheck No end time to set an end.";
@@ -602,10 +905,10 @@
       }
 
       if (typeof val === "boolean") {
-        var g = document.createElement("div");
+        let g = document.createElement("div");
         g.className = "data-admin-field-bool-group";
-        var t = document.createElement("button");
-        var f = document.createElement("button");
+        let t = document.createElement("button");
+        let f = document.createElement("button");
         t.type = "button";
         f.type = "button";
         t.className = "data-admin-recurrence-day-btn data-admin-field-bool-btn";
@@ -630,7 +933,7 @@
           return t.getAttribute("aria-pressed") === "true";
         };
       } else if (typeof val === "number" && !isNaN(val)) {
-        var inp = document.createElement("input");
+        let inp = document.createElement("input");
         inp.type = "number";
         inp.className = "data-admin-edit-field-input";
         inp.step = "any";
@@ -648,17 +951,17 @@
           return n;
         };
       } else if (val === null) {
-        var g2 = document.createElement("div");
+        let g2 = document.createElement("div");
         g2.className = "data-admin-field-bool-group";
-        var bNull = document.createElement("button");
-        var bText = document.createElement("button");
+        let bNull = document.createElement("button");
+        let bText = document.createElement("button");
         bNull.type = "button";
         bText.type = "button";
         bNull.className = "data-admin-recurrence-day-btn data-admin-field-bool-btn";
         bText.className = "data-admin-recurrence-day-btn data-admin-field-bool-btn";
         bNull.textContent = "Null";
         bText.textContent = "Text";
-        var inpS = document.createElement("input");
+        let inpS = document.createElement("input");
         inpS.type = "text";
         inpS.className = "data-admin-edit-field-input data-admin-edit-field-input--null-text";
         function setNullMode(isNull) {
@@ -683,11 +986,11 @@
           return String(inpS.value || "");
         };
       } else if (typeof val === "string") {
-        var long =
+        let long =
           val.length > 100 ||
           /[\r\n]/.test(val) ||
           (collectionKey === "events" && key === "cardLine1");
-        var sinp;
+        let sinp;
         if (long) {
           sinp = document.createElement("textarea");
           sinp.rows = Math.min(10, Math.max(3, val.split("\n").length));
@@ -706,11 +1009,11 @@
           return String(sinp.value || "");
         };
       } else {
-        var jta = document.createElement("textarea");
+        let jta = document.createElement("textarea");
         jta.className = "data-admin-edit-field-textarea data-admin-edit-field-textarea--json";
         jta.setAttribute("spellcheck", "false");
         jta.value = JSON.stringify(val, null, 2);
-        var lines = String(jta.value).split("\n").length;
+        let lines = String(jta.value).split("\n").length;
         jta.rows = Math.min(14, Math.max(3, lines));
         row.appendChild(jta);
         row.__readField = function () {
@@ -755,9 +1058,8 @@
         syncListingTitlePreview();
         evNRow.appendChild(evNLbl);
         evNRow.appendChild(evNDisp);
-        var anchor = c1Row || actRow;
-        if (anchor.nextSibling) anchor.parentNode.insertBefore(evNRow, anchor.nextSibling);
-        else anchor.parentNode.appendChild(evNRow);
+        evNRow.dataset.mmhpRowKind = "listingTitle";
+        fieldsForm.insertBefore(evNRow, fieldsForm.firstChild);
       }
     }
   }
@@ -936,6 +1238,7 @@
 
     function close() {
       backdrop.hidden = true;
+      stripDuplicateSlotAlertStyle(err);
       err.textContent = "";
       ctx.onApplied = null;
       ctx.masterDataRef = null;
@@ -947,6 +1250,7 @@
     });
 
     btnApply.addEventListener("click", function () {
+      stripDuplicateSlotAlertStyle(err);
       err.textContent = "";
       if (ctx.rowIndex < 0 || !ctx.collectionKey) {
         err.textContent = "Internal error: lost row context.";
@@ -999,6 +1303,13 @@
           err.textContent = evErr;
           return;
         }
+        var evs0 = ctx.masterDataRef && Array.isArray(ctx.masterDataRef.events) ? ctx.masterDataRef.events : [];
+        var dupSlot = validateEventsNoDuplicateDateTimeLocation(evs0, ctx.rowIndex, parsed);
+        if (dupSlot) {
+          err.textContent = dupSlot;
+          flashDuplicateSlotAlert(err);
+          return;
+        }
       }
       if (typeof ctx.onApplied === "function") {
         ctx.onApplied(ctx.collectionKey, ctx.rowIndex, parsed);
@@ -1014,6 +1325,7 @@
       ctx.masterDataRef = masterData || {};
       title.textContent = "Edit row — " + collectionKey + " [" + rowIndex + "]";
       ta.value = JSON.stringify(obj, null, 2);
+      stripDuplicateSlotAlertStyle(err);
       err.textContent = "";
       advanced.open = false;
 
@@ -1043,7 +1355,7 @@
 
       backdrop.hidden = false;
       var firstFocus = fieldsForm.querySelector(
-        "input, textarea, button.data-admin-recurrence-day-btn, button.data-admin-field-bool-btn"
+        "textarea:not([readonly]), input:not([readonly]), select, button.data-admin-recurrence-day-btn, button.data-admin-field-bool-btn"
       );
       if (firstFocus) firstFocus.focus();
       else ta.focus();
@@ -1101,6 +1413,7 @@
         editBtn.addEventListener("click", function () {
           modal.__openEdit(key, idx, obj, function (k, rowIdx, parsed) {
             masterData[k][rowIdx] = parsed;
+            setDataAdminUnsaved(true);
             refreshSection();
           }, masterData);
         });
@@ -1126,6 +1439,7 @@
             "Remove this row from \"" + key + "\"? Index " + idx + (label ? " (" + label + ")" : "") + ". This cannot be undone except by refreshing.";
           if (!window.confirm(msg)) return;
           masterData[key].splice(idx, 1);
+          setDataAdminUnsaved(true);
           refreshSection();
           setStatus("Removed 1 row from " + key + ". Export CSV to save; refresh page to reload JSON from disk.");
         });
@@ -1157,17 +1471,39 @@
     var status = document.getElementById("data-admin-browse-status");
     if (!root || !jsonPath) return;
 
+    var loadGen = ++__dataAdminBrowseInitGen;
+
     var masterData = null;
 
     function setStatus(msg, isError) {
       if (!status) return;
+      stripDuplicateSlotAlertStyle(status);
       status.textContent = msg || "";
       status.classList.toggle("data-admin-status--error", !!isError);
+      if (isError && isDataAdminDuplicateSlotMessage(msg)) {
+        flashDuplicateSlotAlert(status);
+      }
     }
 
     function renderSection(section, key, val) {
+      var hidePast = key === "events" && !!section._mmhpEventsHidePast;
+      var objectEntries = buildObjectEntriesForDisplay(val, key, hidePast);
+
       var rowCountEl = section.querySelector(".data-admin-section-rowcount");
-      if (rowCountEl) rowCountEl.textContent = val.length + " row(s)";
+      if (rowCountEl) {
+        if (key === "events" && hidePast) {
+          var totalEv = Array.isArray(val) ? val.length : 0;
+          var shownEv = objectEntries.length;
+          if (shownEv === totalEv) {
+            rowCountEl.textContent = totalEv + " row(s)";
+          } else {
+            rowCountEl.textContent =
+              shownEv + " shown (today or later), " + (totalEv - shownEv) + " past hidden — " + totalEv + " total";
+          }
+        } else {
+          rowCountEl.textContent = val.length + " row(s)";
+        }
+      }
 
       var body = section.querySelector(".data-admin-section-body");
       if (body) body.remove();
@@ -1175,12 +1511,15 @@
       body = document.createElement("div");
       body.className = "data-admin-section-body";
       section.appendChild(body);
-
-      var objectEntries = buildObjectEntries(val);
       if (objectEntries.length === 0) {
         var empty = document.createElement("p");
         empty.className = "data-admin-section-meta";
-        empty.textContent = "No object rows.";
+        if (key === "events" && hidePast && Array.isArray(val) && val.length > 0) {
+          empty.textContent =
+            "No events on or after today in this view. Use \"Show all events\" above to see past rows.";
+        } else {
+          empty.textContent = "No object rows.";
+        }
         body.appendChild(empty);
         return;
       }
@@ -1197,6 +1536,15 @@
       renderTable(body, columns, objectEntries, key, masterData, setStatus, refreshSection);
     }
 
+    function refreshSectionByKey(collectionKey) {
+      var sectionId = "collection-" + collectionKey.replace(/[^a-zA-Z0-9_-]/g, "-");
+      var section = document.getElementById(sectionId);
+      if (!section || !masterData) return;
+      var arr = masterData[collectionKey];
+      if (!Array.isArray(arr)) return;
+      renderSection(section, collectionKey, arr);
+    }
+
     setStatus("Loading JSON…");
 
     fetch(jsonPath)
@@ -1205,7 +1553,12 @@
         return r.json();
       })
       .then(function (data) {
+        if (loadGen !== __dataAdminBrowseInitGen) {
+          return;
+        }
+        ensureDataAdminBeforeUnloadListener();
         masterData = data;
+        setDataAdminUnsaved(false);
         root.textContent = "";
         setStatus("Load complete. Use Save changes to master JSON (under the header) to write to disk, or export CSV per table.");
 
@@ -1263,6 +1616,7 @@
                   });
                 })
                 .then(function () {
+                  setDataAdminUnsaved(false);
                   setStatus(
                     "Saved — mmhp-master-data.json was written to the path you chose. Usual relative path: " +
                       getMasterJsonRelativePathHint()
@@ -1278,9 +1632,11 @@
                     true
                   );
                   downloadText("mmhp-master-data.json", text, "application/json;charset=utf-8");
+                  setDataAdminUnsaved(false);
                 });
             } else {
               downloadText("mmhp-master-data.json", text, "application/json;charset=utf-8");
+              setDataAdminUnsaved(false);
               setStatus(
                 "Downloaded mmhp-master-data.json — place it at " + getMasterJsonRelativePathHint() + " (or merge manually)."
               );
@@ -1306,35 +1662,40 @@
             modal.hidden = false;
             okBtn.focus();
 
-            function closeModal() {
+            function cleanupModalUi() {
               modal.hidden = true;
-              cancelBtn.removeEventListener("click", onCancel);
-              okBtn.removeEventListener("click", onOk);
-              if (backdrop) backdrop.removeEventListener("click", onBackdrop);
+              cancelBtn.onclick = null;
+              okBtn.onclick = null;
+              if (backdrop) backdrop.onclick = null;
               document.removeEventListener("keydown", onKey);
             }
 
-            function onCancel() {
-              closeModal();
-              setStatus("Save cancelled.");
-            }
-
-            function onOk() {
-              closeModal();
-              runMasterJsonSaveToDisk();
-            }
-
-            function onBackdrop(e) {
-              if (e.target === backdrop) onCancel();
-            }
-
             function onKey(e) {
-              if (e.key === "Escape") onCancel();
+              if (e.key === "Escape") {
+                cleanupModalUi();
+                setStatus("Save cancelled.");
+              }
             }
 
-            cancelBtn.addEventListener("click", onCancel);
-            okBtn.addEventListener("click", onOk);
-            if (backdrop) backdrop.addEventListener("click", onBackdrop);
+            cancelBtn.onclick = function () {
+              cleanupModalUi();
+              setStatus("Save cancelled.");
+            };
+
+            okBtn.onclick = function () {
+              cleanupModalUi();
+              runMasterJsonSaveToDisk();
+            };
+
+            if (backdrop) {
+              backdrop.onclick = function (e) {
+                if (e.target === backdrop) {
+                  cleanupModalUi();
+                  setStatus("Save cancelled.");
+                }
+              };
+            }
+
             document.addEventListener("keydown", onKey);
           }
 
@@ -1344,6 +1705,51 @@
               return;
             }
             openSaveConfirmModal();
+          };
+        }
+
+        var addEventBtn = document.getElementById("mmhp-add-event-btn");
+        if (addEventBtn) {
+          addEventBtn.onclick = function () {
+            var nowMs = Date.now();
+            if (nowMs - __dataAdminLastAddEventMs < 900) {
+              return;
+            }
+            __dataAdminLastAddEventMs = nowMs;
+            if (!masterData) {
+              setStatus("No data loaded.", true);
+              return;
+            }
+            if (!document.getElementById("collection-events")) {
+              setStatus(
+                "Cannot add an event: this JSON has no events collection. Add an events array to the file and reload.",
+                true
+              );
+              return;
+            }
+            if (!Array.isArray(masterData.events)) masterData.events = [];
+            var nu = buildNewEventRow(masterData);
+            masterData.events.push(nu);
+            setDataAdminUnsaved(true);
+            refreshSectionByKey("events");
+            var modal = ensureEditModal(setStatus);
+            var newIdx = masterData.events.length - 1;
+            modal.__openEdit(
+              "events",
+              newIdx,
+              masterData.events[newIdx],
+              function (k, rowIdx, parsed) {
+                masterData[k][rowIdx] = parsed;
+                setDataAdminUnsaved(true);
+                refreshSectionByKey(k);
+              },
+              masterData
+            );
+            setStatus(
+              "Added event " +
+                nu.id +
+                ". Complete the form and click Apply, then use Save changes to the Master Data File."
+            );
           };
         }
 
@@ -1371,6 +1777,28 @@
 
           var toolbar = document.createElement("div");
           toolbar.className = "data-admin-section-toolbar";
+
+          if (key === "events") {
+            section._mmhpEventsHidePast = false;
+            var displayToggleBtn = document.createElement("button");
+            displayToggleBtn.type = "button";
+            displayToggleBtn.className = "btn site-button data-admin-events-display-toggle";
+            displayToggleBtn.setAttribute(
+              "aria-label",
+              "Toggle between showing all events and hiding events before today"
+            );
+            function syncEventsDisplayToggleLabel() {
+              displayToggleBtn.textContent = section._mmhpEventsHidePast ? "Show all events" : "Hide past events";
+            }
+            syncEventsDisplayToggleLabel();
+            displayToggleBtn.addEventListener("click", function () {
+              section._mmhpEventsHidePast = !section._mmhpEventsHidePast;
+              syncEventsDisplayToggleLabel();
+              if (!masterData || !Array.isArray(masterData.events)) return;
+              renderSection(section, "events", masterData.events);
+            });
+            toolbar.appendChild(displayToggleBtn);
+          }
 
           var exportBtn = document.createElement("button");
           exportBtn.type = "button";
@@ -1406,6 +1834,7 @@
         }
       })
       .catch(function () {
+        if (loadGen !== __dataAdminBrowseInitGen) return;
         setStatus(
           "Could not load " + jsonPath + ". Use a local server (e.g. npx serve) or open from hosting; file:// often blocks fetch.",
           true

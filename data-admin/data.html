@@ -24,6 +24,9 @@
         <h1 class="site-header-title">Master data</h1>
         <p class="site-header-subtitle">Edit, delete, export by collection (password required)</p>
         <div class="data-admin-header-save" aria-label="Save master JSON">
+          <button type="button" class="btn site-button data-admin-add-event-btn" id="mmhp-add-event-btn">
+            Add event
+          </button>
           <button type="button" class="btn site-button data-admin-save-json-btn" id="mmhp-save-master-json">
             Save changes to the Master Data File…
           </button>
@@ -37,6 +40,7 @@
         Use <strong>Save changes to master JSON</strong> after edits, or <strong>Export … to CSV</strong> per collection.
         <strong>Events:</strong> Card line 2 on the public site is the <strong>activity name</strong> from your Activity choice (it is not stored on the event). <strong>Listing title</strong> (<code>eventName</code>) is filled automatically from event title + activity when you Apply.
         <strong>Note:</strong> Treat <strong>every field in the form as required</strong> before Apply. Only use options that explicitly allow empty values (for example, <strong>No end time</strong> on events).
+        If you edited or deleted rows and try to close the tab or leave this page without using <strong>Save changes to the Master Data File</strong>, your browser will warn you that unsaved changes may be lost.
       </p>
 
       <p id="data-admin-browse-status" class="data-admin-status" role="status" aria-live="polite"></p>
@@ -56,7 +60,7 @@
               title="Remember a different relative path">Change</button>
           </p>
           <p class="data-admin-modal__note">
-            Chrome / Edge recommended. Other browsers download a copy instead. Your browser may reopen the last folder you used for this site.
+            Chrome / Edge recommended. Other browsers download a copy instead.
           </p>
           <div class="data-admin-modal__actions">
             <button type="button" class="btn site-button" id="mmhp-save-confirm-cancel">Cancel</button>

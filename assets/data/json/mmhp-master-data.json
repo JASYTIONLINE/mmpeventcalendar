@@ -5106,9 +5106,9 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Warman Trio Sock Hop",
+      "eventName": "Warman Trio — Dance",
       "cardLine1": "Warman Trio",
-      "cardLine2": "Sock Hop",
+      "cardLine2": "Dance",
       "cardLine3": "Jan 6 2027"
     },
     {
@@ -5119,9 +5119,9 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Justin Terry Valentines Dance",
+      "eventName": "Justin Terry — Dance",
       "cardLine1": "Justin Terry",
-      "cardLine2": "Valentines Dance",
+      "cardLine2": "Dance",
       "cardLine3": "Feb 10 2027"
     },
     {
@@ -5132,9 +5132,9 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "High Carbon Steel Band",
+      "eventName": "High Carbon — Dance",
       "cardLine1": "High Carbon",
-      "cardLine2": "Steel Band",
+      "cardLine2": "Dance",
       "cardLine3": "Mar 15 2027"
     },
     {
@@ -5145,9 +5145,9 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Mayham Comedy Show",
+      "eventName": "Mayham — Comedy",
       "cardLine1": "Mayham",
-      "cardLine2": "Comedy Show",
+      "cardLine2": "Comedy",
       "cardLine3": "Jan 20 2027"
     },
     {
@@ -5158,9 +5158,9 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Players Studio Theater Performance",
+      "eventName": "Players Studio — Theater",
       "cardLine1": "Players Studio",
-      "cardLine2": "Theater Performance",
+      "cardLine2": "Theater",
       "cardLine3": "Mar 10 2027"
     },
     {
@@ -5171,9 +5171,9 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Julia Lane Cooper Mardi Gras Murder Mystery Party",
+      "eventName": "Julia Lane — Murder Mystery",
       "cardLine1": "Julia Lane",
-      "cardLine2": "Cooper Mardi Gras Murder Mystery Party",
+      "cardLine2": "Murder Mystery",
       "cardLine3": "Feb 17 2027"
     },
     {
@@ -5184,9 +5184,9 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Singing Ambassadors Performance",
+      "eventName": "Singing — Music Performance",
       "cardLine1": "Singing",
-      "cardLine2": "Ambassadors Performance",
+      "cardLine2": "Music Performance",
       "cardLine3": "Jan 27 2027"
     },
     {
@@ -5197,9 +5197,9 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "St. Patricks Day Talent Show",
+      "eventName": "St. Patricks — Talent Show",
       "cardLine1": "St. Patricks",
-      "cardLine2": "Day Talent Show",
+      "cardLine2": "Talent Show",
       "cardLine3": "Mar 17 2027"
     },
     {
@@ -5210,7 +5210,7 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke",
+      "eventName": "Karaoke — Karaoke",
       "cardLine1": "Karaoke",
       "cardLine2": "Karaoke",
       "cardLine3": "Nov 7 2026"
@@ -5223,7 +5223,7 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke",
+      "eventName": "Karaoke — Karaoke",
       "cardLine1": "Karaoke",
       "cardLine2": "Karaoke",
       "cardLine3": "Nov 14 2026"
@@ -5236,9 +5236,9 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "DJ Dance",
+      "eventName": "DJ — DJ Karaoke",
       "cardLine1": "DJ",
-      "cardLine2": "Dance",
+      "cardLine2": "DJ Karaoke",
       "cardLine3": "Nov 21 2026"
     },
     {
@@ -5249,9 +5249,9 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "DJ Dance",
+      "eventName": "DJ — DJ Karaoke",
       "cardLine1": "DJ",
-      "cardLine2": "Dance",
+      "cardLine2": "DJ Karaoke",
       "cardLine3": "Nov 28 2026"
     },
     {
@@ -5262,7 +5262,7 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke",
+      "eventName": "Karaoke — Karaoke",
       "cardLine1": "Karaoke",
       "cardLine2": "Karaoke",
       "cardLine3": "Dec 5 2026"
@@ -5275,9 +5275,9 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "DJ Dance",
+      "eventName": "DJ — DJ Karaoke",
       "cardLine1": "DJ",
-      "cardLine2": "Dance",
+      "cardLine2": "DJ Karaoke",
       "cardLine3": "Dec 12 2026"
     },
     {
@@ -5288,7 +5288,7 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke",
+      "eventName": "Karaoke — Karaoke",
       "cardLine1": "Karaoke",
       "cardLine2": "Karaoke",
       "cardLine3": "Dec 19 2026"
@@ -5301,9 +5301,9 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "DJ Dance",
+      "eventName": "DJ — DJ Karaoke",
       "cardLine1": "DJ",
-      "cardLine2": "Dance",
+      "cardLine2": "DJ Karaoke",
       "cardLine3": "Dec 26 2026"
     },
     {
@@ -5314,7 +5314,7 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke",
+      "eventName": "Karaoke — Karaoke",
       "cardLine1": "Karaoke",
       "cardLine2": "Karaoke",
       "cardLine3": "Jan 9 2027"
@@ -5327,9 +5327,9 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "DJ Dance",
+      "eventName": "DJ — DJ Karaoke",
       "cardLine1": "DJ",
-      "cardLine2": "Dance",
+      "cardLine2": "DJ Karaoke",
       "cardLine3": "Jan 16 2027"
     },
     {
@@ -5340,7 +5340,7 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke",
+      "eventName": "Karaoke — Karaoke",
       "cardLine1": "Karaoke",
       "cardLine2": "Karaoke",
       "cardLine3": "Jan 23 2027"
@@ -5353,9 +5353,9 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Warman Trio Sock Hop",
+      "eventName": "Warman Trio — Dance",
       "cardLine1": "Warman Trio",
-      "cardLine2": "Sock Hop",
+      "cardLine2": "Dance",
       "cardLine3": "Jan 30 2027"
     },
     {
@@ -5366,7 +5366,7 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke",
+      "eventName": "Karaoke — Karaoke",
       "cardLine1": "Karaoke",
       "cardLine2": "Karaoke",
       "cardLine3": "Feb 6 2027"
@@ -5379,9 +5379,9 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Justin Terry Valentines Dance",
+      "eventName": "Justin Terry — Dance",
       "cardLine1": "Justin Terry",
-      "cardLine2": "Valentines Dance",
+      "cardLine2": "Dance",
       "cardLine3": "Feb 13 2027"
     },
     {
@@ -5392,7 +5392,7 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke",
+      "eventName": "Karaoke — Karaoke",
       "cardLine1": "Karaoke",
       "cardLine2": "Karaoke",
       "cardLine3": "Feb 20 2027"
@@ -5405,9 +5405,9 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "DJ Dance",
+      "eventName": "DJ — DJ Karaoke",
       "cardLine1": "DJ",
-      "cardLine2": "Dance",
+      "cardLine2": "DJ Karaoke",
       "cardLine3": "Feb 27 2027"
     },
     {
@@ -5418,9 +5418,9 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "High Carbon Steel Band",
+      "eventName": "High Carbon — Dance",
       "cardLine1": "High Carbon",
-      "cardLine2": "Steel Band",
+      "cardLine2": "Dance",
       "cardLine3": "Mar 6 2027"
     },
     {
@@ -5431,10 +5431,23 @@
       "endTime": "",
       "isActive": true,
       "location": "Hall A",
-      "eventName": "Karaoke",
+      "eventName": "Karaoke — Karaoke",
       "cardLine1": "Karaoke",
       "cardLine2": "Karaoke",
       "cardLine3": "Mar 13 2027"
+    },
+    {
+      "cardLine1": "Karaoke",
+      "activityId": "ac0001",
+      "date": "2026-04-18",
+      "cardLine3": "Apr 18 2026",
+      "startTime": "19:00",
+      "endTime": "22:00",
+      "location": "Hall B",
+      "isActive": true,
+      "id": "ev0030",
+      "eventName": "Karaoke — Karaoke",
+      "cardLine2": "Karaoke"
     }
   ],
   "committees": [

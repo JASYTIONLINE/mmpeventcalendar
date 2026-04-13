@@ -144,6 +144,7 @@
   function getFeaturedCardLines(ev, act, dt) {
     var name = eventTitle(ev) || "Event";
     var actHint = act && act.activityName ? String(act.activityName).trim() : "";
+    if (!actHint) actHint = activityHintFromListingTitle(name);
     var pair = splitEventTitleForCard(name, actHint);
     var c1 = ev.cardLine1 != null ? String(ev.cardLine1).trim() : "";
     var c2 = ev.cardLine2 != null ? String(ev.cardLine2).trim() : "";
@@ -186,13 +187,31 @@
     return getFeaturedCardLines(ev, act, dt).join("; ");
   }
 
+  var LISTING_TITLE_SEP = " — ";
+
   function activityById(activities) {
     var map = {};
     for (var i = 0; i < activities.length; i++) {
       var a = activities[i];
-      if (a && a.id) map[a.id] = a;
+      if (a && a.id != null) {
+        var id = String(a.id).trim();
+        if (id) map[id] = a;
+      }
     }
     return map;
+  }
+
+  function lookupActivity(map, rawActivityId) {
+    if (!map) return undefined;
+    var id = String(rawActivityId != null ? rawActivityId : "").trim();
+    return id ? map[id] : undefined;
+  }
+
+  function activityHintFromListingTitle(listingTitle) {
+    var t = String(listingTitle || "").trim();
+    var idx = t.lastIndexOf(LISTING_TITLE_SEP);
+    if (idx === -1) return "";
+    return t.slice(idx + LISTING_TITLE_SEP.length).trim();
   }
 
   function isRecurringActivity(act) {
@@ -269,7 +288,7 @@
       enriched.push({
         ev: ev,
         dt: dt,
-        act: acts[ev.activityId],
+        act: lookupActivity(acts, ev.activityId),
         minutes: parseTimeToMinutes(eventStartTime(ev)),
       });
     }
@@ -380,7 +399,7 @@
   function isSpecialFeaturedEvent(ev, acts) {
     if (ev.isSpecialEvent === true) return true;
     if (ev.isSpecialEvent === false) return false;
-    var act = acts[ev.activityId];
+    var act = lookupActivity(acts, ev.activityId);
     return isOneOffActivity(act);
   }
 
@@ -455,7 +474,7 @@
 
     for (var i = 0; i < events.length; i++) {
       var ev = events[i];
-      var act = acts[ev.activityId];
+      var act = lookupActivity(acts, ev.activityId);
       if (!isRecurringActivity(act)) continue;
       if (ev.isSpecialEvent === true) continue;
 
@@ -571,7 +590,7 @@
       candidates.push({
         ev: ev,
         dt: dt,
-        act: acts[ev.activityId],
+        act: lookupActivity(acts, ev.activityId),
         minutes: parseTimeToMinutes(eventStartTime(ev)),
       });
     }

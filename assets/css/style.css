@@ -46,6 +46,9 @@
     --sidebar-left-width: 8%;
     --sidebar-left-extra: 50px;
     --sidebar-right-width: 282px; /* featured events column; fits 250px image + padding */
+
+    /* Home Google Calendar iframe (full-width / desktop cap) */
+    --mmhp-calendar-embed-max-height: 1440px;
   
     --font-main: Arial, Helvetica, sans-serif;
   }
@@ -1172,19 +1175,29 @@
     object-fit: cover;
   }
 
-  body.page-home .site-layout {
-    align-items: flex-start;
+  /* Wide: stretch columns to the same row height so center column can use JS-set min height */
+  @media (min-width: 1101px) {
+    body.page-home .site-layout {
+      align-items: stretch;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    body.page-home .site-layout {
+      align-items: flex-start;
+    }
   }
 
   body.page-home .site-main {
     overflow: hidden;
     box-sizing: border-box;
+    min-height: 0;
   }
 
   body.page-home .page-home-calendar-stack {
     display: flex;
     flex-direction: column;
-    flex: 1 1 auto;
+    flex: 1 1 0;
     min-height: 0;
     height: 100%;
     overflow: hidden;
@@ -1199,6 +1212,7 @@
   body.page-home .page-home-calendar-stack .calendar-container {
     flex: 1 1 0;
     min-height: 0;
+    max-height: var(--mmhp-calendar-embed-max-height);
     display: flex;
     flex-direction: column;
   }
@@ -1206,10 +1220,25 @@
   body.page-home .page-home-calendar-stack .calendar-container iframe {
     flex: 1 1 0;
     width: 100%;
-    min-height: 140px;
+    min-height: 200px;
     height: 100%;
-    max-height: none;
+    max-height: var(--mmhp-calendar-embed-max-height);
     border: none;
+  }
+
+  /* Stacked layout: no JS sync on main height — tall embed, still capped by --mmhp-calendar-embed-max-height */
+  @media (max-width: 1100px) {
+    body.page-home .page-home-calendar-stack .calendar-container {
+      flex: 1 1 auto;
+      min-height: min(900px, 88dvh, var(--mmhp-calendar-embed-max-height));
+    }
+
+    body.page-home .page-home-calendar-stack .calendar-container iframe {
+      flex: 0 0 auto;
+      height: min(900px, 88dvh, var(--mmhp-calendar-embed-max-height));
+      min-height: min(560px, 70dvh);
+      max-height: var(--mmhp-calendar-embed-max-height);
+    }
   }
 
   body.page-home .page-home-featured {

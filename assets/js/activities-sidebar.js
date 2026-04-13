@@ -241,6 +241,10 @@
   var MAX_FEATURED_CARDS = 2;
 
   var HOME_WIDE_MIN_PX = 1101;
+  /** Must match --mmhp-calendar-embed-max-height in style.css */
+  var MMHP_HOME_CALENDAR_MAX_PX = 1440;
+  /** Cap main column height from viewport so it stays in line with the CSS embed max + heading + featured */
+  var MMHP_HOME_MAIN_VIEWPORT_CAP_PX = MMHP_HOME_CALENDAR_MAX_PX + 480;
 
   function isHomeWideLayout() {
     return (
@@ -260,6 +264,22 @@
     };
   }
 
+  /**
+   * Vertical space from the top of the three-column layout to the bottom of the visual viewport.
+   * Used so the center column can grow taller than the left sidebar — otherwise the Google Calendar
+   * iframe is capped at sidebar height and month view only shows the first week or two.
+   */
+  function homeMainMinHeightFromViewportPx() {
+    var layout = document.querySelector("body.page-home .site-layout");
+    if (!layout) return 0;
+    var rect = layout.getBoundingClientRect();
+    /* Past ~one row of scroll the row is moving off-screen; don't keep inflating main to (vh - negativeTop). */
+    if (rect.top < -12) return 0;
+    var vv = window.visualViewport;
+    var vh = vv && vv.height ? vv.height : window.innerHeight;
+    return Math.max(0, Math.floor(vh - rect.top - 8));
+  }
+
   function syncHomeMainHeight() {
     if (!document.body.classList.contains("page-home")) return;
     var main = document.querySelector("body.page-home .site-main");
@@ -269,7 +289,10 @@
       main.style.height = "";
       return;
     }
-    main.style.height = Math.max(left.offsetHeight, 0) + "px";
+    var leftH = Math.max(left.offsetHeight, 0);
+    var viewRaw = homeMainMinHeightFromViewportPx();
+    var viewH = viewRaw > 0 ? Math.min(viewRaw, MMHP_HOME_MAIN_VIEWPORT_CAP_PX) : 0;
+    main.style.height = Math.max(leftH, viewH) + "px";
   }
 
   function buildEnrichedFeatured(data) {
@@ -693,6 +716,9 @@
             requestAnimationFrame(runHomeFit);
           });
           window.addEventListener("resize", debouncedHomeFit);
+          if (window.visualViewport) {
+            window.visualViewport.addEventListener("resize", debouncedHomeFit);
+          }
           window.setTimeout(runHomeFit, 350);
         }
         if (rightGrid) {

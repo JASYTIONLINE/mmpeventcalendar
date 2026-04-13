@@ -1,2 +1,5 @@
 # Schedule CSV export/import password (create locally; never commit)
 assets/data/doc/syuper-secret-squirrel
+
+# Data-admin “Save As” Google Calendar exports (folder kept via .gitkeep)
+assets/data/csv/export/*.csv

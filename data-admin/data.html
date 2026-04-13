@@ -31,6 +31,10 @@
             title="Remove every event whose date is before today (browser local date). Save to write the JSON file.">
             Purge before today
           </button>
+          <button type="button" class="btn site-button data-admin-export-google-cal-btn" id="mmhp-export-google-calendar-csv-btn"
+            title="Save CSV in Google Calendar import format (Save As where supported). Active events only; same columns as scripts/export-events-google-calendar-csv.py.">
+            Export for Google Calendar
+          </button>
           <button type="button" class="btn site-button data-admin-save-json-btn" id="mmhp-save-master-json">
             Save changes to the Master Data File…
           </button>
@@ -42,6 +46,7 @@
         Bookmark <code>data-admin/data.html</code> — <code>browse.html</code> redirects here.
         Source: <code>assets/data/json/mmhp-master-data.json</code>. Up to 500 rows per table on screen; export includes all rows.
         Use <strong>Save changes to master JSON</strong> after edits, or <strong>Export … to CSV</strong> per collection.
+        <strong>Google Calendar:</strong> use <strong>Export for Google Calendar</strong> (not the events table export) — import that file under Calendar settings.
         <strong>Events:</strong> Card line 2 on the public site is the <strong>activity name</strong> from your Activity choice (it is not stored on the event). <strong>Listing title</strong> (<code>eventName</code>) is filled automatically from event title + activity when you Apply.
         <strong>Note:</strong> Treat <strong>every field in the form as required</strong> before Apply. Only use options that explicitly allow empty values (for example, <strong>No end time</strong> on events).
         If you edited or deleted rows and try to close the tab or leave this page without using <strong>Save changes to the Master Data File</strong>, your browser will warn you that unsaved changes may be lost.
@@ -70,6 +75,29 @@
             <button type="button" class="btn site-button" id="mmhp-save-confirm-cancel">Cancel</button>
             <button type="button" class="btn site-button data-admin-save-json-btn" id="mmhp-save-confirm-ok">
               Continue to Save…
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="mmhp-google-cal-export-modal" class="data-admin-modal" hidden role="dialog" aria-modal="true"
+        aria-labelledby="mmhp-google-cal-export-title">
+        <div class="data-admin-modal__backdrop" id="mmhp-google-cal-export-backdrop"></div>
+        <div class="data-admin-modal__panel">
+          <h2 id="mmhp-google-cal-export-title" class="data-admin-modal__title">Export for Google Calendar</h2>
+          <p class="data-admin-modal__text">
+            Next you’ll get a <strong>Save As</strong> / file dialog (Chrome, Edge, and other Chromium browsers). Pick the
+            folder and filename — suggested location in the repo (create <code>export</code> if needed):
+          </p>
+          <pre class="data-admin-modal__path" id="mmhp-google-cal-export-path">assets\data\csv\export\</pre>
+          <p class="data-admin-modal__note">
+            From <code>data-admin/data.html</code>, that folder is <code>../assets/data/csv/export/</code>. Browsers without
+            Save As support will download to your default folder instead; move the file there if you like.
+          </p>
+          <div class="data-admin-modal__actions">
+            <button type="button" class="btn site-button" id="mmhp-google-cal-export-cancel">Cancel</button>
+            <button type="button" class="btn site-button data-admin-export-google-cal-btn" id="mmhp-google-cal-export-ok">
+              Choose where to save…
             </button>
           </div>
         </div>

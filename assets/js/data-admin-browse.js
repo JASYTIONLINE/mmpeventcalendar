@@ -266,6 +266,158 @@
     return "\uFEFF" + lines.join("\r\n") + "\r\n";
   }
 
+  /** Google Calendar import CSV — headers and row rules match scripts/export-events-google-calendar-csv.py */
+  var GOOGLE_CAL_HEADERS = [
+    "Subject",
+    "Start Date",
+    "Start Time",
+    "End Date",
+    "End Time",
+    "All Day Event",
+    "Description",
+    "Location",
+    "Private",
+  ];
+  var GOOGLE_CAL_DEFAULT_DURATION_H = 1;
+
+  function parseHHMMForGoogleExport(s) {
+    s = String(s == null ? "" : s).trim();
+    if (!s) return null;
+    var parts = s.split(":");
+    var h = parseInt(parts[0], 10);
+    var m = parts.length > 1 ? parseInt(parts[1], 10) : 0;
+    if (isNaN(h) || isNaN(m) || h < 0 || h > 23 || m < 0 || m > 59) return null;
+    return { h: h, m: m };
+  }
+
+  function to12hGoogle(h, m) {
+    var period = h >= 12 ? "PM" : "AM";
+    var h12 = h % 12;
+    if (h12 === 0) h12 = 12;
+    return h12 + ":" + pad2(m) + " " + period;
+  }
+
+  function isoYmdToMmddYyyy(iso) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso).trim());
+    if (!m) return null;
+    return m[2] + "/" + m[3] + "/" + m[1];
+  }
+
+  function utcMsFromYmdHourMin(y, mo, d, h, mi) {
+    return Date.UTC(y, mo - 1, d, h, mi, 0);
+  }
+
+  function utcYmdhmFromMs(ms) {
+    var dt = new Date(ms);
+    return {
+      y: dt.getUTCFullYear(),
+      mo: dt.getUTCMonth() + 1,
+      d: dt.getUTCDate(),
+      h: dt.getUTCHours(),
+      mi: dt.getUTCMinutes(),
+    };
+  }
+
+  function formatMmddYyyyUtc(y, mo, d) {
+    return pad2(mo) + "/" + pad2(d) + "/" + y;
+  }
+
+  function googleCalendarRowForEvent(ev) {
+    if (!ev || typeof ev !== "object") return null;
+    var dateRaw = ev.date;
+    if (dateRaw == null || !String(dateRaw).trim()) return null;
+    var start_d = isoYmdToMmddYyyy(dateRaw);
+    if (!start_d) return null;
+
+    var st = parseHHMMForGoogleExport(ev.startTime);
+    if (!st) return null;
+    var sh = st.h;
+    var sm = st.m;
+    var start_t = to12hGoogle(sh, sm);
+    var startMin = sh * 60 + sm;
+
+    var dm = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(dateRaw).trim());
+    if (!dm) return null;
+    var y = parseInt(dm[1], 10);
+    var mo = parseInt(dm[2], 10);
+    var dday = parseInt(dm[3], 10);
+
+    var end_raw = ev.endTime != null ? String(ev.endTime).trim() : "";
+    var end_d;
+    var end_t;
+
+    if (end_raw) {
+      var et = parseHHMMForGoogleExport(end_raw);
+      if (!et) {
+        end_raw = "";
+      } else {
+        var eh = et.h;
+        var em = et.m;
+        var endMin = eh * 60 + em;
+        if (endMin > startMin) {
+          end_d = start_d;
+          end_t = to12hGoogle(eh, em);
+        } else if (endMin < startMin) {
+          var ms0 = utcMsFromYmdHourMin(y, mo, dday, 0, 0);
+          var msNext = ms0 + 86400000 + (eh * 60 + em) * 60000;
+          var pN = utcYmdhmFromMs(msNext);
+          end_d = formatMmddYyyyUtc(pN.y, pN.mo, pN.d);
+          end_t = to12hGoogle(eh, em);
+        } else {
+          var msS = utcMsFromYmdHourMin(y, mo, dday, sh, sm);
+          var msE = msS + GOOGLE_CAL_DEFAULT_DURATION_H * 3600000;
+          var pE = utcYmdhmFromMs(msE);
+          end_d = formatMmddYyyyUtc(pE.y, pE.mo, pE.d);
+          end_t = to12hGoogle(pE.h, pE.mi);
+        }
+      }
+    }
+
+    if (!end_raw || !parseHHMMForGoogleExport(end_raw)) {
+      var msS2 = utcMsFromYmdHourMin(y, mo, dday, sh, sm);
+      var msE2 = msS2 + GOOGLE_CAL_DEFAULT_DURATION_H * 3600000;
+      var pE2 = utcYmdhmFromMs(msE2);
+      end_d = formatMmddYyyyUtc(pE2.y, pE2.mo, pE2.d);
+      end_t = to12hGoogle(pE2.h, pE2.mi);
+    }
+
+    var subject = (ev.eventName != null ? String(ev.eventName).trim() : "") || "(no title)";
+    subject = subject.split(/\r\n|\r|\n/).join(" ").trim() || "(no title)";
+    var desc =
+      "mmhp event id: " +
+      (ev.id != null ? String(ev.id) : "") +
+      "; activityId: " +
+      (ev.activityId != null ? String(ev.activityId) : "");
+    desc = desc.split(/\r\n|\r|\n/).join(" ");
+    var loc = ev.location != null ? String(ev.location).trim() : "";
+    loc = loc.split(/\r\n|\r|\n/).join(" ");
+
+    return [subject, start_d, start_t, end_d, end_t, "False", desc, loc, "False"];
+  }
+
+  function buildGoogleCalendarCsvString(events) {
+    var lines = [];
+    var hc = [];
+    for (var hi = 0; hi < GOOGLE_CAL_HEADERS.length; hi++) hc.push(csvEscape(GOOGLE_CAL_HEADERS[hi]));
+    lines.push(hc.join(","));
+    var written = 0;
+    var skipped = 0;
+    for (var gi = 0; gi < events.length; gi++) {
+      var ev = events[gi];
+      if (!ev || ev.isActive === false) continue;
+      var row = googleCalendarRowForEvent(ev);
+      if (!row) {
+        skipped++;
+        continue;
+      }
+      var cells = [];
+      for (var gj = 0; gj < row.length; gj++) cells.push(csvEscape(row[gj]));
+      lines.push(cells.join(","));
+      written++;
+    }
+    return { text: lines.join("\r\n") + "\r\n", written: written, skipped: skipped };
+  }
+
   function buildObjectEntries(val) {
     var objectEntries = [];
     for (var ri = 0; ri < val.length; ri++) {
@@ -585,6 +737,18 @@
   }
 
   /**
+   * Only Hall B and Hall C are single-booking venues (one active event per date/time slot).
+   * Clubhouse, Hall A, Rec Hall, etc. may host multiple concurrent events at the same location string.
+   */
+  function isDataAdminExclusiveVenueLocKey(locKey) {
+    var k = String(locKey || "")
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, " ");
+    return k === "hall b" || k === "hall c";
+  }
+
+  /**
    * Block two scheduling-active events that overlap in time at the same date and location.
    * Past-dated (archived) and inactive rows are skipped.
    * @param replaceIndex If >= 0, row at this index is treated as replacementEv for the check (edit / Apply).
@@ -608,6 +772,7 @@
         var ia = slots[a].it;
         var ib = slots[b].it;
         if (ia.date !== ib.date || ia.locKey !== ib.locKey) continue;
+        if (!isDataAdminExclusiveVenueLocKey(ia.locKey)) continue;
         if (!venueIntervalsOverlap(ia, ib)) continue;
         return (
           DATA_ADMIN_DUPLICATE_SLOT_PREFIX +
@@ -1823,6 +1988,133 @@
             setStatus(
               "Removed " + toRemove + " past event(s). " + kept.length + " remain. Save to write the Master Data File."
             );
+          };
+        }
+
+        var googleCalBtn = document.getElementById("mmhp-export-google-calendar-csv-btn");
+        var googleCalModal = document.getElementById("mmhp-google-cal-export-modal");
+        var googleCalBackdrop = document.getElementById("mmhp-google-cal-export-backdrop");
+        var googleCalCancel = document.getElementById("mmhp-google-cal-export-cancel");
+        var googleCalOk = document.getElementById("mmhp-google-cal-export-ok");
+
+        function runGoogleCalendarCsvDownload() {
+          if (!masterData || !Array.isArray(masterData.events)) {
+            setStatus("No events loaded.", true);
+            return;
+          }
+          var r = buildGoogleCalendarCsvString(masterData.events);
+          var fn = "mmhp-google-calendar-import-" + fileDateStamp() + ".csv";
+          var text = r.text;
+          var blob = new Blob([text], { type: "text/csv;charset=utf-8" });
+
+          function finishStatus(savedViaPicker) {
+            var msg =
+              (savedViaPicker ? "Saved " : "Downloaded ") +
+              fn +
+              " (" +
+              r.written +
+              " active events). ";
+            msg += savedViaPicker
+              ? "Import in Google Calendar → Settings → Import & export."
+              : "Move it to assets/data/csv/export/ if needed, then import in Google Calendar → Settings → Import & export.";
+            if (r.skipped) msg += " Skipped " + r.skipped + " row(s) with bad date or start time.";
+            setStatus(msg);
+          }
+
+          if (typeof window.showSaveFilePicker === "function") {
+            window
+              .showSaveFilePicker({
+                suggestedName: fn,
+                types: [
+                  {
+                    description: "CSV",
+                    accept: { "text/csv": [".csv"] },
+                  },
+                ],
+              })
+              .then(function (handle) {
+                return handle.createWritable();
+              })
+              .then(function (writable) {
+                var w = writable;
+                return w.write(blob).then(function () {
+                  return w.close();
+                });
+              })
+              .then(function () {
+                finishStatus(true);
+              })
+              .catch(function (err) {
+                if (err && err.name === "AbortError") {
+                  setStatus("Google Calendar export save cancelled.");
+                  return;
+                }
+                setStatus(
+                  "Save dialog failed: " + (err && err.message ? err.message : String(err)) + " — saving via download.",
+                  true
+                );
+                downloadText(fn, text, "text/csv;charset=utf-8");
+                finishStatus(false);
+              });
+          } else {
+            downloadText(fn, text, "text/csv;charset=utf-8");
+            finishStatus(false);
+          }
+        }
+
+        function openGoogleCalExportModal() {
+          if (!googleCalModal || !googleCalOk || !googleCalCancel) {
+            runGoogleCalendarCsvDownload();
+            return;
+          }
+
+          googleCalModal.hidden = false;
+          googleCalOk.focus();
+
+          function cleanupGoogleCalModalUi() {
+            googleCalModal.hidden = true;
+            googleCalOk.onclick = null;
+            googleCalCancel.onclick = null;
+            if (googleCalBackdrop) googleCalBackdrop.onclick = null;
+            document.removeEventListener("keydown", onGoogleCalKey);
+          }
+
+          function onGoogleCalKey(e) {
+            if (e.key === "Escape") {
+              cleanupGoogleCalModalUi();
+              setStatus("Google Calendar export cancelled.");
+            }
+          }
+
+          googleCalCancel.onclick = function () {
+            cleanupGoogleCalModalUi();
+            setStatus("Google Calendar export cancelled.");
+          };
+
+          googleCalOk.onclick = function () {
+            cleanupGoogleCalModalUi();
+            runGoogleCalendarCsvDownload();
+          };
+
+          if (googleCalBackdrop) {
+            googleCalBackdrop.onclick = function (e) {
+              if (e.target === googleCalBackdrop) {
+                cleanupGoogleCalModalUi();
+                setStatus("Google Calendar export cancelled.");
+              }
+            };
+          }
+
+          document.addEventListener("keydown", onGoogleCalKey);
+        }
+
+        if (googleCalBtn) {
+          googleCalBtn.onclick = function () {
+            if (!masterData || !Array.isArray(masterData.events)) {
+              setStatus("No events loaded.", true);
+              return;
+            }
+            openGoogleCalExportModal();
           };
         }
 

@@ -71,6 +71,12 @@ button.data-admin-purge-past-events-btn:hover {
   background: #fde8e8;
 }
 
+button.data-admin-export-google-cal-btn {
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.55rem 1.25rem;
+}
+
 button.data-admin-save-json-btn {
   font-weight: 700;
   font-size: 1rem;

@@ -30,6 +30,13 @@
     return new Date(n.getFullYear(), n.getMonth(), n.getDate());
   }
 
+  /** Calendar add for local date-only values (no time-of-day drift). */
+  function addDaysLocal(dayStart, deltaDays) {
+    var d = new Date(dayStart.getFullYear(), dayStart.getMonth(), dayStart.getDate());
+    d.setDate(d.getDate() + deltaDays);
+    return d;
+  }
+
   function parseTimeToMinutes(t) {
     var m = /^(\d{1,2}):(\d{2})$/.exec((t || "00:00").trim());
     if (!m) return 0;
@@ -597,19 +604,18 @@
     renderFeaturedFromEnriched(enriched.slice(0, cap), grid, jsonUrl, 0);
   }
 
-  /** Next upcoming featured event on a given JS weekday (0=Sun … 6=Sat), date order. */
-  function nextEventOnWeekday(data, targetJsWeekday) {
+  /** Best featured event on dayStart (local midnight), by start time; or null. */
+  function findFeaturedOnDate(data, dayStart) {
     var acts = activityById(data.activities || []);
     var events = data.events || [];
-    var today = startOfTodayLocal();
     var candidates = [];
+    var targetMs = dayStart.getTime();
     for (var i = 0; i < events.length; i++) {
       var ev = events[i];
       if (ev.isActive === false) continue;
       if (!isFeaturedEvent(ev, acts)) continue;
       var dt = parseISODateLocal(ev.date);
-      if (!dt || dt < today) continue;
-      if (dt.getDay() !== targetJsWeekday) continue;
+      if (!dt || dt.getTime() !== targetMs) continue;
       candidates.push({
         ev: ev,
         dt: dt,
@@ -618,13 +624,55 @@
       });
     }
     candidates.sort(function (a, b) {
-      if (a.dt - b.dt !== 0) return a.dt - b.dt;
       return a.minutes - b.minutes;
     });
     return candidates.length ? candidates[0] : null;
   }
 
-  function renderWeekSpotlightCardInto(host, item, imageOffset, jsonUrl) {
+  /** Any active featured event with date in [windowStart, windowEnd] (inclusive, local dates). */
+  function anyFeaturedInDateWindow(data, windowStart, windowEnd) {
+    var acts = activityById(data.activities || []);
+    var events = data.events || [];
+    var lo = windowStart.getTime();
+    var hi = windowEnd.getTime();
+    for (var i = 0; i < events.length; i++) {
+      var ev = events[i];
+      if (ev.isActive === false) continue;
+      if (!isFeaturedEvent(ev, acts)) continue;
+      var dt = parseISODateLocal(ev.date);
+      if (!dt) continue;
+      var t = dt.getTime();
+      if (t >= lo && t <= hi) return true;
+    }
+    return false;
+  }
+
+  /**
+   * Home right rail: this calendar week’s Wednesday and Saturday (week starts Sunday).
+   * Only shows a card when that day is still upcoming or today and within the next 6 days from today
+   * (inclusive: today through today+6). If no featured events exist anywhere in that window, both slots empty.
+   */
+  function weekSpotlightWednesdaySaturdayItems(data) {
+    var today = startOfTodayLocal();
+    var windowEnd = addDaysLocal(today, 6);
+    var sundayThisWeek = addDaysLocal(today, -today.getDay());
+    var dWed = addDaysLocal(sundayThisWeek, 3);
+    var dSat = addDaysLocal(sundayThisWeek, 6);
+
+    if (!anyFeaturedInDateWindow(data, today, windowEnd)) {
+      return { wed: null, sat: null };
+    }
+
+    var wed = null;
+    var sat = null;
+    var lo = today.getTime();
+    var hi = windowEnd.getTime();
+    if (dWed.getTime() >= lo && dWed.getTime() <= hi) wed = findFeaturedOnDate(data, dWed);
+    if (dSat.getTime() >= lo && dSat.getTime() <= hi) sat = findFeaturedOnDate(data, dSat);
+    return { wed: wed, sat: sat };
+  }
+
+  function renderWeekSpotlightCardInto(host, item, imageOffset, jsonUrl, emptyWeekdayName) {
     if (!host) return;
     host.textContent = "";
     var imagesDir = assetsImagesDir(jsonUrl);
@@ -634,17 +682,18 @@
     article.className = "site-card featured-card week-spotlight-card";
 
     if (!item) {
+      var day = emptyWeekdayName != null && String(emptyWeekdayName).trim() ? String(emptyWeekdayName).trim() : "week";
       var emptyCap = document.createElement("div");
       emptyCap.className = "featured-card-caption week-spotlight-empty";
       var z1 = document.createElement("div");
       z1.className = "featured-card-line featured-card-line--name";
-      z1.textContent = "No event";
+      z1.textContent = "No upcoming features this " + day + ".";
       var z2 = document.createElement("div");
       z2.className = "featured-card-line featured-card-line--detail";
-      z2.textContent = "scheduled";
+      z2.textContent = "";
       var z3 = document.createElement("div");
       z3.className = "featured-card-line featured-card-line--date";
-      z3.textContent = "—";
+      z3.textContent = "";
       emptyCap.appendChild(z1);
       emptyCap.appendChild(z2);
       emptyCap.appendChild(z3);
@@ -680,11 +729,10 @@
     var satHost = document.getElementById("mmhp-week-spotlight-saturday");
     if (!wedHost || !satHost) return;
 
-    var wed = nextEventOnWeekday(data, 3);
-    var sat = nextEventOnWeekday(data, 6);
+    var pair = weekSpotlightWednesdaySaturdayItems(data);
 
-    renderWeekSpotlightCardInto(wedHost, wed, 0, jsonUrl);
-    renderWeekSpotlightCardInto(satHost, sat, 1, jsonUrl);
+    renderWeekSpotlightCardInto(wedHost, pair.wed, 0, jsonUrl, "Wednesday");
+    renderWeekSpotlightCardInto(satHost, pair.sat, 1, jsonUrl, "Saturday");
   }
 
   function init() {

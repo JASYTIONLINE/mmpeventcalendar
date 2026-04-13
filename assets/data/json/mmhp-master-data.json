@@ -5674,18 +5674,18 @@
       "cardLine3": "Apr 18 2026"
     },
     {
-      "id": "ev2178",
+      "cardLine1": "DJ Karaoke",
       "activityId": "ac0002",
       "date": "2026-04-18",
+      "cardLine3": "Apr 18 2026",
       "startTime": "19:00",
       "endTime": "",
-      "isActive": true,
-      "isFeatured": false,
       "location": "Rec Hall",
+      "isActive": true,
+      "isFeatured": true,
+      "id": "ev2178",
       "eventName": "DJ Karaoke — DJ Karaoke",
-      "cardLine1": "DJ Karaoke",
-      "cardLine2": "DJ Karaoke",
-      "cardLine3": "Apr 18 2026"
+      "cardLine2": "DJ Karaoke"
     },
     {
       "id": "ev1812",

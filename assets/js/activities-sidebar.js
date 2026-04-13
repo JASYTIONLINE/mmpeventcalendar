@@ -86,15 +86,32 @@
     });
   }
 
-  /** e.g. "Feb 13 2027" (no comma) for card line 3 */
-  function formatFeaturedCardDate(dt) {
+  /**
+   * Card line 3 fallback: weekday (short), 2-digit day, short month, 2-digit year — e.g. Wed 08 Apr 26
+   */
+  function formatFeaturedCardLine3(dt) {
     if (!dt) return "";
-    var s = dt.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
-    return s.replace(/,/g, "").replace(/\s+/g, " ").trim();
+    try {
+      var fmt = new Intl.DateTimeFormat("en-US", {
+        weekday: "short",
+        day: "2-digit",
+        month: "short",
+        year: "2-digit",
+      });
+      var parts = fmt.formatToParts(dt);
+      var byType = {};
+      for (var i = 0; i < parts.length; i++) {
+        var p = parts[i];
+        if (p.type !== "literal") byType[p.type] = p.value;
+      }
+      var w = byType.weekday || "";
+      var d = byType.day || "";
+      var m = byType.month || "";
+      var y = byType.year || "";
+      return [w, d, m, y].join(" ").replace(/\s+/g, " ").trim();
+    } catch (e) {
+      return "";
+    }
   }
 
   /**
@@ -130,10 +147,15 @@
     var pair = splitEventTitleForCard(name, actHint);
     var c1 = ev.cardLine1 != null ? String(ev.cardLine1).trim() : "";
     var c2 = ev.cardLine2 != null ? String(ev.cardLine2).trim() : "";
-    var c3 = ev.cardLine3 != null ? String(ev.cardLine3).trim() : "";
+    var c3 = "";
+    if (dt) {
+      c3 = formatFeaturedCardLine3(dt);
+    }
+    if (!c3 && ev.cardLine3 != null) {
+      c3 = String(ev.cardLine3).trim();
+    }
     if (!c1) c1 = pair[0];
-    if (!c2) c2 = pair[1];
-    if (!c3) c3 = formatFeaturedCardDate(dt);
+    if (!c2) c2 = actHint || pair[1];
     return [
       clampCardLineDisplay(c1, CARD_LINE_MAX[1]),
       clampCardLineDisplay(c2, CARD_LINE_MAX[2]),

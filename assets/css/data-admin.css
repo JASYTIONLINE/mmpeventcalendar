@@ -1,0 +1,678 @@
+/* Maintainer data page (data-admin/data.html) — full viewport, no truncation */
+
+.page-data-admin {
+  min-height: 100vh;
+}
+
+.page-data-admin .site-wrapper {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0.75rem 1rem 2rem;
+  box-sizing: border-box;
+}
+
+.page-data-admin .site-shell {
+  max-width: none;
+  width: 100%;
+}
+
+.data-admin-gate-denied {
+  max-width: 26rem;
+  margin: 3rem auto;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: var(--radius-sm, 6px);
+  background: var(--color-surface, #fff);
+}
+
+.data-admin-gate-denied-msg {
+  margin: 0 0 1rem 0;
+  font-weight: 600;
+}
+
+.data-admin-back-only {
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+}
+
+.data-admin-back-only a {
+  font-weight: 600;
+}
+
+/* Save master JSON — centered under header subtitle */
+.page-data-admin .data-admin-header-save {
+  text-align: center;
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--color-border, #ddd);
+}
+
+button.data-admin-save-json-btn {
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.55rem 1.25rem;
+}
+
+button.data-admin-path-hint-edit {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-link, #0b5cab);
+  font: inherit;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  cursor: pointer;
+  vertical-align: baseline;
+}
+
+button.data-admin-path-hint-edit:hover {
+  text-decoration: none;
+}
+
+/* Save confirmation modal (path visible before system Save dialog) */
+.data-admin-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.data-admin-modal[hidden] {
+  display: none !important;
+}
+
+.data-admin-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+}
+
+.data-admin-modal__panel {
+  position: relative;
+  z-index: 1;
+  max-width: 32rem;
+  width: 100%;
+  margin: 0;
+  padding: 1.25rem 1.35rem 1.35rem;
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: var(--radius-md, 8px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+.data-admin-modal__title {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.2rem;
+  line-height: 1.25;
+}
+
+.data-admin-modal__text {
+  margin: 0 0 0.65rem 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.data-admin-modal__path {
+  margin: 0 0 0.5rem 0;
+  padding: 0.65rem 0.75rem;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-all;
+  background: var(--color-ocean-mist, #e8f4fc);
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: var(--radius-sm, 6px);
+}
+
+.data-admin-modal__path-row {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.data-admin-modal__note {
+  margin: 0 0 1.1rem 0;
+  font-size: 0.82rem;
+  color: var(--color-text-soft, #555);
+  line-height: 1.4;
+}
+
+.data-admin-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  justify-content: flex-end;
+}
+
+.data-admin-banner {
+  background: var(--color-ocean-mist, #e8f4fc);
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: var(--radius-sm, 6px);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.data-admin-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-border, #ccc);
+}
+
+.data-admin-nav a {
+  font-weight: 600;
+}
+
+.data-admin-browse-section {
+  margin-bottom: 2.75rem;
+}
+
+.data-admin-browse-section h2 {
+  font-size: 1.15rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.data-admin-section-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.data-admin-section-meta {
+  font-size: 0.88rem;
+  color: var(--color-text-soft, #555);
+  margin: 0 0 0.5rem 0;
+}
+
+.data-admin-table-wrap {
+  overflow-x: auto;
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: var(--radius-sm, 6px);
+  background: var(--color-surface, #fff);
+}
+
+table.data-admin-table {
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  width: 100%;
+  table-layout: auto;
+}
+
+table.data-admin-table th,
+table.data-admin-table td {
+  border: 1px solid var(--color-border, #ddd);
+  padding: 0.35rem 0.5rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+table.data-admin-table th {
+  background: var(--color-sky, #d6eaf8);
+  font-weight: 700;
+  white-space: normal;
+  word-break: break-word;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Show full cell values (long JSON, notes, etc.) */
+table.data-admin-table td {
+  max-width: none;
+  min-width: 6rem;
+  overflow: visible;
+  text-overflow: unset;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.data-admin-status {
+  margin-top: 1rem;
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.data-admin-status--error {
+  color: #b00020;
+  font-weight: 600;
+}
+
+.data-admin-schedule-panel {
+  max-width: 36rem;
+  padding: 1rem;
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: var(--radius-sm, 6px);
+  background: var(--color-surface, #fff);
+}
+
+/* Browse: edit column */
+.data-admin-table th.data-admin-table__col-edit,
+.data-admin-table td.data-admin-table__col-edit {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--color-surface, #fff);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.06);
+  white-space: nowrap;
+  max-width: none;
+  width: 1%;
+  vertical-align: middle;
+}
+
+.data-admin-table thead th.data-admin-table__col-edit {
+  z-index: 3;
+  background: var(--color-sky, #d6eaf8);
+}
+
+button.data-admin-edit-row-btn {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  font-weight: 600;
+}
+
+.data-admin-table th.data-admin-table__col-delete,
+.data-admin-table td.data-admin-table__col-delete {
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  background: var(--color-surface, #fff);
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.06);
+  white-space: nowrap;
+  max-width: none;
+  width: 1%;
+  vertical-align: middle;
+}
+
+.data-admin-table thead th.data-admin-table__col-delete {
+  z-index: 3;
+  background: var(--color-sky, #d6eaf8);
+}
+
+button.data-admin-delete-row-btn {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  font-weight: 600;
+  border-color: #b00020;
+  color: #8a0018;
+}
+
+button.data-admin-delete-row-btn:hover {
+  background: #fde8e8;
+}
+
+/* Edit row modal: keyword / value form */
+.data-admin-edit-fields {
+  max-height: min(50vh, 28rem);
+  overflow-y: auto;
+  margin: 0 0 1rem 0;
+  padding: 0.35rem 0.15rem 0.15rem 0;
+  border: 1px solid var(--color-border, #ddd);
+  border-radius: var(--radius-sm, 6px);
+  background: var(--color-surface, #fff);
+}
+
+.data-admin-edit-field-row {
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-border, #eee);
+}
+
+.data-admin-edit-field-row:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.data-admin-edit-field-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  color: var(--color-text-soft, #444);
+  margin-bottom: 0.35rem;
+}
+
+.data-admin-field-bool-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+input.data-admin-edit-field-input,
+textarea.data-admin-edit-field-textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.88rem;
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+textarea.data-admin-edit-field-textarea {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  resize: vertical;
+  min-height: 4rem;
+}
+
+textarea.data-admin-edit-field-textarea--json {
+  min-height: 5.5rem;
+}
+
+input.data-admin-edit-field-input--null-text {
+  margin-top: 0.4rem;
+}
+
+input.data-admin-edit-field--readonly,
+textarea.data-admin-edit-field--readonly {
+  background: var(--color-ocean-mist, #e8f4fc);
+  color: var(--color-text-soft, #333);
+  cursor: not-allowed;
+}
+
+select.data-admin-edit-field-select {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0.45rem 0.5rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: 4px;
+  background: var(--color-surface, #fff);
+}
+
+input.data-admin-edit-field-input--date {
+  min-height: 2.5rem;
+  cursor: pointer;
+}
+
+.data-admin-edit-field-time-pair {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  align-items: flex-end;
+}
+
+.data-admin-edit-field-time-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 7.5rem;
+}
+
+.data-admin-edit-field-time-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-soft, #444);
+}
+
+input.data-admin-edit-field-input--time {
+  min-height: 2.5rem;
+  cursor: pointer;
+  font-family: ui-monospace, monospace;
+}
+
+/* Event time: hour / minute / AM-PM spinners */
+.data-admin-time-spinner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+  align-items: stretch;
+  margin-top: 0.25rem;
+}
+
+.data-admin-time-spinner--dimmed {
+  opacity: 0.45;
+}
+
+.data-admin-time-spinner__col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  min-width: 3.25rem;
+}
+
+.data-admin-time-spinner__col-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-soft, #555);
+}
+
+button.data-admin-time-spinner__ud {
+  width: 2.25rem;
+  height: 1.55rem;
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--color-border, #aaa);
+  border-radius: 6px;
+  background: var(--color-surface, #fff);
+  font-size: 0.65rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--color-text, #111);
+}
+
+button.data-admin-time-spinner__ud:hover:not(:disabled) {
+  background: var(--color-sky, #d6eaf8);
+  border-color: var(--color-text-soft, #555);
+}
+
+button.data-admin-time-spinner__ud:disabled {
+  cursor: not-allowed;
+}
+
+.data-admin-time-spinner__val {
+  min-width: 2.5rem;
+  padding: 0.35rem 0.25rem;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: ui-monospace, monospace;
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: 6px;
+  background: var(--color-ocean-mist, #e8f4fc);
+}
+
+label.data-admin-edit-field-noend {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.35rem 0 0.5rem 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.data-admin-edit-field-hint {
+  margin: 0.45rem 0 0 0;
+  font-size: 0.8rem;
+  color: var(--color-text-soft, #555);
+  line-height: 1.4;
+}
+
+.data-admin-edit-advanced {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.88rem;
+}
+
+.data-admin-edit-advanced-summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--color-link, #0b5cab);
+  padding: 0.25rem 0;
+}
+
+.data-admin-edit-advanced .data-admin-modal__textarea {
+  margin-top: 0.5rem;
+  min-height: 12rem;
+}
+
+/* Edit row modal */
+.data-admin-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem;
+  overflow-y: auto;
+}
+
+.data-admin-modal[hidden] {
+  display: none !important;
+}
+
+.data-admin-modal__panel {
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: var(--radius-sm, 8px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  max-width: 42rem;
+  width: 100%;
+  padding: 1.25rem;
+}
+
+.data-admin-modal__panel--wide {
+  max-width: min(52rem, 96vw);
+}
+
+/* Edit modal: recurrence weekday toggles (activities) */
+.data-admin-recurrence-panel {
+  margin: 0 0 1rem 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: var(--radius-sm, 6px);
+  background: var(--color-ocean-mist, #e8f4fc);
+}
+
+.data-admin-recurrence-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 0.35rem;
+}
+
+.data-admin-recurrence-help {
+  margin: 0 0 0.65rem 0;
+  font-size: 0.82rem;
+  color: var(--color-text-soft, #555);
+  line-height: 1.4;
+}
+
+.data-admin-recurrence-days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+button.data-admin-recurrence-day-btn {
+  min-width: 2.6rem;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid var(--color-border, #aaa);
+  border-radius: 6px;
+  background: var(--color-surface, #fff);
+  color: var(--color-text, #111);
+  cursor: pointer;
+}
+
+button.data-admin-recurrence-day-btn[aria-pressed="true"] {
+  background: var(--color-sky, #b8daf2);
+  border-color: var(--color-text-soft, #555);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+button.data-admin-recurrence-day-btn:hover {
+  border-color: var(--color-text, #333);
+}
+
+.data-admin-recurrence-time-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+}
+
+.data-admin-recurrence-time-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.data-admin-recurrence-time-input {
+  width: 6.5rem;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.9rem;
+  font-family: ui-monospace, monospace;
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: 4px;
+}
+
+.data-admin-modal__title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.data-admin-modal__hint {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.88rem;
+  color: var(--color-text-soft, #555);
+  line-height: 1.45;
+}
+
+.data-admin-modal__textarea {
+  width: 100%;
+  min-height: 16rem;
+  font-family: ui-monospace, "Cascadia Code", "Consolas", monospace;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  padding: 0.6rem;
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: 4px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.data-admin-modal__error {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.88rem;
+  color: #b00020;
+  font-weight: 600;
+  min-height: 1.25rem;
+}
+
+.data-admin-modal__actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}

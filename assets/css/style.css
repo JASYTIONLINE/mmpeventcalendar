@@ -677,7 +677,49 @@
     color: var(--color-driftwood-dark);
     outline: none;
   }
-  
+
+  /* Discreet admin entry (h6-sized); fixed corner, low contrast */
+  h6.site-admin-corner {
+    position: fixed;
+    left: 0.5rem;
+    bottom: 0.5rem;
+    margin: 0;
+    z-index: 40;
+    font-size: 0.67rem;
+    font-weight: 400;
+    line-height: 1.2;
+    opacity: 0.42;
+  }
+
+  .site-admin-corner-link {
+    color: var(--color-text-soft, #666);
+    text-decoration: none;
+  }
+
+  .site-admin-corner-link:hover,
+  .site-admin-corner-link:focus {
+    opacity: 1;
+    text-decoration: underline;
+    color: var(--color-text, #111);
+    outline: none;
+  }
+
+  /* Shown after redirect from data-admin on mobile */
+  .site-desktop-data-admin-notice {
+    margin: 0;
+    padding: 0.85rem 1rem;
+    background: #fff8e6;
+    border-bottom: 2px solid #c90;
+    color: var(--color-text, #222);
+    font-size: 0.95rem;
+    line-height: 1.45;
+    text-align: center;
+  }
+
+  .site-desktop-data-admin-notice strong {
+    font-weight: 700;
+  }
+
   .site-footer h2 {
     margin-bottom: 0.75rem;
   }

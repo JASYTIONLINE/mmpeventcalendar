@@ -1,0 +1,47 @@
+Barkle-Week 3 Assignment 01: Project Proposal and 
+Research 
+Web App: McAllen Mobile Park: Mobile First Calendar of events 
+Part 1: Problem Statement 
+Residents of McAllen Mobile Park and similar small communities lack a simple, centralized way to manage, publish, and access event information. Events are currently shared through Facebook posts, word of mouth, and informal notices. In practice, a resident may hear about an event days later, scroll through a Facebook group trying to find details, or miss it entirely because the information was buried or never seen. These methods are inconsistent and unreliable, forcing users to search through posts or rely on memory, which leads to confusion and reduced participation. Many residents also struggle with searchbased systems and may not know how to enter effective keywords, especially on platforms with large amounts of data. 
+The primary audience is residents of McAllen Mobile Park, with an average age of approximately 60. Many rely on smartphones rather than computers and have limited experience navigating complex platforms. Some do not have Facebook accounts or are unfamiliar with locating past posts. Additionally, many users experience reduced eyesight and mild cognitive challenges associated with aging, making it difficult to navigate dense or cluttered interfaces. The system must therefore be mobile-friendly, easy to read, and simple to navigate, with clear layout and readable text. 
+This problem matters because poor access to information reduces engagement and weakens community connection. Residents may miss events, arrive at the wrong time, or choose not to attend due to uncertainty. Organizers must repeatedly answer questions or repost information, increasing workload. Lower attendance also reduces revenue for the park association, limiting resources for future events. Over time, this leads to fewer activities and reduced resident satisfaction, which can influence decisions to remain in or move to other parks. This is a real, ongoing issue. A centralized calendar improves communication, reduces confusion, and increases participation. 
+Part 2: Existing Solutions 
+Visit McAllen 
+Visit McAllen provides official city-wide event listings and serves as a centralized and credible source of information (https://visitmcallen.com/). It is well-organized and professionally maintained, offering access to a wide range of activities. However, it is designed for a broad audience, including tourists, and frequently promotes large-scale or niche events such as marathons or automotive events that are not relevant to McAllen Mobile Park residents, particularly older adults. Users must browse and interpret multiple layers of content to locate useful information. While mobile-friendly, it is not optimized for elderly users, relying on smaller text, dense layouts, and navigation patterns that are difficult to use on a phone. 
+Eventbrite 
+Eventbrite is a large-scale event discovery platform with strong search and filtering capabilities (https://www.eventbrite.com/). It allows users to explore a wide variety of events and supports promotion and registration. However, its scale becomes a limitation in a small community context. Users are presented with many unrelated events, advertisements, and listings, requiring them to search and filter to find relevant information. Many users in the target audience struggle with search-based systems and may not know how to enter effective queries. Although mobile-responsive, the volume of content and interface complexity can overwhelm users with limited technical experience or reduced eyesight. 
+Facebook Events 
+Facebook Events is currently used within McAllen Mobile Park to share event information. It allows easy posting and interaction but requires a Facebook account, excluding some users. Information is presented in a feed-based format where posts quickly become buried. Users must scroll through large amounts of content to locate event details, and there is no structured calendar view. Formatting is inconsistent, depending on how posts are created. While accessible on mobile devices, it is not optimized for elderly users, presenting dense information and small text. 
+Shared Limitation Across Platforms 
+All platforms are mobile-compatible but not optimized for accessibility needs such as reduced eyesight or cognitive limitations. They rely on dense layouts and complex navigation, making them difficult to use on a phone for older users. 
+Proposed Solution Comparison 
+The proposed solution focuses only on relevant community events and presents them in a simple, calendar-first interface. It removes unnecessary content, eliminates searching and filtering, and avoids account requirements. The design prioritizes accessibility through larger text, clear layout, and simplified navigation, allowing users to immediately view events and access details without confusion. 
+Part 3: Proposed Approach 
+The application will be developed as a mobile-first website that prioritizes simplicity, readability, and ease of navigation. The interface will mimic a traditional analog calendar and event announcement system, allowing users to interact with the site in a familiar way. Instead of relying on search or complex navigation, users will land on a calendar view and select a date to see events, similar to checking a printed schedule. 
+The system will consist of a small set of clearly defined pages: a landing page with a calendar, a submission page, event-detail pages, and an about page with contact functionality. Navigation will remain minimal and consistent to reduce cognitive load. Event-detail pages will function as digital “flyers,” presenting information in a clear, readable format with large text and simple layout optimized for mobile viewing. 
+The site will be built using HTML, CSS, and JavaScript to create a lightweight, responsive front-end. Google Calendar will serve as the event data source, allowing updates without building a custom database. Google Forms will be embedded for event submissions. The site will be hosted on GitHub Pages for simplicity and accessibility. 
+For Project 01, the system will include full page structure, navigation, calendar integration, and placeholder event-detail pages to demonstrate functionality. For Project 02, the system will include fully developed event pages, improved mobile usability, and a refined submission workflow. 
+This approach emphasizes application design over technical complexity. HTML, CSS, and JavaScript are used as tools to deliver a functional solution rather than to showcase advanced technical features. The design prioritizes usability, accessibility, and clarity, applying CMPA principles such as user-centered design, constraint-based design, and UI/UX simplification. The goal is to solve the user’s problem through simplicity and effective interaction design. 
+Part 4: Project Plan and Timeline 
+Week 04 – Exercise 02 
+By Week 04, the site structure will be complete, including all core pages, navigation, and initial styling. Google Calendar will be integrated into the landing page, and the submission form will be embedded and tested. The site will be verified for mobile functionality. 
+Week 05 – Project 01 Submission 
+By Week 05, a functional prototype will be delivered. The calendar will display a base set of events, and navigation will be fully operational. Event links will connect to placeholder event pages to demonstrate workflow. 
+Weeks 06–07 – Iteration and Refinement 
+Focus will shift to improving usability, refining the mobile experience, and replacing placeholder content with real event data. Event-detail pages will be completed, and the submission process will be improved for clarity. 
+Week 08 – Project 02 Submission 
+The final version will include a fully functional calendar, complete event-detail pages, improved mobile optimization, and a refined submission workflow. 
+Risks and Mitigation 
+• Risk: Technical complexity in integrating Google tools o Mitigation: Use simple features and avoid unnecessary automation 
+• Risk: Submission system too complex for users o Mitigation: Use a simple, structured Google Form 
+• Risk: Integration approach may fail o Mitigation: Fall back to manual workflows 
+• Risk: Limited familiarity with tools o Mitigation: Use tutorials and incremental testing 
+• Risk: Mobile usability issues o Mitigation: Test early and prioritize readability 
+• Risk: Scope creep o Mitigation: Limit to core functionality 
+ 
+1 
+
+1 
+
+1 
+

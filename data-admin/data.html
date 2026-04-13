@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data | MMHP admin</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/data-admin.css">
+</head>
+
+<body id="top" class="page-data-admin" data-mmhp-master-json="../assets/data/json/mmhp-master-data.json"
+  data-mmhp-master-rel-path="mmpeventcalendar\assets\data\json\mmhp-master-data.json">
+  <div id="data-admin-denied" class="data-admin-gate-denied">
+    <p id="data-admin-denied-msg" class="data-admin-gate-denied-msg">Checking access…</p>
+    <p class="data-admin-gate-denied-home"><a href="../index.html">← Site home</a></p>
+  </div>
+
+  <div id="data-admin-app" class="site-wrapper" hidden>
+    <div class="site-shell">
+      <p class="data-admin-back-only"><a href="../index.html">← Site home</a></p>
+
+      <header class="site-header">
+        <h1 class="site-header-title">Master data</h1>
+        <p class="site-header-subtitle">Edit, delete, export by collection (password required)</p>
+        <div class="data-admin-header-save" aria-label="Save master JSON">
+          <button type="button" class="btn site-button data-admin-save-json-btn" id="mmhp-save-master-json">
+            Save changes to the Master Data File…
+          </button>
+        </div>
+      </header>
+
+      <p class="data-admin-banner">
+        <strong>This page is the only web-based editor</strong> for master data (password + optional corner Admin link on the public home page). It is <strong>not available on phones or tablets</strong> — those devices are sent to the home page; use a desktop or laptop browser.
+        Bookmark <code>data-admin/data.html</code> — <code>browse.html</code> redirects here.
+        Source: <code>assets/data/json/mmhp-master-data.json</code>. Up to 500 rows per table on screen; export includes all rows.
+        Use <strong>Save changes to master JSON</strong> after edits, or <strong>Export … to CSV</strong> per collection.
+        <strong>Events:</strong> Card line 2 on the public site is the <strong>activity name</strong> from your Activity choice (it is not stored on the event). <strong>Listing title</strong> (<code>eventName</code>) is filled automatically from event title + activity when you Apply.
+        <strong>Note:</strong> Treat <strong>every field in the form as required</strong> before Apply. Only use options that explicitly allow empty values (for example, <strong>No end time</strong> on events).
+      </p>
+
+      <p id="data-admin-browse-status" class="data-admin-status" role="status" aria-live="polite"></p>
+      <div id="data-admin-browse-root"></div>
+
+      <div id="mmhp-save-confirm-modal" class="data-admin-modal" hidden role="dialog" aria-modal="true"
+        aria-labelledby="mmhp-save-confirm-title">
+        <div class="data-admin-modal__backdrop" id="mmhp-save-confirm-backdrop"></div>
+        <div class="data-admin-modal__panel">
+          <h2 id="mmhp-save-confirm-title" class="data-admin-modal__title">Save all edits to disk?</h2>
+          <p class="data-admin-modal__text">
+            A popup shows your usual path, then a <strong>Save</strong> file dialog. Replace the file at:
+          </p>
+          <pre class="data-admin-modal__path" id="mmhp-save-confirm-path"></pre>
+          <p class="data-admin-modal__path-row">
+            <button type="button" class="data-admin-path-hint-edit" id="mmhp-edit-master-path-hint"
+              title="Remember a different relative path">Change</button>
+          </p>
+          <p class="data-admin-modal__note">
+            Chrome / Edge recommended. Other browsers download a copy instead. Your browser may reopen the last folder you used for this site.
+          </p>
+          <div class="data-admin-modal__actions">
+            <button type="button" class="btn site-button" id="mmhp-save-confirm-cancel">Cancel</button>
+            <button type="button" class="btn site-button data-admin-save-json-btn" id="mmhp-save-confirm-ok">
+              Continue to Save…
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/data-admin-browse.js" defer></script>
+</body>
+
+</html>

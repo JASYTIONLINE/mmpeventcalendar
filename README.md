@@ -39,7 +39,7 @@ This section is the **agreed plan** for how calendar and sidebar content move fr
 
 ### End-to-end story
 
-**Intake.** A sponsor or committee member opens the **Google Form** (linked from the site). Answers land in a **Google Sheet** that the webmaster owns. Alternatively, trusted editors may work **directly in the Sheet** using the same columns the form would populate.
+**Intake.** A sponsor or committee member opens the **submission form** on the site ([`contents/submit.html`](contents/submit.html)): it is a normal web form (not Google Forms) that **downloads a CSV** when completed. The webmaster or coordinator merges approved rows into master data (or into a Sheet if you still use that path). Alternatively, trusted editors may work **directly in the Sheet** or **data admin** using the same columns the form would populate.
 
 **Review and approve.** The **webmaster** cleans up wording, dates, and times; checks locations; and marks each row **approved** (for example an `Approved` column or a `Status` value). Only approved rows are exported.
 
@@ -59,7 +59,7 @@ Until Apps Script is in place, the webmaster can produce these two artifacts man
 
 | Role | Responsibility |
 |------|----------------|
-| **Sponsor / editor** | Submit via Form or edit Sheet per instructions |
+| **Sponsor / editor** | Submit via site form (CSV) or edit Sheet per instructions |
 | **Webmaster** | Approve, export CSV + JSON, import calendar, commit and push JSON |
 | **Residents** | Use the site and/or subscribe to Google Calendar |
 
@@ -94,7 +94,7 @@ This section is the **canonical schema** for long-term site data. A developer ca
 Each object uses a **string** `id` with a type prefix and four digits (for example `re0001`, `sp0001`). **Residents:** `re####` (`re0000` = Vacant). **Spaces:** `sp####`. **Activities:** `ac####`. **Events:** `ev####`. **Committees:** `cm####`. **Committee members:** `mb####`. **Park staff:** `ps####`. **Announcements:** `an####`. **Locations:** `lo####`. **Roles:** `ro####`. **Resident–role links:** `rr####`. Foreign references use **`*Id`** fields (`residentId`, `activityId`, `committeeId`, `roleId`, etc.) and match those string ids.
 
 ## Overview
-**Current site behavior:** The **center** calendar is typically a **Google Calendar embed**; **sidebars** (and any JSON-driven UI) load data from [`assets/data/json/mmhp-master-data.json`](assets/data/json/mmhp-master-data.json) via the static pages. **Submissions** use **Google Forms** (see [Workflow](#workflow-operations-plan) for the target Sheet → export → publish story).
+**Current site behavior:** The **center** calendar is typically a **Google Calendar embed**; **sidebars** (and any JSON-driven UI) load data from [`assets/data/json/mmhp-master-data.json`](assets/data/json/mmhp-master-data.json) via the static pages. **Submissions** use the **Submit** page web form, which produces a **CSV** on completion (see [Workflow](#workflow-operations-plan) for review → export → publish).
 
 **Schema:** The objects below describe the long-term **master data model**; the operational **workflow** above is how approved data is expected to reach the repo and Google Calendar.
 

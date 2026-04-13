@@ -122,7 +122,7 @@
   }
 
   /**
-   * Split event title into line1 (name / headliner) and line2 (what the act is).
+   * Split event title into line1 (card line 1 / short description) and line2 (what the act is).
    * Heuristic: 4+ words → first two words | remainder; 3 words → first | last two; etc.
    */
   function splitEventTitleForCard(name, activityName) {
@@ -138,8 +138,8 @@
     return [words[0] + " " + words[1], words.slice(2).join(" ")];
   }
 
-  /** Max lengths for card lines (matches Google Form validation guidance on Submit page). */
-  var CARD_LINE_MAX = { 1: 36, 2: 48, 3: 32 };
+  /** Max lengths for card lines (matches submit form field limits on Submit page). */
+  var CARD_LINE_MAX = { 1: 48, 2: 48, 3: 32 };
 
   function clampCardLineDisplay(str, maxLen) {
     var s = String(str || "").trim();

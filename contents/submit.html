@@ -6,30 +6,26 @@
   <title>Submit an Event | McAllen Mobile Park Events</title>
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body id="top" data-mmhp-master-json="../assets/data/json/mmhp-master-data.json">
+<body id="top" data-mmhp-master-json="../assets/data/json/mmhp-master-data.json"
+  data-mmhp-coordinator-email="">
   <div class="site-wrapper">
     <div class="site-shell">
 
-      <!-- HEADER -->
       <header class="site-header">
         <h1 class="site-header-title">McAllen Mobile Park Events</h1>
         <p class="site-header-subtitle">Simple, clear community event information in one place</p>
       </header>
 
-      <!-- NAVIGATION -->
       <nav class="site-nav navbar" aria-label="Main navigation">
         <ul class="site-nav-list">
           <li class="site-nav-item"><a class="site-nav-link" href="../index.html">Calendar</a></li>
           <li class="site-nav-item"><a class="site-nav-link" href="learn-more.html">Learn More</a></li>
           <li class="site-nav-item"><a class="site-nav-link" href="contact.html">Contact Event Coordinator</a></li>
-          <!-- Submit link hidden on submit page -->
         </ul>
       </nav>
 
-      <!-- MAIN LAYOUT -->
       <div class="site-layout layout">
 
-        <!-- LEFT SIDEBAR -->
         <aside class="site-sidebar site-sidebar-left sidebar-left" aria-labelledby="schedule-sidebar-heading">
           <h2 id="schedule-sidebar-heading" class="site-sidebar-title">Recurring schedule</h2>
           <div class="sidebar-left-body">
@@ -44,85 +40,142 @@
           </div>
         </aside>
 
-        <!-- CENTER CONTENT -->
         <main class="site-main main-content">
 
-          <section class="site-main-content content submission-decision" id="submission-decision">
+          <section class="site-main-content content submission-page" id="submission-main" tabindex="-1">
             <div class="content-section">
               <h2>Submit an Event</h2>
               <p>
-                There are two ways to submit your event. If you want to upload images, you must be signed into a Google
-                account. If you do not want to sign in, you can submit image links instead.
+                Fill in every field below. The page loads your current calendar data to suggest the next event id, activities,
+                and defaults. When you submit, your device will try to open email or Share so you can send the event details
+                and photos (one featured image required) to the event coordinator (no separate data files are downloaded).
               </p>
-              <p>
-                <strong>Featured card text (Google Form):</strong> add three short-answer questions so each event can supply
-                the three lines shown on site cards. Use <strong>response validation</strong> (character count &mdash; maximum)
-                so entries stay within limits:
-              </p>
-              <ul>
-                <li><strong>Card line 1</strong> &mdash; name or headliner (e.g. <em>Justin Terry</em>). <strong>Max 36 characters.</strong></li>
-                <li><strong>Card line 2</strong> &mdash; what the event is (e.g. <em>Valentines Dance</em>). <strong>Max 48 characters.</strong></li>
-                <li><strong>Card line 3</strong> &mdash; date line as residents should read it, or leave blank and the site will show the event date as <em>weekday day month 2-digit year</em> (e.g. <em>Wed 10 Feb 27</em>). <strong>Max 32 characters.</strong></li>
+              <ul class="submission-page__hints">
+                <li><strong>Short description of event</strong> — main text on the featured card (line 1). <strong>Max 48 characters.</strong></li>
+                <li><strong>Short description</strong> — what the event is in a few words (often matches the activity). <strong>Max 48 characters.</strong></li>
+                <li>The <strong>date line on the card</strong> is set automatically from the event date you choose (no separate field).</li>
               </ul>
-              <p style="margin-top: 0.75rem; font-size: 1rem; line-height: 1.45; color: var(--color-text-soft);">
-                Map these fields to <code>cardLine1</code>, <code>cardLine2</code>, and <code>cardLine3</code> on each event in
-                <code>mmhp-master-data.json</code> (or use <strong>Export CSV</strong> on the calendar page after merging Sheet data).
-              </p>
-              <p class="submission-decision__placeholder-notice" id="submission-placeholder-notice" hidden role="status">
-                The Google Form buttons are not linked yet. Edit <code>contents/submit.html</code> and set each form
-                button’s <code>href</code> to your published URL (for example <code>https://forms.gle/…</code>).
-              </p>
             </div>
 
-            <div class="content-section submission-decision__step" id="submission-step-question" data-submission-step="question">
-              <p class="submission-decision__question"><strong>Do you have a Google account?</strong></p>
-              <div class="submission-decision__actions footer-buttons site-footer-actions">
-                <button type="button" class="btn site-button" id="submission-choose-yes" aria-controls="submission-step-yes">
-                  Yes
-                </button>
-                <button type="button" class="btn site-button" id="submission-choose-no" aria-controls="submission-step-no">
-                  No
-                </button>
-              </div>
-            </div>
+            <p class="submission-decision__placeholder-notice" id="mmhp-event-submit-load-err" hidden role="alert"></p>
 
-            <div class="content-section submission-decision__step submission-decision__panel" id="submission-step-no" data-submission-step="no" hidden>
-              <p>
-                To upload photos, Google requires you to be signed into a Google account. If you do not want to sign
-                in, you can still submit your event by providing image links instead.
-              </p>
-              <div class="submission-decision__actions footer-buttons site-footer-actions">
-                <!-- Set href to your link-only Google Form, e.g. https://forms.gle/xxxxxxxx -->
-                <a class="btn site-button" id="submission-url-form-link"
-                  href="#"
-                  target="_blank" rel="noopener noreferrer">Go to URL Submission Form</a>
-                <a class="btn site-button" href="../index.html">I Will Come Back Later</a>
-              </div>
-            </div>
+            <form id="mmhp-event-submit-form" class="event-submit-form" hidden novalidate>
+              <fieldset class="event-submit-form__fieldset">
+                <legend class="event-submit-form__legend">Event details</legend>
 
-            <div class="content-section submission-decision__step submission-decision__panel" id="submission-step-yes" data-submission-step="yes" hidden>
-              <p>Please make sure you are logged into your Google account before continuing.</p>
-              <div class="submission-decision__actions footer-buttons site-footer-actions">
-                <!-- Set href to your upload Google Form, e.g. https://forms.gle/xxxxxxxx -->
-                <a class="btn site-button" id="submission-upload-form-link"
-                  href="#"
-                  target="_blank" rel="noopener noreferrer">I Am Logged In</a>
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Event id</span>
+                  <input type="text" id="mmhp-submit-id" name="id" class="event-submit-form__input" readonly autocomplete="off" />
+                </label>
+
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Activity</span>
+                  <select id="mmhp-submit-activityId" name="activityId" class="event-submit-form__input" required></select>
+                </label>
+
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Date</span>
+                  <input type="date" id="mmhp-submit-date" name="date" class="event-submit-form__input" required />
+                </label>
+
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Start time (24h)</span>
+                  <input type="text" id="mmhp-submit-startTime" name="startTime" class="event-submit-form__input" placeholder="19:00" required pattern="^\d{1,2}:\d{2}$" />
+                </label>
+
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">End time (24h)</span>
+                  <input type="text" id="mmhp-submit-endTime" name="endTime" class="event-submit-form__input" placeholder="21:00" required pattern="^\d{1,2}:\d{2}$" />
+                </label>
+
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Location</span>
+                  <select id="mmhp-submit-location-preset" name="locationPreset" class="event-submit-form__input" required>
+                    <option value="">— Choose location —</option>
+                    <option value="Hall A">Hall A</option>
+                    <option value="Hall B">Hall B</option>
+                    <option value="Hall C">Hall C</option>
+                    <option value="__other__">Other</option>
+                  </select>
+                </label>
+                <label class="event-submit-form__field" id="mmhp-submit-location-other-wrap" hidden>
+                  <span class="event-submit-form__label">Other location</span>
+                  <input type="text" id="mmhp-submit-location-other" name="locationOther" class="event-submit-form__input" maxlength="120" autocomplete="off" readonly tabindex="-1" placeholder="Add other location here" />
+                </label>
+
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Short description of event (max 48 characters)</span>
+                  <input type="text" id="mmhp-submit-cardLine1" name="cardLine1" class="event-submit-form__input" required maxlength="48" autocomplete="off" />
+                </label>
+
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Short description (max 48 characters)</span>
+                  <input type="text" id="mmhp-submit-cardLine2" name="cardLine2" class="event-submit-form__input" required maxlength="48" autocomplete="off" />
+                </label>
+
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Listing title (read-only; from short description + activity)</span>
+                  <input type="text" id="mmhp-submit-eventName" class="event-submit-form__input" readonly tabindex="-1" />
+                </label>
+
+                <label class="event-submit-form__field event-submit-form__field--check">
+                  <input type="checkbox" id="mmhp-submit-isActive" name="isActive" checked />
+                  <span class="event-submit-form__label">Active (show on calendar)</span>
+                </label>
+
+                <label class="event-submit-form__field event-submit-form__field--check">
+                  <input type="checkbox" id="mmhp-submit-isFeatured" name="isFeatured" />
+                  <span class="event-submit-form__label">Featured (center strip and spotlights when rules apply)</span>
+                </label>
+              </fieldset>
+
+              <fieldset class="event-submit-form__fieldset">
+                <legend class="event-submit-form__legend">Images for the event coordinator</legend>
+                <p class="event-submit-form__help">
+                  <strong>Featured image is required.</strong> Additional photos are optional. Where your device supports it,
+                  images are included when you share or email the coordinator. The site maintainer sets
+                  <code>data-mmhp-coordinator-email</code> on the page <code>&lt;body&gt;</code> to the coordinator’s address.
+                </p>
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Featured image (required)</span>
+                  <input type="file" id="mmhp-submit-image-feature" name="imageFeatured" class="event-submit-form__file" accept="image/*" />
+                </label>
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Additional image 1 (optional)</span>
+                  <input type="file" id="mmhp-submit-image-extra-1" name="imageExtra1" class="event-submit-form__file" accept="image/*" />
+                </label>
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Additional image 2 (optional)</span>
+                  <input type="file" id="mmhp-submit-image-extra-2" name="imageExtra2" class="event-submit-form__file" accept="image/*" />
+                </label>
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Additional image 3 (optional)</span>
+                  <input type="file" id="mmhp-submit-image-extra-3" name="imageExtra3" class="event-submit-form__file" accept="image/*" />
+                </label>
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Additional image 4 (optional)</span>
+                  <input type="file" id="mmhp-submit-image-extra-4" name="imageExtra4" class="event-submit-form__file" accept="image/*" />
+                </label>
+              </fieldset>
+
+              <div class="event-submit-form__actions">
+                <button type="submit" class="btn site-button">Send to event coordinator</button>
+                <a class="btn site-button" href="../index.html">Back to calendar</a>
               </div>
-            </div>
+
+              <p class="event-submit-form__status" id="mmhp-event-submit-status" role="status" aria-live="polite" hidden></p>
+            </form>
           </section>
 
         </main>
 
-        <!-- RIGHT SIDEBAR -->
         <aside class="site-sidebar site-sidebar-right sidebar-right" aria-labelledby="featured-events-heading">
           <h2 id="featured-events-heading" class="site-sidebar-title">Featured Events</h2>
-
           <div class="featured-events-grid" aria-live="polite"></div>
         </aside>
 
       </div>
 
-      <!-- FOOTER -->
       <footer class="site-footer">
         <h2>McAllen Mobile Park Event Calendar</h2>
         <div class="site-footer-address-row">
@@ -131,69 +184,14 @@
             4900 N Mc Coll Rd<br>
             Mcallen, TX 78504
           </address>
-          <a class="btn site-button site-footer-nav-btn" href="https://maps.app.goo.gl/sVCaEKHYQw5QcqK7A" target="_blank" rel="noopener noreferrer" aria-label="Open address in Google Maps">Navigate</a>
+          <a class="btn site-button site-footer-nav-btn" href="https://maps.app.goo.gl/sVCaEKHYQw5QcqK7A" target="_blank" rel="noopener noreferrer" aria-label="Open map">Navigate</a>
         </div>
         <a href="#top" class="site-footer-back-top" aria-label="Back to top of page">Back to top</a>
       </footer>
 
     </div>
   </div>
-  <script>
-    (function () {
-      var main = document.getElementById('submission-decision');
-      var stepQuestion = document.getElementById('submission-step-question');
-      var stepNo = document.getElementById('submission-step-no');
-      var stepYes = document.getElementById('submission-step-yes');
-      var btnYes = document.getElementById('submission-choose-yes');
-      var btnNo = document.getElementById('submission-choose-no');
-      var notice = document.getElementById('submission-placeholder-notice');
-      var urlFormLink = document.getElementById('submission-url-form-link');
-      var uploadFormLink = document.getElementById('submission-upload-form-link');
-
-      function isFormLinkPlaceholder(anchor) {
-        if (!anchor) return true;
-        var raw = anchor.getAttribute('href');
-        if (!raw || raw === '#' || raw.charAt(0) === '#') return true;
-        return raw.indexOf('REPLACE_') !== -1;
-      }
-
-      function wireFormLink(anchor) {
-        if (!anchor) return;
-        anchor.addEventListener('click', function (e) {
-          if (!isFormLinkPlaceholder(anchor)) return;
-          e.preventDefault();
-          if (notice) {
-            notice.hidden = false;
-            notice.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }
-        });
-      }
-
-      wireFormLink(urlFormLink);
-      wireFormLink(uploadFormLink);
-
-      function showYesPath() {
-        if (stepQuestion) stepQuestion.hidden = true;
-        stepNo.hidden = true;
-        stepYes.hidden = false;
-        if (main) {
-          main.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }
-
-      function showNoPath() {
-        if (stepQuestion) stepQuestion.hidden = true;
-        stepYes.hidden = true;
-        stepNo.hidden = false;
-        if (main) {
-          main.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }
-
-      if (btnYes) btnYes.addEventListener('click', showYesPath);
-      if (btnNo) btnNo.addEventListener('click', showNoPath);
-    })();
-  </script>
+  <script src="../assets/js/event-submit-form.js" defer></script>
   <script src="../assets/js/activities-sidebar.js" defer></script>
   <script src="../assets/js/schedule-csv-io.js" defer></script>
 </body>

@@ -861,8 +861,11 @@
   function fieldLabelForForm(collectionKey, key) {
     if (collectionKey === "events") {
       if (key === "activityId") return "Activity (sets activity id; card line 2 on the site uses this activity name)";
-      if (key === "cardLine1") return "Event title (card line 1 — shown on featured cards)";
-      if (key === "date") return "Event date (card line 3)";
+      if (key === "cardLine1")
+        return "Short description of event (max 48 characters; card line 1 — featured cards)";
+      if (key === "cardLine2") return "Short description (max 48 characters; card line 2)";
+      if (key === "cardLine3") return "Date line on card (card line 3; often auto from date)";
+      if (key === "date") return "Event date (also drives card line 3 text when synced)";
       if (key === "startTime") return "Start & end time";
       if (key === "isFeatured")
         return "Featured (home: center strip, right Wed/Sat, left schedule when dated)";
@@ -1191,6 +1194,7 @@
         }
         if (collectionKey === "events" && key === "cardLine1") {
           row.dataset.mmhpRowKind = "cardLine1";
+          sinp.maxLength = 48;
         }
         sinp.value = val;
         row.appendChild(sinp);
@@ -1231,7 +1235,7 @@
         evNRow.className = "data-admin-edit-field-row";
         var evNLbl = document.createElement("div");
         evNLbl.className = "data-admin-edit-field-label";
-        evNLbl.textContent = "Listing title (auto: event title + activity)";
+        evNLbl.textContent = "Listing title (auto: short description of event + activity)";
         var evNDisp = document.createElement("input");
         evNDisp.type = "text";
         evNDisp.readOnly = true;

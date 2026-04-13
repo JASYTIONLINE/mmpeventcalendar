@@ -492,6 +492,134 @@
     color: var(--color-text);
     word-break: break-all;
   }
+
+  /* Submit flow: one visible step at a time (avoid hidden-attribute clashes with layout) */
+  .submission-decision .submission-decision__step-panel {
+    display: none;
+  }
+
+  .submission-decision .submission-decision__step-panel.is-active {
+    display: block;
+  }
+
+  .submission-decision__back {
+    margin-top: var(--space-md);
+    font-size: 0.95rem;
+  }
+
+  .submission-decision__back .btn {
+    font-weight: 500;
+  }
+
+  .submission-page__hints {
+    margin: 0.5rem 0 0;
+    padding-left: 1.25rem;
+    font-size: 0.98rem;
+    line-height: 1.45;
+    color: var(--color-text-soft);
+  }
+
+  .event-submit-form__fieldset {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.25rem 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .event-submit-form__legend {
+    padding: 0 0.35rem;
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+
+  .event-submit-form__field {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .event-submit-form__field--check {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .event-submit-form__field--check input {
+    margin-top: 0.2rem;
+  }
+
+  .event-submit-form__label {
+    display: block;
+    font-size: 0.92rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    color: var(--color-text);
+  }
+
+  .event-submit-form__input {
+    width: 100%;
+    max-width: 28rem;
+    padding: 0.45rem 0.6rem;
+    font-size: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-white);
+  }
+
+  .event-submit-form__input[readonly] {
+    background: var(--color-ocean-mist);
+    color: var(--color-text-soft);
+  }
+
+  .event-submit-form__actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    align-items: stretch;
+    margin-top: 0.5rem;
+    max-width: 28rem;
+  }
+
+  .event-submit-form__actions > * {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .event-submit-form__actions > a {
+    text-decoration: none;
+  }
+
+  @media (max-width: 520px) {
+    .event-submit-form__actions {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .event-submit-form__status {
+    margin-top: 1rem;
+    font-size: 0.98rem;
+    color: var(--color-text-soft);
+  }
+
+  .event-submit-form__help {
+    margin: 0 0 1rem;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: var(--color-text-soft);
+  }
+
+  .event-submit-form__help code {
+    font-size: 0.88em;
+    word-break: break-all;
+  }
+
+  .event-submit-form__file {
+    display: block;
+    width: 100%;
+    max-width: 28rem;
+    font-size: 0.95rem;
+  }
   
   /* Section variant: all headings inside use black text */
   .content-section-black h1,

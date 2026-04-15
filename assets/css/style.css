@@ -45,7 +45,7 @@
   
     --sidebar-left-width: 8%;
     --sidebar-left-extra: 50px;
-    --sidebar-right-width: 176px; /* ~½ former 282px + 25%; cards use width:100% inside column */
+    --sidebar-right-width: 176px;
 
     /* Home Google Calendar iframe (full-width / desktop cap) */
     --mmhp-calendar-embed-max-height: 1440px;
@@ -283,6 +283,12 @@
     margin-bottom: 1rem;
   }
 
+  /* ~30% smaller than the prior “doubled” left rail title */
+  .site-sidebar-left .site-sidebar-title,
+  .sidebar-left .site-sidebar-title {
+    font-size: clamp(1.89rem, 3.5vw, 2.66rem);
+  }
+
   .site-sidebar-left {
     display: flex;
     flex-direction: column;
@@ -310,7 +316,7 @@
   }
 
   .sidebar-schedule-io-hint {
-    font-size: 0.72rem;
+    font-size: 1.008rem;
     line-height: 1.35;
     color: var(--color-text-soft);
     margin: 0 0 0.45rem 0;
@@ -321,12 +327,12 @@
     width: 100%;
     box-sizing: border-box;
     margin-bottom: 0.4rem;
-    font-size: 0.78rem;
-    padding: 0.4rem 0.55rem;
+    font-size: 1.092rem;
+    padding: 0.45rem 0.65rem;
   }
 
   .sidebar-schedule-io-status {
-    font-size: 0.72rem;
+    font-size: 1.008rem;
     line-height: 1.35;
     color: var(--color-text-soft);
     margin: 0.4rem 0 0 0;
@@ -355,6 +361,7 @@
     margin-bottom: 0.75rem;
     color: var(--color-text);
     font-weight: 600;
+    font-size: 1.4rem;
   }
 
   .schedule-by-day .sidebar-schedule-day {
@@ -370,7 +377,7 @@
   /* Outline-style: weekday as heading, indented lines below */
   .schedule-by-day .sidebar-schedule-dayname {
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 1.4rem;
     text-align: left;
     margin: 0 0 0.35rem 0;
     padding: 0 0 0.2rem 0;
@@ -395,7 +402,7 @@
     border-radius: 0;
     padding: 0.32rem 0;
     margin: 0;
-    font-size: 0.9rem;
+    font-size: 1.26rem;
     color: var(--color-text);
     line-height: 1.3;
     list-style: none;
@@ -408,7 +415,7 @@
 
   .schedule-by-day .sidebar-schedule-line__meta {
     font-weight: 500;
-    font-size: 0.82rem;
+    font-size: 1.148rem;
     color: var(--color-text-soft);
     line-height: 1.35;
   }
@@ -640,7 +647,7 @@
     width: 100%;
     box-sizing: border-box;
     text-align: center;
-    font-size: 0.95rem;
+    font-size: 1.9rem;
     padding: 0.5rem 0.65rem;
   }
 
@@ -1656,4 +1663,146 @@
     height: auto;
     object-fit: contain;
     object-position: center;
+  }
+
+  /* ================================================
+     Activity flyer (contents/activity-flyer/*.html)
+     Same shell as index / learn-more; hero height matches home
+     ================================================ */
+  body.page-activity-flyer .hero-image img {
+    height: min(160px, 20vw);
+    object-fit: cover;
+  }
+
+  .page-activity-flyer-badge {
+    display: inline-block;
+    margin: 0 0 var(--space-sm);
+    padding: 0.35rem 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-white);
+    background: linear-gradient(90deg, var(--color-driftwood-dark), var(--color-driftwood));
+    border-radius: 999px;
+    box-shadow: 0 2px 8px var(--color-shadow);
+  }
+
+  .page-activity-flyer-title {
+    margin-top: 0;
+    margin-bottom: var(--space-md);
+  }
+
+  .page-activity-flyer-lead {
+    margin: 0 0 var(--space-lg);
+    color: var(--color-text-soft);
+    max-width: 42em;
+  }
+
+  .page-activity-flyer-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: var(--space-lg);
+    align-items: start;
+  }
+
+  .page-activity-flyer-grid > .page-activity-flyer-story {
+    grid-column: 1 / -1;
+  }
+
+  @media (max-width: 720px) {
+    .page-activity-flyer-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .page-activity-flyer-feature-frame {
+    padding: var(--space-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 12rem;
+    background: linear-gradient(145deg, var(--color-ocean-mist), var(--color-white));
+  }
+
+  .page-activity-flyer-feature-frame img {
+    width: 100%;
+    max-height: 420px;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 14px var(--color-shadow);
+  }
+
+  .page-activity-flyer-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .page-activity-flyer-details h2 {
+    margin-top: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: var(--color-text-soft);
+  }
+
+  .page-activity-flyer-recurring-label {
+    margin: 0;
+    font-size: clamp(1.25rem, 3vw, 1.65rem);
+    font-weight: 700;
+    color: var(--color-driftwood-dark);
+    line-height: 1.25;
+  }
+
+  .page-activity-flyer-days {
+    margin: 0.5rem 0 0;
+    font-weight: 600;
+  }
+
+  .page-activity-flyer-time-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.65rem;
+    padding: 0.5rem 1rem;
+    background: var(--color-ocean-mist);
+    border-radius: 999px;
+    font-weight: 600;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+  }
+
+  .page-activity-flyer-disclaimer {
+    margin: 0.85rem 0 0;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--color-text-soft);
+  }
+
+  .page-activity-flyer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.35rem;
+  }
+
+  .page-activity-flyer-loc {
+    margin: 0;
+    padding-top: var(--space-sm);
+    border-top: 1px dashed var(--color-border);
+  }
+
+  .page-activity-flyer-loc strong {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-soft);
+    margin-bottom: 0.25rem;
+  }
+
+  .page-activity-flyer-story h2 {
+    margin-top: 0;
   }

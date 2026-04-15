@@ -413,6 +413,26 @@
     color: var(--color-text);
   }
 
+  .schedule-by-day .sidebar-schedule-line__title--link {
+    color: var(--color-driftwood-dark);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    align-self: flex-start;
+  }
+
+  .schedule-by-day .sidebar-schedule-line__title--link:hover,
+  .schedule-by-day .sidebar-schedule-line__title--link:focus {
+    color: var(--color-driftwood);
+    border-bottom-color: var(--color-driftwood);
+    outline: none;
+  }
+
+  .schedule-by-day .sidebar-schedule-line__title--link:focus-visible {
+    outline: 2px solid var(--color-sky);
+    outline-offset: 2px;
+    border-bottom-color: transparent;
+  }
+
   .schedule-by-day .sidebar-schedule-line__meta {
     font-weight: 500;
     font-size: 1.148rem;

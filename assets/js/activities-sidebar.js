@@ -11,6 +11,32 @@
 
   var FALLBACK_IMAGES = ["rec-hall.png", "dinner.png", "park-banner.png"];
 
+  /** Activity id → flyer file under contents/activity-flyer/ (see repo for HTML names). */
+  var ACTIVITY_FLYER_FILENAMES = {
+    ac0003: "card-games.html",
+    ac0004: "pool-8-ball.html",
+    ac0006: "arts-and-crafts.html",
+    ac0008: "book-club.html",
+    ac0010: "bible-study.html",
+    ac0011: "vespers.html",
+    ac0016: "kitchen-inventory.html",
+    ac0023: "martial-arts-training.html",
+  };
+
+  /** Relative href to the activity flyer for the current page path. */
+  function activityFlyerPageHref(activityId) {
+    var fn = ACTIVITY_FLYER_FILENAMES[activityId];
+    if (!fn) return "";
+    var path = (window.location.pathname || "").replace(/\\/g, "/");
+    if (/\/contents\/activity-flyer\//i.test(path)) {
+      return fn;
+    }
+    if (/\/contents\//i.test(path)) {
+      return "activity-flyer/" + fn;
+    }
+    return "contents/activity-flyer/" + fn;
+  }
+
   function mondayFirstIndex(jsDay) {
     return (jsDay + 6) % 7;
   }
@@ -65,8 +91,24 @@
   }
 
   function appendSidebarScheduleSlot(li, slot) {
-    var titleEl = document.createElement("span");
-    titleEl.className = "sidebar-schedule-line__title";
+    var href =
+      slot.activityId != null && String(slot.activityId).trim()
+        ? activityFlyerPageHref(String(slot.activityId).trim())
+        : "";
+    var titleEl;
+    if (href) {
+      titleEl = document.createElement("a");
+      titleEl.href = href;
+      titleEl.className =
+        "sidebar-schedule-line__title sidebar-schedule-line__title--link";
+      titleEl.setAttribute(
+        "aria-label",
+        slot.title + " — open activity flyer"
+      );
+    } else {
+      titleEl = document.createElement("span");
+      titleEl.className = "sidebar-schedule-line__title";
+    }
     titleEl.textContent = slot.title;
     li.appendChild(titleEl);
     if (slot.meta) {
@@ -75,7 +117,8 @@
       metaEl.textContent = slot.meta;
       li.appendChild(metaEl);
     }
-    li.setAttribute("aria-label", slot.meta ? slot.title + ", " + slot.meta : slot.title);
+    var lineLabel = slot.meta ? slot.title + ", " + slot.meta : slot.title;
+    li.setAttribute("aria-label", lineLabel);
   }
 
   function eventLocation(ev, act) {
@@ -501,6 +544,7 @@
           minutes: minutes,
           title: slot.title,
           meta: slot.meta,
+          activityId: act.id != null ? String(act.id).trim() : "",
         });
       }
     }

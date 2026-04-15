@@ -620,6 +620,86 @@
     max-width: 28rem;
     font-size: 0.95rem;
   }
+
+  .event-submit-form__size-hint {
+    margin: 0 0 1rem;
+    padding: 0.65rem 0.75rem;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: var(--color-text);
+    background: var(--color-ocean-mist, #e8f4fc);
+    border: 1px solid var(--color-border, #bfddea);
+    border-radius: var(--radius-sm, 8px);
+  }
+
+  .event-submit-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10040;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .event-submit-modal[hidden] {
+    display: none !important;
+  }
+
+  .event-submit-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(40, 55, 65, 0.45);
+  }
+
+  .event-submit-modal__panel {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 32rem;
+    max-height: min(90vh, 28rem);
+    overflow: auto;
+    padding: 1.1rem 1.25rem 1.25rem;
+    background: var(--color-white, #fff);
+    border: 1px solid var(--color-border, #bfddea);
+    border-radius: var(--radius-md, 12px);
+    box-shadow: 0 12px 40px rgba(40, 70, 90, 0.22);
+    box-sizing: border-box;
+  }
+
+  .event-submit-modal__title {
+    margin: 0 0 0.65rem 0;
+    font-size: 1.15rem;
+    color: var(--color-driftwood-dark, #7a5e44);
+  }
+
+  .event-submit-modal__body {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--color-text, #2f3a40);
+  }
+
+  .event-submit-modal__body p {
+    margin: 0 0 0.75rem 0;
+    font-size: 0.92rem;
+  }
+
+  .event-submit-modal__body ul {
+    margin: 0 0 0.75rem 1.1rem;
+    padding: 0;
+    font-size: 0.88rem;
+  }
+
+  .event-submit-modal__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border, #eee);
+  }
   
   /* Section variant: all headings inside use black text */
   .content-section-black h1,

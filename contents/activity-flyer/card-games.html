@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Recurring activity flyer — activities[] ac0003 (Card Games). -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Card Games — recurring at McAllen Mobile Park</title>
+  <meta name="description" content="Card Games at McAllen Mobile Park: Wednesdays in Hall A—a regular card-playing group for residents." />
+  <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg" />
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+<body id="top" class="page-activity-flyer" data-mmhp-master-json="../../assets/data/json/mmhp-master-data.json">
+  <div class="site-wrapper">
+    <div class="site-shell">
+      <header class="site-header">
+        <h1 class="site-header-title">McAllen Mobile Park Activities</h1>
+        <p class="site-header-subtitle">Stay Active, Engage Your Mind, Have Fun at MMHP!</p>
+      </header>
+      <div class="hero-image">
+        <img src="../../assets/images/park-banner.png" alt="McAllen Mobile Park Banner" />
+      </div>
+      <nav class="site-nav navbar" aria-label="Main navigation">
+        <ul class="site-nav-list">
+          <li class="site-nav-item"><a class="site-nav-link" href="../../index.html">Calendar</a></li>
+          <li class="site-nav-item"><a class="site-nav-link" href="../learn-more.html">Learn More</a></li>
+          <li class="site-nav-item"><a class="site-nav-link" href="../request-activity.html">Request activity</a></li>
+          <li class="site-nav-item"><a class="site-nav-link" href="../submit.html">Submit Event</a></li>
+          <li class="site-nav-item"><a class="site-nav-link" href="../contact.html">Contact Event Coordinator</a></li>
+        </ul>
+      </nav>
+      <div class="site-layout layout">
+        <aside class="site-sidebar site-sidebar-left sidebar-left" aria-labelledby="schedule-sidebar-heading">
+          <h2 id="schedule-sidebar-heading" class="site-sidebar-title">Recurring schedule</h2>
+          <div class="sidebar-left-body">
+            <p class="sidebar-add-activity-wrap">
+              <a class="btn site-button sidebar-add-activity-btn" href="../request-activity.html">Add activity</a>
+            </p>
+            <ul class="recurring-events-list" aria-busy="true"></ul>
+            <div class="sidebar-schedule-io" aria-label="Schedule CSV export and import">
+              <p class="sidebar-schedule-io-hint">Export activities and events to CSV for Excel; import merges into a downloadable JSON file to replace in the repo.</p>
+              <button type="button" class="btn site-button sidebar-schedule-io-btn" id="mmhp-export-schedule-csv">Export CSV</button>
+              <button type="button" class="btn site-button sidebar-schedule-io-btn" id="mmhp-import-schedule-csv">Import CSV</button>
+              <input type="file" id="mmhp-import-schedule-file" accept=".csv,text/csv" hidden />
+              <p class="sidebar-schedule-io-status" id="mmhp-schedule-io-status" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+        </aside>
+        <main class="site-main main-content" id="main" data-mmhp-activity-id="ac0003">
+          <section class="site-main-content content page-activity-flyer-main">
+            <span class="page-activity-flyer-badge">Weekly activity</span>
+            <h2 class="page-activity-flyer-title">Card Games</h2>
+            <p class="page-activity-flyer-lead">
+              A regular card-playing group—friendly play and conversation for neighbors who enjoy tabletop games in Hall A.
+            </p>
+            <div class="page-activity-flyer-grid">
+              <div class="card page-activity-flyer-feature-frame">
+                <img src="../../assets/images/activity-flyer/card-games.jpg" alt="Card Games at McAllen Mobile Park" width="800" height="500" loading="lazy" decoding="async" />
+              </div>
+              <div class="card page-activity-flyer-details">
+                <section class="page-activity-flyer-schedule" aria-labelledby="schedule-heading">
+                  <h2 id="schedule-heading">Typical schedule</h2>
+                  <p class="page-activity-flyer-recurring-label">Recurring weekly — not one specific date</p>
+                  <p class="page-activity-flyer-days">Wednesdays</p>
+                  <p class="page-activity-flyer-time-pill"><span aria-hidden="true">🕐</span> Usually 1:00 PM</p>
+                  <p class="page-activity-flyer-disclaimer">
+                    Days and times follow our usual weekly pattern; the main calendar lists any changes, holidays, or weather updates.
+                  </p>
+                  <div class="page-activity-flyer-actions">
+                    <a class="btn site-button" href="https://maps.app.goo.gl/6st9THqUttarC7vUA" target="_blank" rel="noopener noreferrer">Get directions</a>
+                  </div>
+                </section>
+                <section class="page-activity-flyer-loc" aria-labelledby="where-heading">
+                  <h2 id="where-heading">Where we meet</h2>
+                  <strong>On property</strong>
+                  <p>Hall A</p>
+                  <strong>Park address</strong>
+                  <p>4900 N Mc Coll Rd, McAllen, TX 78504</p>
+                </section>
+              </div>
+              <div class="card page-activity-flyer-story" aria-labelledby="about-heading">
+                <h2 id="about-heading">About this activity</h2>
+                <p>
+                  Regular card playing group—bring your favorite decks or join in with group games. A relaxed way to meet neighbors and pass an afternoon.
+                </p>
+                <p>
+                  Questions? <a href="#" data-mmhp-coordinator-mailto>Email the event coordinator</a>.
+                </p>
+              </div>
+            </div>
+          </section>
+        </main>
+        <aside class="site-sidebar site-sidebar-right sidebar-right" aria-labelledby="featured-events-heading">
+          <h2 id="featured-events-heading" class="site-sidebar-title">Featured Events</h2>
+          <div class="featured-events-grid" aria-live="polite"></div>
+        </aside>
+      </div>
+      <footer class="site-footer">
+        <h2>McAllen Mobile Park Event Calendar</h2>
+        <div class="site-footer-address-row">
+          <address class="site-footer-address">
+            McAllen Mobile<br>
+            4900 N Mc Coll Rd<br>
+            Mcallen, TX 78504
+          </address>
+          <a class="btn site-button site-footer-nav-btn" href="https://maps.app.goo.gl/sVCaEKHYQw5QcqK7A" target="_blank" rel="noopener noreferrer" aria-label="Open address in Google Maps">Navigate</a>
+        </div>
+        <a href="#top" class="site-footer-back-top" aria-label="Back to top of page">Back to top</a>
+      </footer>
+    </div>
+  </div>
+  <script src="../../assets/js/mmhp-coordinator-config.js" defer></script>
+  <script src="../../assets/js/activities-sidebar.js" defer></script>
+  <script src="../../assets/js/schedule-csv-io.js" defer></script>
+</body>
+</html>

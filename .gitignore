@@ -8,3 +8,11 @@ assets/data/doc/syuper-secret-squirrel
 
 # Data-admin “Save As” Google Calendar exports (folder kept via .gitkeep)
 assets/data/csv/export/*.csv
+
+# Cursor — ignore local/editor noise; track only .cursor/rules/ for cross-PC sync
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
+
+# Example / scratch assets not meant for the site
+assets/images/Screenshot example.png

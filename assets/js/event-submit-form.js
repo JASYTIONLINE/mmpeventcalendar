@@ -141,7 +141,7 @@
     return candidate;
   }
 
-  /** Same style as data-admin card line 3; capped at 32 chars for site cards. */
+  /** Same style as master-data card line 3; capped at 32 chars for site cards. */
   function cardLine3FromEventDate(isoYmd) {
     var s = formatEventCardLine3FromIso(isoYmd);
     s = String(s || "").trim();

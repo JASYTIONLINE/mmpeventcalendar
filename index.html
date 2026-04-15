@@ -106,39 +106,9 @@
         <a href="#top" class="site-footer-back-top" aria-label="Back to top of page">Back to top</a>
       </footer>
 
-      <h6 class="site-admin-corner"><a href="data-admin/data.html" class="site-admin-corner-link">Admin</a></h6>
-
     </div>
   </div>
   <script src="assets/js/activities-sidebar.js" defer></script>
-  <script>
-    (function () {
-      var q = "";
-      try {
-        q = new URLSearchParams(window.location.search).get("mmhp") || "";
-      } catch (e0) {}
-      var ss = "";
-      try {
-        ss = sessionStorage.getItem("mmhp_data_admin_mobile_redirect") || "";
-      } catch (e1) {}
-      if (q === "desktop-data-admin" || ss === "1") {
-        try {
-          sessionStorage.removeItem("mmhp_data_admin_mobile_redirect");
-        } catch (e2) {}
-        if (q === "desktop-data-admin") {
-          try {
-            history.replaceState({}, "", window.location.pathname || "/");
-          } catch (e3) {}
-        }
-        var d = document.createElement("div");
-        d.className = "site-desktop-data-admin-notice";
-        d.setAttribute("role", "alert");
-        d.innerHTML =
-          "<strong>Data admin is for desktop only.</strong> The master-data editor does not run on this device. On a <strong>PC or Mac</strong>, open this site, click <strong>Admin</strong> (bottom-left on the home page), and enter the password.";
-        document.body.insertBefore(d, document.body.firstChild);
-      }
-    })();
-  </script>
 </body>
 
 </html>

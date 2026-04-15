@@ -26,72 +26,11 @@
     "isFeatured",
   ];
 
-  var UNLOCK_STORAGE_KEY = "mmhp_schedule_io_unlocked";
-
   function getMasterJsonUrl() {
     var u = document.body.getAttribute("data-mmhp-master-json");
     if (u) return u;
     var aside = document.querySelector("aside.site-sidebar-left[data-mmhp-master-json]");
     return aside ? aside.getAttribute("data-mmhp-master-json") : null;
-  }
-
-  /** Same folder depth as master JSON: .../json/file.json → .../doc/syuper-secret-squirrel */
-  function scheduleSecretUrlFromMaster(masterUrl) {
-    if (!masterUrl) return null;
-    return masterUrl.replace(/json\/[^/?#]+$/i, "doc/syuper-secret-squirrel");
-  }
-
-  function fetchExpectedPassword(secretUrl) {
-    return fetch(secretUrl, { cache: "no-store" }).then(function (r) {
-      if (!r.ok) throw new Error("HTTP " + r.status);
-      return r.text();
-    }).then(function (t) {
-      return String(t || "").trim();
-    });
-  }
-
-  function isScheduleIoUnlocked() {
-    try {
-      return sessionStorage.getItem(UNLOCK_STORAGE_KEY) === "1";
-    } catch (e) {
-      return false;
-    }
-  }
-
-  function setScheduleIoUnlocked() {
-    try {
-      sessionStorage.setItem(UNLOCK_STORAGE_KEY, "1");
-    } catch (e) {}
-  }
-
-  /**
-   * Prompt once per browser tab session; compares to trimmed contents of doc/super-secret-squirrel.
-   */
-  function ensureScheduleIoUnlocked(secretUrl, statusEl) {
-    if (isScheduleIoUnlocked()) return Promise.resolve(true);
-    if (!secretUrl) {
-      setStatus(statusEl, "Secret file path could not be resolved.", true);
-      return Promise.resolve(false);
-    }
-    var entered = window.prompt("Enter password to use schedule export/import:");
-    if (entered == null) {
-      setStatus(statusEl, "Cancelled.");
-      return Promise.resolve(false);
-    }
-    return fetchExpectedPassword(secretUrl)
-      .then(function (expected) {
-        if (String(entered).trim() !== expected) {
-          setStatus(statusEl, "Incorrect password.", true);
-          return false;
-        }
-        setScheduleIoUnlocked();
-        setStatus(statusEl, "");
-        return true;
-      })
-      .catch(function () {
-        setStatus(statusEl, "Could not load password file (assets/data/doc/syuper-secret-squirrel).", true);
-        return false;
-      });
   }
 
   function pad2(n) {
@@ -443,37 +382,25 @@
       return;
     }
 
-    var secretUrl = scheduleSecretUrlFromMaster(jsonUrl);
-
     exportBtn.addEventListener("click", function () {
-      ensureScheduleIoUnlocked(secretUrl, statusEl).then(function (ok) {
-        if (!ok) return;
-        setStatus(statusEl, "Exporting…");
-        fetchMasterData(jsonUrl)
-          .then(function (data) {
-            var csv = buildCsvFromData(data);
-            downloadText("mmhp-schedule-" + fileDateStamp() + ".csv", csv, "text/csv;charset=utf-8");
-            setStatus(statusEl, "CSV downloaded.");
-          })
-          .catch(function () {
-            setStatus(statusEl, "Could not load JSON for export.", true);
-          });
-      });
+      setStatus(statusEl, "Exporting…");
+      fetchMasterData(jsonUrl)
+        .then(function (data) {
+          var csv = buildCsvFromData(data);
+          downloadText("mmhp-schedule-" + fileDateStamp() + ".csv", csv, "text/csv;charset=utf-8");
+          setStatus(statusEl, "CSV downloaded.");
+        })
+        .catch(function () {
+          setStatus(statusEl, "Could not load JSON for export.", true);
+        });
     });
 
     importBtn.addEventListener("click", function () {
-      ensureScheduleIoUnlocked(secretUrl, statusEl).then(function (ok) {
-        if (!ok) return;
-        fileInput.value = "";
-        fileInput.click();
-      });
+      fileInput.value = "";
+      fileInput.click();
     });
 
     fileInput.addEventListener("change", function () {
-      if (!isScheduleIoUnlocked()) {
-        setStatus(statusEl, "Session not unlocked. Use Import CSV again.", true);
-        return;
-      }
       var f = fileInput.files && fileInput.files[0];
       if (!f) return;
       setStatus(statusEl, "Reading CSV…");

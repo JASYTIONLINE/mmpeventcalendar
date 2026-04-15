@@ -40,6 +40,19 @@
     "isFeatured",
   ];
 
+  /** Conservative vs typical Gmail (~25 MB) / Outlook (~20 MB) outgoing limits (ZIP + overhead). */
+  var MMHP_IMAGE_MAX_SINGLE_BYTES = 4 * 1024 * 1024;
+  var MMHP_IMAGE_MAX_TOTAL_BYTES = 16 * 1024 * 1024;
+
+  function getCoordinatorEmail() {
+    if (typeof window.mmhpGetCoordinatorEmail === "function") {
+      return window.mmhpGetCoordinatorEmail();
+    }
+    var raw = document.body && document.body.getAttribute("data-mmhp-coordinator-email");
+    var v = raw != null ? String(raw).trim() : "";
+    return v || "johnbarkle@msn.com";
+  }
+
   function getMasterJsonUrl() {
     var u = document.body && document.body.getAttribute("data-mmhp-master-json");
     return u ? String(u).trim() : "";
@@ -328,25 +341,6 @@
     return n.getFullYear() + "-" + pad2(n.getMonth() + 1) + "-" + pad2(n.getDate());
   }
 
-  function fileMetaFromInput(id) {
-    var el = document.getElementById(id);
-    if (!el || !el.files || !el.files[0]) return null;
-    var f = el.files[0];
-    return { name: f.name, type: f.type, size: f.size };
-  }
-
-  function collectSubmissionImageMeta() {
-    return {
-      featuredImage: fileMetaFromInput("mmhp-submit-image-feature"),
-      additionalImages: [
-        fileMetaFromInput("mmhp-submit-image-extra-1"),
-        fileMetaFromInput("mmhp-submit-image-extra-2"),
-        fileMetaFromInput("mmhp-submit-image-extra-3"),
-        fileMetaFromInput("mmhp-submit-image-extra-4"),
-      ].filter(Boolean),
-    };
-  }
-
   function eventSummaryPlainText(ev) {
     if (!ev || typeof ev !== "object") return "";
     var lines = [
@@ -369,90 +363,207 @@
     return lines.join("\r\n");
   }
 
-  function buildShareFiles(jsonStr, csvBody, stamp) {
-    try {
-      var files = [];
-      files.push(
-        new File([jsonStr], "mmhp-event-submission-" + stamp + ".json", { type: "application/json" })
-      );
-      files.push(
-        new File(["\uFEFF" + csvBody], "mmhp-event-submission-row-" + stamp + ".csv", {
-          type: "text/csv;charset=utf-8",
-        })
-      );
-      for (var i = 0; i < IMAGE_INPUT_IDS.length; i++) {
-        var el = document.getElementById(IMAGE_INPUT_IDS[i]);
-        if (el && el.files && el.files[0]) files.push(el.files[0]);
-      }
-      return files;
-    } catch (err) {
-      return null;
+  function collectImageFilesInOrder() {
+    var out = [];
+    for (var i = 0; i < IMAGE_INPUT_IDS.length; i++) {
+      var el = document.getElementById(IMAGE_INPUT_IDS[i]);
+      if (el && el.files && el.files[0]) out.push(el.files[0]);
+    }
+    return out;
+  }
+
+  function sanitizeZipEntryName(name) {
+    var n = String(name || "image").replace(/[/\\]/g, "_").replace(/\.\.+/g, ".");
+    n = n.replace(/^\.+/, "") || "image";
+    if (n.length > 100) n = n.slice(-100);
+    return n;
+  }
+
+  function buildCsvFile(csvBody, stamp) {
+    return new File(["\uFEFF" + csvBody], "mmhp-event-submission-" + stamp + ".csv", {
+      type: "text/csv;charset=utf-8",
+    });
+  }
+
+  function downloadBlob(blob, filename) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.rel = "noopener";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function openMailtoCoordinator(coordinatorEmail, ev, statusEl, leadNotice) {
+    var subject = "Event submission: " + (ev.eventName || ev.id || "new event");
+    var summary = eventSummaryPlainText(ev);
+    var notice = leadNotice != null ? String(leadNotice).trim() : "";
+    var body;
+    if (notice) {
+      body =
+        "READ FIRST — ATTACHMENT\r\n" +
+        notice +
+        "\r\n\r\n————————————————————————————\r\n\r\n" +
+        "Event details (same as inside the ZIP where applicable):\r\n\r\n" +
+        summary +
+        "\r\n\r\n—\r\nCoordinator: " +
+        coordinatorEmail +
+        "\r\n";
+    } else {
+      body =
+        summary +
+        "\r\n\r\n—\r\n" +
+        "Attach the CSV and photos from Share, or the downloaded ZIP / CSV, then send.\r\n\r\nTo: " +
+        coordinatorEmail +
+        "\r\n";
+    }
+    window.location.href =
+      "mailto:" +
+      coordinatorEmail +
+      "?subject=" +
+      encodeURIComponent(subject) +
+      "&body=" +
+      encodeURIComponent(body);
+    if (statusEl) {
+      statusEl.textContent =
+        "Opened email to " +
+        coordinatorEmail +
+        ". Attach the downloaded file(s) if prompted, then send.";
+      statusEl.hidden = false;
     }
   }
 
-  function tryShareOrMailto(coordinatorEmail, ev, jsonStr, csvBody, statusEl, stamp) {
-    var subject = "Event submission: " + (ev.eventName || ev.id || "new event");
-    var files = buildShareFiles(jsonStr, csvBody, stamp);
+  function buildSubmissionZipBlob(csvBody, stamp, ev, imageFiles) {
+    if (typeof JSZip === "undefined") return Promise.reject(new Error("JSZip not loaded"));
+    var zip = new JSZip();
+    zip.file("mmhp-event-submission-" + stamp + ".csv", "\uFEFF" + csvBody);
+    zip.file("event-summary.txt", eventSummaryPlainText(ev));
+    for (var i = 0; i < imageFiles.length; i++) {
+      var f = imageFiles[i];
+      var prefix = i === 0 ? "featured" : "extra-" + i;
+      zip.file(prefix + "-" + sanitizeZipEntryName(f.name), f);
+    }
+    return zip.generateAsync({ type: "blob" });
+  }
 
-    function fallbackMailto() {
-      var body =
-        eventSummaryPlainText(ev) +
-        "\r\n\r\n—\r\n" +
-        "This browser could not attach JSON, CSV, or image files automatically. If you can, try again from a phone or tablet " +
-        "(Share often includes attachments), or re-attach photos from your gallery in this email.\r\n";
-      window.location.href =
-        "mailto:" +
-        coordinatorEmail +
-        "?subject=" +
-        encodeURIComponent(subject) +
-        "&body=" +
-        encodeURIComponent(body);
-      if (statusEl) {
-        statusEl.textContent =
-          "Opened email to " +
-          coordinatorEmail +
-          ". Your event details are in the message. Add photos from your gallery if needed, then send.";
-        statusEl.hidden = false;
-      }
-    }
+  /**
+   * Delivers CSV + images to the coordinator: Web Share with attachments when supported;
+   * otherwise ZIP download + mailto. Coordinator address from mmhp-coordinator-config.js (and optional body attribute / localStorage override).
+   */
+  function deliverSubmissionToCoordinator(coordinatorEmail, ev, csvBody, statusEl, stamp) {
+    return new Promise(function (resolve, reject) {
+      coordinatorEmail =
+        coordinatorEmail && String(coordinatorEmail).trim()
+          ? String(coordinatorEmail).trim()
+          : getCoordinatorEmail();
 
-    if (!coordinatorEmail) {
-      if (statusEl) {
-        statusEl.textContent =
-          "Coordinator email is not set on this page. Ask the site maintainer to set data-mmhp-coordinator-email on the body element.";
-        statusEl.hidden = false;
-      }
-      return;
-    }
+      var subject = "Event submission: " + (ev.eventName || ev.id || "new event");
+      var shareHint =
+        "Recipient: " + coordinatorEmail + " — set as To: if your app did not.";
+      var csvFile = buildCsvFile(csvBody, stamp);
+      var imageFiles = collectImageFilesInOrder();
+      var allFiles = [csvFile].concat(imageFiles);
 
-    var canShareFiles = false;
-    if (files && files.length && navigator.share && navigator.canShare) {
-      try {
-        canShareFiles = navigator.canShare({ files: files });
-      } catch (err) {
-        canShareFiles = false;
+      function afterDownloadMailto(footer) {
+        window.setTimeout(function () {
+          openMailtoCoordinator(coordinatorEmail, ev, statusEl, footer);
+          resolve();
+        }, 400);
       }
-    }
-    if (canShareFiles) {
-      navigator
-        .share({
-          files: files,
-          title: subject,
-          text: "Coordinator: " + coordinatorEmail + " — add as recipient if your app did not.",
-        })
-        .then(function () {
-          if (statusEl) {
-            statusEl.textContent =
-              "Shared files via your device. Send to " +
-              coordinatorEmail +
-              " (add as To: if your app did not).";
-            statusEl.hidden = false;
-          }
-        })
-        .catch(fallbackMailto);
-    } else {
-      fallbackMailto();
-    }
+
+      var canShareAll = false;
+      if (navigator.share && allFiles.length && navigator.canShare) {
+        try {
+          canShareAll = navigator.canShare({ files: allFiles });
+        } catch (err1) {
+          canShareAll = false;
+        }
+      }
+
+      if (canShareAll) {
+        navigator
+          .share({
+            files: allFiles,
+            title: subject,
+            text: shareHint,
+          })
+          .then(function () {
+            if (statusEl) {
+              statusEl.textContent =
+                "Shared CSV and images. Address to " +
+                coordinatorEmail +
+                " if your app did not set the recipient.";
+              statusEl.hidden = false;
+            }
+            resolve();
+          })
+          .catch(function () {
+            tryZipOrCsvFallback();
+          });
+        return;
+      }
+
+      tryZipOrCsvFallback();
+
+      function tryZipOrCsvFallback() {
+        buildSubmissionZipBlob(csvBody, stamp, ev, imageFiles)
+          .then(function (zipBlob) {
+            var zipName = "mmhp-event-submission-" + (ev.id || stamp) + ".zip";
+            var zipFile = new File([zipBlob], zipName, { type: "application/zip" });
+            var canShareZip = false;
+            if (navigator.share && navigator.canShare) {
+              try {
+                canShareZip = navigator.canShare({ files: [zipFile] });
+              } catch (err2) {
+                canShareZip = false;
+              }
+            }
+            if (canShareZip) {
+              navigator
+                .share({
+                  files: [zipFile],
+                  title: subject,
+                  text: shareHint,
+                })
+                .then(function () {
+                  if (statusEl) {
+                    statusEl.textContent =
+                      "Shared submission ZIP. Address to " + coordinatorEmail + " if needed.";
+                    statusEl.hidden = false;
+                  }
+                  resolve();
+                })
+                .catch(function () {
+                  downloadBlob(zipBlob, zipName);
+                  afterDownloadMailto(
+                    "A ZIP was downloaded (" +
+                      zipName +
+                      "). Attach it to this email (it contains the CSV, summary text, and images).\r\n"
+                  );
+                });
+            } else {
+              downloadBlob(zipBlob, zipName);
+              afterDownloadMailto(
+                "A ZIP was downloaded (" +
+                  zipName +
+                  "). Attach it to this email (it contains the CSV, summary text, and images).\r\n"
+              );
+            }
+          })
+          .catch(function () {
+            downloadBlob(
+              new Blob(["\uFEFF" + csvBody], { type: "text/csv;charset=utf-8" }),
+              "mmhp-event-submission-" + stamp + ".csv"
+            );
+            afterDownloadMailto(
+              "A CSV was downloaded. Attach it and your event photos manually.\r\n"
+            );
+          });
+      }
+    });
   }
 
   /** Value stored on the exported event as `location`. When "Other" is chosen, must be the custom text only (never "__other__"). */
@@ -554,6 +665,222 @@
       c2.value = String(act.activityName).trim();
     }
     refreshDerivedFields(masterData);
+  }
+
+  function formatBytesShort(bytes) {
+    var n = Number(bytes);
+    if (!isFinite(n) || n < 0) return "0 MB";
+    var mb = n / (1024 * 1024);
+    if (mb >= 1) return mb.toFixed(mb >= 10 ? 0 : 1) + " MB";
+    var kb = n / 1024;
+    return kb.toFixed(0) + " KB";
+  }
+
+  function getImageSelectionStats() {
+    var items = [];
+    var total = 0;
+    var maxSingle = 0;
+    for (var i = 0; i < IMAGE_INPUT_IDS.length; i++) {
+      var el = document.getElementById(IMAGE_INPUT_IDS[i]);
+      if (el && el.files && el.files[0]) {
+        var f = el.files[0];
+        items.push({ name: f.name, size: f.size });
+        total += f.size;
+        if (f.size > maxSingle) maxSingle = f.size;
+      }
+    }
+    return { items: items, total: total, maxSingle: maxSingle };
+  }
+
+  function imageSelectionOverRecommendedLimit(stats) {
+    if (!stats || !stats.items.length) return false;
+    if (stats.maxSingle > MMHP_IMAGE_MAX_SINGLE_BYTES) return true;
+    if (stats.total > MMHP_IMAGE_MAX_TOTAL_BYTES) return true;
+    return false;
+  }
+
+  var __mmhpSizeModalKeyHandler = null;
+
+  function closeImageSizeModal() {
+    var modal = document.getElementById("mmhp-submit-size-modal");
+    var backdrop = document.getElementById("mmhp-submit-size-modal-backdrop");
+    var btnOk = document.getElementById("mmhp-submit-size-modal-ok");
+    var btnContinue = document.getElementById("mmhp-submit-size-modal-continue");
+    var btnBack = document.getElementById("mmhp-submit-size-modal-back");
+    if (backdrop) backdrop.onclick = null;
+    if (btnOk) btnOk.onclick = null;
+    if (btnContinue) btnContinue.onclick = null;
+    if (btnBack) btnBack.onclick = null;
+    if (__mmhpSizeModalKeyHandler) {
+      document.removeEventListener("keydown", __mmhpSizeModalKeyHandler);
+      __mmhpSizeModalKeyHandler = null;
+    }
+    if (modal) modal.hidden = true;
+  }
+
+  function populateImageSizeModalBody(stats, forSubmitStep) {
+    var body = document.getElementById("mmhp-submit-size-modal-body");
+    if (!body) return;
+    while (body.firstChild) body.removeChild(body.firstChild);
+
+    var p0 = document.createElement("p");
+    p0.textContent =
+      "Gmail and Microsoft Outlook usually limit outgoing messages to about 20–25 MB total (including attachments). " +
+      "Very large photos or many megabytes in one ZIP can cause the message to be rejected, bounced, or blocked.";
+    body.appendChild(p0);
+
+    var p1 = document.createElement("p");
+    p1.textContent =
+      "This site suggests each photo stay under about " +
+      formatBytesShort(MMHP_IMAGE_MAX_SINGLE_BYTES) +
+      " and all photos together under about " +
+      formatBytesShort(MMHP_IMAGE_MAX_TOTAL_BYTES) +
+      ".";
+    body.appendChild(p1);
+
+    if (stats.items.length) {
+      var p2 = document.createElement("p");
+      p2.textContent = "Your current selection:";
+      body.appendChild(p2);
+      var ul = document.createElement("ul");
+      for (var i = 0; i < stats.items.length; i++) {
+        var li = document.createElement("li");
+        li.textContent = stats.items[i].name + " — " + formatBytesShort(stats.items[i].size);
+        ul.appendChild(li);
+      }
+      body.appendChild(ul);
+      var p3 = document.createElement("p");
+      p3.textContent =
+        "Combined size: " +
+        formatBytesShort(stats.total) +
+        " (largest single file: " +
+        formatBytesShort(stats.maxSingle) +
+        ").";
+      body.appendChild(p3);
+    }
+
+    var pEnd = document.createElement("p");
+    pEnd.textContent = forSubmitStep
+      ? "You can go back and choose smaller images, or continue anyway—delivery may still fail."
+      : "Consider choosing smaller or compressed photos before sending.";
+    body.appendChild(pEnd);
+  }
+
+  function showImageSizeModalAfterFilePick() {
+    var stats = getImageSelectionStats();
+    if (!imageSelectionOverRecommendedLimit(stats)) return;
+
+    var modal = document.getElementById("mmhp-submit-size-modal");
+    var btnOk = document.getElementById("mmhp-submit-size-modal-ok");
+    var btnContinue = document.getElementById("mmhp-submit-size-modal-continue");
+    var btnBack = document.getElementById("mmhp-submit-size-modal-back");
+    var backdrop = document.getElementById("mmhp-submit-size-modal-backdrop");
+    if (!modal || !btnOk || !btnContinue || !btnBack || !backdrop) return;
+
+    if (__mmhpSizeModalKeyHandler) {
+      document.removeEventListener("keydown", __mmhpSizeModalKeyHandler);
+      __mmhpSizeModalKeyHandler = null;
+    }
+    backdrop.onclick = null;
+    btnOk.onclick = null;
+    btnContinue.onclick = null;
+    btnBack.onclick = null;
+
+    populateImageSizeModalBody(stats, false);
+    btnOk.hidden = false;
+    btnContinue.hidden = true;
+    btnBack.hidden = true;
+    modal.hidden = false;
+
+    __mmhpSizeModalKeyHandler = function (e) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeImageSizeModal();
+      }
+    };
+    document.addEventListener("keydown", __mmhpSizeModalKeyHandler);
+
+    btnOk.onclick = function () {
+      closeImageSizeModal();
+    };
+    backdrop.onclick = function (ev) {
+      if (ev.target === backdrop) closeImageSizeModal();
+    };
+
+    try {
+      btnOk.focus();
+    } catch (f) {}
+  }
+
+  function showImageSizeModalBeforeSubmit(onContinue) {
+    var stats = getImageSelectionStats();
+    var modal = document.getElementById("mmhp-submit-size-modal");
+    var btnOk = document.getElementById("mmhp-submit-size-modal-ok");
+    var btnContinue = document.getElementById("mmhp-submit-size-modal-continue");
+    var btnBack = document.getElementById("mmhp-submit-size-modal-back");
+    var backdrop = document.getElementById("mmhp-submit-size-modal-backdrop");
+    if (!modal || !btnOk || !btnContinue || !btnBack || !backdrop) {
+      if (typeof onContinue === "function") onContinue();
+      return;
+    }
+
+    if (__mmhpSizeModalKeyHandler) {
+      document.removeEventListener("keydown", __mmhpSizeModalKeyHandler);
+      __mmhpSizeModalKeyHandler = null;
+    }
+    backdrop.onclick = null;
+    btnOk.onclick = null;
+    btnContinue.onclick = null;
+    btnBack.onclick = null;
+
+    populateImageSizeModalBody(stats, true);
+    btnOk.hidden = true;
+    btnContinue.hidden = false;
+    btnBack.hidden = false;
+    modal.hidden = false;
+
+    __mmhpSizeModalKeyHandler = function (e) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeImageSizeModal();
+      }
+    };
+    document.addEventListener("keydown", __mmhpSizeModalKeyHandler);
+
+    btnContinue.onclick = function () {
+      closeImageSizeModal();
+      if (typeof onContinue === "function") onContinue();
+    };
+    btnBack.onclick = function () {
+      closeImageSizeModal();
+      var feat = document.getElementById("mmhp-submit-image-feature");
+      if (feat && typeof feat.focus === "function") {
+        try {
+          feat.focus({ preventScroll: true });
+        } catch (f) {
+          try {
+            feat.focus();
+          } catch (f2) {}
+        }
+      }
+    };
+    backdrop.onclick = function (ev) {
+      if (ev.target === backdrop) btnBack.onclick();
+    };
+
+    try {
+      btnBack.focus();
+    } catch (f2) {}
+  }
+
+  function wireImageSizeWarningOnChange() {
+    for (var i = 0; i < IMAGE_INPUT_IDS.length; i++) {
+      var inp = document.getElementById(IMAGE_INPUT_IDS[i]);
+      if (!inp) continue;
+      inp.addEventListener("change", function () {
+        window.setTimeout(showImageSizeModalAfterFilePick, 0);
+      });
+    }
   }
 
   function init(masterData) {
@@ -658,19 +985,28 @@
       status.hidden = true;
 
       var stamp = fileDateStamp();
-      var submissionMeta = collectSubmissionImageMeta();
-      var jsonPayload = {
-        _note:
-          "Merge the \"event\" object into mmhp-master-data.json \"events\" array after review, or append the CSV row to a full schedule export.",
-        _submissionImages: submissionMeta,
-        event: ev,
-      };
-      var jsonStr = JSON.stringify(jsonPayload, null, 2);
       var csvBody = rowToCsvLine(CSV_COLUMNS) + "\r\n" + rowToCsvLine(eventToScheduleRow(ev)) + "\r\n";
 
-      var coordinatorEmail = (document.body.getAttribute("data-mmhp-coordinator-email") || "").trim();
-      tryShareOrMailto(coordinatorEmail, ev, jsonStr, csvBody, status, stamp);
+      function runDeliver() {
+        var coordinatorEmail = getCoordinatorEmail();
+        deliverSubmissionToCoordinator(coordinatorEmail, ev, csvBody, status, stamp).catch(function () {
+          if (status) {
+            status.textContent =
+              "Could not finish Share or download. Check your connection, allow downloads, or try another browser.";
+            status.hidden = false;
+          }
+        });
+      }
+
+      var stats = getImageSelectionStats();
+      if (imageSelectionOverRecommendedLimit(stats)) {
+        showImageSizeModalBeforeSubmit(runDeliver);
+      } else {
+        runDeliver();
+      }
     });
+
+    wireImageSizeWarningOnChange();
 
     if (errEl) errEl.hidden = true;
     form.hidden = false;

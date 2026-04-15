@@ -9,8 +9,7 @@
   <link rel="stylesheet" href="../assets/css/data-admin.css">
 </head>
 
-<body id="top" class="page-data-admin"
-  data-mmhp-master-json="../assets/data/json/mmhp-master-data.json"
+<body id="top" class="page-data-admin" data-mmhp-master-json="../assets/data/json/mmhp-master-data.json"
   data-mmhp-master-rel-path="mmpeventcalendar\assets\data\json\mmhp-master-data.json">
   <div id="data-admin-denied" class="data-admin-gate-denied">
     <p id="data-admin-denied-msg" class="data-admin-gate-denied-msg">Checking access…</p>
@@ -32,7 +31,8 @@
             title="Remove every event whose date is before today (browser local date). Save to write the JSON file.">
             Purge before today
           </button>
-          <button type="button" class="btn site-button data-admin-export-google-cal-btn" id="mmhp-export-google-calendar-csv-btn"
+          <button type="button" class="btn site-button data-admin-export-google-cal-btn"
+            id="mmhp-export-google-calendar-csv-btn"
             title="Save CSV in Google Calendar import format (Save As where supported). Active events only; same columns as scripts/export-events-google-calendar-csv.py.">
             Export for Google Calendar
           </button>
@@ -42,11 +42,30 @@
         </nav>
       </header>
 
-      <div class="data-admin-browse-status-block" role="region" aria-label="Message center">
-        <p id="data-admin-browse-status-label" class="data-admin-browse-status-desc">
-          <strong>Message center.</strong> The line below updates after what you just did—whether the file loaded, a save
-          or export worked, or something needs your attention.
+      <section id="mmhp-coordinator-settings" class="data-admin-coordinator-section" aria-labelledby="mmhp-coordinator-heading">
+        <h2 id="mmhp-coordinator-heading" class="data-admin-coordinator-heading">Event coordinator email</h2>
+        <p class="data-admin-coordinator-lead">
+          Public <strong>Submit Event</strong> and <strong>mailto</strong> links use this address.
+          <span class="data-admin-coordinator-meta">File default: <code id="mmhp-coordinator-email-file-default">—</code></span>
         </p>
+        <p id="mmhp-coordinator-email-override-note" class="data-admin-coordinator-override-note" hidden>
+          This browser is using a <strong>saved override</strong> (not only the file default).
+        </p>
+        <div class="data-admin-coordinator-row">
+          <label class="data-admin-coordinator-label" for="mmhp-coordinator-email-input">Coordinator email</label>
+          <input type="email" id="mmhp-coordinator-email-input" class="data-admin-coordinator-input" autocomplete="email"
+            placeholder="name@example.com" />
+        </div>
+        <div class="data-admin-coordinator-actions">
+          <button type="button" class="btn site-button" id="mmhp-coordinator-email-update">Update coordinator email…</button>
+          <button type="button" class="btn site-button data-admin-coordinator-btn-secondary" id="mmhp-coordinator-email-clear">
+            Clear browser override
+          </button>
+        </div>
+        <p id="mmhp-coordinator-email-status" class="data-admin-coordinator-status" role="status" aria-live="polite" hidden></p>
+      </section>
+
+      <div class="data-admin-browse-status-block" role="region" aria-label="Message center">
         <p id="data-admin-browse-status" class="data-admin-status" role="status" aria-live="polite"></p>
       </div>
 
@@ -56,48 +75,66 @@
 
       <section class="data-admin-banner" aria-label="How to use this page">
         <p class="data-admin-banner-lead">
-          <strong>This page is the only web-based editor</strong> for master data (password plus the optional Admin link on the public home page).
+          <strong>This page is the only web-based editor</strong> for master data (password plus the optional Admin link
+          on the public home page).
         </p>
 
         <div class="data-admin-help-block">
           <h3 class="data-admin-help-heading">Desktop only</h3>
           <p>
-            It is <strong>not available on phones or tablets</strong>; those devices are redirected to the home page. Use a desktop or laptop browser. Bookmark <code>data-admin/data.html</code> (<code>browse.html</code> redirects here).
+            It is <strong>not available on phones or tablets</strong>; those devices are redirected to the home page.
+            Use a desktop or laptop browser. Bookmark <code>data-admin/data.html</code> (<code>browse.html</code>
+            redirects here).
           </p>
         </div>
 
         <div class="data-admin-help-block">
           <h3 class="data-admin-help-heading">Source file and on-screen limits</h3>
           <p>
-            Source file: <code>assets/data/json/mmhp-master-data.json</code>. Tables show up to <strong>500 rows</strong> on screen; exports include <strong>all</strong> rows. After edits, use per-collection <strong>Export … to CSV</strong> when you need a spreadsheet slice.
+            Source file: <code>assets/data/json/mmhp-master-data.json</code>. Tables show up to <strong>500
+              rows</strong> on screen; exports include <strong>all</strong> rows. After edits, use per-collection
+            <strong>Export … to CSV</strong> when you need a spreadsheet slice.
           </p>
         </div>
 
         <div class="data-admin-help-block">
           <h3 class="data-admin-help-heading">Saving your work</h3>
           <p>
-            Use <strong>Save changes to the Master Data File…</strong> to write the full JSON back through your browser’s save dialog. If you close or leave the tab without saving, your browser should warn you that unsaved changes may be lost.
+            Use <strong>Save changes to the Master Data File…</strong> to write the full JSON back through your
+            browser’s save dialog. If you close or leave the tab without saving, your browser should warn you that
+            unsaved changes may be lost.
           </p>
         </div>
 
         <div class="data-admin-help-block">
           <h3 class="data-admin-help-heading">Google Calendar</h3>
           <p>
-            Use the toolbar button <strong>Export for Google Calendar</strong> (not the events table’s CSV export). Import that file from Google Calendar settings.
+            Use the toolbar button <strong>Export for Google Calendar</strong> (not the events table’s CSV export).
+            Import that file from Google Calendar settings.
           </p>
         </div>
 
         <div class="data-admin-help-block">
           <h3 class="data-admin-help-heading">Events and forms</h3>
           <p>
-            On the public site, <strong>card line 2</strong> comes from the <strong>activity name</strong> tied to your Activity choice; it is not stored as a separate field on the event. <strong>Listing title</strong> (<code>eventName</code>) is filled automatically from the event title plus activity when you Apply. Treat <strong>every field as required</strong> unless the form explicitly allows empty values (for example <strong>No end time</strong> on events).
+            On the public site, <strong>card line 2</strong> comes from the <strong>activity name</strong> tied to your
+            Activity choice; it is not stored as a separate field on the event. <strong>Listing title</strong>
+            (<code>eventName</code>) is filled automatically from the event title plus activity when you Apply. Treat
+            <strong>every field as required</strong> unless the form explicitly allows empty values (for example
+            <strong>No end time</strong> on events).
           </p>
         </div>
 
         <div class="data-admin-help-block">
           <h3 class="data-admin-help-heading">Tables (sort and filter)</h3>
           <p>
-            All tables live in the <strong>bordered box</strong> between the message center and this help section: use the box’s <strong>right-hand scrollbar</strong> to move through long data while the page header and message center stay above that area. Use the leading <strong>checkbox</strong> on each row (or the header checkbox to select all <strong>visible</strong> rows, up to 500) and <strong>Delete selected</strong> to remove several rows at once. Click a <strong>column title</strong> to sort: ascending, then descending, then back to the default order. Click the <strong>▼</strong> button on a column to open a filter checklist (similar to Excel). <strong>Export CSV</strong> still exports the full collection, not the filtered on-screen view.
+            All tables live in the <strong>bordered box</strong> between the message center and this help section: use
+            the box’s <strong>right-hand scrollbar</strong> to move through long data while the page header and message
+            center stay above that area. Use the leading <strong>checkbox</strong> on each row (or the header checkbox
+            to select all <strong>visible</strong> rows, up to 500) and <strong>Delete selected</strong> to remove
+            several rows at once. Click a <strong>column title</strong> to sort: ascending, then descending, then back
+            to the default order. Click the <strong>▼</strong> button on a column to open a filter checklist (similar to
+            Excel). <strong>Export CSV</strong> still exports the full collection, not the filtered on-screen view.
           </p>
         </div>
       </section>
@@ -127,23 +164,46 @@
         </div>
       </div>
 
+      <div id="mmhp-coordinator-confirm-modal" class="data-admin-modal" hidden role="dialog" aria-modal="true"
+        aria-labelledby="mmhp-coordinator-confirm-title">
+        <div class="data-admin-modal__backdrop" id="mmhp-coordinator-confirm-backdrop"></div>
+        <div class="data-admin-modal__panel">
+          <h2 id="mmhp-coordinator-confirm-title" class="data-admin-modal__title">Change coordinator email?</h2>
+          <p class="data-admin-modal__text">
+            The address below will be saved in <strong>this browser</strong> and a new
+            <code>mmhp-coordinator-config.js</code> file will download. Replace
+            <code>assets/js/mmhp-coordinator-config.js</code> in your project so the default updates for everyone.
+          </p>
+          <p class="data-admin-modal__text"><strong id="mmhp-coordinator-confirm-preview"></strong></p>
+          <div class="data-admin-modal__actions">
+            <button type="button" class="btn site-button" id="mmhp-coordinator-confirm-cancel">Cancel</button>
+            <button type="button" class="btn site-button data-admin-save-json-btn" id="mmhp-coordinator-confirm-ok">
+              Confirm and download
+            </button>
+          </div>
+        </div>
+      </div>
+
       <div id="mmhp-google-cal-export-modal" class="data-admin-modal" hidden role="dialog" aria-modal="true"
         aria-labelledby="mmhp-google-cal-export-title">
         <div class="data-admin-modal__backdrop" id="mmhp-google-cal-export-backdrop"></div>
         <div class="data-admin-modal__panel">
           <h2 id="mmhp-google-cal-export-title" class="data-admin-modal__title">Export for Google Calendar</h2>
           <p class="data-admin-modal__text">
-            Next you’ll get a <strong>Save As</strong> / file dialog (Chrome, Edge, and other Chromium browsers). Pick the
+            Next you’ll get a <strong>Save As</strong> / file dialog (Chrome, Edge, and other Chromium browsers). Pick
+            the
             folder and filename — suggested location in the repo (create <code>export</code> if needed):
           </p>
           <pre class="data-admin-modal__path" id="mmhp-google-cal-export-path">assets\data\csv\export\</pre>
           <p class="data-admin-modal__note">
-            From <code>data-admin/data.html</code>, that folder is <code>../assets/data/csv/export/</code>. Browsers without
+            From <code>data-admin/data.html</code>, that folder is <code>../assets/data/csv/export/</code>. Browsers
+            without
             Save As support will download to your default folder instead; move the file there if you like.
           </p>
           <div class="data-admin-modal__actions">
             <button type="button" class="btn site-button" id="mmhp-google-cal-export-cancel">Cancel</button>
-            <button type="button" class="btn site-button data-admin-export-google-cal-btn" id="mmhp-google-cal-export-ok">
+            <button type="button" class="btn site-button data-admin-export-google-cal-btn"
+              id="mmhp-google-cal-export-ok">
               Choose where to save…
             </button>
           </div>
@@ -152,6 +212,8 @@
     </div>
   </div>
 
+  <script src="../assets/js/mmhp-coordinator-config.js"></script>
+  <script src="../assets/js/mmhp-coordinator-admin.js"></script>
   <script src="../assets/js/data-admin-browse.js" defer></script>
 </body>
 

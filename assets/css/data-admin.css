@@ -17,6 +17,85 @@
   width: 100%;
 }
 
+/* Coordinator email (after header) */
+.data-admin-coordinator-section {
+  margin: 0.5rem 0 1rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--color-border, #b8c4cc);
+  border-radius: var(--radius-sm, 8px);
+  background: var(--color-surface-muted, #f4f8fb);
+  max-width: 40rem;
+}
+
+.data-admin-coordinator-heading {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+}
+
+.data-admin-coordinator-lead {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.data-admin-coordinator-meta {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.88rem;
+  color: var(--color-text-muted, #5a6b76);
+}
+
+.data-admin-coordinator-override-note {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  color: var(--color-text-muted, #5a6b76);
+}
+
+.data-admin-coordinator-row {
+  margin-bottom: 0.75rem;
+}
+
+.data-admin-coordinator-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.data-admin-coordinator-input {
+  width: 100%;
+  max-width: 28rem;
+  padding: 0.45rem 0.6rem;
+  font-size: 1rem;
+  border: 1px solid var(--color-border, #b8c4cc);
+  border-radius: var(--radius-sm, 6px);
+  box-sizing: border-box;
+}
+
+.data-admin-coordinator-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.data-admin-coordinator-btn-secondary {
+  background: transparent;
+  border: 1px solid var(--color-border, #b8c4cc);
+  color: inherit;
+}
+
+.data-admin-coordinator-status {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.data-admin-coordinator-status--error {
+  color: #b00020;
+}
+
 /* Spreadsheet area: own scroll box (vertical scrollbar); header/banner/status stay put */
 .page-data-admin .data-admin-browse-frame {
   margin-top: 0.85rem;

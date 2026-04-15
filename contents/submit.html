@@ -6,8 +6,7 @@
   <title>Submit an Event | McAllen Mobile Park Events</title>
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body id="top" data-mmhp-master-json="../assets/data/json/mmhp-master-data.json"
-  data-mmhp-coordinator-email="">
+<body id="top" data-mmhp-master-json="../assets/data/json/mmhp-master-data.json">
   <div class="site-wrapper">
     <div class="site-shell">
 
@@ -47,8 +46,10 @@
               <h2>Submit an Event</h2>
               <p>
                 Fill in every field below. The page loads your current calendar data to suggest the next event id, activities,
-                and defaults. When you submit, your device will try to open email or Share so you can send the event details
-                and photos (one featured image required) to the event coordinator (no separate data files are downloaded).
+                and defaults. When you submit, your device opens <strong>Share</strong> or your email app with a
+                <strong>CSV</strong> of the event row plus your <strong>photos</strong> attached. On desktops that cannot attach
+                files automatically, a <strong>ZIP</strong> is downloaded—attach it (or the CSV and images inside) to the email
+                that opens for the event coordinator.
               </p>
               <ul class="submission-page__hints">
                 <li><strong>Short description of event</strong> — main text on the featured card (line 1). <strong>Max 48 characters.</strong></li>
@@ -133,8 +134,12 @@
                 <legend class="event-submit-form__legend">Images for the event coordinator</legend>
                 <p class="event-submit-form__help">
                   <strong>Featured image is required.</strong> Additional photos are optional. Where your device supports it,
-                  images are included when you share or email the coordinator. The site maintainer sets
-                  <code>data-mmhp-coordinator-email</code> on the page <code>&lt;body&gt;</code> to the coordinator’s address.
+                  images are included when you share or email the event coordinator.
+                </p>
+                <p class="event-submit-form__size-hint" id="mmhp-submit-size-hint">
+                  <strong>Email size (Gmail &amp; Outlook):</strong> Keep each photo under about <strong>4&nbsp;MB</strong> and all
+                  photos together under about <strong>16&nbsp;MB</strong> so the message is less likely to be blocked or rejected.
+                  Larger files may still be sent, but delivery can fail—we’ll warn you if your selection exceeds these guides.
                 </p>
                 <label class="event-submit-form__field">
                   <span class="event-submit-form__label">Featured image (required)</span>
@@ -191,6 +196,23 @@
 
     </div>
   </div>
+
+  <div id="mmhp-submit-size-modal" class="event-submit-modal" hidden role="dialog" aria-modal="true"
+    aria-labelledby="mmhp-submit-size-modal-title">
+    <div class="event-submit-modal__backdrop" id="mmhp-submit-size-modal-backdrop"></div>
+    <div class="event-submit-modal__panel">
+      <h2 id="mmhp-submit-size-modal-title" class="event-submit-modal__title">Photos may be too large for email</h2>
+      <div class="event-submit-modal__body" id="mmhp-submit-size-modal-body"></div>
+      <div class="event-submit-modal__actions">
+        <button type="button" class="btn site-button" id="mmhp-submit-size-modal-ok">OK</button>
+        <button type="button" class="btn site-button" id="mmhp-submit-size-modal-continue" hidden>Continue anyway</button>
+        <button type="button" class="btn site-button" id="mmhp-submit-size-modal-back" hidden>Go back</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js" defer></script>
+  <script src="../assets/js/mmhp-coordinator-config.js" defer></script>
   <script src="../assets/js/event-submit-form.js" defer></script>
   <script src="../assets/js/activities-sidebar.js" defer></script>
   <script src="../assets/js/schedule-csv-io.js" defer></script>

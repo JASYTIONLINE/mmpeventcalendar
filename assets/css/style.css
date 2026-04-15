@@ -942,7 +942,7 @@
   /* ================================================
      FORMS
      ================================================ */
-  input,
+  input:not([type="checkbox"]):not([type="radio"]),
   select,
   textarea {
     width: 100%;
@@ -954,10 +954,24 @@
     padding: 0.75rem;
     margin-bottom: 1rem;
   }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    width: auto;
+    margin-bottom: 0;
+    padding: 0;
+    vertical-align: middle;
+  }
   
-  input:focus,
+  input:not([type="checkbox"]):not([type="radio"]):focus,
   select:focus,
   textarea:focus {
+    outline: 2px solid var(--color-sky);
+    outline-offset: 2px;
+  }
+
+  input[type="checkbox"]:focus,
+  input[type="radio"]:focus {
     outline: 2px solid var(--color-sky);
     outline-offset: 2px;
   }

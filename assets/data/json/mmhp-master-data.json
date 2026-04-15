@@ -4989,7 +4989,8 @@
       "cardLine1": "Karaoke",
       "cardLine2": "Karaoke",
       "cardLine3": "Nov 7 2026",
-      "eventName": "Karaoke — Karaoke"
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
     },
     {
       "featureId": "fe0002",
@@ -5003,7 +5004,8 @@
       "cardLine1": "Karaoke",
       "cardLine2": "Karaoke",
       "cardLine3": "Nov 14 2026",
-      "eventName": "Karaoke — Karaoke"
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
     },
     {
       "featureId": "fe0003",
@@ -5017,7 +5019,8 @@
       "cardLine1": "DJ Dance",
       "cardLine2": "DJ Karaoke",
       "cardLine3": "Nov 21 2026",
-      "eventName": "DJ Dance — DJ Karaoke"
+      "eventName": "DJ Dance — DJ Karaoke",
+      "imagePath": "event-flyer/djdance.png"
     },
     {
       "featureId": "fe0004",
@@ -5031,7 +5034,8 @@
       "cardLine1": "DJ Dance",
       "cardLine2": "DJ Karaoke",
       "cardLine3": "Nov 28 2026",
-      "eventName": "DJ Dance — DJ Karaoke"
+      "eventName": "DJ Dance — DJ Karaoke",
+      "imagePath": "event-flyer/djdance.png"
     },
     {
       "featureId": "fe0005",
@@ -5045,7 +5049,8 @@
       "cardLine1": "Karaoke",
       "cardLine2": "Karaoke",
       "cardLine3": "Dec 5 2026",
-      "eventName": "Karaoke — Karaoke"
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
     },
     {
       "featureId": "fe0006",
@@ -5059,7 +5064,8 @@
       "cardLine1": "DJ Dance",
       "cardLine2": "DJ Karaoke",
       "cardLine3": "Dec 12 2026",
-      "eventName": "DJ Dance — DJ Karaoke"
+      "eventName": "DJ Dance — DJ Karaoke",
+      "imagePath": "event-flyer/djdance.png"
     },
     {
       "featureId": "fe0007",
@@ -5073,7 +5079,8 @@
       "cardLine1": "Karaoke",
       "cardLine2": "Karaoke",
       "cardLine3": "Dec 19 2026",
-      "eventName": "Karaoke — Karaoke"
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
     },
     {
       "featureId": "fe0008",
@@ -5087,7 +5094,8 @@
       "cardLine1": "DJ Dance",
       "cardLine2": "DJ Karaoke",
       "cardLine3": "Dec 26 2026",
-      "eventName": "DJ Dance — DJ Karaoke"
+      "eventName": "DJ Dance — DJ Karaoke",
+      "imagePath": "event-flyer/djdance.png"
     },
     {
       "featureId": "fe0009",
@@ -5102,7 +5110,8 @@
       "cardLine2": "Dance",
       "cardLine3": "Jan 6 2027",
       "eventName": "The Howlers — Dance",
-      "description": "3 piece variety band that play anything from Elvis Presley to Amy Winehouse from Cumbia to Country"
+      "description": "3 piece variety band that play anything from Elvis Presley to Amy Winehouse from Cumbia to Country",
+      "imagePath": "event-flyer/howlers.png"
     },
     {
       "featureId": "fe0010",
@@ -5117,7 +5126,8 @@
       "cardLine2": "Dance",
       "cardLine3": "Jan 13 2027",
       "eventName": "Jonny Bird — Dance",
-      "description": "LV entertainer writer musician producer and all around performer from Minnesota to Las Vegas and now the valley he knows how to entertain"
+      "description": "LV entertainer writer musician producer and all around performer from Minnesota to Las Vegas and now the valley he knows how to entertain",
+      "imagePath": "event-flyer/jonny-bird.jpg"
     },
     {
       "featureId": "fe0011",
@@ -5132,7 +5142,8 @@
       "cardLine2": "Comedy",
       "cardLine3": "Jan 20 2027",
       "eventName": "Mayham — Comedy",
-      "description": "Comedian for the Redneck Comedy Bus Bransons Famous Baldknobbers Show and nationally touring comedian"
+      "description": "Comedian for the Redneck Comedy Bus Bransons Famous Baldknobbers Show and nationally touring comedian",
+      "imagePath": "event-flyer/mayham.jpg"
     },
     {
       "featureId": "fe0012",
@@ -5147,7 +5158,8 @@
       "cardLine2": "Music Performance",
       "cardLine3": "Jan 27 2027",
       "eventName": "3 Fools on 3 Stools — Music Performance",
-      "description": "Three guitar players from the Island that perform all over the valley"
+      "description": "Three guitar players from the Island that perform all over the valley",
+      "imagePath": "event-flyer/3fools.jpg"
     },
     {
       "featureId": "fe0013",
@@ -5162,7 +5174,8 @@
       "cardLine2": "Music Performance",
       "cardLine3": "Feb 3 2027",
       "eventName": "Arnold Davidson as Hank Williams Jr — Music Performance",
-      "description": "A tribute show to Hank Williams Jr bringing high energy new musician to the valley"
+      "description": "A tribute show to Hank Williams Jr bringing high energy new musician to the valley",
+      "imagePath": "event-flyer/arnold-hank.jpg"
     },
     {
       "featureId": "fe0014",
@@ -5177,7 +5190,8 @@
       "cardLine2": "Murder Mystery",
       "cardLine3": "Feb 10 2027",
       "eventName": "Julia Lane Cooper Mardi Gras Murder Mystery Party — Murder Mystery",
-      "description": "A show full of live music hilarious dialogue improv intrigue accusations and all attendees at the heart of the show"
+      "description": "A show full of live music hilarious dialogue improv intrigue accusations and all attendees at the heart of the show",
+      "imagePath": "event-flyer/murder-mystery.jpg"
     },
     {
       "featureId": "fe0015",
@@ -5192,7 +5206,8 @@
       "cardLine2": "Music Performance",
       "cardLine3": "Feb 17 2027",
       "eventName": "Singing Ambassadors — Music Performance",
-      "description": "A mens chorus made up of both Winter Texans and locals that love to sing donations go to scholarships for RGV students that want to pursue music"
+      "description": "A mens chorus made up of both Winter Texans and locals that love to sing donations go to scholarships for RGV students that want to pursue music",
+      "imagePath": "event-flyer/singing-ambass.jpg"
     },
     {
       "featureId": "fe0016",
@@ -5207,7 +5222,8 @@
       "cardLine2": "Music Performance",
       "cardLine3": "Feb 24 2027",
       "eventName": "Lindley Creek Band — Music Performance",
-      "description": "Began as a bluegrass family band from MO but expanding to perform a broad range of music"
+      "description": "Began as a bluegrass family band from MO but expanding to perform a broad range of music",
+      "imagePath": "event-flyer/lindley-creek.jpg"
     },
     {
       "featureId": "fe0017",
@@ -5222,7 +5238,8 @@
       "cardLine2": "Music Performance",
       "cardLine3": "Mar 3 2027",
       "eventName": "Rusty Rierson — Music Performance",
-      "description": "A Kansas native that pays tribute to George Strait Don Williams and many others"
+      "description": "A Kansas native that pays tribute to George Strait Don Williams and many others",
+      "imagePath": "event-flyer/rusty-rierson.jpg"
     },
     {
       "featureId": "fe0018",
@@ -5237,7 +5254,8 @@
       "cardLine2": "Theater",
       "cardLine3": "Mar 10 2027",
       "eventName": "Players Studio — Theater",
-      "description": "A non profit drama club that performs in McAllen and brings community theatre to the valley"
+      "description": "A non profit drama club that performs in McAllen and brings community theatre to the valley",
+      "imagePath": "event-flyer/players-studio.jpg"
     },
     {
       "featureId": "fe0019",
@@ -5252,7 +5270,8 @@
       "cardLine2": "Talent Show",
       "cardLine3": "Mar 17 2027",
       "eventName": "St Patricks Day Party — Talent Show",
-      "description": "Talent show with a focus on the green luck theme"
+      "description": "Talent show with a focus on the green luck theme",
+      "imagePath": "event-flyer/st-patty-party.jpg"
     }
   ],
   "committees": [

@@ -632,6 +632,41 @@
     border-radius: var(--radius-sm, 8px);
   }
 
+  .sidebar-add-activity-wrap {
+    margin: 0 0 var(--space-sm, 0.75rem);
+  }
+
+  .sidebar-add-activity-btn {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 0.95rem;
+    padding: 0.5rem 0.65rem;
+  }
+
+  .request-activity-weekdays {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.35rem 0.75rem;
+    max-width: 28rem;
+  }
+
+  @media (min-width: 520px) {
+    .request-activity-weekdays {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .request-activity-weekdays .event-submit-form__field--check {
+    margin-bottom: 0;
+  }
+
+  textarea.event-submit-form__input {
+    min-height: 5rem;
+    resize: vertical;
+    max-width: 28rem;
+  }
+
   .event-submit-modal {
     position: fixed;
     inset: 0;
@@ -812,13 +847,15 @@
   }
   
   .featured-card-image {
+    display: block;
     width: min(250px, 100%);
-    aspect-ratio: 1;
+    max-width: 100%;
     height: auto;
-    object-fit: cover;
     border-radius: var(--radius-sm);
     margin: 0 auto 0.5rem;
     background-color: var(--color-sky);
+    object-fit: contain;
+    object-position: center;
   }
   
   .featured-card-caption {
@@ -857,6 +894,121 @@
 
   .week-spotlight-empty.featured-card-caption {
     min-height: auto;
+  }
+
+  .week-spotlight-card--placeholder .featured-card-booking-hint {
+    margin: 0.35rem 0 0 0;
+    padding: 0 0.2rem;
+    font-size: 0.62rem;
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: center;
+    color: var(--color-text-soft);
+  }
+
+  .week-spotlight-card--placeholder .featured-card-caption {
+    min-height: auto;
+  }
+
+  .week-spotlight-card--placeholder .featured-card-image-btn {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0 auto 0.5rem;
+    border: none;
+    background: transparent;
+    cursor: zoom-in;
+    border-radius: var(--radius-sm);
+    line-height: 0;
+    font: inherit;
+    color: inherit;
+  }
+
+  .week-spotlight-card--placeholder .featured-card-image-btn:focus-visible {
+    outline: 2px solid var(--color-sky);
+    outline-offset: 2px;
+  }
+
+  .week-spotlight-card--placeholder .featured-card-image-btn .featured-card-image {
+    margin: 0 auto;
+    vertical-align: middle;
+  }
+
+  .featured-card-link--bookme-text {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .featured-card-link--bookme-text:hover .featured-card-line--name,
+  .featured-card-link--bookme-text:focus-visible .featured-card-line--name {
+    text-decoration: underline;
+  }
+
+  /* Full-screen flyer preview (bookme placeholder image) */
+  .mmhp-image-preview-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    background: rgba(15, 22, 28, 0.88);
+    cursor: zoom-out;
+  }
+
+  .mmhp-image-preview-inner {
+    position: relative;
+    max-width: min(96vw, 1200px);
+    max-height: 92vh;
+    cursor: default;
+  }
+
+  .mmhp-image-preview-img {
+    display: block;
+    max-width: 100%;
+    max-height: 92vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  }
+
+  .mmhp-image-preview-close {
+    position: absolute;
+    top: -2.25rem;
+    right: 0;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: var(--color-white);
+    color: var(--color-text);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .mmhp-image-preview-close:hover,
+  .mmhp-image-preview-close:focus-visible {
+    background: var(--color-sky);
+    outline: none;
+  }
+
+  .mmhp-image-preview-close:focus-visible {
+    outline: 2px solid var(--color-white);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 600px) {
+    .mmhp-image-preview-close {
+      top: -0.25rem;
+      right: -0.25rem;
+    }
   }
   
   /* ================================================
@@ -1483,13 +1635,35 @@
     margin-top: 1rem;
   }
 
-  body.page-home .page-home-featured-heading {
-    font-size: clamp(1rem, 2vw, 1.35rem);
-    text-align: center;
+  body.page-home .page-home-featured-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 0.75rem;
     margin: 0 0 0.4rem 0;
     padding-bottom: 0.35rem;
     border-bottom: 1px solid var(--color-border);
+  }
+
+  body.page-home .page-home-featured-heading {
+    font-size: clamp(1rem, 2vw, 1.35rem);
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    border: none;
     color: var(--color-driftwood-dark);
+    flex: 1 1 auto;
+    min-width: min(100%, 12rem);
+  }
+
+  body.page-home .page-home-featured-submit-btn {
+    flex: 0 0 auto;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.85rem;
+    white-space: nowrap;
+    text-decoration: none;
+    box-sizing: border-box;
   }
 
   /* Featured under calendar: 4 columns on wide desktop → 2 → 1 on narrow / mobile */
@@ -1521,7 +1695,7 @@
   body.page-home .page-home-featured .featured-card-image {
     width: 100%;
     max-width: 100%;
-    aspect-ratio: 4 / 3;
-    max-height: 140px;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
   }

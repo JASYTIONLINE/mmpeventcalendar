@@ -103,6 +103,20 @@ function deriveListingTitle(cardLine1, cardLine2) {
   return c1 + LISTING_SEP + c2;
 }
 
+/** Relative to assets/images. CSV Image may be "event-flyer/x.jpg" or "x.jpg". */
+function resolveImagePath(cardLine1, cardLine2, imageCell) {
+  let raw = String(imageCell != null ? imageCell : "").trim();
+  if (raw) {
+    if (!raw.includes("/")) raw = "event-flyer/" + raw.replace(/^\/+/, "");
+    return raw;
+  }
+  const c1 = String(cardLine1 || "").trim();
+  const c2 = String(cardLine2 || "").trim();
+  if (c1 === "Karaoke" && c2 === "Karaoke") return "event-flyer/karaoke.png";
+  if (c1 === "DJ Dance" && c2 === "DJ Karaoke") return "event-flyer/djdance.png";
+  return "";
+}
+
 function rowsToObjects(header, body) {
   const h = header.map((x) => String(x || "").trim());
   const objects = [];
@@ -185,6 +199,8 @@ function main() {
       eventName,
     };
     if (desc) row.description = desc;
+    const imagePath = resolveImagePath(cardLine1, cardLine2, o.Image);
+    if (imagePath) row.imagePath = imagePath;
     features.push(row);
   }
 

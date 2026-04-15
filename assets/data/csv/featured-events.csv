@@ -1,22 +1,22 @@
 # Source of truth for master JSON "features" array. Run: node scripts/build-features-from-csv.mjs
-# Columns: Date (YYYY-MM-DD), Time (e.g. 7:00 PM), Event (card line 1), Activity (card line 2 / category), Description (optional), Location (optional; default Hall A), isFeatured (optional true/false; default true)
-Date,Time,Event,Activity,Description,Location,isFeatured
-2026-11-07,7:00 PM,Karaoke,Karaoke,,Hall A,true
-2026-11-14,7:00 PM,Karaoke,Karaoke,,Hall A,true
-2026-11-21,7:00 PM,DJ Dance,DJ Karaoke,,Hall A,true
-2026-11-28,7:00 PM,DJ Dance,DJ Karaoke,,Hall A,true
-2026-12-05,7:00 PM,Karaoke,Karaoke,,Hall A,true
-2026-12-12,7:00 PM,DJ Dance,DJ Karaoke,,Hall A,true
-2026-12-19,7:00 PM,Karaoke,Karaoke,,Hall A,true
-2026-12-26,7:00 PM,DJ Dance,DJ Karaoke,,Hall A,true
-2027-01-06,7:00 PM,The Howlers,Dance,3 piece variety band that play anything from Elvis Presley to Amy Winehouse from Cumbia to Country,Hall A,true
-2027-01-13,7:00 PM,Jonny Bird,Dance,LV entertainer writer musician producer and all around performer from Minnesota to Las Vegas and now the valley he knows how to entertain,Hall A,true
-2027-01-20,7:00 PM,Mayham,Comedy,Comedian for the Redneck Comedy Bus Bransons Famous Baldknobbers Show and nationally touring comedian,Hall A,true
-2027-01-27,7:00 PM,3 Fools on 3 Stools,Music Performance,Three guitar players from the Island that perform all over the valley,Hall A,true
-2027-02-03,7:00 PM,Arnold Davidson as Hank Williams Jr,Music Performance,A tribute show to Hank Williams Jr bringing high energy new musician to the valley,Hall A,true
-2027-02-10,7:00 PM,Julia Lane Cooper Mardi Gras Murder Mystery Party,Murder Mystery,A show full of live music hilarious dialogue improv intrigue accusations and all attendees at the heart of the show,Hall A,true
-2027-02-17,7:00 PM,Singing Ambassadors,Music Performance,A mens chorus made up of both Winter Texans and locals that love to sing donations go to scholarships for RGV students that want to pursue music,Hall A,true
-2027-02-24,7:00 PM,Lindley Creek Band,Music Performance,Began as a bluegrass family band from MO but expanding to perform a broad range of music,Hall A,true
-2027-03-03,7:00 PM,Rusty Rierson,Music Performance,A Kansas native that pays tribute to George Strait Don Williams and many others,Hall A,true
-2027-03-10,7:00 PM,Players Studio,Theater,A non profit drama club that performs in McAllen and brings community theatre to the valley,Hall A,true
-2027-03-17,7:00 PM,St Patricks Day Party,Talent Show,Talent show with a focus on the green luck theme,Hall A,true
+# Columns: Date (YYYY-MM-DD), Time (e.g. 7:00 PM), Event (card line 1), Activity (card line 2 / category), Description (optional), Location (optional; default Hall A), isFeatured (optional true/false; default true), Image (optional; path under assets/images e.g. event-flyer/name.jpg — Karaoke/DJ rows may omit and use defaults)
+Date,Time,Event,Activity,Description,Location,isFeatured,Image
+2026-11-07,7:00 PM,Karaoke,Karaoke,,Hall A,true,event-flyer/karaoke.png
+2026-11-14,7:00 PM,Karaoke,Karaoke,,Hall A,true,event-flyer/karaoke.png
+2026-11-21,7:00 PM,DJ Dance,DJ Karaoke,,Hall A,true,event-flyer/djdance.png
+2026-11-28,7:00 PM,DJ Dance,DJ Karaoke,,Hall A,true,event-flyer/djdance.png
+2026-12-05,7:00 PM,Karaoke,Karaoke,,Hall A,true,event-flyer/karaoke.png
+2026-12-12,7:00 PM,DJ Dance,DJ Karaoke,,Hall A,true,event-flyer/djdance.png
+2026-12-19,7:00 PM,Karaoke,Karaoke,,Hall A,true,event-flyer/karaoke.png
+2026-12-26,7:00 PM,DJ Dance,DJ Karaoke,,Hall A,true,event-flyer/djdance.png
+2027-01-06,7:00 PM,The Howlers,Dance,3 piece variety band that play anything from Elvis Presley to Amy Winehouse from Cumbia to Country,Hall A,true,event-flyer/howlers.png
+2027-01-13,7:00 PM,Jonny Bird,Dance,LV entertainer writer musician producer and all around performer from Minnesota to Las Vegas and now the valley he knows how to entertain,Hall A,true,event-flyer/jonny-bird.jpg
+2027-01-20,7:00 PM,Mayham,Comedy,Comedian for the Redneck Comedy Bus Bransons Famous Baldknobbers Show and nationally touring comedian,Hall A,true,event-flyer/mayham.jpg
+2027-01-27,7:00 PM,3 Fools on 3 Stools,Music Performance,Three guitar players from the Island that perform all over the valley,Hall A,true,event-flyer/3fools.jpg
+2027-02-03,7:00 PM,Arnold Davidson as Hank Williams Jr,Music Performance,A tribute show to Hank Williams Jr bringing high energy new musician to the valley,Hall A,true,event-flyer/arnold-hank.jpg
+2027-02-10,7:00 PM,Julia Lane Cooper Mardi Gras Murder Mystery Party,Murder Mystery,A show full of live music hilarious dialogue improv intrigue accusations and all attendees at the heart of the show,Hall A,true,event-flyer/murder-mystery.jpg
+2027-02-17,7:00 PM,Singing Ambassadors,Music Performance,A mens chorus made up of both Winter Texans and locals that love to sing donations go to scholarships for RGV students that want to pursue music,Hall A,true,event-flyer/singing-ambass.jpg
+2027-02-24,7:00 PM,Lindley Creek Band,Music Performance,Began as a bluegrass family band from MO but expanding to perform a broad range of music,Hall A,true,event-flyer/lindley-creek.jpg
+2027-03-03,7:00 PM,Rusty Rierson,Music Performance,A Kansas native that pays tribute to George Strait Don Williams and many others,Hall A,true,event-flyer/rusty-rierson.jpg
+2027-03-10,7:00 PM,Players Studio,Theater,A non profit drama club that performs in McAllen and brings community theatre to the valley,Hall A,true,event-flyer/players-studio.jpg
+2027-03-17,7:00 PM,St Patricks Day Party,Talent Show,Talent show with a focus on the green luck theme,Hall A,true,event-flyer/st-patty-party.jpg

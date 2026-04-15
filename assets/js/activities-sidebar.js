@@ -224,6 +224,104 @@
     return /contents[/\\]/i.test(window.location.pathname) ? "learn-more.html" : "contents/learn-more.html";
   }
 
+  function contactHref() {
+    return /contents[/\\]/i.test(window.location.pathname) ? "contact.html" : "contents/contact.html";
+  }
+
+  function submitHref() {
+    return /contents[/\\]/i.test(window.location.pathname) ? "submit.html" : "contents/submit.html";
+  }
+
+  function padHourMinForFilename(h) {
+    return h < 10 ? "0" + h : String(h);
+  }
+
+  /** HH:MM from feature → HHmm for filenames (e.g. 19:00 → 1900). */
+  function fileHmFromStartTime(startTime) {
+    var m = /^(\d{1,2}):(\d{2})$/.exec(String(startTime || "19:00").trim());
+    if (!m) return "1900";
+    var h = parseInt(m[1], 10);
+    return padHourMinForFilename(h) + m[2];
+  }
+
+  /** Basename of imagePath without extension, or feature id fallback. */
+  function featureImageStem(ev) {
+    var raw = ev && ev.imagePath != null ? String(ev.imagePath).trim() : "";
+    if (!raw) {
+      var fid = ev && ev.featureId ? String(ev.featureId).trim() : "";
+      return fid.replace(/[^\w-]+/g, "-") || "event";
+    }
+    var base = raw.split(/[/\\]/).pop() || "";
+    var stem = base.replace(/\.(png|jpe?g|gif|webp)$/i, "");
+    return stem || "event";
+  }
+
+  /** Static page basename: YYYY-MM-DD-HHmm-stem.html (must match scripts/build-feature-event-pages.mjs). */
+  function featureEventPageBasename(ev) {
+    if (!ev) return "";
+    var date = String(ev.date || "").trim();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return "";
+    return date + "-" + fileHmFromStartTime(ev.startTime) + "-" + featureImageStem(ev) + ".html";
+  }
+
+  /** Link to generated contents/feature-events/<basename>. */
+  function featureEventDetailHref(ev) {
+    var base = featureEventPageBasename(ev);
+    if (!base) return learnMoreHref();
+    var path = window.location.pathname || "";
+    if (/feature-events[/\\]/i.test(path)) return base;
+    if (/contents[/\\]/i.test(path)) return "feature-events/" + base;
+    return "contents/feature-events/" + base;
+  }
+
+  function openImagePreview(src, altText) {
+    if (!src) return;
+    var backdrop = document.createElement("div");
+    backdrop.className = "mmhp-image-preview-backdrop";
+    backdrop.setAttribute("role", "dialog");
+    backdrop.setAttribute("aria-modal", "true");
+    backdrop.setAttribute("aria-label", "Image preview");
+
+    var inner = document.createElement("div");
+    inner.className = "mmhp-image-preview-inner";
+
+    var btnClose = document.createElement("button");
+    btnClose.type = "button";
+    btnClose.className = "mmhp-image-preview-close";
+    btnClose.textContent = "\u00D7";
+    btnClose.setAttribute("aria-label", "Close preview");
+
+    var imgEl = document.createElement("img");
+    imgEl.src = src;
+    imgEl.alt = altText || "";
+    imgEl.className = "mmhp-image-preview-img";
+
+    function onKey(e) {
+      if (e.key === "Escape") close();
+    }
+    function close() {
+      document.removeEventListener("keydown", onKey);
+      if (backdrop.parentNode) backdrop.parentNode.removeChild(backdrop);
+    }
+
+    btnClose.addEventListener("click", close);
+    backdrop.addEventListener("click", function (e) {
+      if (e.target === backdrop) close();
+    });
+    inner.addEventListener("click", function (e) {
+      e.stopPropagation();
+    });
+    document.addEventListener("keydown", onKey);
+
+    inner.appendChild(btnClose);
+    inner.appendChild(imgEl);
+    backdrop.appendChild(inner);
+    document.body.appendChild(backdrop);
+    try {
+      btnClose.focus();
+    } catch (f) {}
+  }
+
   var MAX_FEATURED_CARDS = 2;
 
   function debounce(fn, ms) {
@@ -268,7 +366,6 @@
     if (!grid) return;
     imageIndexOffset = imageIndexOffset || 0;
     var imagesDir = assetsImagesDir(jsonUrl);
-    var linkHref = learnMoreHref();
 
     grid.textContent = "";
 
@@ -305,7 +402,8 @@
 
       var a = document.createElement("a");
       a.className = "featured-card-link";
-      a.href = linkHref;
+      a.href = featureEventDetailHref(ev);
+      a.title = "Open featured event details";
 
       var img = document.createElement("img");
       img.className = "featured-card-image";
@@ -516,56 +614,99 @@
     return candidates.length ? candidates[0] : null;
   }
 
-  /** Any active featured event with date in [windowStart, windowEnd] (inclusive, local dates). */
-  function anyFeaturedInDateWindow(data, windowStart, windowEnd) {
-    var features = data.features || [];
-    var lo = windowStart.getTime();
-    var hi = windowEnd.getTime();
-    for (var i = 0; i < features.length; i++) {
-      var ev = features[i];
-      if (ev.isActive === false) continue;
-      if (!isFeaturedEvent(ev)) continue;
-      var dt = parseISODateLocal(ev.date);
-      if (!dt) continue;
-      var t = dt.getTime();
-      if (t >= lo && t <= hi) return true;
+  /**
+   * The one date in [today, today+6] (local, inclusive) whose weekday matches js getDay() (0=Sun … 6=Sat).
+   * Any 7 consecutive days contain exactly one of each weekday.
+   */
+  function findWeekdayInRollingSevenDays(todayStart, jsWeekday) {
+    for (var k = 0; k <= 6; k++) {
+      var d = addDaysLocal(todayStart, k);
+      if (d.getDay() === jsWeekday) return d;
     }
-    return false;
+    return null;
   }
 
   /**
-   * Home right rail: this calendar week’s Wednesday and Saturday (week starts Sunday).
-   * Only shows a card when that day is still upcoming or today and within the next 6 days from today
-   * (inclusive: today through today+6). If no featured events exist anywhere in that window, both slots empty.
+   * Home right rail: Wednesday and Saturday in rolling window today…today+6 (local).
+   * Returns real featured items when present; render uses placeholders when absent.
    */
   function weekSpotlightWednesdaySaturdayItems(data) {
     var today = startOfTodayLocal();
-    var windowEnd = addDaysLocal(today, 6);
-    var sundayThisWeek = addDaysLocal(today, -today.getDay());
-    var dWed = addDaysLocal(sundayThisWeek, 3);
-    var dSat = addDaysLocal(sundayThisWeek, 6);
-
-    if (!anyFeaturedInDateWindow(data, today, windowEnd)) {
-      return { wed: null, sat: null };
-    }
-
-    var wed = null;
-    var sat = null;
-    var lo = today.getTime();
-    var hi = windowEnd.getTime();
-    if (dWed.getTime() >= lo && dWed.getTime() <= hi) wed = findFeaturedOnDate(data, dWed);
-    if (dSat.getTime() >= lo && dSat.getTime() <= hi) sat = findFeaturedOnDate(data, dSat);
-    return { wed: wed, sat: sat };
+    var dWed = findWeekdayInRollingSevenDays(today, 3);
+    var dSat = findWeekdayInRollingSevenDays(today, 6);
+    var wed = dWed ? findFeaturedOnDate(data, dWed) : null;
+    var sat = dSat ? findFeaturedOnDate(data, dSat) : null;
+    return { wed: wed, sat: sat, dWed: dWed, dSat: dSat };
   }
 
-  function renderWeekSpotlightCardInto(host, item, imageOffset, jsonUrl, emptyWeekdayName) {
+  /** Re-run spotlight after each local midnight while the tab stays open (no full reload). */
+  function scheduleWeekSpotlightMidnightRefresh(onDayTurnover) {
+    function arm() {
+      var now = new Date();
+      var nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
+      var ms = Math.max(1000, nextMidnight.getTime() - now.getTime());
+      window.setTimeout(function () {
+        try {
+          onDayTurnover();
+        } catch (e) {}
+        arm();
+      }, ms);
+    }
+    arm();
+  }
+
+  function renderWeekSpotlightCardInto(host, item, imageOffset, jsonUrl, emptyWeekdayName, slotDate) {
     if (!host) return;
     host.textContent = "";
     var imagesDir = assetsImagesDir(jsonUrl);
-    var linkHref = learnMoreHref();
 
     var article = document.createElement("article");
     article.className = "site-card featured-card week-spotlight-card";
+
+    if (!item && slotDate) {
+      article.classList.add("week-spotlight-card--placeholder");
+      var phEv = {
+        cardLine1: "bookme",
+        cardLine2: "7–10 pm · Hall A",
+        eventName: "bookme",
+        imagePath: "event-flyer/bookme.png",
+      };
+      var imgPh = document.createElement("img");
+      imgPh.className = "featured-card-image";
+      imgPh.src = pickImageUrl(phEv, imageOffset, imagesDir);
+      imgPh.alt = featuredCardAltText(phEv, null, slotDate);
+
+      var btnImg = document.createElement("button");
+      btnImg.type = "button";
+      btnImg.className = "featured-card-image-btn";
+      btnImg.setAttribute("aria-label", "Preview flyer image full size");
+      btnImg.appendChild(imgPh);
+      btnImg.addEventListener("click", function () {
+        openImagePreview(imgPh.src, imgPh.alt);
+      });
+
+      var aPh = document.createElement("a");
+      aPh.className = "featured-card-link featured-card-link--bookme-text";
+      aPh.href = submitHref();
+      aPh.title =
+        "bookme — open Submit an Event to request this evening (Hall A, 7–10 pm).";
+      aPh.setAttribute(
+        "aria-label",
+        "bookme: submit an event to book Hall A, 7 to 10 p.m. Opens the Submit Event page."
+      );
+
+      var capPh = createFeaturedCaptionElement(phEv, null, slotDate);
+      var hintPh = document.createElement("p");
+      hintPh.className = "featured-card-booking-hint";
+      hintPh.textContent = "Tap bookme below to open Submit an Event and reserve this date.";
+
+      aPh.appendChild(capPh);
+      aPh.appendChild(hintPh);
+      article.appendChild(btnImg);
+      article.appendChild(aPh);
+      host.appendChild(article);
+      return;
+    }
 
     if (!item) {
       var day = emptyWeekdayName != null && String(emptyWeekdayName).trim() ? String(emptyWeekdayName).trim() : "week";
@@ -594,7 +735,8 @@
 
     var a = document.createElement("a");
     a.className = "featured-card-link";
-    a.href = linkHref;
+    a.href = featureEventDetailHref(ev);
+    a.title = "Open featured event details";
 
     var img = document.createElement("img");
     img.className = "featured-card-image";
@@ -617,8 +759,8 @@
 
     var pair = weekSpotlightWednesdaySaturdayItems(data);
 
-    renderWeekSpotlightCardInto(wedHost, pair.wed, 0, jsonUrl, "Wednesday");
-    renderWeekSpotlightCardInto(satHost, pair.sat, 1, jsonUrl, "Saturday");
+    renderWeekSpotlightCardInto(wedHost, pair.wed, 0, jsonUrl, "Wednesday", pair.dWed);
+    renderWeekSpotlightCardInto(satHost, pair.sat, 1, jsonUrl, "Saturday", pair.dSat);
   }
 
   function init() {
@@ -658,6 +800,9 @@
         if (rightGrid) {
           if (document.body.classList.contains("page-home")) {
             renderWeekSpotlightWednesdaySaturday(data, rightGrid, url);
+            scheduleWeekSpotlightMidnightRefresh(function () {
+              if (dataRef) renderWeekSpotlightWednesdaySaturday(dataRef, rightGrid, url);
+            });
           } else {
             renderFeaturedEvents(data, rightGrid, url);
           }
@@ -691,19 +836,9 @@
             satHost &&
             document.body.classList.contains("page-home")
           ) {
-            function errCard(msg) {
-              var art = document.createElement("article");
-              art.className = "site-card featured-card";
-              var p = document.createElement("p");
-              p.className = "featured-card-caption";
-              p.textContent = msg;
-              art.appendChild(p);
-              return art;
-            }
             wedHost.textContent = "";
             satHost.textContent = "";
-            wedHost.appendChild(errCard("Could not load this week’s events."));
-            satHost.appendChild(errCard("Could not load this week’s events."));
+            renderWeekSpotlightWednesdaySaturday({ features: [] }, rightGrid, url);
           } else {
             rightGrid.textContent = "";
             var art2 = document.createElement("article");

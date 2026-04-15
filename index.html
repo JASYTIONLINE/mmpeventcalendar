@@ -27,6 +27,7 @@
       <nav class="site-nav navbar" aria-label="Main navigation">
         <ul class="site-nav-list">
           <li class="site-nav-item"><a class="site-nav-link" href="contents/learn-more.html">Learn More</a></li>
+          <li class="site-nav-item"><a class="site-nav-link" href="contents/request-activity.html">Request activity</a></li>
           <li class="site-nav-item"><a class="site-nav-link" href="contents/submit.html">Submit Event</a></li>
           <li class="site-nav-item"><a class="site-nav-link" href="contents/contact.html">Contact Event Coordinator</a>
           </li>
@@ -40,6 +41,9 @@
         <aside class="site-sidebar site-sidebar-left" aria-labelledby="schedule-sidebar-heading">
           <h2 id="schedule-sidebar-heading" class="site-sidebar-title">Recurring schedule</h2>
           <div class="sidebar-left-body">
+            <p class="sidebar-add-activity-wrap">
+              <a class="btn site-button sidebar-add-activity-btn" href="contents/request-activity.html">Add activity</a>
+            </p>
             <ul class="recurring-events-list" aria-busy="true"></ul>
           </div>
         </aside>
@@ -57,14 +61,17 @@
             </div>
 
             <section class="page-home-featured" aria-labelledby="home-featured-heading">
-              <h3 id="home-featured-heading" class="page-home-featured-heading">Upcoming Featured Events</h3>
+              <div class="page-home-featured-header">
+                <h3 id="home-featured-heading" class="page-home-featured-heading">Upcoming Featured Events</h3>
+                <a class="btn site-button page-home-featured-submit-btn" href="contents/submit.html">Add one-time event</a>
+              </div>
               <div class="featured-events-grid page-home-featured-grid" aria-live="polite"></div>
             </section>
           </section>
 
         </main>
 
-        <!-- RIGHT: this week’s Wednesday & Saturday featured slots (rolling 6-day window) -->
+        <!-- RIGHT: Wednesday & Saturday in rolling window today…today+6 (local); updates after midnight -->
         <aside class="site-sidebar site-sidebar-right" aria-labelledby="week-spotlight-heading">
           <h2 id="week-spotlight-heading" class="site-sidebar-title">This Week's Featured Events</h2>
 

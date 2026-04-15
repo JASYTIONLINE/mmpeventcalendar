@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Featured event page template | McAllen Mobile Park Events</title>
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <!--
+    Feature events only (not recurring activities). Activity landing pages will live in contents/activity-events/ later.
+    Naming (this folder: contents/feature-events/):
+      Template: yyyy-mm-dd-1900-bookme.html  → flyer image file under assets/images/event-flyer/bookme.png
+      Live:     YYYY-MM-DD-HHmm-<stem>.html  → ../../assets/images/event-flyer/<stem>.(png|jpg)
+  -->
+  <style>
+    .feature-events-page {
+      --feature-events-max: 56rem;
+      --feature-events-pad: clamp(1rem, 4vw, 2rem);
+      --feature-events-accent: var(--color-driftwood-dark);
+      --feature-events-accent-soft: var(--color-driftwood);
+      --feature-events-glow: rgba(135, 206, 235, 0.45);
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse 120% 80% at 50% -20%, var(--feature-events-glow), transparent 55%),
+        linear-gradient(180deg, var(--color-ocean-mist) 0%, var(--color-white) 28%, var(--color-sand) 120%);
+      margin: 0;
+    }
+
+    .feature-events-page * {
+      box-sizing: border-box;
+    }
+
+    .feature-events-page h1,
+    .feature-events-page h2,
+    .feature-events-page h3 {
+      text-align: left;
+    }
+
+    .feature-events-page p,
+    .feature-events-page .feature-events-about {
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      line-height: 1.55;
+      color: var(--color-text);
+    }
+
+    /* —— Park hero (consistent site theme) —— */
+    .feature-events-banner {
+      position: relative;
+      overflow: hidden;
+      border-bottom: 4px solid var(--color-sand-dark);
+      box-shadow: 0 8px 32px var(--color-shadow);
+    }
+
+    .feature-events-banner img {
+      width: 100%;
+      max-height: min(38vh, 320px);
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .feature-events-banner::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 40%;
+      background: linear-gradient(to top, rgba(47, 58, 64, 0.55), transparent);
+      pointer-events: none;
+    }
+
+    .feature-events-banner-text {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: var(--feature-events-pad);
+      padding-bottom: clamp(1.25rem, 4vw, 2rem);
+      max-width: var(--feature-events-max);
+      margin: 0 auto;
+      z-index: 1;
+    }
+
+    .feature-events-banner-text h1 {
+      margin: 0 0 0.35rem;
+      font-size: clamp(1.5rem, 4.5vw, 2.25rem);
+      color: var(--color-white);
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+      letter-spacing: 0.02em;
+      text-align: left;
+    }
+
+    .feature-events-banner-text p {
+      margin: 0;
+      font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+      max-width: 36em;
+    }
+
+    .feature-events-wave {
+      height: 14px;
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--color-sand),
+        var(--color-sand) 6px,
+        var(--color-sand-dark) 6px,
+        var(--color-sand-dark) 12px
+      );
+      opacity: 0.85;
+    }
+
+    /* —— Actions under hero —— */
+    .feature-events-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      padding: var(--space-lg) var(--feature-events-pad);
+      max-width: var(--feature-events-max);
+      margin: 0 auto;
+    }
+
+    .feature-events-actions a,
+    .feature-events-actions button.feature-events-tickets {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3rem;
+      padding: 0.65rem 1.5rem;
+      border-radius: var(--radius-md);
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-decoration: none;
+      font-family: var(--font-main);
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .feature-events-actions button.feature-events-tickets {
+      border: none;
+    }
+
+    .feature-events-actions a:focus-visible,
+    .feature-events-actions button:focus-visible {
+      outline: 3px solid var(--color-sky);
+      outline-offset: 3px;
+    }
+
+    .feature-events-back {
+      background: var(--color-white);
+      color: var(--feature-events-accent);
+      border: 2px solid var(--color-border);
+      box-shadow: 0 4px 14px var(--color-shadow);
+    }
+
+    .feature-events-back:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px var(--color-shadow);
+      color: var(--feature-events-accent-soft);
+    }
+
+    .feature-events-tickets {
+      background: linear-gradient(145deg, var(--color-driftwood-dark), var(--feature-events-accent-soft));
+      color: var(--color-white);
+      border: none;
+      box-shadow: 0 6px 20px rgba(122, 94, 68, 0.35);
+    }
+
+    .feature-events-tickets:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 10px 28px rgba(122, 94, 68, 0.45);
+      color: var(--color-white);
+    }
+
+    /* —— Main grid: image | details, then full-width story —— */
+    .feature-events-main {
+      max-width: var(--feature-events-max);
+      margin: 0 auto;
+      padding: 0 var(--feature-events-pad) var(--space-xl);
+    }
+
+    .feature-events-title {
+      margin: 0 0 var(--space-md);
+      font-size: clamp(1.75rem, 4vw, 2.35rem);
+      color: var(--feature-events-accent);
+      line-height: 1.15;
+    }
+
+    .feature-events-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1rem, 3vw, 1.75rem);
+      align-items: stretch;
+    }
+
+    @media (max-width: 720px) {
+      .feature-events-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .feature-events-box {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      box-shadow:
+        0 4px 24px var(--color-shadow),
+        0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+      padding: var(--space-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-events-box::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--color-sky), var(--color-sand-dark), var(--color-driftwood));
+      opacity: 0.9;
+    }
+
+    .feature-events-feature-frame {
+      padding: var(--space-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 12rem;
+      background:
+        linear-gradient(145deg, var(--color-ocean-mist), var(--color-white));
+    }
+
+    .feature-events-feature-frame img {
+      width: 100%;
+      max-height: 420px;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 8px 28px rgba(80, 120, 150, 0.18);
+    }
+
+    .feature-events-details {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .feature-events-details h2 {
+      margin: 0;
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-text-soft);
+    }
+
+    .feature-events-when {
+      margin: 0;
+    }
+
+    .feature-events-when .feature-events-ribbon {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-white);
+      background: linear-gradient(90deg, var(--color-driftwood-dark), var(--color-driftwood));
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 2px 8px rgba(122, 94, 68, 0.25);
+    }
+
+    button.feature-events-ribbon {
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      text-align: left;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button.feature-events-ribbon:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(122, 94, 68, 0.35);
+    }
+
+    button.feature-events-ribbon:focus-visible {
+      outline: 3px solid var(--color-sky);
+      outline-offset: 2px;
+    }
+
+    button.feature-events-ribbon:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
+    .feature-events-when time {
+      display: block;
+      font-size: clamp(1.35rem, 3vw, 1.75rem);
+      font-weight: 700;
+      color: var(--feature-events-accent);
+      line-height: 1.2;
+    }
+
+    .feature-events-when .feature-events-time-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.65rem;
+      padding: 0.5rem 1rem;
+      background: var(--color-ocean-mist);
+      border-radius: 999px;
+      font-weight: 600;
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+    }
+
+    .feature-events-when .feature-events-invite {
+      margin: 0.85rem 0 0;
+      font-style: italic;
+      color: var(--color-text-soft);
+      font-size: 1rem;
+    }
+
+    .feature-events-loc {
+      margin: 0;
+      padding-top: var(--space-sm);
+      border-top: 1px dashed var(--color-border);
+    }
+
+    .feature-events-loc strong {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-soft);
+      margin-bottom: 0.25rem;
+    }
+
+    /* Full-width description row */
+    .feature-events-story {
+      margin-top: clamp(1rem, 3vw, 1.75rem);
+      grid-column: 1 / -1;
+    }
+
+    .feature-events-story h2 {
+      margin: 0 0 var(--space-sm);
+      font-size: 1.25rem;
+      color: var(--feature-events-accent);
+    }
+
+    .feature-events-footer {
+      text-align: center;
+      padding: var(--space-xl) var(--feature-events-pad);
+      border-top: 1px solid var(--color-border);
+      background: color-mix(in srgb, var(--color-ocean-mist) 40%, var(--color-white));
+    }
+
+    .feature-events-footer address {
+      font-style: normal;
+      font-size: 0.95rem;
+      color: var(--color-text-soft);
+      margin-bottom: var(--space-sm);
+    }
+
+    .feature-events-footer a {
+      font-size: 0.95rem;
+    }
+
+    /* Ticket request dialog */
+    .feature-events-dialog {
+      max-width: calc(100vw - 2rem);
+      width: min(26rem, 100%);
+      padding: 0;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 50px rgba(47, 58, 64, 0.25);
+      background: var(--color-white);
+    }
+
+    .feature-events-dialog::backdrop {
+      background: rgba(47, 58, 64, 0.45);
+    }
+
+    .feature-events-dialog-panel {
+      padding: var(--space-lg);
+    }
+
+    .feature-events-dialog-panel h3 {
+      margin: 0 0 var(--space-sm);
+      font-size: 1.35rem;
+      color: var(--feature-events-accent);
+    }
+
+    .feature-events-dialog-panel > p {
+      margin: 0 0 var(--space-md);
+      font-size: 1rem;
+      color: var(--color-text-soft);
+    }
+
+    .feature-events-dialog-panel label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--color-text);
+      margin-bottom: 0.35rem;
+    }
+
+    .feature-events-dialog-panel input[type="number"] {
+      width: 100%;
+      max-width: 8rem;
+      padding: 0.5rem 0.65rem;
+      font-size: 1.1rem;
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .feature-events-dialog-panel input[type="number"]:focus {
+      outline: none;
+      border-color: var(--color-sky);
+      box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.35);
+    }
+
+    .feature-events-dialog-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: flex-end;
+    }
+
+    .feature-events-dialog-actions button {
+      min-height: 2.75rem;
+      padding: 0.5rem 1.15rem;
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: var(--font-main);
+      cursor: pointer;
+      border: 2px solid var(--color-border);
+      background: var(--color-white);
+      color: var(--feature-events-accent);
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .feature-events-dialog-actions button:hover {
+      background: var(--color-ocean-mist);
+    }
+
+    .feature-events-dialog-actions .feature-events-dialog-submit {
+      border: none;
+      background: linear-gradient(145deg, var(--color-driftwood-dark), var(--feature-events-accent-soft));
+      color: var(--color-white);
+      box-shadow: 0 4px 14px rgba(122, 94, 68, 0.3);
+    }
+
+    .feature-events-dialog-actions .feature-events-dialog-submit:hover {
+      transform: translateY(-1px);
+      color: var(--color-white);
+    }
+  </style>
+</head>
+
+<body id="top" class="feature-events-page"
+  data-mmhp-master-json="../../assets/data/json/mmhp-master-data.json"
+  data-mmhp-feature-id="">
+  <!-- When this page matches a row in master JSON features[], set data-mmhp-feature-id="fe0009" (featured event only, not an activity). -->
+  <header class="feature-events-banner" aria-label="McAllen Mobile Park">
+    <img src="../../assets/images/park-banner.png" alt="McAllen Mobile Park">
+    <div class="feature-events-banner-text">
+      <h1>McAllen Mobile Park</h1>
+      <p>Community events in the RGV — we’re glad you’re here.</p>
+    </div>
+  </header>
+  <div class="feature-events-wave" aria-hidden="true"></div>
+
+  <nav class="feature-events-actions" aria-label="Featured event actions">
+    <a class="feature-events-back" href="../../index.html">← Back to calendar</a>
+    <button type="button" class="feature-events-tickets" id="feature-events-ticket-open" aria-haspopup="dialog" aria-controls="feature-events-ticket-dialog">
+      Purchase tickets
+    </button>
+  </nav>
+
+  <dialog class="feature-events-dialog" id="feature-events-ticket-dialog" aria-labelledby="feature-events-ticket-dialog-title">
+    <div class="feature-events-dialog-panel">
+      <h3 id="feature-events-ticket-dialog-title">Request tickets</h3>
+      <p>Your email app will open with a message to the event coordinator. Tell us how many tickets you need.</p>
+      <label for="feature-events-ticket-qty">How many tickets?</label>
+      <input type="number" id="feature-events-ticket-qty" name="ticketQty" min="1" max="999" step="1" value="1" inputmode="numeric" required>
+      <div class="feature-events-dialog-actions">
+        <button type="button" class="feature-events-dialog-cancel" id="feature-events-ticket-cancel">Cancel</button>
+        <button type="button" class="feature-events-dialog-submit" id="feature-events-ticket-send">Email coordinator</button>
+      </div>
+    </div>
+  </dialog>
+
+  <main class="feature-events-main">
+    <h1 class="feature-events-title">Event title</h1>
+
+    <div class="feature-events-grid">
+      <div class="feature-events-box feature-events-feature-frame">
+        <!-- Match stem in filename: bookme → assets/images/event-flyer/bookme.png -->
+        <img src="../../assets/images/event-flyer/bookme.png" alt="Featured event flyer image">
+      </div>
+
+      <div class="feature-events-box feature-events-details">
+        <h2>When &amp; where</h2>
+        <div class="feature-events-when">
+          <button type="button" class="feature-events-ribbon" id="feature-events-save-calendar"
+            aria-haspopup="dialog"
+            aria-controls="feature-events-ics-help-dialog"
+            aria-label="Save the date: open instructions to add this event to your calendar">
+            Save the date
+          </button>
+          <!-- Edit datetime + visible text together -->
+          <time datetime="2027-01-06T19:00">Wednesday, January 6, 2027</time>
+          <p class="feature-events-time-pill" aria-label="Event time">7:00 PM · Hall A</p>
+          <p class="feature-events-invite">Join neighbors for an evening in the hall — everyone’s welcome.</p>
+        </div>
+        <p class="feature-events-loc">
+          <strong>Location</strong>
+          McAllen Mobile Park · Hall A<br>
+          4900 N Mc Coll Rd, McAllen, TX
+        </p>
+      </div>
+
+      <section class="feature-events-box feature-events-story" aria-labelledby="feature-event-story-heading">
+        <h2 id="feature-event-story-heading">About this featured event</h2>
+        <div class="feature-events-about">
+          <p>
+            Replace this with your full description — who’s performing, what to expect, and any notes for guests.
+            This block spans both columns so you have room for the whole story.
+          </p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="feature-events-footer">
+    <address>
+      McAllen Mobile Park · 4900 N Mc Coll Rd · McAllen, TX 78504
+    </address>
+    <a href="../../index.html">Calendar home</a>
+    ·
+    <a href="https://maps.app.goo.gl/sVCaEKHYQw5QcqK7A" target="_blank" rel="noopener noreferrer">Directions</a>
+  </footer>
+
+  <script src="../../assets/js/mmhp-coordinator-config.js"></script>
+  <script src="../../assets/js/feature-events-ics.js"></script>
+  <script>
+    (function () {
+      function buildMailtoHref(email, subject, body) {
+        var addr = String(email || "").replace(/^mailto:/i, "").trim();
+        var h = "mailto:" + addr;
+        var params = [];
+        if (subject) params.push("subject=" + encodeURIComponent(subject));
+        if (body) params.push("body=" + encodeURIComponent(body));
+        if (params.length) h += "?" + params.join("&");
+        return h;
+      }
+
+      var dialog = document.getElementById("feature-events-ticket-dialog");
+      var openBtn = document.getElementById("feature-events-ticket-open");
+      var cancelBtn = document.getElementById("feature-events-ticket-cancel");
+      var sendBtn = document.getElementById("feature-events-ticket-send");
+      var qtyInput = document.getElementById("feature-events-ticket-qty");
+      if (!dialog || !openBtn || !cancelBtn || !sendBtn || !qtyInput) return;
+
+      openBtn.addEventListener("click", function () {
+        qtyInput.value = "1";
+        dialog.showModal();
+        qtyInput.focus();
+        qtyInput.select();
+      });
+
+      cancelBtn.addEventListener("click", function () {
+        dialog.close();
+      });
+
+      sendBtn.addEventListener("click", function () {
+        var n = parseInt(String(qtyInput.value).trim(), 10);
+        if (!Number.isFinite(n) || n < 1 || n > 999) {
+          qtyInput.focus();
+          qtyInput.setCustomValidity("Enter a number from 1 to 999.");
+          qtyInput.reportValidity();
+          return;
+        }
+        qtyInput.setCustomValidity("");
+
+        var titleEl = document.querySelector(".feature-events-title");
+        var timeEl = document.querySelector(".feature-events-when time");
+        var pillEl = document.querySelector(".feature-events-time-pill");
+        var title = titleEl ? titleEl.textContent.trim() : "Event";
+        var dateLine = timeEl ? timeEl.textContent.trim() : "";
+        var datetime = timeEl ? timeEl.getAttribute("datetime") || "" : "";
+        var timePlace = pillEl ? pillEl.textContent.trim() : "";
+
+        var body =
+          "Hello,\r\n\r\n" +
+          "I would like to request tickets for the following McAllen Mobile Park featured event:\r\n\r\n" +
+          "Event: " + title + "\r\n" +
+          (dateLine ? "Date: " + dateLine + "\r\n" : "") +
+          (datetime ? "(ISO: " + datetime + ")\r\n" : "") +
+          (timePlace ? "Time / location: " + timePlace + "\r\n" : "") +
+          "\r\n" +
+          "Number of tickets requested: " + n + "\r\n\r\n" +
+          "Thank you.";
+
+        var subject = "Ticket request (featured event): " + title;
+        var email =
+          typeof mmhpGetCoordinatorEmail === "function"
+            ? mmhpGetCoordinatorEmail()
+            : "";
+
+        if (!email) {
+          window.alert("Coordinator email is not configured.");
+          return;
+        }
+
+        dialog.close();
+        window.location.href = buildMailtoHref(email, subject, body);
+      });
+    })();
+  </script>
+</body>
+
+</html>

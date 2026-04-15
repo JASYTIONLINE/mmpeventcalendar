@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request a recurring activity | McAllen Mobile Park Events</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body id="top" class="page-request-activity" data-mmhp-master-json="../assets/data/json/mmhp-master-data.json">
+  <div class="site-wrapper">
+    <div class="site-shell">
+
+      <header class="site-header">
+        <h1 class="site-header-title">McAllen Mobile Park Events</h1>
+        <p class="site-header-subtitle">Request a new recurring activity for the left-hand schedule</p>
+      </header>
+
+      <nav class="site-nav navbar" aria-label="Main navigation">
+        <ul class="site-nav-list">
+          <li class="site-nav-item"><a class="site-nav-link" href="../index.html">Calendar</a></li>
+          <li class="site-nav-item"><a class="site-nav-link" href="learn-more.html">Learn More</a></li>
+          <li class="site-nav-item"><a class="site-nav-link" href="submit.html">Submit Event</a></li>
+          <li class="site-nav-item"><span class="site-nav-link" aria-current="page">Request activity</span></li>
+          <li class="site-nav-item"><a class="site-nav-link" href="contact.html">Contact Event Coordinator</a></li>
+        </ul>
+      </nav>
+
+      <div class="site-layout layout">
+
+        <aside class="site-sidebar site-sidebar-left sidebar-left" aria-labelledby="schedule-sidebar-heading">
+          <h2 id="schedule-sidebar-heading" class="site-sidebar-title">Recurring schedule</h2>
+          <div class="sidebar-left-body">
+            <p class="sidebar-add-activity-wrap">
+              <a class="btn site-button sidebar-add-activity-btn" href="request-activity.html" aria-current="page">Add activity</a>
+            </p>
+            <ul class="recurring-events-list" aria-busy="true"></ul>
+            <div class="sidebar-schedule-io" aria-label="Schedule CSV export and import">
+              <p class="sidebar-schedule-io-hint">Export/import require a password. Export to edit activities and events in Excel; import downloads JSON to replace in the repo.</p>
+              <button type="button" class="btn site-button sidebar-schedule-io-btn" id="mmhp-export-schedule-csv">Export CSV</button>
+              <button type="button" class="btn site-button sidebar-schedule-io-btn" id="mmhp-import-schedule-csv">Import CSV</button>
+              <input type="file" id="mmhp-import-schedule-file" accept=".csv,text/csv" hidden />
+              <p class="sidebar-schedule-io-status" id="mmhp-schedule-io-status" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+        </aside>
+
+        <main class="site-main main-content">
+          <section class="site-main-content content submission-page" id="request-activity-main" tabindex="-1">
+            <div class="content-section">
+              <h2>Request a recurring activity</h2>
+              <p>
+                Use this form to ask the event coordinator to add a new <strong>recurring</strong> activity
+                (the kind that appears in the <strong>Recurring schedule</strong> in the left column).
+                One-time featured events use <a href="submit.html">Submit Event</a> instead.
+              </p>
+              <p class="event-submit-form__help">
+                When you submit, your email app opens with a message that includes a JSON-shaped block matching
+                <code>activities[]</code> in the site data file. The coordinator assigns
+                <code>id</code>, <code>contactResidentId</code>, and <code>chairpersonId</code> when entering it.
+              </p>
+            </div>
+
+            <form id="mmhp-request-activity-form" class="event-submit-form" novalidate>
+              <fieldset class="event-submit-form__fieldset">
+                <legend class="event-submit-form__legend">Activity details</legend>
+
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Activity name</span>
+                  <input type="text" id="mmhp-request-activityName" name="activityName" class="event-submit-form__input" required maxlength="120" autocomplete="off" />
+                </label>
+
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Description</span>
+                  <textarea id="mmhp-request-description" name="description" class="event-submit-form__input" rows="4" required maxlength="2000"></textarea>
+                </label>
+
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Recurrence type</span>
+                  <select id="mmhp-request-recurrenceType" name="recurrenceType" class="event-submit-form__input">
+                    <option value="Recurring" selected>Recurring</option>
+                  </select>
+                </label>
+
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Location</span>
+                  <select id="mmhp-request-location-preset" name="locationPreset" class="event-submit-form__input" required>
+                    <option value="">— Choose location —</option>
+                    <option value="Hall A">Hall A</option>
+                    <option value="Hall B">Hall B</option>
+                    <option value="Hall C">Hall C</option>
+                    <option value="Rec Hall">Rec Hall</option>
+                    <option value="Pool Room">Pool Room</option>
+                    <option value="Library">Library</option>
+                    <option value="__other__">Other</option>
+                  </select>
+                </label>
+                <label class="event-submit-form__field" id="mmhp-request-location-other-wrap" hidden>
+                  <span class="event-submit-form__label">Other location</span>
+                  <input type="text" id="mmhp-request-location-other" name="locationOther" class="event-submit-form__input" maxlength="120" autocomplete="off" />
+                </label>
+              </fieldset>
+
+              <fieldset class="event-submit-form__fieldset">
+                <legend class="event-submit-form__legend">Schedule</legend>
+                <p class="event-submit-form__help">Choose which days this activity repeats and the usual start time (24-hour).</p>
+
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Start time</span>
+                  <input type="time" id="mmhp-request-startTime" name="startTime" class="event-submit-form__input" required />
+                </label>
+
+                <div class="event-submit-form__field">
+                  <span class="event-submit-form__label">Repeats on</span>
+                  <div class="request-activity-weekdays" role="group" aria-label="Days of the week">
+                    <label class="event-submit-form__field event-submit-form__field--check">
+                      <input type="checkbox" name="mmhp-request-weekday" value="Monday" />
+                      <span>Monday</span>
+                    </label>
+                    <label class="event-submit-form__field event-submit-form__field--check">
+                      <input type="checkbox" name="mmhp-request-weekday" value="Tuesday" />
+                      <span>Tuesday</span>
+                    </label>
+                    <label class="event-submit-form__field event-submit-form__field--check">
+                      <input type="checkbox" name="mmhp-request-weekday" value="Wednesday" />
+                      <span>Wednesday</span>
+                    </label>
+                    <label class="event-submit-form__field event-submit-form__field--check">
+                      <input type="checkbox" name="mmhp-request-weekday" value="Thursday" />
+                      <span>Thursday</span>
+                    </label>
+                    <label class="event-submit-form__field event-submit-form__field--check">
+                      <input type="checkbox" name="mmhp-request-weekday" value="Friday" />
+                      <span>Friday</span>
+                    </label>
+                    <label class="event-submit-form__field event-submit-form__field--check">
+                      <input type="checkbox" name="mmhp-request-weekday" value="Saturday" />
+                      <span>Saturday</span>
+                    </label>
+                    <label class="event-submit-form__field event-submit-form__field--check">
+                      <input type="checkbox" name="mmhp-request-weekday" value="Sunday" />
+                      <span>Sunday</span>
+                    </label>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset class="event-submit-form__fieldset">
+                <legend class="event-submit-form__legend">Optional</legend>
+
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Keywords (comma-separated)</span>
+                  <input type="text" id="mmhp-request-keywords" name="keywords" class="event-submit-form__input" maxlength="200" placeholder="music, social" autocomplete="off" />
+                </label>
+
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Image path (under assets/images)</span>
+                  <input type="text" id="mmhp-request-imagePath" name="imagePath" class="event-submit-form__input" maxlength="200" placeholder="e.g. event-flyer/myflyer.jpg" autocomplete="off" />
+                </label>
+              </fieldset>
+
+              <fieldset class="event-submit-form__fieldset">
+                <legend class="event-submit-form__legend">Your contact info</legend>
+                <p class="event-submit-form__help">So the coordinator can reach you if something is unclear.</p>
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Name</span>
+                  <input type="text" id="mmhp-request-proposer-name" name="proposerName" class="event-submit-form__input" maxlength="120" autocomplete="name" />
+                </label>
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Phone</span>
+                  <input type="tel" id="mmhp-request-proposer-phone" name="proposerPhone" class="event-submit-form__input" maxlength="40" autocomplete="tel" />
+                </label>
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Email</span>
+                  <input type="email" id="mmhp-request-proposer-email" name="proposerEmail" class="event-submit-form__input" maxlength="120" autocomplete="email" />
+                </label>
+              </fieldset>
+
+              <div class="event-submit-form__actions">
+                <button type="submit" class="btn site-button">Send request by email</button>
+              </div>
+
+              <p id="mmhp-request-activity-status" class="event-submit-form__status" hidden role="status" aria-live="polite"></p>
+            </form>
+          </section>
+        </main>
+
+        <aside class="site-sidebar site-sidebar-right sidebar-right" aria-labelledby="featured-events-heading">
+          <h2 id="featured-events-heading" class="site-sidebar-title">Featured Events</h2>
+          <div class="featured-events-grid" aria-live="polite"></div>
+        </aside>
+      </div>
+
+      <footer class="site-footer">
+        <h2>McAllen Mobile Park Event Calendar</h2>
+        <div class="site-footer-address-row">
+          <address class="site-footer-address">
+            McAllen Mobile<br>
+            4900 N Mc Coll Rd<br>
+            Mcallen, TX 78504
+          </address>
+          <a class="btn site-button site-footer-nav-btn" href="https://maps.app.goo.gl/sVCaEKHYQw5QcqK7A" target="_blank" rel="noopener noreferrer" aria-label="Open address in Google Maps">Navigate</a>
+        </div>
+        <a href="#top" class="site-footer-back-top" aria-label="Back to top of page">Back to top</a>
+      </footer>
+    </div>
+  </div>
+
+  <script src="../assets/js/mmhp-coordinator-config.js" defer></script>
+  <script src="../assets/js/request-activity-form.js" defer></script>
+  <script src="../assets/js/activities-sidebar.js" defer></script>
+  <script src="../assets/js/schedule-csv-io.js" defer></script>
+</body>
+
+</html>

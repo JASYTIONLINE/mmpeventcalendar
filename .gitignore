@@ -13,6 +13,3 @@ assets/data/csv/export/*.csv
 .cursor/*
 !.cursor/rules/
 !.cursor/rules/**
-
-# Example / scratch assets not meant for the site
-assets/images/Screenshot example.png

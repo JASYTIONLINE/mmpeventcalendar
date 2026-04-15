@@ -36,13 +36,7 @@
               <a class="btn site-button sidebar-add-activity-btn" href="request-activity.html" aria-current="page">Add activity</a>
             </p>
             <ul class="recurring-events-list" aria-busy="true"></ul>
-            <div class="sidebar-schedule-io" aria-label="Schedule CSV export and import">
-              <p class="sidebar-schedule-io-hint">Export activities and events to CSV for Excel; import merges into a downloadable JSON file to replace in the repo.</p>
-              <button type="button" class="btn site-button sidebar-schedule-io-btn" id="mmhp-export-schedule-csv">Export CSV</button>
-              <button type="button" class="btn site-button sidebar-schedule-io-btn" id="mmhp-import-schedule-csv">Import CSV</button>
-              <input type="file" id="mmhp-import-schedule-file" accept=".csv,text/csv" hidden />
-              <p class="sidebar-schedule-io-status" id="mmhp-schedule-io-status" role="status" aria-live="polite"></p>
-            </div>
+            
           </div>
         </aside>
 
@@ -54,11 +48,6 @@
                 Use this form to ask the event coordinator to add a new <strong>recurring</strong> activity
                 (the kind that appears in the <strong>Recurring schedule</strong> in the left column).
                 One-time featured events use <a href="submit.html">Submit Event</a> instead.
-              </p>
-              <p class="event-submit-form__help">
-                When you submit, your email app opens with a message that includes a JSON-shaped block matching
-                <code>activities[]</code> in the site data file. The coordinator assigns
-                <code>id</code>, <code>contactResidentId</code>, and <code>chairpersonId</code> when entering it.
               </p>
             </div>
 
@@ -153,10 +142,38 @@
                   <span class="event-submit-form__label">Keywords (comma-separated)</span>
                   <input type="text" id="mmhp-request-keywords" name="keywords" class="event-submit-form__input" maxlength="200" placeholder="music, social" autocomplete="off" />
                 </label>
+              </fieldset>
 
+              <fieldset class="event-submit-form__fieldset">
+                <legend class="event-submit-form__legend">Images for the event coordinator</legend>
+                <p class="event-submit-form__help">
+                  <strong>Featured image is required.</strong> Additional photos are optional. Where your device supports it,
+                  images are included when you share or email the coordinator.
+                </p>
+                <p class="event-submit-form__size-hint" id="mmhp-request-size-hint">
+                  <strong>Email size (Gmail &amp; Outlook):</strong> Keep each photo under about <strong>4&nbsp;MB</strong> and all
+                  photos together under about <strong>16&nbsp;MB</strong> so the message is less likely to be blocked or rejected.
+                  Larger files may still be sent, but delivery can fail—we’ll warn you if your selection exceeds these guides.
+                </p>
                 <label class="event-submit-form__field">
-                  <span class="event-submit-form__label">Image path (under assets/images)</span>
-                  <input type="text" id="mmhp-request-imagePath" name="imagePath" class="event-submit-form__input" maxlength="200" placeholder="e.g. event-flyer/myflyer.jpg" autocomplete="off" />
+                  <span class="event-submit-form__label">Featured image (required)</span>
+                  <input type="file" id="mmhp-request-image-feature" name="imageFeatured" class="event-submit-form__file" accept="image/*" />
+                </label>
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Additional image 1 (optional)</span>
+                  <input type="file" id="mmhp-request-image-extra-1" name="imageExtra1" class="event-submit-form__file" accept="image/*" />
+                </label>
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Additional image 2 (optional)</span>
+                  <input type="file" id="mmhp-request-image-extra-2" name="imageExtra2" class="event-submit-form__file" accept="image/*" />
+                </label>
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Additional image 3 (optional)</span>
+                  <input type="file" id="mmhp-request-image-extra-3" name="imageExtra3" class="event-submit-form__file" accept="image/*" />
+                </label>
+                <label class="event-submit-form__field">
+                  <span class="event-submit-form__label">Additional image 4 (optional)</span>
+                  <input type="file" id="mmhp-request-image-extra-4" name="imageExtra4" class="event-submit-form__file" accept="image/*" />
                 </label>
               </fieldset>
 
@@ -207,6 +224,42 @@
     </div>
   </div>
 
+  <div id="mmhp-request-submit-notice-modal" class="event-submit-modal" hidden role="dialog" aria-modal="true"
+    aria-labelledby="mmhp-request-submit-notice-modal-title">
+    <div class="event-submit-modal__backdrop" id="mmhp-request-submit-notice-modal-backdrop"></div>
+    <div class="event-submit-modal__panel">
+      <h2 id="mmhp-request-submit-notice-modal-title" class="event-submit-modal__title">Before you send</h2>
+      <div class="event-submit-modal__body">
+        <p><strong>Please note:</strong> All fields are required.</p>
+        <p>
+          When you submit, your email app opens with the information prefilled. The full request data file, your note, and
+          photos are attached via <strong>Share</strong> where your device supports it, or bundled in a
+          <strong>ZIP</strong> download—be sure to attach the ZIP to your email manually if your browser downloaded it
+          instead of sharing.
+        </p>
+      </div>
+      <div class="event-submit-modal__actions">
+        <button type="button" class="btn site-button" id="mmhp-request-submit-notice-cancel">Cancel</button>
+        <button type="button" class="btn site-button" id="mmhp-request-submit-notice-continue">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="mmhp-request-size-modal" class="event-submit-modal" hidden role="dialog" aria-modal="true"
+    aria-labelledby="mmhp-request-size-modal-title">
+    <div class="event-submit-modal__backdrop" id="mmhp-request-size-modal-backdrop"></div>
+    <div class="event-submit-modal__panel">
+      <h2 id="mmhp-request-size-modal-title" class="event-submit-modal__title">Photos may be too large for email</h2>
+      <div class="event-submit-modal__body" id="mmhp-request-size-modal-body"></div>
+      <div class="event-submit-modal__actions">
+        <button type="button" class="btn site-button" id="mmhp-request-size-modal-ok">OK</button>
+        <button type="button" class="btn site-button" id="mmhp-request-size-modal-continue" hidden>Continue anyway</button>
+        <button type="button" class="btn site-button" id="mmhp-request-size-modal-back" hidden>Go back</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js" defer></script>
   <script src="../assets/js/mmhp-coordinator-config.js" defer></script>
   <script src="../assets/js/request-activity-form.js" defer></script>
   <script src="../assets/js/activities-sidebar.js" defer></script>

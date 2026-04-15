@@ -4843,25 +4843,6 @@
       "chairpersonId": "re0029"
     },
     {
-      "id": "ac0014",
-      "description": "Group lunch event",
-      "location": "Hall A",
-      "recurrenceType": "Recurring",
-      "recurrenceDetails": {
-        "weekdays": [
-          "Thursday"
-        ],
-        "startTime": "12:00"
-      },
-      "keywords": [
-        "social"
-      ],
-      "imagePath": "",
-      "activityName": "Ladies Luncheon",
-      "contactResidentId": "re0090",
-      "chairpersonId": "re0090"
-    },
-    {
       "id": "ac0016",
       "description": "Kitchen supply management",
       "location": "Kitchen",
@@ -4974,6 +4955,29 @@
       "activityName": "Talent Show",
       "contactResidentId": "re0011",
       "chairpersonId": "re0011"
+    },
+    {
+      "id": "ac0023",
+      "description": "Come learn the basics of martial arts with 1st Degree Black Belt and park resident Jyo Kyo Nim John Barkle (495 Grapefruit). We will learn body conditioning, very basic self defense, and do a light low impact workout designed to help us stay mobile and continue to enjoy life.",
+      "location": "Hall B",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {
+        "weekdays": [
+          "Tuesday",
+          "Saturday"
+        ],
+        "startTime": "09:00"
+      },
+      "keywords": [
+        "exercise",
+        "self defense",
+        "conditioning",
+        "low impact"
+      ],
+      "imagePath": "activity-flyer/ksw-wo -banner.jpg",
+      "activityName": "Martial Arts Training",
+      "contactResidentId": "re0018",
+      "chairpersonId": "re0018"
     }
   ],
   "features": [

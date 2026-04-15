@@ -261,18 +261,56 @@
       margin: 0;
     }
 
-    .feature-events-when .feature-events-ribbon {
-      display: inline-block;
+    .feature-events-when-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 0.65rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Same box height for Save the date (button) and Get directions (link). */
+    .feature-events-when-actions .feature-events-ribbon,
+    .feature-events-when-actions a.feature-events-directions {
+      box-sizing: border-box;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.2rem;
+      line-height: 1;
+      padding: 0.4rem 0.75rem;
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
+      border-radius: 4px;
+      margin-bottom: 0;
+    }
+
+    .feature-events-when .feature-events-ribbon {
       color: var(--color-white);
       background: linear-gradient(90deg, var(--color-driftwood-dark), var(--color-driftwood));
-      padding: 0.35rem 0.75rem;
-      border-radius: 4px;
-      margin-bottom: 0.5rem;
       box-shadow: 0 2px 8px rgba(122, 94, 68, 0.25);
+    }
+
+    a.feature-events-directions {
+      color: var(--color-white);
+      background: linear-gradient(90deg, #4a7a8f, var(--color-sky));
+      box-shadow: 0 2px 8px rgba(80, 120, 150, 0.3);
+      text-decoration: none;
+      font-family: inherit;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    a.feature-events-directions:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(80, 120, 150, 0.4);
+      color: var(--color-white);
+    }
+
+    a.feature-events-directions:focus-visible {
+      outline: 3px solid var(--color-sky);
+      outline-offset: 2px;
     }
 
     button.feature-events-ribbon {
@@ -354,10 +392,20 @@
     }
 
     .feature-events-footer {
+      position: relative;
       text-align: center;
       padding: var(--space-xl) var(--feature-events-pad);
+      padding-right: clamp(7rem, 22vw, 11rem);
+      padding-bottom: 3.25rem;
       border-top: 1px solid var(--color-border);
       background: color-mix(in srgb, var(--color-ocean-mist) 40%, var(--color-white));
+    }
+
+    @media (max-width: 768px) {
+      .feature-events-footer {
+        padding-left: 0.85rem;
+        padding-right: max(6.75rem, 0.85rem);
+      }
     }
 
     .feature-events-footer address {
@@ -510,12 +558,15 @@
       <div class="feature-events-box feature-events-details">
         <h2>When &amp; where</h2>
         <div class="feature-events-when">
-          <button type="button" class="feature-events-ribbon" id="feature-events-save-calendar"
-            aria-haspopup="dialog"
-            aria-controls="feature-events-ics-help-dialog"
-            aria-label="Save the date: open instructions to add this event to your calendar">
-            Save the date
-          </button>
+          <div class="feature-events-when-actions">
+            <button type="button" class="feature-events-ribbon" id="feature-events-save-calendar"
+              aria-haspopup="dialog"
+              aria-controls="feature-events-ics-help-dialog"
+              aria-label="Save the date: open instructions to add this event to your calendar">
+              Save the date
+            </button>
+            <a class="feature-events-directions" href="https://maps.app.goo.gl/6st9THqUttarC7vUA" target="_blank" rel="noopener noreferrer">Get directions</a>
+          </div>
           <!-- Edit datetime + visible text together -->
           <time datetime="2027-01-06T19:00">Wednesday, January 6, 2027</time>
           <p class="feature-events-time-pill" aria-label="Event time">7:00 PM · Hall A</p>
@@ -544,6 +595,7 @@
     <a href="../../index.html">Calendar home</a>
     ·
     <a href="https://maps.app.goo.gl/sVCaEKHYQw5QcqK7A" target="_blank" rel="noopener noreferrer">Directions</a>
+    <a href="#top" class="site-footer-back-top" aria-label="Back to top of page">Back to top</a>
   </footer>
 
   <script src="../../assets/js/mmhp-coordinator-config.js"></script>

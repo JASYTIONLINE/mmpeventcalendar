@@ -45,7 +45,7 @@
   
     --sidebar-left-width: 8%;
     --sidebar-left-extra: 50px;
-    --sidebar-right-width: 282px; /* featured events column; fits 250px image + padding */
+    --sidebar-right-width: 176px; /* ~½ former 282px + 25%; cards use width:100% inside column */
 
     /* Home Google Calendar iframe (full-width / desktop cap) */
     --mmhp-calendar-embed-max-height: 1440px;
@@ -273,7 +273,7 @@
   }
   
   .site-sidebar-right {
-    padding: 1rem 0.5rem;
+    padding: 0.65rem 0.35rem;
   }
   
   .site-sidebar-title {
@@ -792,7 +792,19 @@
   }
   
   .site-sidebar-right .featured-card {
-    padding: 0.75rem 0.5rem;
+    padding: 0.5rem 0.25rem;
+  }
+
+  .site-sidebar-right .featured-card-image {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .site-sidebar-right .site-sidebar-title {
+    font-size: clamp(0.68rem, 0.85vw, 0.88rem);
+    line-height: 1.2;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.65rem;
   }
   
   .featured-card-link {

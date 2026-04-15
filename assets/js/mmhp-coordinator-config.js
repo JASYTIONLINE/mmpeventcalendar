@@ -1,11 +1,9 @@
 /**
  * Single source for the event coordinator email used by mailto flows and the submit form.
- * Override for one browser: Data admin → Coordinator email (localStorage).
- * Change the default for everyone: edit MMHP_COORDINATOR_EMAIL_DEFAULT below or replace this file from the admin download.
+ * Change the default: edit MMHP_COORDINATOR_EMAIL_DEFAULT below, or use Data admin → download and replace this file.
+ * Optional: set data-mmhp-coordinator-email on <body> to override without editing this file (advanced).
  */
 (function (global) {
-  var STORAGE_KEY = "mmhp-coordinator-email-override";
-
   var MMHP_COORDINATOR_EMAIL_DEFAULT = "johnbarkle@msn.com";
 
   function basicEmailCheck(s) {
@@ -19,45 +17,10 @@
   }
 
   function mmhpGetCoordinatorEmail() {
-    try {
-      var o = global.localStorage && global.localStorage.getItem(STORAGE_KEY);
-      if (o) {
-        o = String(o).trim();
-        if (basicEmailCheck(o)) return o;
-      }
-    } catch (e1) {}
     var raw = document.body && document.body.getAttribute("data-mmhp-coordinator-email");
     var v = raw != null ? String(raw).trim() : "";
     if (v) return v;
     return MMHP_COORDINATOR_EMAIL_DEFAULT;
-  }
-
-  function mmhpSetCoordinatorEmailOverride(email) {
-    email = String(email || "").trim();
-    if (!basicEmailCheck(email)) return false;
-    try {
-      global.localStorage.setItem(STORAGE_KEY, email);
-    } catch (e2) {
-      return false;
-    }
-    mmhpApplyCoordinatorMailtoLinks(document);
-    return true;
-  }
-
-  function mmhpClearCoordinatorEmailOverride() {
-    try {
-      global.localStorage.removeItem(STORAGE_KEY);
-    } catch (e3) {}
-    mmhpApplyCoordinatorMailtoLinks(document);
-  }
-
-  function mmhpCoordinatorEmailOverrideActive() {
-    try {
-      var o = global.localStorage && global.localStorage.getItem(STORAGE_KEY);
-      return !!(o && basicEmailCheck(String(o).trim()));
-    } catch (e4) {
-      return false;
-    }
   }
 
   function buildMailtoHref(email, subject, body) {
@@ -83,12 +46,8 @@
     }
   }
 
-  global.MMHP_COORDINATOR_STORAGE_KEY = STORAGE_KEY;
   global.mmhpGetCoordinatorEmailDefault = mmhpGetCoordinatorEmailDefault;
   global.mmhpGetCoordinatorEmail = mmhpGetCoordinatorEmail;
-  global.mmhpSetCoordinatorEmailOverride = mmhpSetCoordinatorEmailOverride;
-  global.mmhpClearCoordinatorEmailOverride = mmhpClearCoordinatorEmailOverride;
-  global.mmhpCoordinatorEmailOverrideActive = mmhpCoordinatorEmailOverrideActive;
   global.mmhpApplyCoordinatorMailtoLinks = mmhpApplyCoordinatorMailtoLinks;
   global.mmhpValidateCoordinatorEmail = basicEmailCheck;
 

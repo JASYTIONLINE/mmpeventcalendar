@@ -451,7 +451,7 @@
 
   /**
    * Delivers CSV + images to the coordinator: Web Share with attachments when supported;
-   * otherwise ZIP download + mailto. Coordinator address from mmhp-coordinator-config.js (and optional body attribute / localStorage override).
+   * otherwise ZIP download + mailto. Coordinator address from mmhp-coordinator-config.js (and optional body data-mmhp-coordinator-email).
    */
   function deliverSubmissionToCoordinator(coordinatorEmail, ev, csvBody, statusEl, stamp) {
     return new Promise(function (resolve, reject) {

@@ -43,24 +43,29 @@
       </header>
 
       <section id="mmhp-coordinator-settings" class="data-admin-coordinator-section" aria-labelledby="mmhp-coordinator-heading">
-        <h2 id="mmhp-coordinator-heading" class="data-admin-coordinator-heading">Event coordinator email</h2>
-        <p class="data-admin-coordinator-lead">
-          Public <strong>Submit Event</strong> and <strong>mailto</strong> links use this address.
-          <span class="data-admin-coordinator-meta">File default: <code id="mmhp-coordinator-email-file-default">—</code></span>
-        </p>
-        <p id="mmhp-coordinator-email-override-note" class="data-admin-coordinator-override-note" hidden>
-          This browser is using a <strong>saved override</strong> (not only the file default).
-        </p>
-        <div class="data-admin-coordinator-row">
-          <label class="data-admin-coordinator-label" for="mmhp-coordinator-email-input">Coordinator email</label>
-          <input type="email" id="mmhp-coordinator-email-input" class="data-admin-coordinator-input" autocomplete="email"
-            placeholder="name@example.com" />
-        </div>
-        <div class="data-admin-coordinator-actions">
-          <button type="button" class="btn site-button" id="mmhp-coordinator-email-update">Update coordinator email…</button>
-          <button type="button" class="btn site-button data-admin-coordinator-btn-secondary" id="mmhp-coordinator-email-clear">
-            Clear browser override
-          </button>
+        <div class="data-admin-coordinator-grid">
+          <div class="data-admin-coordinator-panel data-admin-coordinator-panel--intro">
+            <h2 id="mmhp-coordinator-heading" class="data-admin-coordinator-heading">Event coordinator email</h2>
+            <p class="data-admin-coordinator-lead">
+              Public <strong>Submit Event</strong> and <strong>mailto</strong> links read the address from
+              <code>assets/js/mmhp-coordinator-config.js</code>. Changes are rare: enter the new address, confirm, then
+              replace that file in the repo with the download.
+            </p>
+            <p class="data-admin-coordinator-meta">
+              Current file default:
+              <code id="mmhp-coordinator-email-file-default">—</code>
+            </p>
+          </div>
+          <div class="data-admin-coordinator-panel data-admin-coordinator-panel--form">
+            <label class="data-admin-coordinator-label" for="mmhp-coordinator-email-input">New coordinator email</label>
+            <input type="email" id="mmhp-coordinator-email-input" class="data-admin-coordinator-input" autocomplete="email"
+              placeholder="name@example.com" />
+            <div class="data-admin-coordinator-actions">
+              <button type="button" class="btn site-button data-admin-save-json-btn" id="mmhp-coordinator-email-update">
+                Download updated config…
+              </button>
+            </div>
+          </div>
         </div>
         <p id="mmhp-coordinator-email-status" class="data-admin-coordinator-status" role="status" aria-live="polite" hidden></p>
       </section>
@@ -168,17 +173,17 @@
         aria-labelledby="mmhp-coordinator-confirm-title">
         <div class="data-admin-modal__backdrop" id="mmhp-coordinator-confirm-backdrop"></div>
         <div class="data-admin-modal__panel">
-          <h2 id="mmhp-coordinator-confirm-title" class="data-admin-modal__title">Change coordinator email?</h2>
+          <h2 id="mmhp-coordinator-confirm-title" class="data-admin-modal__title">Download new coordinator config?</h2>
           <p class="data-admin-modal__text">
-            The address below will be saved in <strong>this browser</strong> and a new
-            <code>mmhp-coordinator-config.js</code> file will download. Replace
-            <code>assets/js/mmhp-coordinator-config.js</code> in your project so the default updates for everyone.
+            A patched <code>mmhp-coordinator-config.js</code> will download with this address baked in. Replace
+            <code>assets/js/mmhp-coordinator-config.js</code> in your project and deploy. The live site will not change
+            until you do.
           </p>
           <p class="data-admin-modal__text"><strong id="mmhp-coordinator-confirm-preview"></strong></p>
           <div class="data-admin-modal__actions">
             <button type="button" class="btn site-button" id="mmhp-coordinator-confirm-cancel">Cancel</button>
             <button type="button" class="btn site-button data-admin-save-json-btn" id="mmhp-coordinator-confirm-ok">
-              Confirm and download
+              Download file
             </button>
           </div>
         </div>

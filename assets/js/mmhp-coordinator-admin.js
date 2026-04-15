@@ -1,16 +1,13 @@
 /**
- * Data admin only: coordinator email UI, confirm modal, localStorage + downloadable config JS.
+ * Data admin only: coordinator email → confirm modal → download patched mmhp-coordinator-config.js for repo replace.
  */
 (function () {
-  var root = document.getElementById("mmhp-coordinator-settings");
-  if (!root) return;
+  if (!document.getElementById("mmhp-coordinator-settings")) return;
 
   var input = document.getElementById("mmhp-coordinator-email-input");
   var btnUpdate = document.getElementById("mmhp-coordinator-email-update");
-  var btnClear = document.getElementById("mmhp-coordinator-email-clear");
   var statusEl = document.getElementById("mmhp-coordinator-email-status");
   var fileDefaultEl = document.getElementById("mmhp-coordinator-email-file-default");
-  var overrideNoteEl = document.getElementById("mmhp-coordinator-email-override-note");
 
   var modal = document.getElementById("mmhp-coordinator-confirm-modal");
   var modalBackdrop = document.getElementById("mmhp-coordinator-confirm-backdrop");
@@ -27,23 +24,13 @@
     statusEl.classList.toggle("data-admin-coordinator-status--error", !!isError);
   }
 
-  function refreshLabels() {
-    if (typeof window.mmhpGetCoordinatorEmailDefault !== "function") return;
-    var def = window.mmhpGetCoordinatorEmailDefault();
-    if (fileDefaultEl) fileDefaultEl.textContent = def;
-    var active =
-      typeof window.mmhpCoordinatorEmailOverrideActive === "function" &&
-      window.mmhpCoordinatorEmailOverrideActive();
-    if (overrideNoteEl) {
-      overrideNoteEl.hidden = !active;
-    }
-  }
-
   function refreshForm() {
     if (input && typeof window.mmhpGetCoordinatorEmail === "function") {
       input.value = window.mmhpGetCoordinatorEmail();
     }
-    refreshLabels();
+    if (fileDefaultEl && typeof window.mmhpGetCoordinatorEmailDefault === "function") {
+      fileDefaultEl.textContent = window.mmhpGetCoordinatorEmailDefault();
+    }
   }
 
   function openModal(email) {
@@ -87,13 +74,13 @@
         a.remove();
         URL.revokeObjectURL(a.href);
         setStatus(
-          "Saved for this browser. Downloaded mmhp-coordinator-config.js — replace assets/js/mmhp-coordinator-config.js in the project, then deploy.",
+          "Downloaded mmhp-coordinator-config.js. Replace assets/js/mmhp-coordinator-config.js in the project and deploy so the new coordinator address is live for everyone.",
           false
         );
       })
       .catch(function () {
         setStatus(
-          "Saved for this browser only. Could not fetch the config file to patch (try http(s) instead of file://). Update MMHP_COORDINATOR_EMAIL_DEFAULT in assets/js/mmhp-coordinator-config.js manually.",
+          "Could not fetch the config file to patch (try http(s) instead of file://). Edit MMHP_COORDINATOR_EMAIL_DEFAULT in assets/js/mmhp-coordinator-config.js manually.",
           true
         );
       });
@@ -107,14 +94,8 @@
       setStatus("That email address is not valid.", true);
       return;
     }
-    if (typeof window.mmhpSetCoordinatorEmailOverride === "function") {
-      if (!window.mmhpSetCoordinatorEmailOverride(email)) {
-        setStatus("Could not save (storage may be disabled).", true);
-        return;
-      }
-    }
-    refreshForm();
     downloadPatchedConfigFile(email);
+    refreshForm();
   }
 
   if (btnUpdate && input) {
@@ -126,17 +107,6 @@
         return;
       }
       openModal(v);
-    });
-  }
-
-  if (btnClear) {
-    btnClear.addEventListener("click", function () {
-      setStatus("", false);
-      if (typeof window.mmhpClearCoordinatorEmailOverride === "function") {
-        window.mmhpClearCoordinatorEmailOverride();
-      }
-      refreshForm();
-      setStatus("Browser override cleared. Mailto and submit use the config file default again.", false);
     });
   }
 

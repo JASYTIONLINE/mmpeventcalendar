@@ -274,7 +274,9 @@
 
   function getOrInitTableState(section) {
     if (!section._mmhpTableState) {
-      section._mmhpTableState = { sortCol: null, sortDir: 1, filters: {} };
+      section._mmhpTableState = { sortCol: null, sortDir: 1, filters: {}, searchText: "" };
+    } else if (section._mmhpTableState.searchText === undefined) {
+      section._mmhpTableState.searchText = "";
     }
     return section._mmhpTableState;
   }
@@ -329,6 +331,17 @@
           return set[cellValue(e.obj[colKey])];
         });
       }
+    }
+    var needle =
+      state && state.searchText != null ? String(state.searchText).trim() : "";
+    if (needle !== "") {
+      var low = needle.toLowerCase();
+      rows = rows.filter(function (e) {
+        for (var ti = 0; ti < columns.length; ti++) {
+          if (cellValue(e.obj[columns[ti]]).toLowerCase().indexOf(low) >= 0) return true;
+        }
+        return false;
+      });
     }
     if (state && state.sortCol && columns.indexOf(state.sortCol) >= 0) {
       var sc = state.sortCol;
@@ -1910,6 +1923,22 @@
       }
       bulkDel.disabled = checked === 0;
       bulkCount.textContent = checked ? checked + " selected" : "";
+      if (n === 0) {
+        bulkToggle.disabled = true;
+        bulkToggle.textContent = "Select all";
+        bulkToggle.title = "No rows to select";
+        bulkToggle.setAttribute("aria-label", "Select all visible rows");
+      } else if (checked > 0) {
+        bulkToggle.disabled = false;
+        bulkToggle.textContent = "Deselect all";
+        bulkToggle.title = "Uncheck every row in this table (visible rows only)";
+        bulkToggle.setAttribute("aria-label", "Deselect all visible rows");
+      } else {
+        bulkToggle.disabled = false;
+        bulkToggle.textContent = "Select all";
+        bulkToggle.title = "Check every row in this table (visible rows only)";
+        bulkToggle.setAttribute("aria-label", "Select all visible rows");
+      }
     }
 
     var bulkBar = document.createElement("div");
@@ -1920,6 +1949,12 @@
     bulkDel.textContent = "Delete selected";
     bulkDel.disabled = true;
     bulkDel.title = "Delete all rows that are checked in this table";
+    var bulkToggle = document.createElement("button");
+    bulkToggle.type = "button";
+    bulkToggle.className = "btn site-button data-admin-bulk-toggle-btn";
+    bulkToggle.textContent = "Select all";
+    bulkToggle.title = "Check every row in this table (visible rows only)";
+    bulkToggle.setAttribute("aria-label", "Select all visible rows");
     var bulkCount = document.createElement("span");
     bulkCount.className = "data-admin-bulk-count";
     bulkCount.setAttribute("aria-live", "polite");
@@ -1929,6 +1964,7 @@
     bulkClear.textContent = "Clear selection";
     bulkClear.title = "Uncheck all rows in this table";
     bulkBar.appendChild(bulkDel);
+    bulkBar.appendChild(bulkToggle);
     bulkBar.appendChild(bulkCount);
     bulkBar.appendChild(bulkClear);
     parent.appendChild(bulkBar);
@@ -2005,7 +2041,7 @@
       tdEmpty.colSpan = columns.length + 3;
       tdEmpty.className = "data-admin-table-empty-filtered";
       tdEmpty.textContent =
-        "No rows match the current filters. Open a column’s ▼ menu, adjust checkboxes, and click Apply—or Select all.";
+        "No rows match the current column filters or Filter rows text. Adjust ▼ column filters, clear the search box, or both.";
       trEmpty.appendChild(tdEmpty);
       tbody.appendChild(trEmpty);
     }
@@ -2024,6 +2060,22 @@
       var rowCbs = tbody.querySelectorAll("input.data-admin-row-select");
       for (var ci = 0; ci < rowCbs.length; ci++) rowCbs[ci].checked = false;
       selectAllCb.checked = false;
+      selectAllCb.indeterminate = false;
+      syncBulkBar();
+    });
+
+    bulkToggle.addEventListener("click", function () {
+      var rowCbs = tbody.querySelectorAll("input.data-admin-row-select");
+      var anyChecked = false;
+      for (var ti = 0; ti < rowCbs.length; ti++) {
+        if (rowCbs[ti].checked) {
+          anyChecked = true;
+          break;
+        }
+      }
+      var want = !anyChecked;
+      for (var tj = 0; tj < rowCbs.length; tj++) rowCbs[tj].checked = want;
+      selectAllCb.checked = want && rowCbs.length > 0;
       selectAllCb.indeterminate = false;
       syncBulkBar();
     });
@@ -2603,6 +2655,32 @@
 
           var toolbar = document.createElement("div");
           toolbar.className = "data-admin-section-toolbar";
+
+          getOrInitTableState(section);
+          var searchWrap = document.createElement("div");
+          searchWrap.className = "data-admin-section-search";
+          var searchLabel = document.createElement("label");
+          searchLabel.className = "data-admin-section-search-label";
+          searchLabel.htmlFor = section.id + "-row-filter";
+          searchLabel.textContent = "Filter rows";
+          var searchInput = document.createElement("input");
+          searchInput.type = "search";
+          searchInput.id = section.id + "-row-filter";
+          searchInput.className = "data-admin-section-search-input";
+          searchInput.placeholder = "Contains text…";
+          searchInput.setAttribute("autocomplete", "off");
+          searchInput.setAttribute(
+            "title",
+            "Show rows where any displayed column contains this text (after column filters)"
+          );
+          searchInput.value = section._mmhpTableState.searchText || "";
+          searchInput.addEventListener("input", function () {
+            section._mmhpTableState.searchText = searchInput.value;
+            renderSection(section, key, masterData[key]);
+          });
+          searchWrap.appendChild(searchLabel);
+          searchWrap.appendChild(searchInput);
+          toolbar.appendChild(searchWrap);
 
           if (key === "events") {
             section._mmhpEventsHidePast = false;

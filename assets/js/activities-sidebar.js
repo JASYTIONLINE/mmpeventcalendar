@@ -258,21 +258,48 @@
     return aside ? aside.getAttribute("data-mmhp-master-json") : null;
   }
 
+  /**
+   * Image base dir matching data-mmhp-master-json depth (e.g. contents/ → ../,
+   * contents/activity-flyer/ → ../../).
+   */
   function assetsImagesDir(jsonUrl) {
     if (!jsonUrl) return "assets/images";
-    return jsonUrl.indexOf("../") === 0 ? "../assets/images" : "assets/images";
+    var u = String(jsonUrl).trim();
+    var depth = 0;
+    while (u.indexOf("../") === 0) {
+      depth++;
+      u = u.slice(3);
+    }
+    if (depth === 0) return "assets/images";
+    return new Array(depth + 1).join("../") + "assets/images";
+  }
+
+  function isActivityFlyerPagePath(path) {
+    return /contents[/\\]activity-flyer[/\\]/i.test(path || "");
   }
 
   function learnMoreHref() {
-    return /contents[/\\]/i.test(window.location.pathname) ? "learn-more.html" : "contents/learn-more.html";
+    var path = (window.location.pathname || "").replace(/\\/g, "/");
+    if (/contents[/\\]/i.test(path)) {
+      return isActivityFlyerPagePath(path) ? "../learn-more.html" : "learn-more.html";
+    }
+    return "contents/learn-more.html";
   }
 
   function contactHref() {
-    return /contents[/\\]/i.test(window.location.pathname) ? "contact.html" : "contents/contact.html";
+    var path = (window.location.pathname || "").replace(/\\/g, "/");
+    if (/contents[/\\]/i.test(path)) {
+      return isActivityFlyerPagePath(path) ? "../contact.html" : "contact.html";
+    }
+    return "contents/contact.html";
   }
 
   function submitHref() {
-    return /contents[/\\]/i.test(window.location.pathname) ? "submit.html" : "contents/submit.html";
+    var path = (window.location.pathname || "").replace(/\\/g, "/");
+    if (/contents[/\\]/i.test(path)) {
+      return isActivityFlyerPagePath(path) ? "../submit.html" : "submit.html";
+    }
+    return "contents/submit.html";
   }
 
   function padHourMinForFilename(h) {
@@ -311,8 +338,9 @@
   function featureEventDetailHref(ev) {
     var base = featureEventPageBasename(ev);
     if (!base) return learnMoreHref();
-    var path = window.location.pathname || "";
+    var path = (window.location.pathname || "").replace(/\\/g, "/");
     if (/feature-events[/\\]/i.test(path)) return base;
+    if (isActivityFlyerPagePath(path)) return "../feature-events/" + base;
     if (/contents[/\\]/i.test(path)) return "feature-events/" + base;
     return "contents/feature-events/" + base;
   }

@@ -29,7 +29,7 @@ The table below summarizes how the repository is organized. Together, these path
 | [contents/feature-events/](contents/feature-events/) | **Dated, one-off** featured-event landings (flyer-style layout; optional ICS and ticketing-style flows); includes a bookme-style template and generated **YYYY-MM-DD-HHmm-** HTML pages. |
 | [contents/activity-flyer/](contents/activity-flyer/) | **Recurring-activity** informational templates that **reuse the same site shell** as other pages—supporting clarity that this material describes a *typical* week pattern, not a single calendar night. |
 | [assets/css/style.css](assets/css/style.css) | **One consolidated stylesheet:** design tokens, layout, reusable components, and page-scoped overrides. |
-| [assets/js/](assets/js/) | **Behavior:** sidebar rendering, forms, CSV import/export hooks, coordinator configuration, ICS helper for feature pages. |
+| [assets/js/](assets/js/) | **Behavior:** sidebar rendering, forms, coordinator configuration, ICS helper for feature pages. |
 | [assets/data/json/](assets/data/json/) | **Master JSON** consumed in the browser (see [mmhp-master-data.json](assets/data/json/mmhp-master-data.json)). |
 | [assets/data/csv/](assets/data/csv/) | **Tabular sources and exports** (featured rows, calendar-oriented CSVs). |
 | [assets/images/](assets/images/) | **Brand and content imagery:** park banner, event-flyer art, activity-flyer art, favicon, and related assets. |
@@ -84,7 +84,6 @@ HTML under **contents/feature-events/** often includes **embedded** CSS for flye
 | Module | Responsibility |
 |--------|----------------|
 | [activities-sidebar.js](assets/js/activities-sidebar.js) | Loads master JSON; renders recurring lists and featured grids according to page context. |
-| [schedule-csv-io.js](assets/js/schedule-csv-io.js) | Sidebar CSV export/import and status UI tied to schedule data. |
 | [event-submit-form.js](assets/js/event-submit-form.js) | Featured / one-time event submission: validation, CSV payload, and attachment / mailto / share flows as implemented. |
 | [request-activity-form.js](assets/js/request-activity-form.js) | Recurring activity request flow. |
 | [feature-events-ics.js](assets/js/feature-events-ics.js) | Calendar download and help UX on feature-event pages that include it. |

@@ -308,42 +308,6 @@
     overflow-y: auto;
   }
 
-  .sidebar-schedule-io {
-    flex-shrink: 0;
-    margin-top: auto;
-    padding-top: 0.65rem;
-    border-top: 1px solid var(--color-border);
-  }
-
-  .sidebar-schedule-io-hint {
-    font-size: 1.008rem;
-    line-height: 1.35;
-    color: var(--color-text-soft);
-    margin: 0 0 0.45rem 0;
-  }
-
-  .sidebar-schedule-io-btn {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    margin-bottom: 0.4rem;
-    font-size: 1.092rem;
-    padding: 0.45rem 0.65rem;
-  }
-
-  .sidebar-schedule-io-status {
-    font-size: 1.008rem;
-    line-height: 1.35;
-    color: var(--color-text-soft);
-    margin: 0.4rem 0 0 0;
-    min-height: 1.25em;
-  }
-
-  .sidebar-schedule-io-status--error {
-    color: #b42318;
-    font-weight: 600;
-  }
-  
   /* ================================================
      LEFT SIDEBAR - RECURRING EVENTS
      ================================================ */

@@ -9,6 +9,9 @@ assets/data/doc/syuper-secret-squirrel
 # Data-admin “Save As” Google Calendar exports (folder kept via .gitkeep)
 assets/data/csv/export/*.csv
 
+# Local dated copies of master JSON (optional); remove this line to track backups in git
+assets/data/json/backups/
+
 # Cursor — ignore local/editor noise; track only .cursor/rules/ for cross-PC sync
 .cursor/*
 !.cursor/rules/

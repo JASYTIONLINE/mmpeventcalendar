@@ -13,7 +13,7 @@
     "contactResidentId",
     "chairpersonId",
     "imagePath",
-    "eventActivityId",
+    "featureId",
     "eventDate",
     "eventStartTime",
     "eventEndTime",
@@ -246,11 +246,18 @@
     };
   }
 
-  function rowToEvent(o) {
+  function rowToFeature(o) {
+    var fromFid = String(o.featureId || "").trim();
+    var legacyCol = String(o.eventActivityId || "").trim();
+    var eid = String(o.id || "").trim();
+    if (!eid && fromFid) eid = fromFid;
+    if (!eid && legacyCol && /^(fe|ev)\d+$/i.test(legacyCol)) eid = legacyCol;
+    var fid = fromFid || eid;
+    if (!fid && eid) fid = eid;
     var name = String(o.eventName || "").trim();
     var ev = {
-      id: String(o.id || "").trim(),
-      activityId: String(o.eventActivityId || "").trim(),
+      id: eid,
+      featureId: fid || eid,
       date: String(o.eventDate || "").trim(),
       startTime: String(o.eventStartTime || "").trim(),
       endTime: String(o.eventEndTime || "").trim(),
@@ -308,14 +315,14 @@
     ];
   }
 
-  function eventToRow(ev) {
+  function featureToRow(ev) {
     var title = ev.eventName != null ? ev.eventName : ev.title != null ? ev.title : "";
     var c1 = ev.cardLine1 != null ? String(ev.cardLine1) : "";
     var c2 = ev.cardLine2 != null ? String(ev.cardLine2) : "";
     var c3 = ev.cardLine3 != null ? String(ev.cardLine3) : "";
     if (ev.times && ev.times.start) {
       return [
-        "event",
+        "feature",
         ev.id || "",
         "",
         "",
@@ -328,7 +335,7 @@
         "",
         "",
         "",
-        ev.activityId || "",
+        ev.featureId || ev.id || "",
         ev.date || "",
         ev.times.start || "",
         ev.times.end != null ? ev.times.end : "",
@@ -342,7 +349,7 @@
       ];
     }
     return [
-      "event",
+      "feature",
       ev.id || "",
       "",
       "",
@@ -355,7 +362,7 @@
       "",
       "",
       "",
-      ev.activityId || "",
+      ev.featureId || ev.id || "",
       ev.date || "",
       ev.startTime || "",
       ev.endTime || "",
@@ -373,9 +380,9 @@
     var lines = [];
     lines.push(rowToCsvLine(CSV_COLUMNS));
     var acts = data.activities || [];
-    var evs = data.events || [];
+    var feats = data.features || [];
     for (var i = 0; i < acts.length; i++) lines.push(rowToCsvLine(activityToRow(acts[i])));
-    for (var j = 0; j < evs.length; j++) lines.push(rowToCsvLine(eventToRow(evs[j])));
+    for (var j = 0; j < feats.length; j++) lines.push(rowToCsvLine(featureToRow(feats[j])));
     return "\uFEFF" + lines.join("\r\n") + "\r\n";
   }
 
@@ -394,19 +401,20 @@
 
   function importFromRows(objectRows) {
     var activities = [];
-    var events = [];
+    var features = [];
     for (var i = 0; i < objectRows.length; i++) {
       var o = objectRows[i];
       var rt = String(o.recordType || "").trim().toLowerCase();
       if (rt === "activity") {
         if (!String(o.id || "").trim()) continue;
         activities.push(rowToActivity(o));
-      } else if (rt === "event") {
-        if (!String(o.id || "").trim()) continue;
-        events.push(rowToEvent(o));
+      } else if (rt === "feature" || rt === "event") {
+        var impEv = rowToFeature(o);
+        if (!String(impEv.id || "").trim()) continue;
+        features.push(impEv);
       }
     }
-    return { activities: activities, events: events };
+    return { activities: activities, features: features };
   }
 
   function fetchMasterData(url) {
@@ -480,6 +488,7 @@
           var missing = CSV_COLUMNS.filter(function (c) {
             if (header.indexOf(c) >= 0) return false;
             if (c === "isFeatured" && header.indexOf("isSpecialEvent") >= 0) return false;
+            if (c === "featureId" && header.indexOf("eventActivityId") >= 0) return false;
             return true;
           });
           if (missing.length) throw new Error("Missing columns: " + missing.join(", "));
@@ -488,7 +497,7 @@
           fetchMasterData(jsonUrl)
             .then(function (data) {
               data.activities = imported.activities;
-              data.events = imported.events;
+              data.features = imported.features;
               var out = JSON.stringify(data, null, 2) + "\n";
               downloadText("mmhp-master-data.json", out, "application/json;charset=utf-8");
               setStatus(

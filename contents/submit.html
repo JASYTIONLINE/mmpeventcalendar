@@ -45,7 +45,7 @@
             <div class="content-section">
               <h2>Submit an Event</h2>
               <p>
-                Fill in every field below. The page loads your current calendar data to suggest the next event id, activities,
+                Fill in every field below. The page loads your current calendar data to suggest the next feature id
                 and defaults. When you submit, your device opens <strong>Share</strong> or your email app with a
                 <strong>CSV</strong> of the event row plus your <strong>photos</strong> attached. On desktops that cannot attach
                 files automatically, a <strong>ZIP</strong> is downloaded—attach it (or the CSV and images inside) to the email
@@ -53,7 +53,7 @@
               </p>
               <ul class="submission-page__hints">
                 <li><strong>Short description of event</strong> — main text on the featured card (line 1). <strong>Max 48 characters.</strong></li>
-                <li><strong>Short description</strong> — what the event is in a few words (often matches the activity). <strong>Max 48 characters.</strong></li>
+                <li><strong>Short description</strong> — category or subtitle (for example Dance, Karaoke). <strong>Max 48 characters.</strong></li>
                 <li>The <strong>date line on the card</strong> is set automatically from the event date you choose (no separate field).</li>
               </ul>
             </div>
@@ -65,13 +65,8 @@
                 <legend class="event-submit-form__legend">Event details</legend>
 
                 <label class="event-submit-form__field">
-                  <span class="event-submit-form__label">Event id</span>
+                  <span class="event-submit-form__label">Feature id</span>
                   <input type="text" id="mmhp-submit-id" name="id" class="event-submit-form__input" readonly autocomplete="off" />
-                </label>
-
-                <label class="event-submit-form__field">
-                  <span class="event-submit-form__label">Activity</span>
-                  <select id="mmhp-submit-activityId" name="activityId" class="event-submit-form__input" required></select>
                 </label>
 
                 <label class="event-submit-form__field">
@@ -115,7 +110,7 @@
                 </label>
 
                 <label class="event-submit-form__field">
-                  <span class="event-submit-form__label">Listing title (read-only; from short description + activity)</span>
+                  <span class="event-submit-form__label">Listing title (read-only; from both short descriptions)</span>
                   <input type="text" id="mmhp-submit-eventName" class="event-submit-form__input" readonly tabindex="-1" />
                 </label>
 

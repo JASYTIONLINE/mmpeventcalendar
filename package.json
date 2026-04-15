@@ -1,0 +1,8 @@
+{
+  "name": "mmpeventcalendar",
+  "private": true,
+  "description": "McAllen Mobile Park community event calendar (static site + data tools)",
+  "scripts": {
+    "build:features": "node scripts/build-features-from-csv.mjs"
+  }
+}

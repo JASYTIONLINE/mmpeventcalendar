@@ -151,6 +151,7 @@
   function getFeaturedCardLines(ev, act, dt) {
     var name = eventTitle(ev) || "Event";
     var actHint = act && act.activityName ? String(act.activityName).trim() : "";
+    if (!actHint && ev && ev.cardLine2 != null) actHint = String(ev.cardLine2).trim();
     if (!actHint) actHint = activityHintFromListingTitle(name);
     var pair = splitEventTitleForCard(name, actHint);
     var c1 = ev.cardLine1 != null ? String(ev.cardLine1).trim() : "";
@@ -196,24 +197,6 @@
 
   var LISTING_TITLE_SEP = " — ";
 
-  function activityById(activities) {
-    var map = {};
-    for (var i = 0; i < activities.length; i++) {
-      var a = activities[i];
-      if (a && a.id != null) {
-        var id = String(a.id).trim();
-        if (id) map[id] = a;
-      }
-    }
-    return map;
-  }
-
-  function lookupActivity(map, rawActivityId) {
-    if (!map) return undefined;
-    var id = String(rawActivityId != null ? rawActivityId : "").trim();
-    return id ? map[id] : undefined;
-  }
-
   function activityHintFromListingTitle(listingTitle) {
     var t = String(listingTitle || "").trim();
     var idx = t.lastIndexOf(LISTING_TITLE_SEP);
@@ -223,10 +206,6 @@
 
   function isRecurringActivity(act) {
     return act && String(act.recurrenceType || "").trim() === "Recurring";
-  }
-
-  function isOneOffActivity(act) {
-    return act && !isRecurringActivity(act);
   }
 
   function getMasterJsonUrl() {
@@ -247,19 +226,6 @@
 
   var MAX_FEATURED_CARDS = 2;
 
-  var HOME_WIDE_MIN_PX = 1101;
-  /** Must match --mmhp-calendar-embed-max-height in style.css */
-  var MMHP_HOME_CALENDAR_MAX_PX = 1440;
-  /** Cap main column height from viewport so it stays in line with the CSS embed max + heading + featured */
-  var MMHP_HOME_MAIN_VIEWPORT_CAP_PX = MMHP_HOME_CALENDAR_MAX_PX + 480;
-
-  function isHomeWideLayout() {
-    return (
-      document.body.classList.contains("page-home") &&
-      window.matchMedia("(min-width: " + HOME_WIDE_MIN_PX + "px)").matches
-    );
-  }
-
   function debounce(fn, ms) {
     var t;
     return function () {
@@ -271,54 +237,22 @@
     };
   }
 
-  /**
-   * Vertical space from the top of the three-column layout to the bottom of the visual viewport.
-   * Used so the center column can grow taller than the left sidebar — otherwise the Google Calendar
-   * iframe is capped at sidebar height and month view only shows the first week or two.
-   */
-  function homeMainMinHeightFromViewportPx() {
-    var layout = document.querySelector("body.page-home .site-layout");
-    if (!layout) return 0;
-    var rect = layout.getBoundingClientRect();
-    /* Past ~one row of scroll the row is moving off-screen; don't keep inflating main to (vh - negativeTop). */
-    if (rect.top < -12) return 0;
-    var vv = window.visualViewport;
-    var vh = vv && vv.height ? vv.height : window.innerHeight;
-    return Math.max(0, Math.floor(vh - rect.top - 8));
-  }
-
-  function syncHomeMainHeight() {
-    if (!document.body.classList.contains("page-home")) return;
-    var main = document.querySelector("body.page-home .site-main");
-    var left = document.querySelector(".site-sidebar-left");
-    if (!main || !left) return;
-    if (!isHomeWideLayout()) {
-      main.style.height = "";
-      return;
-    }
-    var leftH = Math.max(left.offsetHeight, 0);
-    var viewRaw = homeMainMinHeightFromViewportPx();
-    var viewH = viewRaw > 0 ? Math.min(viewRaw, MMHP_HOME_MAIN_VIEWPORT_CAP_PX) : 0;
-    main.style.height = Math.max(leftH, viewH) + "px";
-  }
-
   function buildEnrichedFeatured(data) {
-    var acts = activityById(data.activities || []);
-    var events = (data.events || []).filter(function (ev) {
+    var features = (data.features || []).filter(function (ev) {
       if (ev.isActive === false) return false;
-      return isFeaturedEvent(ev, acts);
+      return isFeaturedEvent(ev);
     });
 
     var today = startOfTodayLocal();
     var enriched = [];
-    for (var i = 0; i < events.length; i++) {
-      var ev = events[i];
+    for (var i = 0; i < features.length; i++) {
+      var ev = features[i];
       var dt = parseISODateLocal(ev.date);
       if (!dt || dt < today) continue;
       enriched.push({
         ev: ev,
         dt: dt,
-        act: lookupActivity(acts, ev.activityId),
+        act: null,
         minutes: parseTimeToMinutes(eventStartTime(ev)),
       });
     }
@@ -390,27 +324,12 @@
   function fitHomeFeaturedCards(data, grid, jsonUrl) {
     if (!grid) return;
     var main = document.querySelector("body.page-home .site-main");
-    var left = document.querySelector(".site-sidebar-left");
-    if (!main || !left) return;
+    if (main) main.style.height = "";
 
     var enriched = buildEnrichedFeatured(data);
     var maxN = enriched.length;
-
-    if (!isHomeWideLayout()) {
-      main.style.height = "";
-      var capNarrow = Math.min(maxN, 24);
-      renderFeaturedFromEnriched(enriched.slice(0, capNarrow), grid, jsonUrl, 0);
-      return;
-    }
-
-    var n;
-    syncHomeMainHeight();
-    for (n = maxN; n >= 0; n--) {
-      syncHomeMainHeight();
-      renderFeaturedFromEnriched(enriched.slice(0, n), grid, jsonUrl, 0);
-      syncHomeMainHeight();
-      if (main.scrollHeight <= main.clientHeight + 2) break;
-    }
+    var capN = Math.min(maxN, 24);
+    renderFeaturedFromEnriched(enriched.slice(0, capN), grid, jsonUrl, 0);
   }
 
   function eventTitle(ev) {
@@ -425,12 +344,10 @@
     return String(ev.startTime || "00:00").trim();
   }
 
-  /** Prefer explicit isFeatured; else infer from linked activity when unset (legacy one-offs). */
-  function isFeaturedEvent(ev, acts) {
-    if (ev.isFeatured === true) return true;
+  /** Featured when isFeatured is not false (explicit false hides from featured UIs). */
+  function isFeaturedEvent(ev) {
     if (ev.isFeatured === false) return false;
-    var act = lookupActivity(acts, ev.activityId);
-    return isOneOffActivity(act);
+    return true;
   }
 
   function pickImageUrl(activity, fallbackIndex, imagesDir) {
@@ -443,7 +360,7 @@
   }
 
   /**
-   * Optional activity schedule when there are no dated events yet.
+   * Optional activity schedule when there are no dated features yet.
    * recurrenceDetails.slots: [ { weekday: "Wednesday", startTime: "09:00" }, ... ]
    * Or recurrenceDetails.weekdays: [ "Monday", "Wednesday" ] + startTime: "14:00"
    */
@@ -494,39 +411,10 @@
   function renderRecurringSchedule(data, list) {
     if (!list) return;
 
-    var acts = activityById(data.activities || []);
-    var events = (data.events || []).filter(function (ev) {
-      return ev.isActive !== false;
-    });
-
     var buckets = [];
     for (var b = 0; b < 7; b++) buckets.push(new Map());
 
-    for (var i = 0; i < events.length; i++) {
-      var ev = events[i];
-      var act = lookupActivity(acts, ev.activityId);
-      if (!isRecurringActivity(act)) continue;
-
-      var dt = parseISODateLocal(ev.date);
-      if (!dt) continue;
-      var name = eventTitle(ev);
-      if (!name) continue;
-
-      var idx = mondayFirstIndex(dt.getDay());
-      var st = eventStartTime(ev);
-      var loc = eventLocation(ev, act);
-      var dedupeKey = st + "\t" + name + "\t" + loc;
-      var minutes = parseTimeToMinutes(st);
-      var slot = sidebarSlotTitleAndMeta(name, st, loc);
-
-      if (!buckets[idx].has(dedupeKey)) {
-        buckets[idx].set(dedupeKey, {
-          minutes: minutes,
-          title: slot.title,
-          meta: slot.meta,
-        });
-      }
-    }
+    /* Left sidebar recurring slots come only from activities[].recurrenceDetails, not from features. */
 
     var actList = data.activities || [];
     for (var ai = 0; ai < actList.length; ai++) {
@@ -606,20 +494,19 @@
 
   /** Best featured event on dayStart (local midnight), by start time; or null. */
   function findFeaturedOnDate(data, dayStart) {
-    var acts = activityById(data.activities || []);
-    var events = data.events || [];
+    var features = data.features || [];
     var candidates = [];
     var targetMs = dayStart.getTime();
-    for (var i = 0; i < events.length; i++) {
-      var ev = events[i];
+    for (var i = 0; i < features.length; i++) {
+      var ev = features[i];
       if (ev.isActive === false) continue;
-      if (!isFeaturedEvent(ev, acts)) continue;
+      if (!isFeaturedEvent(ev)) continue;
       var dt = parseISODateLocal(ev.date);
       if (!dt || dt.getTime() !== targetMs) continue;
       candidates.push({
         ev: ev,
         dt: dt,
-        act: lookupActivity(acts, ev.activityId),
+        act: null,
         minutes: parseTimeToMinutes(eventStartTime(ev)),
       });
     }
@@ -631,14 +518,13 @@
 
   /** Any active featured event with date in [windowStart, windowEnd] (inclusive, local dates). */
   function anyFeaturedInDateWindow(data, windowStart, windowEnd) {
-    var acts = activityById(data.activities || []);
-    var events = data.events || [];
+    var features = data.features || [];
     var lo = windowStart.getTime();
     var hi = windowEnd.getTime();
-    for (var i = 0; i < events.length; i++) {
-      var ev = events[i];
+    for (var i = 0; i < features.length; i++) {
+      var ev = features[i];
       if (ev.isActive === false) continue;
-      if (!isFeaturedEvent(ev, acts)) continue;
+      if (!isFeaturedEvent(ev)) continue;
       var dt = parseISODateLocal(ev.date);
       if (!dt) continue;
       var t = dt.getTime();

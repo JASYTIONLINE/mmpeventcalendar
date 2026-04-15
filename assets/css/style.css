@@ -1397,7 +1397,7 @@
     object-fit: cover;
   }
 
-  /* Wide: stretch columns to the same row height so center column can use JS-set min height */
+  /* Wide: row height follows the tallest column (center grows with calendar + featured) */
   @media (min-width: 1101px) {
     body.page-home .site-layout {
       align-items: stretch;
@@ -1411,18 +1411,19 @@
   }
 
   body.page-home .site-main {
-    overflow: hidden;
+    overflow: visible;
     box-sizing: border-box;
     min-height: 0;
   }
 
+  /* Calendar first, tall viewport-based embed; featured block flows below (page scrolls) */
   body.page-home .page-home-calendar-stack {
     display: flex;
     flex-direction: column;
-    flex: 1 1 0;
+    flex: 0 0 auto;
+    width: 100%;
     min-height: 0;
-    height: 100%;
-    overflow: hidden;
+    overflow: visible;
     box-sizing: border-box;
   }
 
@@ -1432,42 +1433,42 @@
   }
 
   body.page-home .page-home-calendar-stack .calendar-container {
-    flex: 1 1 0;
-    min-height: 0;
-    max-height: var(--mmhp-calendar-embed-max-height);
+    flex: 0 0 auto;
+    flex-shrink: 0;
+    width: 100%;
+    min-height: min(900px, 85dvh, var(--mmhp-calendar-embed-max-height));
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    border-radius: 12px;
   }
 
   body.page-home .page-home-calendar-stack .calendar-container iframe {
-    flex: 1 1 0;
+    flex: 0 0 auto;
+    display: block;
     width: 100%;
-    min-height: 200px;
-    height: 100%;
+    height: min(900px, 85dvh, var(--mmhp-calendar-embed-max-height));
+    min-height: min(560px, 72dvh);
     max-height: var(--mmhp-calendar-embed-max-height);
     border: none;
   }
 
-  /* Stacked layout: no JS sync on main height — tall embed, still capped by --mmhp-calendar-embed-max-height */
-  @media (max-width: 1100px) {
+  @media (max-width: 768px) {
     body.page-home .page-home-calendar-stack .calendar-container {
-      flex: 1 1 auto;
-      min-height: min(900px, 88dvh, var(--mmhp-calendar-embed-max-height));
+      min-height: min(520px, 88dvh, var(--mmhp-calendar-embed-max-height));
     }
 
     body.page-home .page-home-calendar-stack .calendar-container iframe {
-      flex: 0 0 auto;
-      height: min(900px, 88dvh, var(--mmhp-calendar-embed-max-height));
-      min-height: min(560px, 70dvh);
-      max-height: var(--mmhp-calendar-embed-max-height);
+      height: min(560px, 88dvh, var(--mmhp-calendar-embed-max-height));
+      min-height: min(480px, 65dvh);
     }
   }
 
   body.page-home .page-home-featured {
     flex: 0 0 auto;
-    flex-shrink: 1;
+    flex-shrink: 0;
     min-height: 0;
-    margin-top: 0.65rem;
+    margin-top: 1rem;
   }
 
   body.page-home .page-home-featured-heading {

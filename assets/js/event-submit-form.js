@@ -27,7 +27,7 @@
     "contactResidentId",
     "chairpersonId",
     "imagePath",
-    "eventActivityId",
+    "featureId",
     "eventDate",
     "eventStartTime",
     "eventEndTime",
@@ -82,23 +82,13 @@
       .trim();
   }
 
-  function activityByIdFromMaster(masterData, id) {
-    var acts = masterData && Array.isArray(masterData.activities) ? masterData.activities : [];
-    var sid = id != null ? String(id).trim() : "";
-    for (var i = 0; i < acts.length; i++) {
-      if (acts[i] && String(acts[i].id).trim() === sid) return acts[i];
-    }
-    return null;
-  }
-
-  function deriveEventName(cardLine1, activityId, masterData) {
-    var act = activityByIdFromMaster(masterData, activityId);
-    var an = act && act.activityName != null ? String(act.activityName).trim() : "";
+  function deriveListingTitle(cardLine1, cardLine2) {
+    var c2 = cardLine2 != null ? String(cardLine2).trim() : "";
     var c1 = cardLine1 != null ? String(cardLine1).trim() : "";
-    if (!c1 && !an) return "";
-    if (!c1) return an;
-    if (!an) return c1;
-    return c1 + " — " + an;
+    if (!c1 && !c2) return "";
+    if (!c1) return c2;
+    if (!c2) return c1;
+    return c1 + " — " + c2;
   }
 
   function activityNameFromListingTitle(listingTitle) {
@@ -109,42 +99,46 @@
     return t.slice(idx + sep.length).trim();
   }
 
-  function computeNextEventId(events) {
-    if (!Array.isArray(events)) return "ev0001";
+  function computeNextFeatureId(featureRows) {
+    if (!Array.isArray(featureRows)) return "fe0001";
     var max = 0;
-    for (var i = 0; i < events.length; i++) {
-      var id = events[i] && events[i].id;
-      if (id == null) continue;
-      var m = /^ev(\d+)$/i.exec(String(id).trim());
+    function bumpId(raw) {
+      if (raw == null) return;
+      var s = String(raw).trim();
+      var m = /^fe(\d+)$/i.exec(s);
       if (m) {
         var n = parseInt(m[1], 10);
         if (!isNaN(n)) max = Math.max(max, n);
+        return;
+      }
+      m = /^ev(\d+)$/i.exec(s);
+      if (m) {
+        var n2 = parseInt(m[1], 10);
+        if (!isNaN(n2)) max = Math.max(max, n2);
       }
     }
+    for (var i = 0; i < featureRows.length; i++) {
+      var r = featureRows[i];
+      if (!r) continue;
+      bumpId(r.id);
+      bumpId(r.featureId);
+    }
     var used = {};
-    for (var u = 0; u < events.length; u++) {
-      var eid = events[u] && events[u].id;
-      if (eid != null) used[String(eid).trim()] = true;
+    for (var u = 0; u < featureRows.length; u++) {
+      var r2 = featureRows[u];
+      if (!r2) continue;
+      if (r2.id != null) used[String(r2.id).trim()] = true;
+      if (r2.featureId != null) used[String(r2.featureId).trim()] = true;
     }
     var next = max + 1;
     var candidate;
     do {
       var numStr = String(next);
       while (numStr.length < 4) numStr = "0" + numStr;
-      candidate = "ev" + numStr;
+      candidate = "fe" + numStr;
       next++;
     } while (used[candidate]);
     return candidate;
-  }
-
-  function firstActivityIdForNewEvent(masterData) {
-    var acts = masterData && Array.isArray(masterData.activities) ? masterData.activities : [];
-    for (var i = 0; i < acts.length; i++) {
-      if (acts[i] && acts[i].id != null && String(acts[i].id).trim()) {
-        return String(acts[i].id).trim();
-      }
-    }
-    return "";
   }
 
   /** Same style as data-admin card line 3; capped at 32 chars for site cards. */
@@ -155,22 +149,25 @@
     return s;
   }
 
-  function finalizeEventRow(ev, masterData) {
+  function finalizeFeatureRow(ev) {
     if (!ev || typeof ev !== "object") return;
-    var aid = ev.activityId != null ? String(ev.activityId).trim() : "";
-    if (aid) ev.activityId = aid;
-    var c1 = ev.cardLine1 != null ? String(ev.cardLine1).trim() : "";
-    ev.eventName = deriveEventName(c1, aid, masterData || {});
-    var act = activityByIdFromMaster(masterData, aid);
-    var line2 = act && act.activityName != null ? String(act.activityName).trim() : "";
-    if (!line2) line2 = activityNameFromListingTitle(ev.eventName);
-    if (ev.cardLine2 != null && String(ev.cardLine2).trim()) {
-      ev.cardLine2 = String(ev.cardLine2).trim();
-    } else if (line2) {
-      ev.cardLine2 = line2;
-    } else {
-      delete ev.cardLine2;
+    if (Object.prototype.hasOwnProperty.call(ev, "activityId")) {
+      delete ev.activityId;
     }
+    var sid = ev.id != null ? String(ev.id).trim() : "";
+    var sfid = ev.featureId != null ? String(ev.featureId).trim() : "";
+    if (sid && !sfid) ev.featureId = sid;
+    if (sfid && !sid) ev.id = sfid;
+    if (ev.id != null) ev.id = String(ev.id).trim();
+    if (ev.featureId != null) ev.featureId = String(ev.featureId).trim();
+    var c1 = ev.cardLine1 != null ? String(ev.cardLine1).trim() : "";
+    var c2 = ev.cardLine2 != null ? String(ev.cardLine2).trim() : "";
+    if (!c2 && ev.eventName != null && String(ev.eventName).trim()) {
+      c2 = activityNameFromListingTitle(ev.eventName);
+    }
+    if (c2) ev.cardLine2 = c2;
+    else delete ev.cardLine2;
+    ev.eventName = deriveListingTitle(c1, c2);
   }
 
   function validateSubmissionForm(ev) {
@@ -184,11 +181,7 @@
     var el;
 
     if (!needStr(ev.id))
-      return { message: "Event id is missing.", focusEl: document.getElementById("mmhp-submit-id") };
-
-    el = document.getElementById("mmhp-submit-activityId");
-    if (!needStr(ev.activityId))
-      return { message: "Please select an activity.", focusEl: el };
+      return { message: "Feature id is missing.", focusEl: document.getElementById("mmhp-submit-id") };
 
     el = document.getElementById("mmhp-submit-date");
     if (!needStr(ev.date))
@@ -228,7 +221,7 @@
 
     if (!needStr(ev.eventName))
       return {
-        message: "Listing title is missing. Check activity and both short descriptions.",
+        message: "Listing title is missing. Check both short descriptions.",
         focusEl: document.getElementById("mmhp-submit-cardLine1"),
       };
 
@@ -322,7 +315,7 @@
       "",
       "",
       ev.imagePath != null ? String(ev.imagePath) : "",
-      ev.activityId || "",
+      ev.featureId || ev.id || "",
       ev.date || "",
       ev.startTime || "",
       ev.endTime != null ? String(ev.endTime) : "",
@@ -347,7 +340,7 @@
       "Event submission",
       "",
       "Id: " + (ev.id || ""),
-      "Activity id: " + (ev.activityId || ""),
+      "Feature id: " + (ev.featureId || ev.id || ""),
       "Listing title: " + (ev.eventName || ""),
       "Date: " + (ev.date || ""),
       "Start: " + (ev.startTime || ""),
@@ -607,9 +600,10 @@
   }
 
   function readForm(masterData) {
+    var fid = String(document.getElementById("mmhp-submit-id").value || "").trim();
     var ev = {
-      id: String(document.getElementById("mmhp-submit-id").value || "").trim(),
-      activityId: String(document.getElementById("mmhp-submit-activityId").value || "").trim(),
+      id: fid,
+      featureId: fid,
       date: String(document.getElementById("mmhp-submit-date").value || "").trim(),
       startTime: String(document.getElementById("mmhp-submit-startTime").value || "").trim(),
       endTime: String(document.getElementById("mmhp-submit-endTime").value || "").trim(),
@@ -624,7 +618,7 @@
     if (featImg && featImg.files && featImg.files[0]) {
       ev.imagePath = featImg.files[0].name;
     }
-    finalizeEventRow(ev, masterData);
+    finalizeFeatureRow(ev);
     return ev;
   }
 
@@ -632,39 +626,6 @@
     var ev = readForm(masterData);
     var enEl = document.getElementById("mmhp-submit-eventName");
     if (enEl) enEl.value = ev.eventName || "";
-  }
-
-  function applyActivityDefaults(masterData) {
-    var sel = document.getElementById("mmhp-submit-activityId");
-    var aid = sel ? String(sel.value || "").trim() : "";
-    var act = activityByIdFromMaster(masterData, aid);
-    var locPreset = document.getElementById("mmhp-submit-location-preset");
-    var locOther = document.getElementById("mmhp-submit-location-other");
-    if (
-      act &&
-      act.location != null &&
-      locPreset &&
-      locOther &&
-      !locPreset.dataset.mmhpTouched &&
-      !locOther.dataset.mmhpTouched
-    ) {
-      var raw = String(act.location).trim();
-      if (KNOWN_HALLS[raw]) {
-        locPreset.value = raw;
-      } else if (raw) {
-        locPreset.value = LOCATION_PRESET_OTHER;
-        locOther.value = raw;
-      } else {
-        locPreset.value = "";
-        locOther.value = "";
-      }
-      syncLocationOtherUi();
-    }
-    var c2 = document.getElementById("mmhp-submit-cardLine2");
-    if (c2 && !c2.dataset.mmhpTouched && act && act.activityName) {
-      c2.value = String(act.activityName).trim();
-    }
-    refreshDerivedFields(masterData);
   }
 
   function formatBytesShort(bytes) {
@@ -888,28 +849,9 @@
     var form = document.getElementById("mmhp-event-submit-form");
     if (!form) return;
 
-    var events = masterData.events || [];
-    var nextId = computeNextEventId(events);
+    var features = masterData.features || [];
+    var nextId = computeNextFeatureId(features);
     document.getElementById("mmhp-submit-id").value = nextId;
-
-    var sel = document.getElementById("mmhp-submit-activityId");
-    while (sel.firstChild) sel.removeChild(sel.firstChild);
-    var opt0 = document.createElement("option");
-    opt0.value = "";
-    opt0.textContent = "— Select activity —";
-    sel.appendChild(opt0);
-    var acts = masterData.activities || [];
-    for (var i = 0; i < acts.length; i++) {
-      if (!acts[i] || acts[i].id == null) continue;
-      var opt = document.createElement("option");
-      opt.value = String(acts[i].id).trim();
-      var nm = acts[i].activityName != null ? String(acts[i].activityName).trim() : "";
-      opt.textContent = nm || opt.value;
-      sel.appendChild(opt);
-    }
-
-    var aid = firstActivityIdForNewEvent(masterData);
-    sel.value = aid;
 
     document.getElementById("mmhp-submit-date").value = todayIsoLocal();
     document.getElementById("mmhp-submit-startTime").value = "19:00";
@@ -937,7 +879,7 @@
     var c2 = document.getElementById("mmhp-submit-cardLine2");
     c2.value = "";
     c2.dataset.mmhpTouched = "";
-    applyActivityDefaults(masterData);
+    refreshDerivedFields(masterData);
 
     if (locPreset) {
       locPreset.addEventListener("change", function () {
@@ -955,14 +897,9 @@
     }
     c2.addEventListener("input", function () {
       c2.dataset.mmhpTouched = "1";
+      refreshDerivedFields(masterData);
     });
 
-    sel.addEventListener("change", function () {
-      if (locPreset) locPreset.dataset.mmhpTouched = "";
-      if (locOther) locOther.dataset.mmhpTouched = "";
-      c2.dataset.mmhpTouched = "";
-      applyActivityDefaults(masterData);
-    });
     c1.addEventListener("input", function () {
       refreshDerivedFields(masterData);
     });

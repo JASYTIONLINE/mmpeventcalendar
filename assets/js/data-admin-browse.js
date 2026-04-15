@@ -1,7 +1,7 @@
 (function () {
   /** Only the latest initBrowseApp completion may wire UI (avoids duplicate/racy loads). */
   var __dataAdminBrowseInitGen = 0;
-  /** Ignore rapid repeat clicks on Add event. */
+  /** Ignore rapid repeat clicks on Add feature. */
   var __dataAdminLastAddEventMs = 0;
   /** Ignore rapid repeat clicks on Purge before today. */
   var __dataAdminLastPurgePastMs = 0;
@@ -85,7 +85,7 @@
     return n.getFullYear() + "-" + pad2(n.getMonth() + 1) + "-" + pad2(n.getDate());
   }
 
-  /** Local calendar date as YYYY-MM-DD (for comparisons with event `date` fields). */
+  /** Local calendar date as YYYY-MM-DD (for comparisons with feature `date` fields). */
   function todayIsoLocal() {
     var n = new Date();
     return n.getFullYear() + "-" + pad2(n.getMonth() + 1) + "-" + pad2(n.getDate());
@@ -140,9 +140,12 @@
     return out;
   }
 
-  /** Puts startTime immediately before endTime, both right after `date` when present (events grid). */
+  /** Puts startTime immediately before endTime, both right after `date` when present (features grid). */
   function orderDataAdminTableColumns(collectionKey, columns) {
-    if (collectionKey !== "events") return columns;
+    if (collectionKey === "activities") {
+      return ["activityName", "__scheduleSummary", "description", "location"];
+    }
+    if (collectionKey !== "features") return columns;
     var cols = columns.slice();
     var si = cols.indexOf("startTime");
     var ei = cols.indexOf("endTime");
@@ -150,7 +153,7 @@
     ei = cols.indexOf("endTime");
     var et = ei >= 0 ? cols.splice(ei, 1)[0] : null;
     var di = cols.indexOf("date");
-    var insertAt = di >= 0 ? di + 1 : cols.indexOf("activityId") + (cols.indexOf("activityId") >= 0 ? 1 : 0);
+    var insertAt = di >= 0 ? di + 1 : cols.indexOf("featureId") + (cols.indexOf("featureId") >= 0 ? 1 : 0);
     if (insertAt <= 0 && cols.indexOf("id") === 0) insertAt = 1;
     if (insertAt < 0) insertAt = cols.length;
     if (st) cols.splice(insertAt, 0, st);
@@ -272,6 +275,40 @@
     return String(v);
   }
 
+  /** Human-readable schedule for activities browse column (not stored on JSON). */
+  function formatActivityRecurrenceBrowse(act) {
+    if (!act || typeof act !== "object") return "";
+    var rd = act.recurrenceDetails || {};
+    if (Array.isArray(rd.slots) && rd.slots.length > 0) {
+      var parts = [];
+      for (var si = 0; si < rd.slots.length; si++) {
+        var sl = rd.slots[si] || {};
+        var w = String(sl.weekday || sl.day || "").trim();
+        var st = String(sl.startTime || sl.time || "").trim();
+        if (w && st) parts.push(w.slice(0, 3) + " " + st);
+      }
+      return parts.length ? parts.join("; ") : "";
+    }
+    var days = rd.weekdays || rd.daysOfWeek || [];
+    var stOne = String(rd.startTime || rd.time || "").trim();
+    if (!Array.isArray(days) || days.length === 0 || !stOne) {
+      if (String(act.recurrenceType || "").trim() === "Recurring") return "(no weekday/time set)";
+      return "—";
+    }
+    var dlist = [];
+    for (var di = 0; di < days.length; di++) {
+      dlist.push(String(days[di]).trim());
+    }
+    return dlist.join(", ") + " · " + stOne;
+  }
+
+  function dataAdminBrowseColumnDisplay(collectionKey, obj, columnKey) {
+    if (collectionKey === "activities" && columnKey === "__scheduleSummary") {
+      return formatActivityRecurrenceBrowse(obj);
+    }
+    return cellValue(obj[columnKey]);
+  }
+
   function getOrInitTableState(section) {
     if (!section._mmhpTableState) {
       section._mmhpTableState = { sortCol: null, sortDir: 1, filters: {}, searchText: "" };
@@ -313,7 +350,8 @@
     return sa.localeCompare(sb, undefined, { sensitivity: "base", numeric: true });
   }
 
-  function applyTableViewState(entries, columns, state) {
+  function applyTableViewState(entries, columns, state, collectionKey) {
+    var ck = collectionKey || "";
     var rows = entries.slice();
     var filters = state && state.filters;
     if (filters) {
@@ -328,7 +366,7 @@
         var set = {};
         for (var si = 0; si < allowed.length; si++) set[allowed[si]] = true;
         rows = rows.filter(function (e) {
-          return set[cellValue(e.obj[colKey])];
+          return set[dataAdminBrowseColumnDisplay(ck, e.obj, colKey)];
         });
       }
     }
@@ -338,7 +376,7 @@
       var low = needle.toLowerCase();
       rows = rows.filter(function (e) {
         for (var ti = 0; ti < columns.length; ti++) {
-          if (cellValue(e.obj[columns[ti]]).toLowerCase().indexOf(low) >= 0) return true;
+          if (dataAdminBrowseColumnDisplay(ck, e.obj, columns[ti]).toLowerCase().indexOf(low) >= 0) return true;
         }
         return false;
       });
@@ -347,7 +385,10 @@
       var sc = state.sortCol;
       var dir = state.sortDir >= 0 ? 1 : -1;
       rows.sort(function (a, b) {
-        var c = compareDataAdminDisplayValues(cellValue(a.obj[sc]), cellValue(b.obj[sc]));
+        var c = compareDataAdminDisplayValues(
+          dataAdminBrowseColumnDisplay(ck, a.obj, sc),
+          dataAdminBrowseColumnDisplay(ck, b.obj, sc)
+        );
         if (c !== 0) return c * dir;
         return a.idx - b.idx;
       });
@@ -355,10 +396,11 @@
     return rows;
   }
 
-  function uniqueColumnValues(entries, col) {
+  function uniqueColumnValues(entries, col, collectionKey) {
+    var ck = collectionKey || "";
     var m = {};
     for (var i = 0; i < entries.length; i++) {
-      var s = cellValue(entries[i].obj[col]);
+      var s = dataAdminBrowseColumnDisplay(ck, entries[i].obj, col);
       m[s] = true;
     }
     var arr = Object.keys(m);
@@ -380,17 +422,20 @@
     closeAnyDataAdminFilterPanel();
   }
 
-  function openColumnFilterPanel(colName, baseEntries, tableState, refreshSection, anchorBtn) {
+  function openColumnFilterPanel(colName, baseEntries, tableState, refreshSection, anchorBtn, collectionKey) {
     closeAnyDataAdminFilterPanel();
-    var uniques = uniqueColumnValues(baseEntries, colName);
+    var ck = collectionKey || "";
+    var uniques = uniqueColumnValues(baseEntries, colName, ck);
+    var colTitle =
+      ck === "activities" && colName === "__scheduleSummary" ? "Schedule (weekdays · time)" : colName;
     var panel = document.createElement("div");
     panel.className = "data-admin-filter-panel";
     panel.setAttribute("role", "dialog");
-    panel.setAttribute("aria-label", "Filter column " + colName);
+    panel.setAttribute("aria-label", "Filter column " + colTitle);
 
     var head = document.createElement("div");
     head.className = "data-admin-filter-panel__head";
-    head.textContent = "Filter: " + colName;
+    head.textContent = "Filter: " + colTitle;
     panel.appendChild(head);
 
     var list = document.createElement("div");
@@ -505,158 +550,6 @@
     return "\uFEFF" + lines.join("\r\n") + "\r\n";
   }
 
-  /** Google Calendar import CSV — headers and row rules match scripts/export-events-google-calendar-csv.py */
-  var GOOGLE_CAL_HEADERS = [
-    "Subject",
-    "Start Date",
-    "Start Time",
-    "End Date",
-    "End Time",
-    "All Day Event",
-    "Description",
-    "Location",
-    "Private",
-  ];
-  var GOOGLE_CAL_DEFAULT_DURATION_H = 1;
-
-  function parseHHMMForGoogleExport(s) {
-    s = String(s == null ? "" : s).trim();
-    if (!s) return null;
-    var parts = s.split(":");
-    var h = parseInt(parts[0], 10);
-    var m = parts.length > 1 ? parseInt(parts[1], 10) : 0;
-    if (isNaN(h) || isNaN(m) || h < 0 || h > 23 || m < 0 || m > 59) return null;
-    return { h: h, m: m };
-  }
-
-  function to12hGoogle(h, m) {
-    var period = h >= 12 ? "PM" : "AM";
-    var h12 = h % 12;
-    if (h12 === 0) h12 = 12;
-    return h12 + ":" + pad2(m) + " " + period;
-  }
-
-  function isoYmdToMmddYyyy(iso) {
-    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso).trim());
-    if (!m) return null;
-    return m[2] + "/" + m[3] + "/" + m[1];
-  }
-
-  function utcMsFromYmdHourMin(y, mo, d, h, mi) {
-    return Date.UTC(y, mo - 1, d, h, mi, 0);
-  }
-
-  function utcYmdhmFromMs(ms) {
-    var dt = new Date(ms);
-    return {
-      y: dt.getUTCFullYear(),
-      mo: dt.getUTCMonth() + 1,
-      d: dt.getUTCDate(),
-      h: dt.getUTCHours(),
-      mi: dt.getUTCMinutes(),
-    };
-  }
-
-  function formatMmddYyyyUtc(y, mo, d) {
-    return pad2(mo) + "/" + pad2(d) + "/" + y;
-  }
-
-  function googleCalendarRowForEvent(ev) {
-    if (!ev || typeof ev !== "object") return null;
-    var dateRaw = ev.date;
-    if (dateRaw == null || !String(dateRaw).trim()) return null;
-    var start_d = isoYmdToMmddYyyy(dateRaw);
-    if (!start_d) return null;
-
-    var st = parseHHMMForGoogleExport(ev.startTime);
-    if (!st) return null;
-    var sh = st.h;
-    var sm = st.m;
-    var start_t = to12hGoogle(sh, sm);
-    var startMin = sh * 60 + sm;
-
-    var dm = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(dateRaw).trim());
-    if (!dm) return null;
-    var y = parseInt(dm[1], 10);
-    var mo = parseInt(dm[2], 10);
-    var dday = parseInt(dm[3], 10);
-
-    var end_raw = ev.endTime != null ? String(ev.endTime).trim() : "";
-    var end_d;
-    var end_t;
-
-    if (end_raw) {
-      var et = parseHHMMForGoogleExport(end_raw);
-      if (!et) {
-        end_raw = "";
-      } else {
-        var eh = et.h;
-        var em = et.m;
-        var endMin = eh * 60 + em;
-        if (endMin > startMin) {
-          end_d = start_d;
-          end_t = to12hGoogle(eh, em);
-        } else if (endMin < startMin) {
-          var ms0 = utcMsFromYmdHourMin(y, mo, dday, 0, 0);
-          var msNext = ms0 + 86400000 + (eh * 60 + em) * 60000;
-          var pN = utcYmdhmFromMs(msNext);
-          end_d = formatMmddYyyyUtc(pN.y, pN.mo, pN.d);
-          end_t = to12hGoogle(eh, em);
-        } else {
-          var msS = utcMsFromYmdHourMin(y, mo, dday, sh, sm);
-          var msE = msS + GOOGLE_CAL_DEFAULT_DURATION_H * 3600000;
-          var pE = utcYmdhmFromMs(msE);
-          end_d = formatMmddYyyyUtc(pE.y, pE.mo, pE.d);
-          end_t = to12hGoogle(pE.h, pE.mi);
-        }
-      }
-    }
-
-    if (!end_raw || !parseHHMMForGoogleExport(end_raw)) {
-      var msS2 = utcMsFromYmdHourMin(y, mo, dday, sh, sm);
-      var msE2 = msS2 + GOOGLE_CAL_DEFAULT_DURATION_H * 3600000;
-      var pE2 = utcYmdhmFromMs(msE2);
-      end_d = formatMmddYyyyUtc(pE2.y, pE2.mo, pE2.d);
-      end_t = to12hGoogle(pE2.h, pE2.mi);
-    }
-
-    var subject = (ev.eventName != null ? String(ev.eventName).trim() : "") || "(no title)";
-    subject = subject.split(/\r\n|\r|\n/).join(" ").trim() || "(no title)";
-    var desc =
-      "mmhp event id: " +
-      (ev.id != null ? String(ev.id) : "") +
-      "; activityId: " +
-      (ev.activityId != null ? String(ev.activityId) : "");
-    desc = desc.split(/\r\n|\r|\n/).join(" ");
-    var loc = ev.location != null ? String(ev.location).trim() : "";
-    loc = loc.split(/\r\n|\r|\n/).join(" ");
-
-    return [subject, start_d, start_t, end_d, end_t, "False", desc, loc, "False"];
-  }
-
-  function buildGoogleCalendarCsvString(events) {
-    var lines = [];
-    var hc = [];
-    for (var hi = 0; hi < GOOGLE_CAL_HEADERS.length; hi++) hc.push(csvEscape(GOOGLE_CAL_HEADERS[hi]));
-    lines.push(hc.join(","));
-    var written = 0;
-    var skipped = 0;
-    for (var gi = 0; gi < events.length; gi++) {
-      var ev = events[gi];
-      if (!ev || ev.isActive === false) continue;
-      var row = googleCalendarRowForEvent(ev);
-      if (!row) {
-        skipped++;
-        continue;
-      }
-      var cells = [];
-      for (var gj = 0; gj < row.length; gj++) cells.push(csvEscape(row[gj]));
-      lines.push(cells.join(","));
-      written++;
-    }
-    return { text: lines.join("\r\n") + "\r\n", written: written, skipped: skipped };
-  }
-
   function buildObjectEntries(val) {
     var objectEntries = [];
     for (var ri = 0; ri < val.length; ri++) {
@@ -666,21 +559,21 @@
     return objectEntries;
   }
 
-  function eventRowIsoDate(obj) {
+  function featureRowIsoDate(obj) {
     var d = obj && obj.date != null ? String(obj.date).trim() : "";
     return /^\d{4}-\d{2}-\d{2}$/.test(d) ? d : null;
   }
 
-  /** Valid ISO event date is strictly before today (local). These rows are treated as archived. */
+  /** Valid ISO feature date is strictly before today (local). These rows are treated as archived. */
   function isArchivedPastEvent(obj) {
-    var d = eventRowIsoDate(obj);
+    var d = featureRowIsoDate(obj);
     if (!d) return false;
     return d < todayIsoLocal();
   }
 
-  function compareDisplayEventEntries(a, b) {
-    var da = eventRowIsoDate(a.obj);
-    var db = eventRowIsoDate(b.obj);
+  function compareDisplayFeatureEntries(a, b) {
+    var da = featureRowIsoDate(a.obj);
+    var db = featureRowIsoDate(b.obj);
     if (da && db) {
       if (da !== db) return da < db ? -1 : 1;
     } else if (da && !db) return -1;
@@ -697,25 +590,25 @@
    */
   function buildObjectEntriesForDisplay(val, collectionKey, hidePastEvents) {
     var all = buildObjectEntries(val);
-    if (collectionKey !== "events") return all;
+    if (collectionKey !== "features") return all;
     if (hidePastEvents) {
       var ymd = todayIsoLocal();
       var upcoming = [];
       for (var ui = 0; ui < all.length; ui++) {
-        var d = eventRowIsoDate(all[ui].obj);
+        var d = featureRowIsoDate(all[ui].obj);
         if (d && d >= ymd) upcoming.push(all[ui]);
       }
       all = upcoming;
     }
     var sorted = all.slice();
-    sorted.sort(compareDisplayEventEntries);
+    sorted.sort(compareDisplayFeatureEntries);
     return sorted;
   }
 
-  /** Data page section order: events → activities → everything else A–Z */
+  /** Data page section order: features → activities → everything else A–Z */
   function sortMasterDataCollectionKeys(keys) {
     function rank(name) {
-      if (name === "events") return 0;
+      if (name === "features") return 0;
       if (name === "activities") return 1;
       return 2;
     }
@@ -755,26 +648,16 @@
       .trim();
   }
 
-  function activityByIdFromMaster(masterData, id) {
-    var acts = masterData && Array.isArray(masterData.activities) ? masterData.activities : [];
-    var sid = id != null ? String(id).trim() : "";
-    for (var i = 0; i < acts.length; i++) {
-      if (acts[i] && String(acts[i].id).trim() === sid) return acts[i];
-    }
-    return null;
-  }
-
-  function deriveEventName(cardLine1, activityId, masterData) {
-    var act = activityByIdFromMaster(masterData, activityId);
-    var an = act && act.activityName != null ? String(act.activityName).trim() : "";
+  function deriveListingTitle(cardLine1, cardLine2) {
+    var c2 = cardLine2 != null ? String(cardLine2).trim() : "";
     var c1 = cardLine1 != null ? String(cardLine1).trim() : "";
-    if (!c1 && !an) return "";
-    if (!c1) return an;
-    if (!an) return c1;
-    return c1 + " — " + an;
+    if (!c1 && !c2) return "";
+    if (!c1) return c2;
+    if (!c2) return c1;
+    return c1 + " — " + c2;
   }
 
-  /** Matches deriveEventName separator; activity name is the segment after the last separator. */
+  /** Matches deriveListingTitle separator; second segment is the part after the last separator. */
   function activityNameFromListingTitle(listingTitle) {
     var t = String(listingTitle || "").trim();
     var sep = " — ";
@@ -783,8 +666,11 @@
     return t.slice(idx + sep.length).trim();
   }
 
-  function finalizeEventRow(parsed, masterData) {
+  function finalizeFeatureRow(parsed, masterData) {
     if (!parsed || typeof parsed !== "object") return;
+    if (Object.prototype.hasOwnProperty.call(parsed, "activityId")) {
+      delete parsed.activityId;
+    }
     if (Object.prototype.hasOwnProperty.call(parsed, "isSpecialEvent")) {
       if (parsed.isFeatured === undefined) {
         if (parsed.isSpecialEvent === true) parsed.isFeatured = true;
@@ -792,105 +678,110 @@
       }
       delete parsed.isSpecialEvent;
     }
-    var aid = parsed.activityId != null ? String(parsed.activityId).trim() : "";
-    if (aid) parsed.activityId = aid;
+    var sid = parsed.id != null ? String(parsed.id).trim() : "";
+    var sfid = parsed.featureId != null ? String(parsed.featureId).trim() : "";
+    if (sid && !sfid) parsed.featureId = sid;
+    if (sfid && !sid) parsed.id = sfid;
+    if (parsed.id != null) parsed.id = String(parsed.id).trim();
+    if (parsed.featureId != null) parsed.featureId = String(parsed.featureId).trim();
     var c1 = parsed.cardLine1 != null ? String(parsed.cardLine1).trim() : "";
-    parsed.eventName = deriveEventName(c1, aid, masterData || {});
-    var act = activityByIdFromMaster(masterData, aid);
-    var line2 = act && act.activityName != null ? String(act.activityName).trim() : "";
-    if (!line2) line2 = activityNameFromListingTitle(parsed.eventName);
-    if (line2) parsed.cardLine2 = line2;
+    var c2 = parsed.cardLine2 != null ? String(parsed.cardLine2).trim() : "";
+    if (!c2 && parsed.eventName != null && String(parsed.eventName).trim()) {
+      c2 = activityNameFromListingTitle(parsed.eventName);
+    }
+    if (c2) parsed.cardLine2 = c2;
     else delete parsed.cardLine2;
+    parsed.eventName = deriveListingTitle(c1, c2);
     if (isArchivedPastEvent(parsed)) {
       parsed.isActive = false;
     }
   }
 
-  function computeNextEventId(events) {
-    if (!Array.isArray(events)) return "ev0001";
+  function computeNextFeatureId(featureRows) {
+    if (!Array.isArray(featureRows)) return "fe0001";
     var max = 0;
-    for (var i = 0; i < events.length; i++) {
-      var id = events[i] && events[i].id;
-      if (id == null) continue;
-      var m = /^ev(\d+)$/i.exec(String(id).trim());
+    function bumpId(raw) {
+      if (raw == null) return;
+      var s = String(raw).trim();
+      var m = /^fe(\d+)$/i.exec(s);
       if (m) {
         var n = parseInt(m[1], 10);
         if (!isNaN(n)) max = Math.max(max, n);
+        return;
+      }
+      m = /^ev(\d+)$/i.exec(s);
+      if (m) {
+        var n2 = parseInt(m[1], 10);
+        if (!isNaN(n2)) max = Math.max(max, n2);
       }
     }
+    for (var i = 0; i < featureRows.length; i++) {
+      var r = featureRows[i];
+      if (!r) continue;
+      bumpId(r.id);
+      bumpId(r.featureId);
+    }
     var used = {};
-    for (var u = 0; u < events.length; u++) {
-      var eid = events[u] && events[u].id;
-      if (eid != null) used[String(eid).trim()] = true;
+    for (var u = 0; u < featureRows.length; u++) {
+      var r2 = featureRows[u];
+      if (!r2) continue;
+      if (r2.id != null) used[String(r2.id).trim()] = true;
+      if (r2.featureId != null) used[String(r2.featureId).trim()] = true;
     }
     var next = max + 1;
     var candidate;
     do {
       var numStr = String(next);
       while (numStr.length < 4) numStr = "0" + numStr;
-      candidate = "ev" + numStr;
+      candidate = "fe" + numStr;
       next++;
     } while (used[candidate]);
     return candidate;
-  }
-
-  function firstActivityIdForNewEvent(masterData) {
-    var acts = masterData && Array.isArray(masterData.activities) ? masterData.activities : [];
-    for (var i = 0; i < acts.length; i++) {
-      if (acts[i] && acts[i].id != null && String(acts[i].id).trim()) {
-        return String(acts[i].id).trim();
-      }
-    }
-    return "";
   }
 
   function isoDateLocalYmd() {
     return todayIsoLocal();
   }
 
-  function buildNewEventRow(masterData) {
-    var events = masterData && Array.isArray(masterData.events) ? masterData.events : [];
-    var aid = firstActivityIdForNewEvent(masterData);
-    var loc = "Hall A";
-    var act = activityByIdFromMaster(masterData, aid);
-    if (act && act.location != null && String(act.location).trim()) {
-      loc = String(act.location).trim();
-    }
+  function buildNewFeatureRow(masterData) {
+    var featureRows = masterData && Array.isArray(masterData.features) ? masterData.features : [];
+    var fid = computeNextFeatureId(featureRows);
     var row = {
-      id: computeNextEventId(events),
-      activityId: aid,
+      featureId: fid,
+      id: fid,
       date: isoDateLocalYmd(),
       startTime: "19:00",
       endTime: "",
       isActive: true,
       isFeatured: false,
-      location: loc,
-      cardLine1: "New event",
+      location: "Hall A",
+      cardLine1: "New feature",
+      cardLine2: "",
     };
-    finalizeEventRow(row, masterData || {});
+    finalizeFeatureRow(row, masterData || {});
     row.cardLine3 = formatEventCardLine3FromIso(row.date);
     return row;
   }
 
-  function validateEventRow(ev) {
-    if (!ev || typeof ev !== "object") return "Invalid event row.";
+  function validateFeatureRow(ev) {
+    if (!ev || typeof ev !== "object") return "Invalid feature row.";
     if (isArchivedPastEvent(ev)) return "";
-    var req = ["id", "activityId", "date", "startTime", "cardLine1", "eventName", "location"];
+    var req = ["id", "date", "startTime", "cardLine1", "cardLine2", "eventName", "location"];
     for (var i = 0; i < req.length; i++) {
       var k = req[i];
       var v = ev[k];
       if (v == null || (typeof v === "string" && !String(v).trim())) {
-        return "Events require a non-empty " + k + ".";
+        return "Features require a non-empty " + k + ".";
       }
     }
     if (ev.isActive === undefined || ev.isActive === null) {
-      return "Events require isActive (true or false).";
+      return "Features require isActive (true or false).";
     }
     return "";
   }
 
   var DATA_ADMIN_DUPLICATE_SLOT_PREFIX =
-    "Two active events overlap in time at the same location";
+    "Two active features overlap in time at the same location";
 
   /** When endTime is blank, assume this span for venue conflict checks (typical 7–10pm hall use). */
   var DATA_ADMIN_DEFAULT_EVENT_DURATION_MIN = 180;
@@ -898,6 +789,8 @@
   function isDataAdminDuplicateSlotMessage(msg) {
     var s = String(msg || "");
     if (s.indexOf(DATA_ADMIN_DUPLICATE_SLOT_PREFIX) !== -1) return true;
+    if (s.indexOf("Two active features share the same date, start time, and location") !== -1) return true;
+    if (s.indexOf("Two active events overlap in time at the same location") !== -1) return true;
     return s.indexOf("Two active events share the same date, start time, and location") !== -1;
   }
 
@@ -983,8 +876,8 @@
   }
 
   /**
-   * Only Hall B and Hall C are single-booking venues (one active event per date/time slot).
-   * Clubhouse, Hall A, Rec Hall, etc. may host multiple concurrent events at the same location string.
+   * Only Hall B and Hall C are single-booking venues (one active feature per date/time slot).
+   * Hall A, Rec Hall, etc. may host multiple concurrent features at the same location string.
    */
   function isDataAdminExclusiveVenueLocKey(locKey) {
     var k = String(locKey || "")
@@ -995,11 +888,11 @@
   }
 
   /**
-   * Block two scheduling-active events that overlap in time at the same date and location.
+   * Block two scheduling-active features that overlap in time at the same date and location.
    * Past-dated (archived) and inactive rows are skipped.
    * @param replaceIndex If >= 0, row at this index is treated as replacementEv for the check (edit / Apply).
    */
-  function validateEventsNoDuplicateDateTimeLocation(evs, replaceIndex, replacementEv) {
+  function validateFeaturesNoDuplicateDateTimeLocation(evs, replaceIndex, replacementEv) {
     if (!Array.isArray(evs)) return "";
     var slots = [];
     for (var i = 0; i < evs.length; i++) {
@@ -1050,13 +943,13 @@
 
   function validateMasterDataBeforeSave(data) {
     if (!data || typeof data !== "object") return "No data to save.";
-    var evs = data.events;
+    var evs = data.features;
     if (Array.isArray(evs)) {
       for (var ei = 0; ei < evs.length; ei++) {
-        var emsg = validateEventRow(evs[ei]);
-        if (emsg) return "events[" + ei + "] " + (evs[ei] && evs[ei].id ? "(" + evs[ei].id + ") " : "") + emsg;
+        var emsg = validateFeatureRow(evs[ei]);
+        if (emsg) return "features[" + ei + "] " + (evs[ei] && evs[ei].id ? "(" + evs[ei].id + ") " : "") + emsg;
       }
-      var dupSlot = validateEventsNoDuplicateDateTimeLocation(evs, -1, null);
+      var dupSlot = validateFeaturesNoDuplicateDateTimeLocation(evs, -1, null);
       if (dupSlot) return dupSlot;
     }
     var acts = data.activities;
@@ -1081,40 +974,29 @@
     return false;
   }
 
-  function buildActivitySelectOptions(masterData) {
-    var acts = masterData && Array.isArray(masterData.activities) ? masterData.activities : [];
-    var list = [];
-    for (var ai = 0; ai < acts.length; ai++) {
-      var a = acts[ai];
-      if (!a || a.id == null) continue;
-      var id = String(a.id).trim();
-      var name = String(a.activityName != null ? a.activityName : id).trim() || id;
-      list.push({ id: id, name: name });
-    }
-    list.sort(function (x, y) {
-      return x.name.localeCompare(y.name);
-    });
-    return list;
-  }
-
   function fieldLabelForForm(collectionKey, key) {
-    if (collectionKey === "events") {
-      if (key === "activityId") return "Activity (sets activity id; card line 2 on the site uses this activity name)";
+    if (collectionKey === "features") {
       if (key === "cardLine1")
-        return "Short description of event (max 48 characters; card line 1 — featured cards)";
-      if (key === "cardLine2") return "Short description (max 48 characters; card line 2)";
+        return "Short description of feature (max 48 characters; card line 1 — featured cards)";
+      if (key === "cardLine2") return "Category / subtitle (max 48 characters; card line 2)";
       if (key === "cardLine3") return "Date line on card (card line 3; often auto from date)";
       if (key === "date") return "Event date (also drives card line 3 text when synced)";
       if (key === "startTime") return "Start & end time";
       if (key === "isFeatured")
-        return "Featured (home: center strip, right Wed/Sat, left schedule when dated)";
+        return "Featured (home: center strip, right Wed/Sat)";
+    }
+    if (collectionKey === "activities") {
+      if (key === "activityName") return "Activity name (short title; left sidebar)";
+      if (key === "description") return "Description (long)";
+      if (key === "location") return "Location";
+      if (key === "recurrenceType") return "Recurrence type";
     }
     return key;
   }
 
   var EVENT_FORM_KEY_ORDER = [
     "cardLine1",
-    "activityId",
+    "cardLine2",
     "date",
     "startTime",
     "endTime",
@@ -1144,12 +1026,13 @@
     masterData = masterData || {};
     clearDomChildren(fieldsForm);
     var keys = sortObjectKeysForForm(Object.keys(obj || {}));
-    if (collectionKey === "events") {
+    if (collectionKey === "features") {
       keys = keys.filter(function (k) {
-        return k !== "cardLine3" && k !== "cardLine2" && k !== "eventName";
+        return k !== "cardLine3" && k !== "eventName";
       });
       if (keys.indexOf("date") === -1) keys.push("date");
       if (keys.indexOf("cardLine1") === -1) keys.push("cardLine1");
+      if (keys.indexOf("cardLine2") === -1) keys.push("cardLine2");
       var hasST = keys.indexOf("startTime") !== -1;
       var hasET = keys.indexOf("endTime") !== -1;
       if (hasET && !hasST) keys.push("startTime");
@@ -1160,12 +1043,15 @@
     for (let i = 0; i < keys.length; i++) {
       let key = keys[i];
       if (collectionKey === "activities" && key === "recurrenceDetails") continue;
-      if (collectionKey === "events" && key === "endTime") continue;
+      if (collectionKey === "features" && key === "endTime") continue;
       let val = obj[key];
-      if (collectionKey === "events" && key === "isFeatured" && val !== true && val !== false) {
+      if (collectionKey === "features" && key === "isFeatured" && val !== true && val !== false) {
         val = false;
       }
-      if (collectionKey === "events" && key === "cardLine1" && (val === undefined || val === null)) {
+      if (collectionKey === "features" && key === "cardLine1" && (val === undefined || val === null)) {
+        val = "";
+      }
+      if (collectionKey === "features" && key === "cardLine2" && (val === undefined || val === null)) {
         val = "";
       }
       let row = document.createElement("div");
@@ -1193,48 +1079,7 @@
         continue;
       }
 
-      if (collectionKey === "events" && key === "activityId") {
-        let sel = document.createElement("select");
-        sel.className = "data-admin-edit-field-select";
-        sel.setAttribute("aria-label", "Activity");
-        let optBlank = document.createElement("option");
-        optBlank.value = "";
-        optBlank.textContent = "— Select activity —";
-        sel.appendChild(optBlank);
-        let actOpts = buildActivitySelectOptions(masterData);
-        let curAct = val != null && val !== undefined ? String(val).trim() : "";
-        let foundAct = false;
-        for (let ao = 0; ao < actOpts.length; ao++) {
-          let opt = document.createElement("option");
-          opt.value = actOpts[ao].id;
-          opt.textContent = actOpts[ao].name;
-          sel.appendChild(opt);
-          if (actOpts[ao].id === curAct) foundAct = true;
-        }
-        if (curAct && !foundAct) {
-          let optOr = document.createElement("option");
-          optOr.value = curAct;
-          optOr.textContent = "Other (id: " + curAct + ")";
-          sel.appendChild(optOr);
-        }
-        sel.value = curAct;
-        row.appendChild(sel);
-        row.dataset.mmhpRowKind = "activityId";
-        let actHint = document.createElement("p");
-        actHint.className = "data-admin-edit-field-hint";
-        actHint.textContent =
-          "Card line 2 on the public site is the activity name from this choice (not stored on the event).";
-        row.appendChild(actHint);
-        row.__readField = function () {
-          var v = String(sel.value || "").trim();
-          if (!v) throw new Error("activityId: choose an activity from the list.");
-          return v;
-        };
-        fieldsForm.appendChild(row);
-        continue;
-      }
-
-      if (collectionKey === "events" && key === "date") {
+      if (collectionKey === "features" && key === "date") {
         let dateInp = document.createElement("input");
         dateInp.type = "date";
         dateInp.className = "data-admin-edit-field-input data-admin-edit-field-input--date";
@@ -1259,7 +1104,7 @@
         delete row.dataset.editFieldKey;
         row.__readFields = function () {
           var ymd = String(dateInp.value || "").trim();
-          if (!ymd) throw new Error("date: choose an event date.");
+          if (!ymd) throw new Error("date: choose a feature date.");
           if (!/^\d{4}-\d{2}-\d{2}$/.test(ymd)) throw new Error("date: use the calendar to set a valid date.");
           return { date: ymd, cardLine3: formatEventCardLine3FromIso(ymd) };
         };
@@ -1267,7 +1112,7 @@
         continue;
       }
 
-      if (collectionKey === "events" && key === "startTime") {
+      if (collectionKey === "features" && key === "startTime") {
         lbl.textContent = "Start & end time";
         let timePair = document.createElement("div");
         timePair.className = "data-admin-edit-field-time-pair";
@@ -1356,7 +1201,7 @@
         row.__readField = function () {
           return t.getAttribute("aria-pressed") === "true";
         };
-        if (collectionKey === "events" && key === "isFeatured") {
+        if (collectionKey === "features" && key === "isFeatured") {
           let hintSp = document.createElement("p");
           hintSp.className = "data-admin-edit-field-hint";
           hintSp.textContent =
@@ -1420,7 +1265,7 @@
         let long =
           val.length > 100 ||
           /[\r\n]/.test(val) ||
-          (collectionKey === "events" && key === "cardLine1");
+          (collectionKey === "features" && (key === "cardLine1" || key === "cardLine2"));
         let sinp;
         if (long) {
           sinp = document.createElement("textarea");
@@ -1431,8 +1276,12 @@
           sinp.type = "text";
           sinp.className = "data-admin-edit-field-input";
         }
-        if (collectionKey === "events" && key === "cardLine1") {
+        if (collectionKey === "features" && key === "cardLine1") {
           row.dataset.mmhpRowKind = "cardLine1";
+          sinp.maxLength = 48;
+        }
+        if (collectionKey === "features" && key === "cardLine2") {
+          row.dataset.mmhpRowKind = "cardLine2";
           sinp.maxLength = 48;
         }
         sinp.value = val;
@@ -1464,29 +1313,29 @@
       fieldsForm.appendChild(row);
     }
 
-    if (collectionKey === "events") {
-      var actRow = fieldsForm.querySelector('[data-mmhp-row-kind="activityId"]');
+    if (collectionKey === "features") {
       var c1Row = fieldsForm.querySelector('[data-mmhp-row-kind="cardLine1"]');
-      var selEl = actRow ? actRow.querySelector("select") : null;
+      var c2Row = fieldsForm.querySelector('[data-mmhp-row-kind="cardLine2"]');
       var c1El = c1Row ? c1Row.querySelector("textarea, input") : null;
-      if (selEl || c1El) {
+      var c2El = c2Row ? c2Row.querySelector("textarea, input") : null;
+      if (c1El || c2El) {
         var evNRow = document.createElement("div");
         evNRow.className = "data-admin-edit-field-row";
         var evNLbl = document.createElement("div");
         evNLbl.className = "data-admin-edit-field-label";
-        evNLbl.textContent = "Listing title (auto: short description of event + activity)";
+        evNLbl.textContent = "Listing title (auto: card line 1 + card line 2)";
         var evNDisp = document.createElement("input");
         evNDisp.type = "text";
         evNDisp.readOnly = true;
         evNDisp.className = "data-admin-edit-field-input data-admin-edit-field--readonly";
         evNDisp.title = "Saved as eventName when you click Apply.";
         function syncListingTitlePreview() {
-          var aid = selEl ? String(selEl.value || "").trim() : "";
           var c1 = c1El ? String(c1El.value || "").trim() : "";
-          evNDisp.value = deriveEventName(c1, aid, masterData);
+          var c2 = c2El ? String(c2El.value || "").trim() : "";
+          evNDisp.value = deriveListingTitle(c1, c2);
         }
-        if (selEl) selEl.addEventListener("change", syncListingTitlePreview);
         if (c1El) c1El.addEventListener("input", syncListingTitlePreview);
+        if (c2El) c2El.addEventListener("input", syncListingTitlePreview);
         syncListingTitlePreview();
         evNRow.appendChild(evNLbl);
         evNRow.appendChild(evNDisp);
@@ -1728,15 +1577,15 @@
           parsed.recurrenceDetails = { weekdays: selected, startTime: st };
         }
       }
-      if (ctx.collectionKey === "events") {
-        finalizeEventRow(parsed, ctx.masterDataRef || {});
-        var evErr = validateEventRow(parsed);
+      if (ctx.collectionKey === "features") {
+        finalizeFeatureRow(parsed, ctx.masterDataRef || {});
+        var evErr = validateFeatureRow(parsed);
         if (evErr) {
           err.textContent = evErr;
           return;
         }
-        var evs0 = ctx.masterDataRef && Array.isArray(ctx.masterDataRef.events) ? ctx.masterDataRef.events : [];
-        var dupSlot = validateEventsNoDuplicateDateTimeLocation(evs0, ctx.rowIndex, parsed);
+        var evs0 = ctx.masterDataRef && Array.isArray(ctx.masterDataRef.features) ? ctx.masterDataRef.features : [];
+        var dupSlot = validateFeaturesNoDuplicateDateTimeLocation(evs0, ctx.rowIndex, parsed);
         if (dupSlot) {
           err.textContent = dupSlot;
           flashDuplicateSlotAlert(err);
@@ -1834,7 +1683,7 @@
         var th = document.createElement("th");
         th.className = "data-admin-th-sortable";
 
-        var uniquesForCol = uniqueColumnValues(baseEntries, colName);
+        var uniquesForCol = uniqueColumnValues(baseEntries, colName, collectionKey);
         var hasActiveFilter =
           tableState.filters[colName] != null &&
           tableState.filters[colName].length > 0 &&
@@ -1850,7 +1699,10 @@
         sortBtn.title = "Sort column (click: ascending, descending, then default order)";
         var sortText = document.createElement("span");
         sortText.className = "data-admin-th-text";
-        sortText.textContent = colName;
+        sortText.textContent =
+          collectionKey === "activities" && colName === "__scheduleSummary"
+            ? "Schedule (weekdays · time)"
+            : colName;
         var sortInd = document.createElement("span");
         sortInd.className = "data-admin-th-sort-ind";
         if (tableState.sortCol === colName) {
@@ -1879,10 +1731,16 @@
         filterBtn.className = "data-admin-th-filter-btn";
         filterBtn.innerHTML = "&#9660;";
         filterBtn.title = "Filter this column";
-        filterBtn.setAttribute("aria-label", "Filter " + colName);
+        filterBtn.setAttribute(
+          "aria-label",
+          "Filter " +
+            (collectionKey === "activities" && colName === "__scheduleSummary"
+              ? "Schedule (weekdays · time)"
+              : colName)
+        );
         filterBtn.addEventListener("click", function (ev) {
           ev.stopPropagation();
-          openColumnFilterPanel(colName, baseEntries, tableState, refreshSection, filterBtn);
+          openColumnFilterPanel(colName, baseEntries, tableState, refreshSection, filterBtn, collectionKey);
         });
 
         inner.appendChild(sortBtn);
@@ -2005,7 +1863,7 @@
 
       for (var cc = 0; cc < columns.length; cc++) {
         var td = document.createElement("td");
-        td.textContent = cellValue(entry.obj[columns[cc]]);
+        td.textContent = dataAdminBrowseColumnDisplay(collectionKey, entry.obj, columns[cc]);
         tr.appendChild(td);
       }
 
@@ -2164,12 +2022,12 @@
     }
 
     function renderSection(section, key, val) {
-      var hidePast = key === "events" && !!section._mmhpEventsHidePast;
+      var hidePast = key === "features" && !!section._mmhpFeaturesHidePast;
       var objectEntries = buildObjectEntriesForDisplay(val, key, hidePast);
 
       var rowCountEl = section.querySelector(".data-admin-section-rowcount");
       if (rowCountEl) {
-        if (key === "events" && hidePast) {
+        if (key === "features" && hidePast) {
           var totalEv = Array.isArray(val) ? val.length : 0;
           var shownEv = objectEntries.length;
           if (shownEv === totalEv) {
@@ -2192,9 +2050,9 @@
       if (objectEntries.length === 0) {
         var empty = document.createElement("p");
         empty.className = "data-admin-section-meta";
-        if (key === "events" && hidePast && Array.isArray(val) && val.length > 0) {
+        if (key === "features" && hidePast && Array.isArray(val) && val.length > 0) {
           empty.textContent =
-            "No events on or after today in this view. Use \"Show all events\" above to see past rows.";
+            "No features on or after today in this view. Use \"Show all features\" above to see past rows.";
         } else {
           empty.textContent = "No object rows.";
         }
@@ -2210,7 +2068,7 @@
         )
       );
       pruneTableStateForColumns(tableState, columns);
-      var viewEntries = applyTableViewState(objectEntries, columns, tableState);
+      var viewEntries = applyTableViewState(objectEntries, columns, tableState, key);
 
       function refreshSection() {
         renderSection(section, key, masterData[key]);
@@ -2277,9 +2135,9 @@
         var saveBtn = document.getElementById("mmhp-save-master-json");
         if (saveBtn) {
           function runMasterJsonSaveToDisk() {
-            if (Array.isArray(masterData.events)) {
-              for (var fi = 0; fi < masterData.events.length; fi++) {
-                finalizeEventRow(masterData.events[fi], masterData);
+            if (Array.isArray(masterData.features)) {
+              for (var fi = 0; fi < masterData.features.length; fi++) {
+                finalizeFeatureRow(masterData.features[fi], masterData);
               }
             }
             var blockMsg = validateMasterDataBeforeSave(masterData);
@@ -2403,9 +2261,9 @@
           };
         }
 
-        var addEventBtn = document.getElementById("mmhp-add-event-btn");
-        if (addEventBtn) {
-          addEventBtn.onclick = function () {
+        var addFeatureBtn = document.getElementById("mmhp-add-feature-btn");
+        if (addFeatureBtn) {
+          addFeatureBtn.onclick = function () {
             var nowMs = Date.now();
             if (nowMs - __dataAdminLastAddEventMs < 900) {
               return;
@@ -2415,24 +2273,24 @@
               setStatus("No data loaded.", true);
               return;
             }
-            if (!document.getElementById("collection-events")) {
+            if (!document.getElementById("collection-features")) {
               setStatus(
-                "Cannot add an event: this JSON has no events collection. Add an events array to the file and reload.",
+                "Cannot add a feature: this JSON has no features collection. Add a features array to the file and reload.",
                 true
               );
               return;
             }
-            if (!Array.isArray(masterData.events)) masterData.events = [];
-            var nu = buildNewEventRow(masterData);
-            masterData.events.push(nu);
+            if (!Array.isArray(masterData.features)) masterData.features = [];
+            var nu = buildNewFeatureRow(masterData);
+            masterData.features.push(nu);
             setDataAdminUnsaved(true);
-            refreshSectionByKey("events");
+            refreshSectionByKey("features");
             var modal = ensureEditModal(setStatus);
-            var newIdx = masterData.events.length - 1;
+            var newIdx = masterData.features.length - 1;
             modal.__openEdit(
-              "events",
+              "features",
               newIdx,
-              masterData.events[newIdx],
+              masterData.features[newIdx],
               function (k, rowIdx, parsed) {
                 masterData[k][rowIdx] = parsed;
                 setDataAdminUnsaved(true);
@@ -2441,14 +2299,14 @@
               masterData
             );
             setStatus(
-              "Added event " +
+              "Added feature " +
                 nu.id +
                 ". Complete the form and click Apply, then use Save changes to the Master Data File."
             );
           };
         }
 
-        var purgePastBtn = document.getElementById("mmhp-purge-past-events-btn");
+        var purgePastBtn = document.getElementById("mmhp-purge-past-features-btn");
         if (purgePastBtn) {
           purgePastBtn.onclick = function () {
             var nowMs = Date.now();
@@ -2460,29 +2318,29 @@
               setStatus("No data loaded.", true);
               return;
             }
-            if (!document.getElementById("collection-events")) {
+            if (!document.getElementById("collection-features")) {
               setStatus(
-                "Cannot purge events: this JSON has no events collection.",
+                "Cannot purge features: this JSON has no features collection.",
                 true
               );
               return;
             }
-            if (!Array.isArray(masterData.events)) masterData.events = [];
+            if (!Array.isArray(masterData.features)) masterData.features = [];
             var today = todayIsoLocal();
-            var evs = masterData.events;
+            var evs = masterData.features;
             var toRemove = 0;
             for (var pi = 0; pi < evs.length; pi++) {
               var ds = String(evs[pi] && evs[pi].date != null ? evs[pi].date : "").trim();
               if (ds.length === 10 && ds < today) toRemove++;
             }
             if (toRemove === 0) {
-              setStatus("No events dated before " + today + " to remove.");
+              setStatus("No features dated before " + today + " to remove.");
               return;
             }
             var msg =
               "Remove " +
               toRemove +
-              " event(s) dated before " +
+              " feature(s) dated before " +
               today +
               " (this browser's local calendar date)?\n\nRows stay in memory until you save or reload.";
             if (!window.confirm(msg)) {
@@ -2495,139 +2353,12 @@
               if (d2.length === 10 && d2 < today) continue;
               kept.push(evs[pj]);
             }
-            masterData.events = kept;
+            masterData.features = kept;
             setDataAdminUnsaved(true);
-            refreshSectionByKey("events");
+            refreshSectionByKey("features");
             setStatus(
-              "Removed " + toRemove + " past event(s). " + kept.length + " remain. Save to write the Master Data File."
+              "Removed " + toRemove + " past feature(s). " + kept.length + " remain. Save to write the Master Data File."
             );
-          };
-        }
-
-        var googleCalBtn = document.getElementById("mmhp-export-google-calendar-csv-btn");
-        var googleCalModal = document.getElementById("mmhp-google-cal-export-modal");
-        var googleCalBackdrop = document.getElementById("mmhp-google-cal-export-backdrop");
-        var googleCalCancel = document.getElementById("mmhp-google-cal-export-cancel");
-        var googleCalOk = document.getElementById("mmhp-google-cal-export-ok");
-
-        function runGoogleCalendarCsvDownload() {
-          if (!masterData || !Array.isArray(masterData.events)) {
-            setStatus("No events loaded.", true);
-            return;
-          }
-          var r = buildGoogleCalendarCsvString(masterData.events);
-          var fn = "mmhp-google-calendar-import-" + fileDateStamp() + ".csv";
-          var text = r.text;
-          var blob = new Blob([text], { type: "text/csv;charset=utf-8" });
-
-          function finishStatus(savedViaPicker) {
-            var msg =
-              (savedViaPicker ? "Saved " : "Downloaded ") +
-              fn +
-              " (" +
-              r.written +
-              " active events). ";
-            msg += savedViaPicker
-              ? "Import in Google Calendar → Settings → Import & export."
-              : "Move it to assets/data/csv/export/ if needed, then import in Google Calendar → Settings → Import & export.";
-            if (r.skipped) msg += " Skipped " + r.skipped + " row(s) with bad date or start time.";
-            setStatus(msg);
-          }
-
-          if (typeof window.showSaveFilePicker === "function") {
-            window
-              .showSaveFilePicker({
-                suggestedName: fn,
-                types: [
-                  {
-                    description: "CSV",
-                    accept: { "text/csv": [".csv"] },
-                  },
-                ],
-              })
-              .then(function (handle) {
-                return handle.createWritable();
-              })
-              .then(function (writable) {
-                var w = writable;
-                return w.write(blob).then(function () {
-                  return w.close();
-                });
-              })
-              .then(function () {
-                finishStatus(true);
-              })
-              .catch(function (err) {
-                if (err && err.name === "AbortError") {
-                  setStatus("Google Calendar export save cancelled.");
-                  return;
-                }
-                setStatus(
-                  "Save dialog failed: " + (err && err.message ? err.message : String(err)) + " — saving via download.",
-                  true
-                );
-                downloadText(fn, text, "text/csv;charset=utf-8");
-                finishStatus(false);
-              });
-          } else {
-            downloadText(fn, text, "text/csv;charset=utf-8");
-            finishStatus(false);
-          }
-        }
-
-        function openGoogleCalExportModal() {
-          if (!googleCalModal || !googleCalOk || !googleCalCancel) {
-            runGoogleCalendarCsvDownload();
-            return;
-          }
-
-          googleCalModal.hidden = false;
-          googleCalOk.focus();
-
-          function cleanupGoogleCalModalUi() {
-            googleCalModal.hidden = true;
-            googleCalOk.onclick = null;
-            googleCalCancel.onclick = null;
-            if (googleCalBackdrop) googleCalBackdrop.onclick = null;
-            document.removeEventListener("keydown", onGoogleCalKey);
-          }
-
-          function onGoogleCalKey(e) {
-            if (e.key === "Escape") {
-              cleanupGoogleCalModalUi();
-              setStatus("Google Calendar export cancelled.");
-            }
-          }
-
-          googleCalCancel.onclick = function () {
-            cleanupGoogleCalModalUi();
-            setStatus("Google Calendar export cancelled.");
-          };
-
-          googleCalOk.onclick = function () {
-            cleanupGoogleCalModalUi();
-            runGoogleCalendarCsvDownload();
-          };
-
-          if (googleCalBackdrop) {
-            googleCalBackdrop.onclick = function (e) {
-              if (e.target === googleCalBackdrop) {
-                cleanupGoogleCalModalUi();
-                setStatus("Google Calendar export cancelled.");
-              }
-            };
-          }
-
-          document.addEventListener("keydown", onGoogleCalKey);
-        }
-
-        if (googleCalBtn) {
-          googleCalBtn.onclick = function () {
-            if (!masterData || !Array.isArray(masterData.events)) {
-              setStatus("No events loaded.", true);
-              return;
-            }
-            openGoogleCalExportModal();
           };
         }
 
@@ -2645,7 +2376,13 @@
           section.id = "collection-" + key.replace(/[^a-zA-Z0-9_-]/g, "-");
 
           var h2 = document.createElement("h2");
-          h2.textContent = key;
+          if (key === "features") {
+            h2.textContent = "Featured & dated features";
+          } else if (key === "activities") {
+            h2.textContent = "Recurring activities (left sidebar)";
+          } else {
+            h2.textContent = key;
+          }
           section.appendChild(h2);
 
           var meta = document.createElement("p");
@@ -2682,24 +2419,24 @@
           searchWrap.appendChild(searchInput);
           toolbar.appendChild(searchWrap);
 
-          if (key === "events") {
-            section._mmhpEventsHidePast = false;
+          if (key === "features") {
+            section._mmhpFeaturesHidePast = false;
             var displayToggleBtn = document.createElement("button");
             displayToggleBtn.type = "button";
-            displayToggleBtn.className = "btn site-button data-admin-events-display-toggle";
+            displayToggleBtn.className = "btn site-button data-admin-features-display-toggle";
             displayToggleBtn.setAttribute(
               "aria-label",
-              "Toggle between showing all events and hiding events before today"
+              "Toggle between showing all features and hiding features before today"
             );
-            function syncEventsDisplayToggleLabel() {
-              displayToggleBtn.textContent = section._mmhpEventsHidePast ? "Show all events" : "Hide past events";
+            function syncFeaturesDisplayToggleLabel() {
+              displayToggleBtn.textContent = section._mmhpFeaturesHidePast ? "Show all features" : "Hide past features";
             }
-            syncEventsDisplayToggleLabel();
+            syncFeaturesDisplayToggleLabel();
             displayToggleBtn.addEventListener("click", function () {
-              section._mmhpEventsHidePast = !section._mmhpEventsHidePast;
-              syncEventsDisplayToggleLabel();
-              if (!masterData || !Array.isArray(masterData.events)) return;
-              renderSection(section, "events", masterData.events);
+              section._mmhpFeaturesHidePast = !section._mmhpFeaturesHidePast;
+              syncFeaturesDisplayToggleLabel();
+              if (!masterData || !Array.isArray(masterData.features)) return;
+              renderSection(section, "features", masterData.features);
             });
             toolbar.appendChild(displayToggleBtn);
           }

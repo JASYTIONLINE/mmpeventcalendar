@@ -122,6 +122,24 @@
     return cols;
   }
 
+  /** Keys hidden in browse tables only (still in JSON, CSV export, and edit modal). */
+  function isDataAdminTechnicalIdColumn(key) {
+    if (key === "id" || key === "_id" || key === "uuid") return true;
+    return /Id$/.test(key);
+  }
+
+  /** Browse grid only; cardLine1–3 stay in edit modal, JSON, and CSV. */
+  function filterDisplayColumnsForBrowse(columns) {
+    var out = [];
+    for (var i = 0; i < columns.length; i++) {
+      var k = columns[i];
+      if (isDataAdminTechnicalIdColumn(k)) continue;
+      if (k === "cardLine1" || k === "cardLine2" || k === "cardLine3") continue;
+      out.push(k);
+    }
+    return out;
+  }
+
   /** Puts startTime immediately before endTime, both right after `date` when present (events grid). */
   function orderDataAdminTableColumns(collectionKey, columns) {
     if (collectionKey !== "events") return columns;
@@ -137,6 +155,11 @@
     if (insertAt < 0) insertAt = cols.length;
     if (st) cols.splice(insertAt, 0, st);
     if (et) cols.splice(insertAt + (st ? 1 : 0), 0, et);
+    var evNameIdx = cols.indexOf("eventName");
+    if (evNameIdx >= 0) {
+      cols.splice(evNameIdx, 1);
+      cols.unshift("eventName");
+    }
     return cols;
   }
 
@@ -247,6 +270,209 @@
     if (v == null) return "";
     if (typeof v === "object") return JSON.stringify(v);
     return String(v);
+  }
+
+  function getOrInitTableState(section) {
+    if (!section._mmhpTableState) {
+      section._mmhpTableState = { sortCol: null, sortDir: 1, filters: {} };
+    }
+    return section._mmhpTableState;
+  }
+
+  function pruneTableStateForColumns(tableState, columns) {
+    if (tableState.sortCol && columns.indexOf(tableState.sortCol) < 0) {
+      tableState.sortCol = null;
+      tableState.sortDir = 1;
+    }
+    var f = tableState.filters;
+    if (!f) return;
+    for (var k in f) {
+      if (Object.prototype.hasOwnProperty.call(f, k) && columns.indexOf(k) < 0) {
+        delete f[k];
+      }
+    }
+  }
+
+  function compareDataAdminDisplayValues(a, b) {
+    var sa = String(a);
+    var sb = String(b);
+    if (/^\d{4}-\d{2}-\d{2}$/.test(sa) && /^\d{4}-\d{2}-\d{2}$/.test(sb)) {
+      if (sa < sb) return -1;
+      if (sa > sb) return 1;
+      return 0;
+    }
+    var na = Number(sa);
+    var nb = Number(sb);
+    if (sa !== "" && sb !== "" && isFinite(na) && isFinite(nb) && !isNaN(na) && !isNaN(nb)) {
+      if (na < nb) return -1;
+      if (na > nb) return 1;
+      return 0;
+    }
+    return sa.localeCompare(sb, undefined, { sensitivity: "base", numeric: true });
+  }
+
+  function applyTableViewState(entries, columns, state) {
+    var rows = entries.slice();
+    var filters = state && state.filters;
+    if (filters) {
+      for (var fk = 0; fk < columns.length; fk++) {
+        var colKey = columns[fk];
+        var allowed = filters[colKey];
+        if (allowed === undefined || allowed === null) continue;
+        if (allowed.length === 0) {
+          rows = [];
+          break;
+        }
+        var set = {};
+        for (var si = 0; si < allowed.length; si++) set[allowed[si]] = true;
+        rows = rows.filter(function (e) {
+          return set[cellValue(e.obj[colKey])];
+        });
+      }
+    }
+    if (state && state.sortCol && columns.indexOf(state.sortCol) >= 0) {
+      var sc = state.sortCol;
+      var dir = state.sortDir >= 0 ? 1 : -1;
+      rows.sort(function (a, b) {
+        var c = compareDataAdminDisplayValues(cellValue(a.obj[sc]), cellValue(b.obj[sc]));
+        if (c !== 0) return c * dir;
+        return a.idx - b.idx;
+      });
+    }
+    return rows;
+  }
+
+  function uniqueColumnValues(entries, col) {
+    var m = {};
+    for (var i = 0; i < entries.length; i++) {
+      var s = cellValue(entries[i].obj[col]);
+      m[s] = true;
+    }
+    var arr = Object.keys(m);
+    arr.sort(function (a, b) {
+      return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
+    });
+    return arr;
+  }
+
+  function closeAnyDataAdminFilterPanel() {
+    var ex = document.querySelector(".data-admin-filter-panel");
+    if (ex && ex.parentNode) ex.parentNode.removeChild(ex);
+    document.removeEventListener("click", dataAdminFilterBackdropClose, true);
+  }
+
+  function dataAdminFilterBackdropClose(ev) {
+    if (ev.target.closest(".data-admin-filter-panel")) return;
+    if (ev.target.closest(".data-admin-th-filter-btn")) return;
+    closeAnyDataAdminFilterPanel();
+  }
+
+  function openColumnFilterPanel(colName, baseEntries, tableState, refreshSection, anchorBtn) {
+    closeAnyDataAdminFilterPanel();
+    var uniques = uniqueColumnValues(baseEntries, colName);
+    var panel = document.createElement("div");
+    panel.className = "data-admin-filter-panel";
+    panel.setAttribute("role", "dialog");
+    panel.setAttribute("aria-label", "Filter column " + colName);
+
+    var head = document.createElement("div");
+    head.className = "data-admin-filter-panel__head";
+    head.textContent = "Filter: " + colName;
+    panel.appendChild(head);
+
+    var list = document.createElement("div");
+    list.className = "data-admin-filter-panel__list";
+
+    var current = tableState.filters[colName];
+    var selected = {};
+    if (current && current.length) {
+      for (var i = 0; i < current.length; i++) selected[current[i]] = true;
+    } else {
+      for (var u = 0; u < uniques.length; u++) selected[uniques[u]] = true;
+    }
+
+    var checks = [];
+    for (var j = 0; j < uniques.length; j++) {
+      var val = uniques[j];
+      var row = document.createElement("label");
+      row.className = "data-admin-filter-panel__row";
+      var cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = !!selected[val];
+      var span = document.createElement("span");
+      span.className = "data-admin-filter-panel__val";
+      span.textContent = val === "" ? "(blank)" : val;
+      row.appendChild(cb);
+      row.appendChild(span);
+      list.appendChild(row);
+      checks.push({ cb: cb, val: val });
+    }
+    panel.appendChild(list);
+
+    var actions = document.createElement("div");
+    actions.className = "data-admin-filter-panel__actions";
+
+    var btnAll = document.createElement("button");
+    btnAll.type = "button";
+    btnAll.className = "btn site-button data-admin-filter-panel__btn";
+    btnAll.textContent = "Select all";
+    btnAll.addEventListener("click", function () {
+      for (var ai = 0; ai < checks.length; ai++) checks[ai].cb.checked = true;
+    });
+
+    var btnNone = document.createElement("button");
+    btnNone.type = "button";
+    btnNone.className = "btn site-button data-admin-filter-panel__btn";
+    btnNone.textContent = "Clear";
+    btnNone.addEventListener("click", function () {
+      for (var zi = 0; zi < checks.length; zi++) checks[zi].cb.checked = false;
+    });
+
+    var btnOk = document.createElement("button");
+    btnOk.type = "button";
+    btnOk.className = "btn site-button data-admin-filter-panel__btn data-admin-filter-panel__btn--primary";
+    btnOk.textContent = "Apply";
+    btnOk.addEventListener("click", function () {
+      var allowed = [];
+      for (var bi = 0; bi < checks.length; bi++) {
+        if (checks[bi].cb.checked) allowed.push(checks[bi].val);
+      }
+      if (allowed.length === 0) {
+        tableState.filters[colName] = [];
+      } else if (allowed.length === uniques.length) {
+        delete tableState.filters[colName];
+      } else {
+        tableState.filters[colName] = allowed;
+      }
+      closeAnyDataAdminFilterPanel();
+      refreshSection();
+    });
+
+    var btnCancel = document.createElement("button");
+    btnCancel.type = "button";
+    btnCancel.className = "btn site-button data-admin-filter-panel__btn";
+    btnCancel.textContent = "Cancel";
+    btnCancel.addEventListener("click", function () {
+      closeAnyDataAdminFilterPanel();
+    });
+
+    actions.appendChild(btnAll);
+    actions.appendChild(btnNone);
+    actions.appendChild(btnCancel);
+    actions.appendChild(btnOk);
+    panel.appendChild(actions);
+
+    document.body.appendChild(panel);
+    var r = anchorBtn.getBoundingClientRect();
+    var pw = panel.offsetWidth;
+    var left = r.left;
+    if (left + pw > window.innerWidth - 12) left = Math.max(8, window.innerWidth - pw - 12);
+    panel.style.left = left + "px";
+    panel.style.top = r.bottom + 4 + "px";
+
+    window.setTimeout(function () {
+      document.addEventListener("click", dataAdminFilterBackdropClose, true);
+    }, 0);
   }
 
   function arrayToCsv(rows, columns) {
@@ -1560,11 +1786,13 @@
   function renderTable(
     parent,
     columns,
-    objectEntries,
+    viewEntries,
+    baseEntries,
     collectionKey,
     masterData,
     setStatus,
-    refreshSection
+    refreshSection,
+    tableState
   ) {
     var wrap = document.createElement("div");
     wrap.className = "data-admin-table-wrap";
@@ -1575,14 +1803,80 @@
 
     var thead = document.createElement("thead");
     var trh = document.createElement("tr");
+    var thSelect = document.createElement("th");
+    thSelect.className = "data-admin-table__col-select";
+    var selectAllCb = document.createElement("input");
+    selectAllCb.type = "checkbox";
+    selectAllCb.className = "data-admin-select-all";
+    selectAllCb.title = "Select all visible rows in this table (up to 500)";
+    selectAllCb.setAttribute("aria-label", "Select all visible rows");
+    thSelect.appendChild(selectAllCb);
+    trh.appendChild(thSelect);
     var thEdit = document.createElement("th");
     thEdit.className = "data-admin-table__col-edit";
     thEdit.textContent = "Edit";
     trh.appendChild(thEdit);
     for (var c = 0; c < columns.length; c++) {
-      var th = document.createElement("th");
-      th.textContent = columns[c];
-      trh.appendChild(th);
+      (function (colName) {
+        var th = document.createElement("th");
+        th.className = "data-admin-th-sortable";
+
+        var uniquesForCol = uniqueColumnValues(baseEntries, colName);
+        var hasActiveFilter =
+          tableState.filters[colName] != null &&
+          tableState.filters[colName].length > 0 &&
+          tableState.filters[colName].length < uniquesForCol.length;
+        if (hasActiveFilter) th.classList.add("data-admin-th--filtered");
+
+        var inner = document.createElement("div");
+        inner.className = "data-admin-th-inner";
+
+        var sortBtn = document.createElement("button");
+        sortBtn.type = "button";
+        sortBtn.className = "data-admin-th-sort-btn";
+        sortBtn.title = "Sort column (click: ascending, descending, then default order)";
+        var sortText = document.createElement("span");
+        sortText.className = "data-admin-th-text";
+        sortText.textContent = colName;
+        var sortInd = document.createElement("span");
+        sortInd.className = "data-admin-th-sort-ind";
+        if (tableState.sortCol === colName) {
+          sortInd.textContent = tableState.sortDir >= 0 ? " ▲" : " ▼";
+          th.classList.add("data-admin-th--sorted");
+        } else {
+          sortInd.textContent = "";
+        }
+        sortBtn.appendChild(sortText);
+        sortBtn.appendChild(sortInd);
+        sortBtn.addEventListener("click", function () {
+          if (tableState.sortCol !== colName) {
+            tableState.sortCol = colName;
+            tableState.sortDir = 1;
+          } else if (tableState.sortDir === 1) {
+            tableState.sortDir = -1;
+          } else {
+            tableState.sortCol = null;
+            tableState.sortDir = 1;
+          }
+          refreshSection();
+        });
+
+        var filterBtn = document.createElement("button");
+        filterBtn.type = "button";
+        filterBtn.className = "data-admin-th-filter-btn";
+        filterBtn.innerHTML = "&#9660;";
+        filterBtn.title = "Filter this column";
+        filterBtn.setAttribute("aria-label", "Filter " + colName);
+        filterBtn.addEventListener("click", function (ev) {
+          ev.stopPropagation();
+          openColumnFilterPanel(colName, baseEntries, tableState, refreshSection, filterBtn);
+        });
+
+        inner.appendChild(sortBtn);
+        inner.appendChild(filterBtn);
+        th.appendChild(inner);
+        trh.appendChild(th);
+      })(columns[c]);
     }
     var thDel = document.createElement("th");
     thDel.className = "data-admin-table__col-delete";
@@ -1592,10 +1886,69 @@
     table.appendChild(thead);
 
     var tbody = document.createElement("tbody");
-    var maxRows = Math.min(objectEntries.length, 500);
+    var maxRows = Math.min(viewEntries.length, 500);
+
+    function syncBulkBar() {
+      var rowCbs = tbody.querySelectorAll("input.data-admin-row-select");
+      var n = rowCbs.length;
+      var checked = 0;
+      for (var si = 0; si < n; si++) {
+        if (rowCbs[si].checked) checked++;
+      }
+      if (n === 0) {
+        selectAllCb.checked = false;
+        selectAllCb.indeterminate = false;
+      } else if (checked === 0) {
+        selectAllCb.checked = false;
+        selectAllCb.indeterminate = false;
+      } else if (checked === n) {
+        selectAllCb.checked = true;
+        selectAllCb.indeterminate = false;
+      } else {
+        selectAllCb.checked = false;
+        selectAllCb.indeterminate = true;
+      }
+      bulkDel.disabled = checked === 0;
+      bulkCount.textContent = checked ? checked + " selected" : "";
+    }
+
+    var bulkBar = document.createElement("div");
+    bulkBar.className = "data-admin-bulk-bar";
+    var bulkDel = document.createElement("button");
+    bulkDel.type = "button";
+    bulkDel.className = "btn site-button data-admin-bulk-delete-btn";
+    bulkDel.textContent = "Delete selected";
+    bulkDel.disabled = true;
+    bulkDel.title = "Delete all rows that are checked in this table";
+    var bulkCount = document.createElement("span");
+    bulkCount.className = "data-admin-bulk-count";
+    bulkCount.setAttribute("aria-live", "polite");
+    var bulkClear = document.createElement("button");
+    bulkClear.type = "button";
+    bulkClear.className = "btn site-button data-admin-bulk-clear-btn";
+    bulkClear.textContent = "Clear selection";
+    bulkClear.title = "Uncheck all rows in this table";
+    bulkBar.appendChild(bulkDel);
+    bulkBar.appendChild(bulkCount);
+    bulkBar.appendChild(bulkClear);
+    parent.appendChild(bulkBar);
+
     for (var r = 0; r < maxRows; r++) {
       var tr = document.createElement("tr");
-      var entry = objectEntries[r];
+      var entry = viewEntries[r];
+      var tdSel = document.createElement("td");
+      tdSel.className = "data-admin-table__col-select";
+      var rowCb = document.createElement("input");
+      rowCb.type = "checkbox";
+      rowCb.className = "data-admin-row-select";
+      rowCb.dataset.mmhpRowIndex = String(entry.idx);
+      rowCb.setAttribute(
+        "aria-label",
+        "Select row " + (entry.obj && entry.obj.id != null ? String(entry.obj.id) : "index " + entry.idx)
+      );
+      rowCb.addEventListener("change", syncBulkBar);
+      tdSel.appendChild(rowCb);
+      tr.appendChild(tdSel);
       var tdBtn = document.createElement("td");
       tdBtn.className = "data-admin-table__col-edit";
       var editBtn = document.createElement("button");
@@ -1646,16 +1999,96 @@
 
       tbody.appendChild(tr);
     }
+    if (maxRows === 0 && baseEntries.length > 0) {
+      var trEmpty = document.createElement("tr");
+      var tdEmpty = document.createElement("td");
+      tdEmpty.colSpan = columns.length + 3;
+      tdEmpty.className = "data-admin-table-empty-filtered";
+      tdEmpty.textContent =
+        "No rows match the current filters. Open a column’s ▼ menu, adjust checkboxes, and click Apply—or Select all.";
+      trEmpty.appendChild(tdEmpty);
+      tbody.appendChild(trEmpty);
+    }
     table.appendChild(tbody);
     wrap.appendChild(table);
+
+    selectAllCb.addEventListener("change", function () {
+      var rowCbs = tbody.querySelectorAll("input.data-admin-row-select");
+      var want = !!selectAllCb.checked;
+      for (var ai = 0; ai < rowCbs.length; ai++) rowCbs[ai].checked = want;
+      selectAllCb.indeterminate = false;
+      syncBulkBar();
+    });
+
+    bulkClear.addEventListener("click", function () {
+      var rowCbs = tbody.querySelectorAll("input.data-admin-row-select");
+      for (var ci = 0; ci < rowCbs.length; ci++) rowCbs[ci].checked = false;
+      selectAllCb.checked = false;
+      selectAllCb.indeterminate = false;
+      syncBulkBar();
+    });
+
+    bulkDel.addEventListener("click", function () {
+      var rowCbs = tbody.querySelectorAll("input.data-admin-row-select:checked");
+      if (rowCbs.length === 0) return;
+      var indices = [];
+      for (var di = 0; di < rowCbs.length; di++) {
+        var ix = parseInt(rowCbs[di].dataset.mmhpRowIndex, 10);
+        if (!isNaN(ix)) indices.push(ix);
+      }
+      indices.sort(function (a, b) {
+        return b - a;
+      });
+      var uniq = [];
+      for (var ui = 0; ui < indices.length; ui++) {
+        if (ui === 0 || indices[ui] !== indices[ui - 1]) uniq.push(indices[ui]);
+      }
+      var msg =
+        "Remove " +
+        uniq.length +
+        ' row(s) from "' +
+        collectionKey +
+        '"? This cannot be undone except by refreshing without saving.';
+      if (!window.confirm(msg)) return;
+      for (var ri = 0; ri < uniq.length; ri++) {
+        masterData[collectionKey].splice(uniq[ri], 1);
+      }
+      setDataAdminUnsaved(true);
+      refreshSection();
+      setStatus(
+        "Removed " +
+          uniq.length +
+          " row(s) from " +
+          collectionKey +
+          ". Export CSV or save master JSON; refresh page to reload from disk.",
+        false
+      );
+    });
+
+    syncBulkBar();
+
     parent.appendChild(wrap);
 
-    if (objectEntries.length > maxRows) {
+    if (viewEntries.length > maxRows) {
       var note = document.createElement("p");
       note.className = "data-admin-section-meta";
       note.textContent =
-        "Showing first " + maxRows + " of " + objectEntries.length + " rows. Export CSV includes all rows.";
+        "Showing first " +
+        maxRows +
+        " of " +
+        viewEntries.length +
+        " row(s) in this view. Export CSV includes all rows in the collection (not filtered).";
       parent.appendChild(note);
+    } else if (viewEntries.length < baseEntries.length) {
+      var noteF = document.createElement("p");
+      noteF.className = "data-admin-section-meta";
+      noteF.textContent =
+        "Filtered view: " +
+        viewEntries.length +
+        " of " +
+        baseEntries.length +
+        " row(s). Clear column filters to see all rows in this section.";
+      parent.appendChild(noteF);
     }
   }
 
@@ -1717,16 +2150,31 @@
         return;
       }
 
-      var columns = orderDataAdminTableColumns(
-        key,
-        collectColumns(objectEntries.map(function (e) { return e.obj; }))
+      var tableState = getOrInitTableState(section);
+      var columns = filterDisplayColumnsForBrowse(
+        orderDataAdminTableColumns(
+          key,
+          collectColumns(objectEntries.map(function (e) { return e.obj; }))
+        )
       );
+      pruneTableStateForColumns(tableState, columns);
+      var viewEntries = applyTableViewState(objectEntries, columns, tableState);
 
       function refreshSection() {
         renderSection(section, key, masterData[key]);
       }
 
-      renderTable(body, columns, objectEntries, key, masterData, setStatus, refreshSection);
+      renderTable(
+        body,
+        columns,
+        viewEntries,
+        objectEntries,
+        key,
+        masterData,
+        setStatus,
+        refreshSection,
+        tableState
+      );
     }
 
     function refreshSectionByKey(collectionKey) {
@@ -1753,7 +2201,9 @@
         masterData = data;
         setDataAdminUnsaved(false);
         root.textContent = "";
-        setStatus("Load complete. Use Save changes to master JSON (under the header) to write to disk, or export CSV per table.");
+        setStatus(
+          "Message center: Load complete. Use Save changes to master JSON (under the header) to write to disk, or export CSV per table."
+        );
 
         refreshMasterJsonPathHintElements();
 

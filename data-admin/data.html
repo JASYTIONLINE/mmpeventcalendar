@@ -9,7 +9,8 @@
   <link rel="stylesheet" href="../assets/css/data-admin.css">
 </head>
 
-<body id="top" class="page-data-admin" data-mmhp-master-json="../assets/data/json/mmhp-master-data.json"
+<body id="top" class="page-data-admin"
+  data-mmhp-master-json="../assets/data/json/mmhp-master-data.json"
   data-mmhp-master-rel-path="mmpeventcalendar\assets\data\json\mmhp-master-data.json">
   <div id="data-admin-denied" class="data-admin-gate-denied">
     <p id="data-admin-denied-msg" class="data-admin-gate-denied-msg">Checking access…</p>
@@ -23,7 +24,7 @@
       <header class="site-header">
         <h1 class="site-header-title">Master data</h1>
         <p class="site-header-subtitle">Edit, delete, export by collection (password required)</p>
-        <div class="data-admin-header-save" aria-label="Save master JSON">
+        <nav class="data-admin-header-save" aria-label="Primary admin actions">
           <button type="button" class="btn site-button data-admin-add-event-btn" id="mmhp-add-event-btn">
             Add event
           </button>
@@ -38,22 +39,68 @@
           <button type="button" class="btn site-button data-admin-save-json-btn" id="mmhp-save-master-json">
             Save changes to the Master Data File…
           </button>
-        </div>
+        </nav>
       </header>
 
-      <p class="data-admin-banner">
-        <strong>This page is the only web-based editor</strong> for master data (password + optional corner Admin link on the public home page). It is <strong>not available on phones or tablets</strong> — those devices are sent to the home page; use a desktop or laptop browser.
-        Bookmark <code>data-admin/data.html</code> — <code>browse.html</code> redirects here.
-        Source: <code>assets/data/json/mmhp-master-data.json</code>. Up to 500 rows per table on screen; export includes all rows.
-        Use <strong>Save changes to master JSON</strong> after edits, or <strong>Export … to CSV</strong> per collection.
-        <strong>Google Calendar:</strong> use <strong>Export for Google Calendar</strong> (not the events table export) — import that file under Calendar settings.
-        <strong>Events:</strong> Card line 2 on the public site is the <strong>activity name</strong> from your Activity choice (it is not stored on the event). <strong>Listing title</strong> (<code>eventName</code>) is filled automatically from event title + activity when you Apply.
-        <strong>Note:</strong> Treat <strong>every field in the form as required</strong> before Apply. Only use options that explicitly allow empty values (for example, <strong>No end time</strong> on events).
-        If you edited or deleted rows and try to close the tab or leave this page without using <strong>Save changes to the Master Data File</strong>, your browser will warn you that unsaved changes may be lost.
-      </p>
+      <div class="data-admin-browse-status-block" role="region" aria-label="Message center">
+        <p id="data-admin-browse-status-label" class="data-admin-browse-status-desc">
+          <strong>Message center.</strong> The line below updates after what you just did—whether the file loaded, a save
+          or export worked, or something needs your attention.
+        </p>
+        <p id="data-admin-browse-status" class="data-admin-status" role="status" aria-live="polite"></p>
+      </div>
 
-      <p id="data-admin-browse-status" class="data-admin-status" role="status" aria-live="polite"></p>
-      <div id="data-admin-browse-root"></div>
+      <div class="data-admin-browse-frame" aria-label="Editable data tables" tabindex="-1">
+        <div id="data-admin-browse-root"></div>
+      </div>
+
+      <section class="data-admin-banner" aria-label="How to use this page">
+        <p class="data-admin-banner-lead">
+          <strong>This page is the only web-based editor</strong> for master data (password plus the optional Admin link on the public home page).
+        </p>
+
+        <div class="data-admin-help-block">
+          <h3 class="data-admin-help-heading">Desktop only</h3>
+          <p>
+            It is <strong>not available on phones or tablets</strong>; those devices are redirected to the home page. Use a desktop or laptop browser. Bookmark <code>data-admin/data.html</code> (<code>browse.html</code> redirects here).
+          </p>
+        </div>
+
+        <div class="data-admin-help-block">
+          <h3 class="data-admin-help-heading">Source file and on-screen limits</h3>
+          <p>
+            Source file: <code>assets/data/json/mmhp-master-data.json</code>. Tables show up to <strong>500 rows</strong> on screen; exports include <strong>all</strong> rows. After edits, use per-collection <strong>Export … to CSV</strong> when you need a spreadsheet slice.
+          </p>
+        </div>
+
+        <div class="data-admin-help-block">
+          <h3 class="data-admin-help-heading">Saving your work</h3>
+          <p>
+            Use <strong>Save changes to the Master Data File…</strong> to write the full JSON back through your browser’s save dialog. If you close or leave the tab without saving, your browser should warn you that unsaved changes may be lost.
+          </p>
+        </div>
+
+        <div class="data-admin-help-block">
+          <h3 class="data-admin-help-heading">Google Calendar</h3>
+          <p>
+            Use the toolbar button <strong>Export for Google Calendar</strong> (not the events table’s CSV export). Import that file from Google Calendar settings.
+          </p>
+        </div>
+
+        <div class="data-admin-help-block">
+          <h3 class="data-admin-help-heading">Events and forms</h3>
+          <p>
+            On the public site, <strong>card line 2</strong> comes from the <strong>activity name</strong> tied to your Activity choice; it is not stored as a separate field on the event. <strong>Listing title</strong> (<code>eventName</code>) is filled automatically from the event title plus activity when you Apply. Treat <strong>every field as required</strong> unless the form explicitly allows empty values (for example <strong>No end time</strong> on events).
+          </p>
+        </div>
+
+        <div class="data-admin-help-block">
+          <h3 class="data-admin-help-heading">Tables (sort and filter)</h3>
+          <p>
+            All tables live in the <strong>bordered box</strong> between the message center and this help section: use the box’s <strong>right-hand scrollbar</strong> to move through long data while the page header and message center stay above that area. Use the leading <strong>checkbox</strong> on each row (or the header checkbox to select all <strong>visible</strong> rows, up to 500) and <strong>Delete selected</strong> to remove several rows at once. Click a <strong>column title</strong> to sort: ascending, then descending, then back to the default order. Click the <strong>▼</strong> button on a column to open a filter checklist (similar to Excel). <strong>Export CSV</strong> still exports the full collection, not the filtered on-screen view.
+          </p>
+        </div>
+      </section>
 
       <div id="mmhp-save-confirm-modal" class="data-admin-modal" hidden role="dialog" aria-modal="true"
         aria-labelledby="mmhp-save-confirm-title">

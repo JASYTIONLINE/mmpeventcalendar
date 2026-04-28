@@ -8,7 +8,7 @@ The project is **not** an official park management system. Operational questions
 
 ## Contents
 
-- [Repository layout](#repository-layout)
+- [Repository layout](#repository-layout) (includes [activity flyer pages](#activity-flyer-pages))
 - [Structure, UI, and presentation](#structure-ui-and-presentation)
 - [Pages and content types](#pages-and-content-types)
 - [Client-side JavaScript](#client-side-javascript)
@@ -20,20 +20,69 @@ The project is **not** an official park management system. Operational questions
 
 ## Repository layout
 
-The table below summarizes how the repository is organized. Together, these paths illustrate a **separation of concerns**: public pages, shared assets, machine-readable data, and offline tooling live in distinct trees.
+The site is a **static** tree: HTML at the repo root and under **contents/**, shared **assets/** (CSS, JS, data, images, docs), and **scripts/** for offline maintenance only.
+
+### Directory tree (compact)
+
+```
+mmpeventcalendar/
+├── index.html                    # home (three-column layout, calendar embed)
+├── contents/
+│   ├── learn-more.html           # operational pages (same shell as home)
+│   ├── submit.html
+│   ├── contact.html
+│   ├── request-activity.html
+│   ├── activity-flyer/           # recurring-activity pages + template-recurring-activity.html
+│   └── feature-events/           # dated one-off landings + yyyy-mm-dd-… template
+├── assets/
+│   ├── css/style.css             # single global stylesheet
+│   ├── js/                       # sidebar, forms, ICS helper, coordinator config
+│   ├── data/
+│   │   ├── json/mmhp-master-data.json
+│   │   └── csv/                  # featured-events.csv, calendar import/export CSVs, export/
+│   ├── images/                   # banners; event-flyer/; activity-flyer/
+│   └── docs/                     # capstone proposal PDF + text extract
+└── scripts/                      # Node (.mjs) + Python; not loaded by the browser
+```
+
+### Path depth and linking
+
+| Where the HTML file lives | Typical asset prefix | Notes |
+|---------------------------|----------------------|--------|
+| Repo root (`index.html`) | `assets/...` | Links into **contents/** use the `contents/...` prefix. |
+| [contents/](contents/) (e.g. learn-more, submit) | `../assets/...` | Sibling pages in **contents/** use bare filenames (e.g. `contact.html`). |
+| [contents/activity-flyer/](contents/activity-flyer/) | `../../assets/...` | Links to other **contents/** pages use `../` (e.g. `../learn-more.html`). **activities-sidebar.js** adjusts featured-event and nav targets for this extra directory level. |
+| [contents/feature-events/](contents/feature-events/) | `../../assets/...` | Same depth as activity-flyer; paths mirror conventions used on those pages. |
+
+### Folders in brief
 
 | Path | Role |
 |------|------|
-| [index.html](index.html) | **Home:** shared chrome, embedded Google Calendar, featured-event regions, and a **three-column layout** that partitions recurring items, the main calendar, and short-horizon highlights. |
-| [contents/](contents/) | **Inner pages** (learn-more, submit, contact, request-activity, and related entry points). |
-| [contents/feature-events/](contents/feature-events/) | **Dated, one-off** featured-event landings (flyer-style layout; optional ICS and ticketing-style flows); includes a bookme-style template and generated **YYYY-MM-DD-HHmm-** HTML pages. |
-| [contents/activity-flyer/](contents/activity-flyer/) | **Recurring-activity** informational templates that **reuse the same site shell** as other pages—supporting clarity that this material describes a *typical* week pattern, not a single calendar night. |
-| [assets/css/style.css](assets/css/style.css) | **One consolidated stylesheet:** design tokens, layout, reusable components, and page-scoped overrides. |
-| [assets/js/](assets/js/) | **Behavior:** sidebar rendering, forms, coordinator configuration, ICS helper for feature pages. |
-| [assets/data/json/](assets/data/json/) | **Master JSON** consumed in the browser (see [mmhp-master-data.json](assets/data/json/mmhp-master-data.json)). |
-| [assets/data/csv/](assets/data/csv/) | **Tabular sources and exports** (featured rows, calendar-oriented CSVs). |
-| [assets/images/](assets/images/) | **Brand and content imagery:** park banner, event-flyer art, activity-flyer art, favicon, and related assets. |
-| [scripts/](scripts/) | **Offline utilities** (Node and Python): CSV-to-JSON merges, syllabus-related helpers, calendar CSV tooling. |
+| [index.html](index.html) | **Home:** shared chrome, embedded Google Calendar, featured regions, **three-column** layout (recurring sidebar, calendar column, short-horizon highlights). |
+| [contents/](contents/) | **Operational** HTML plus **activity-flyer/** and **feature-events/** subtrees (see tree above). |
+| [contents/feature-events/](contents/feature-events/) | **Dated, one-off** featured-event landings (flyer-style layout; optional ICS and coordinator flows); bookme-style template and generated **YYYY-MM-DD-HHmm-** pages. |
+| [contents/activity-flyer/](contents/activity-flyer/) | **Recurring-activity** explainers (typical week pattern, not one night); optional **data-mmhp-activity-id** ties copy to **activities[]** in master JSON. Individual pages are linked below. |
+| [assets/css/style.css](assets/css/style.css) | **One stylesheet:** tokens, layout, components, page-scoped overrides (**page-home**, **page-activity-flyer**, etc.). |
+| [assets/js/](assets/js/) | **Client behavior:** master JSON load, sidebar and cards, event and activity request forms, feature-event ICS, coordinator mailto hooks. |
+| [assets/data/json/](assets/data/json/) | **mmhp-master-data.json** — browser-facing aggregate for sidebar and forms. |
+| [assets/data/csv/](assets/data/csv/) | **featured-events.csv** (editorial/build input), Google Calendar–oriented CSVs, **export/** (optional local exports; generated `*.csv` under **export/** may be gitignored—folder kept via [.gitkeep](assets/data/csv/export/.gitkeep)). |
+| [assets/images/](assets/images/) | Park banner, **event-flyer/**, **activity-flyer/**, favicon, misc art. |
+| [assets/docs/](assets/docs/) | Capstone proposal artifacts (PDF + `.txt` extract). |
+| [scripts/](scripts/) | **build-features-from-csv.mjs**, **build-feature-event-pages.mjs**, **csv-to-syllabus-json.mjs**; Python helpers for recurring expansion and Google Calendar CSV export—run locally, not at runtime. |
+
+### Activity flyer pages
+
+Source HTML for recurring-activity landings (same path depth as the folder link in the table above):
+
+- [arts-and-crafts.html](contents/activity-flyer/arts-and-crafts.html)
+- [bible-study.html](contents/activity-flyer/bible-study.html)
+- [book-club.html](contents/activity-flyer/book-club.html)
+- [card-games.html](contents/activity-flyer/card-games.html)
+- [kitchen-inventory.html](contents/activity-flyer/kitchen-inventory.html)
+- [martial-arts-training.html](contents/activity-flyer/martial-arts-training.html)
+- [pool-8-ball.html](contents/activity-flyer/pool-8-ball.html)
+- [vespers.html](contents/activity-flyer/vespers.html)
+- [template-recurring-activity.html](contents/activity-flyer/template-recurring-activity.html) — copy for new flyers
 
 ---
 
@@ -69,7 +118,7 @@ HTML under **contents/feature-events/** often includes **embedded** CSS for flye
 
 ## Pages and content types
 
-- **Home** — Header copy, full-width park-banner hero, main navigation, **left** rail (recurring schedule and CSV tools on pages that include them), **center** column (iframe calendar plus home featured section), **right** rail (week spotlight / featured cards where enabled). The **spatial split** is a deliberate **information-architecture** choice: recurring rhythm vs. embedded calendar vs. promotional cards.
+- **Home** — Header copy, full-width park-banner hero, main navigation, **left** rail (recurring schedule from master JSON), **center** column (iframe calendar plus home featured section), **right** rail (week spotlight / featured cards where enabled). The **spatial split** is a deliberate **information-architecture** choice: recurring rhythm vs. embedded calendar vs. promotional cards.
 
 - **Operational pages** — **learn-more**, **submit**, **contact**, **request-activity** reuse the multi-column shell, the **data-mmhp-master-json** hook, and shared footer and navigation patterns with path-adjusted asset URLs. Users therefore **do not** relearn navigation when they move from reading to submitting.
 

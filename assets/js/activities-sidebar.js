@@ -13,7 +13,7 @@
 
   /** Activity id → flyer file under contents/activity-flyer/ (see repo for HTML names). */
   var ACTIVITY_FLYER_FILENAMES = {
-    ac0003: "card-games.html",
+    ac0003: "bingo.html",
     ac0004: "pool-8-ball.html",
     ac0006: "arts-and-crafts.html",
     ac0008: "book-club.html",
@@ -535,6 +535,7 @@
    */
   function mergeRecurrenceFromActivity(buckets, act) {
     if (!isRecurringActivity(act)) return;
+    if (act.active === false) return;
     var name = (act.activityName || "").trim();
     if (!name || /^unknown$/i.test(name)) return;
 
@@ -637,7 +638,7 @@
       if (slots.length === 0) {
         var placeholder = document.createElement("li");
         placeholder.className = "sidebar-schedule-line sidebar-schedule-line--empty";
-        placeholder.textContent = "—";
+        placeholder.textContent = "No scheduled events";
         sub.appendChild(placeholder);
       } else {
         for (var s = 0; s < slots.length; s++) {

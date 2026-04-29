@@ -1133,6 +1133,33 @@
   .site-footer-nav-btn {
     flex-shrink: 0;
   }
+
+  .secret-calendar-link {
+    position: fixed;
+    left: 0.65rem;
+    bottom: 0.65rem;
+    z-index: 300;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    line-height: 1;
+    text-decoration: none;
+    opacity: 0;
+  }
+
+  .secret-calendar-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .secret-calendar-link:hover,
+  .secret-calendar-link:focus-visible {
+    filter: drop-shadow(0 2px 8px var(--color-shadow));
+    outline: none;
+  }
   
   .site-footer-proposal {
     margin: 1rem 0 0;

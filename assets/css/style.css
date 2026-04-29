@@ -1615,25 +1615,59 @@
     box-sizing: border-box;
   }
 
-  /* Featured under calendar: 4 columns on wide desktop → 2 → 1 on narrow / mobile */
+  body.page-home .page-home-featured-stepper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem 5rem;
+    margin: 0 0 0.65rem;
+  }
+
+  body.page-home .page-home-featured-stepper-group {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  body.page-home .page-home-featured-stepper-label {
+    min-width: min(100%, 12rem);
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-white);
+    color: var(--color-driftwood-dark);
+    font-weight: 800;
+    text-align: center;
+  }
+
+  body.page-home .page-home-featured-year-label {
+    min-width: 5rem;
+  }
+
+  body.page-home .page-home-featured-stepper-btn {
+    width: 2.4rem;
+    min-width: 2.4rem;
+    padding: 0.35rem 0;
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  body.page-home .page-home-featured-stepper-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  /* Featured under calendar: fill each row with as many square cards as fit */
   body.page-home .page-home-featured .featured-events-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19.2rem), 1fr));
     gap: 0.65rem;
     max-width: 100%;
+    overflow: visible;
     align-items: start;
-  }
-
-  @media (max-width: 991px) {
-    body.page-home .page-home-featured .featured-events-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media (max-width: 600px) {
-    body.page-home .page-home-featured .featured-events-grid {
-      grid-template-columns: 1fr;
-    }
   }
 
   body.page-home .page-home-featured .featured-card {
@@ -1641,12 +1675,35 @@
     min-width: 0;
   }
 
+  body.page-home .page-home-featured .featured-card-link {
+    display: flex;
+    flex-direction: column;
+  }
+
   body.page-home .page-home-featured .featured-card-image {
     width: 100%;
     max-width: 100%;
+    aspect-ratio: 1 / 1;
     height: auto;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
+  }
+
+  body.page-home .page-home-featured .featured-card-caption {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  body.page-home .page-home-featured .featured-card-line--name {
+    font-size: clamp(1.5rem, 4.2vw, 1.9rem);
+  }
+
+  body.page-home .page-home-featured .featured-card-line--detail {
+    font-size: clamp(1.36rem, 3.7vw, 1.7rem);
+  }
+
+  body.page-home .page-home-featured .featured-card-line--date {
+    font-size: clamp(1.3rem, 3.4vw, 1.6rem);
   }
 
   /* ================================================

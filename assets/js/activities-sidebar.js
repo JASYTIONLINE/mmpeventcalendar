@@ -406,7 +406,7 @@
     };
   }
 
-  function buildEnrichedFeatured(data) {
+  function buildEnrichedFeatured(data, includePast) {
     var features = (data.features || []).filter(function (ev) {
       if (ev.isActive === false) return false;
       return isFeaturedEvent(ev);
@@ -417,7 +417,7 @@
     for (var i = 0; i < features.length; i++) {
       var ev = features[i];
       var dt = parseISODateLocal(ev.date);
-      if (!dt || dt < today) continue;
+      if (!dt || (!includePast && dt < today)) continue;
       enriched.push({
         ev: ev,
         dt: dt,
@@ -490,15 +490,187 @@
     }
   }
 
-  function fitHomeFeaturedCards(data, grid, jsonUrl) {
+  function monthKey(dt) {
+    return dt.getFullYear() + "-" + String(dt.getMonth() + 1).padStart(2, "0");
+  }
+
+  function monthLabel(dt) {
+    return dt.toLocaleDateString("en-US", { month: "long" });
+  }
+
+  function groupFeaturedByMonth(enriched) {
+    var groups = [];
+    var byKey = {};
+    for (var i = 0; i < enriched.length; i++) {
+      var item = enriched[i];
+      var key = monthKey(item.dt);
+      if (!byKey[key]) {
+        byKey[key] = {
+          key: key,
+          label: monthLabel(item.dt),
+          imageOffset: i,
+          items: [],
+        };
+        groups.push(byKey[key]);
+      }
+      byKey[key].items.push(item);
+    }
+    return groups;
+  }
+
+  function ensureHomeFeaturedStepper(grid) {
+    var section = grid.closest ? grid.closest(".page-home-featured") : null;
+    if (!section) return null;
+    var controls = section.querySelector(".page-home-featured-stepper");
+    if (!controls) {
+      controls = document.createElement("div");
+      controls.className = "page-home-featured-stepper";
+
+      var monthGroup = document.createElement("div");
+      monthGroup.className = "page-home-featured-stepper-group page-home-featured-stepper-group--month";
+
+      var monthPrev = document.createElement("button");
+      monthPrev.type = "button";
+      monthPrev.className = "btn site-button page-home-featured-stepper-btn page-home-featured-month-prev";
+      monthPrev.setAttribute("aria-label", "Previous featured-event month");
+      monthPrev.textContent = "↑";
+
+      var monthLabel = document.createElement("div");
+      monthLabel.className = "page-home-featured-stepper-label page-home-featured-month-label";
+      monthLabel.setAttribute("aria-live", "polite");
+
+      var monthNext = document.createElement("button");
+      monthNext.type = "button";
+      monthNext.className = "btn site-button page-home-featured-stepper-btn page-home-featured-month-next";
+      monthNext.setAttribute("aria-label", "Next featured-event month");
+      monthNext.textContent = "↓";
+
+      monthGroup.appendChild(monthPrev);
+      monthGroup.appendChild(monthLabel);
+      monthGroup.appendChild(monthNext);
+
+      var yearGroup = document.createElement("div");
+      yearGroup.className = "page-home-featured-stepper-group page-home-featured-stepper-group--year";
+
+      var yearPrev = document.createElement("button");
+      yearPrev.type = "button";
+      yearPrev.className = "btn site-button page-home-featured-stepper-btn page-home-featured-year-prev";
+      yearPrev.setAttribute("aria-label", "Previous featured-event year");
+      yearPrev.textContent = "↑";
+
+      var yearLabel = document.createElement("div");
+      yearLabel.className = "page-home-featured-stepper-label page-home-featured-year-label";
+      yearLabel.setAttribute("aria-live", "polite");
+
+      var yearNext = document.createElement("button");
+      yearNext.type = "button";
+      yearNext.className = "btn site-button page-home-featured-stepper-btn page-home-featured-year-next";
+      yearNext.setAttribute("aria-label", "Next featured-event year");
+      yearNext.textContent = "↓";
+
+      yearGroup.appendChild(yearPrev);
+      yearGroup.appendChild(yearLabel);
+      yearGroup.appendChild(yearNext);
+
+      controls.appendChild(monthGroup);
+      controls.appendChild(yearGroup);
+      section.insertBefore(controls, grid);
+    }
+    return {
+      host: controls,
+      monthPrev: controls.querySelector(".page-home-featured-month-prev"),
+      monthLabel: controls.querySelector(".page-home-featured-month-label"),
+      monthNext: controls.querySelector(".page-home-featured-month-next"),
+      yearPrev: controls.querySelector(".page-home-featured-year-prev"),
+      yearLabel: controls.querySelector(".page-home-featured-year-label"),
+      yearNext: controls.querySelector(".page-home-featured-year-next"),
+    };
+  }
+
+  function renderHomeFeaturedMonth(data, grid, jsonUrl) {
     if (!grid) return;
     var main = document.querySelector("body.page-home .site-main");
     if (main) main.style.height = "";
 
-    var enriched = buildEnrichedFeatured(data);
-    var maxN = enriched.length;
-    var capN = Math.min(maxN, 24);
-    renderFeaturedFromEnriched(enriched.slice(0, capN), grid, jsonUrl, 0);
+    var currentYear = startOfTodayLocal().getFullYear();
+    var enriched = buildEnrichedFeatured(data, true);
+    var groups = groupFeaturedByMonth(enriched).filter(function (group) {
+      return group.items[0] && group.items[0].dt.getFullYear() >= currentYear;
+    });
+    var controls = ensureHomeFeaturedStepper(grid);
+
+    if (!groups.length) {
+      if (controls) controls.host.hidden = true;
+      renderFeaturedFromEnriched([], grid, jsonUrl, 0);
+      return;
+    }
+
+    if (controls) controls.host.hidden = false;
+
+    var state = grid._mmhpHomeFeaturedState || { index: 0, key: "" };
+    if (state.key) {
+      for (var g = 0; g < groups.length; g++) {
+        if (groups[g].key === state.key) {
+          state.index = g;
+          break;
+        }
+      }
+    }
+    state.index = Math.max(0, Math.min(state.index || 0, groups.length - 1));
+
+    function groupYear(index) {
+      return groups[index].items[0].dt.getFullYear();
+    }
+
+    function findGroupInYear(targetYear, preferredMonth) {
+      var fallback = -1;
+      for (var y = 0; y < groups.length; y++) {
+        var dt = groups[y].items[0].dt;
+        if (dt.getFullYear() !== targetYear) continue;
+        if (fallback < 0) fallback = y;
+        if (dt.getMonth() === preferredMonth) return y;
+      }
+      return fallback;
+    }
+
+    function renderAt(index) {
+      state.index = Math.max(0, Math.min(index, groups.length - 1));
+      var group = groups[state.index];
+      var year = groupYear(state.index);
+      state.key = group.key;
+      grid._mmhpHomeFeaturedState = state;
+      if (controls) {
+        controls.monthLabel.textContent = group.label;
+        controls.monthPrev.disabled = state.index === 0;
+        controls.monthNext.disabled = state.index === groups.length - 1;
+        controls.yearLabel.textContent = String(year);
+        controls.yearPrev.disabled = year <= currentYear || findGroupInYear(year - 1, group.items[0].dt.getMonth()) < 0;
+        controls.yearNext.disabled = findGroupInYear(year + 1, group.items[0].dt.getMonth()) < 0;
+      }
+      grid.setAttribute("aria-label", "Featured events for " + group.label);
+      renderFeaturedFromEnriched(group.items, grid, jsonUrl, group.imageOffset);
+    }
+
+    if (controls) {
+      controls.monthPrev.onclick = function () {
+        renderAt(state.index - 1);
+      };
+      controls.monthNext.onclick = function () {
+        renderAt(state.index + 1);
+      };
+      controls.yearPrev.onclick = function () {
+        var current = groups[state.index].items[0].dt;
+        var target = findGroupInYear(current.getFullYear() - 1, current.getMonth());
+        if (target >= 0 && current.getFullYear() - 1 >= currentYear) renderAt(target);
+      };
+      controls.yearNext.onclick = function () {
+        var current = groups[state.index].items[0].dt;
+        var target = findGroupInYear(current.getFullYear() + 1, current.getMonth());
+        if (target >= 0) renderAt(target);
+      };
+    }
+
+    renderAt(state.index);
   }
 
   function eventTitle(ev) {
@@ -847,7 +1019,7 @@
     var dataRef = null;
 
     function runHomeFit() {
-      if (homeFeaturedGrid && dataRef) fitHomeFeaturedCards(dataRef, homeFeaturedGrid, url);
+      if (homeFeaturedGrid && dataRef) renderHomeFeaturedMonth(dataRef, homeFeaturedGrid, url);
     }
 
     var debouncedHomeFit = debounce(runHomeFit, 180);

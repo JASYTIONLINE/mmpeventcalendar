@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encore Karaoke | McAllen Mobile Park Events</title>
+  <meta name="description" content="Encore Karaoke at McAllen Mobile Park: a relaxed evening of live, recorded, and karaoke music with custom music by JASYTI aka RDG KaraokeGut.">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .feature-events-page {
+      min-height: 100vh;
+      margin: 0;
+      background:
+        radial-gradient(ellipse 120% 80% at 50% -20%, rgba(135, 206, 235, 0.45), transparent 55%),
+        linear-gradient(180deg, var(--color-ocean-mist) 0%, var(--color-white) 28%, var(--color-sand) 120%);
+    }
+
+    .feature-events-banner {
+      position: relative;
+      overflow: hidden;
+      border-bottom: 4px solid var(--color-sand-dark);
+      box-shadow: 0 8px 32px var(--color-shadow);
+    }
+
+    .feature-events-banner img {
+      display: block;
+      width: 100%;
+      max-height: min(38vh, 320px);
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .feature-events-banner::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 45%;
+      background: linear-gradient(to top, rgba(47, 58, 64, 0.65), transparent);
+    }
+
+    .feature-events-banner-text,
+    .feature-events-main {
+      width: min(56rem, calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .feature-events-banner-text {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: clamp(1rem, 4vw, 2rem);
+      color: var(--color-white);
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+      z-index: 1;
+    }
+
+    .feature-events-banner-text h1 {
+      margin: 0 0 0.35rem;
+      color: var(--color-white);
+      text-align: left;
+    }
+
+    .feature-events-banner-text p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .feature-events-wave {
+      height: 14px;
+      background: repeating-linear-gradient(-45deg, var(--color-sand), var(--color-sand) 6px, var(--color-sand-dark) 6px, var(--color-sand-dark) 12px);
+      opacity: 0.85;
+    }
+
+    .feature-events-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: var(--space-lg) 1rem;
+    }
+
+    .feature-events-actions a,
+    .feature-events-actions button {
+      min-height: 3rem;
+      padding: 0.65rem 1.5rem;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      text-decoration: none;
+      font-family: var(--font-main);
+      cursor: pointer;
+    }
+
+    .feature-events-main {
+      padding-bottom: var(--space-xl);
+    }
+
+    .feature-events-title {
+      margin: 0 0 var(--space-md);
+      color: var(--color-driftwood-dark);
+      font-size: clamp(1.75rem, 4vw, 2.35rem);
+      text-align: left;
+    }
+
+    .feature-events-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1rem, 3vw, 1.75rem);
+    }
+
+    .feature-events-box {
+      padding: var(--space-md);
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 4px 24px var(--color-shadow);
+    }
+
+    .feature-events-feature-frame {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, var(--color-ocean-mist), var(--color-white));
+    }
+
+    .feature-events-feature-frame img {
+      width: 100%;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 8px 28px rgba(80, 120, 150, 0.18);
+    }
+
+    .feature-events-details h2,
+    .feature-events-story h2 {
+      margin-top: 0;
+      color: var(--color-driftwood-dark);
+      text-align: left;
+    }
+
+    .feature-events-ribbon,
+    .feature-events-directions {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.2rem;
+      margin: 0 0.4rem 0.75rem 0;
+      padding: 0.4rem 0.75rem;
+      border-radius: 4px;
+      color: var(--color-white);
+      background: linear-gradient(90deg, var(--color-driftwood-dark), var(--color-driftwood));
+      border: none;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .feature-events-when time {
+      display: block;
+      color: var(--color-driftwood-dark);
+      font-size: clamp(1.35rem, 3vw, 1.75rem);
+      font-weight: 800;
+    }
+
+    .feature-events-time-pill {
+      display: inline-flex;
+      margin-top: 0.65rem;
+      padding: 0.5rem 1rem;
+      background: var(--color-ocean-mist);
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .feature-events-loc {
+      padding-top: var(--space-sm);
+      border-top: 1px dashed var(--color-border);
+    }
+
+    .feature-events-story {
+      grid-column: 1 / -1;
+    }
+
+    .feature-events-about p {
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      line-height: 1.55;
+    }
+
+    .feature-events-footer {
+      padding: var(--space-xl) 1rem;
+      text-align: center;
+      border-top: 1px solid var(--color-border);
+      background: color-mix(in srgb, var(--color-ocean-mist) 40%, var(--color-white));
+    }
+
+    @media (max-width: 720px) {
+      .feature-events-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body id="top" class="feature-events-page"
+  data-mmhp-master-json="../../assets/data/json/mmhp-master-data.json"
+  data-mmhp-feature-id="fe0047">
+  <header class="feature-events-banner" aria-label="McAllen Mobile Park">
+    <img src="../../assets/images/park-banner.png" alt="McAllen Mobile Park">
+    <div class="feature-events-banner-text">
+      <h1>McAllen Mobile Park</h1>
+      <p>Community events in the RGV - we're glad you're here.</p>
+    </div>
+  </header>
+  <div class="feature-events-wave" aria-hidden="true"></div>
+
+  <nav class="feature-events-actions" aria-label="Featured event actions">
+    <a class="feature-events-back" href="../../index.html">Back to calendar</a>
+  </nav>
+
+  <main class="feature-events-main">
+    <h1 class="feature-events-title">Encore Karaoke - Special Musical Review</h1>
+
+    <div class="feature-events-grid">
+      <div class="feature-events-box feature-events-feature-frame">
+        <img src="../../assets/images/event-flyer/encore-karaoke.png" alt="Encore Karaoke flyer">
+      </div>
+
+      <div class="feature-events-box feature-events-details">
+        <h2>When &amp; where</h2>
+        <div class="feature-events-when">
+          <button type="button" class="feature-events-ribbon" id="feature-events-save-calendar"
+            aria-haspopup="dialog"
+            aria-controls="feature-events-ics-help-dialog"
+            aria-label="Save the date: open instructions to add this event to your calendar">
+            Save the date
+          </button>
+          <a class="feature-events-directions" href="https://maps.app.goo.gl/6st9THqUttarC7vUA" target="_blank" rel="noopener noreferrer">Get directions</a>
+          <time datetime="2026-04-29T19:00">Wednesday, April 29, 2026</time>
+          <p class="feature-events-time-pill" aria-label="Event time">7:00 PM - 10:00 PM - Hall A</p>
+          <p>Join neighbors for a relaxed evening in the hall. Friends and family are welcome.</p>
+        </div>
+        <p class="feature-events-loc">
+          <strong>Location</strong><br>
+          McAllen Mobile Park - Hall A<br>
+          4900 N Mc Coll Rd, McAllen, TX
+        </p>
+      </div>
+
+      <section class="feature-events-box feature-events-story" aria-labelledby="feature-event-story-heading">
+        <h2 id="feature-event-story-heading">About this featured event</h2>
+        <div class="feature-events-about">
+          <p>
+            Encore Karaoke is a night of experimentation with custom music by JASYTI, aka RDG KaraokeGut.
+            Expect a mixture of live, recorded, and karaoke music in a relaxed, informal setting.
+          </p>
+          <p>
+            This is just a chill evening listening to music, playing with technology, and seeing what we can create together.
+            Come join us and enjoy your evening with friends and family at McAllen Mobile Park.
+          </p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="feature-events-footer">
+    <address>
+      McAllen Mobile Park - 4900 N Mc Coll Rd - McAllen, TX 78504
+    </address>
+    <a href="../../index.html">Calendar home</a>
+    -
+    <a href="https://maps.app.goo.gl/sVCaEKHYQw5QcqK7A" target="_blank" rel="noopener noreferrer">Directions</a>
+    <a href="#top" class="site-footer-back-top" aria-label="Back to top of page">Back to top</a>
+  </footer>
+
+  <script src="../../assets/js/mmhp-coordinator-config.js"></script>
+  <script src="../../assets/js/feature-events-ics.js"></script>
+</body>
+
+</html>

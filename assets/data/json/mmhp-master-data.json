@@ -5779,6 +5779,22 @@
       "cardLine3": "Oct 31 2026",
       "eventName": "Karaoke — Karaoke",
       "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0047",
+      "id": "fe0047",
+      "date": "2026-04-29",
+      "startTime": "19:00",
+      "endTime": "22:00",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Encore Karaoke",
+      "cardLine2": "Special Musical Review",
+      "cardLine3": "Apr 29 2026",
+      "eventName": "Encore Karaoke — Special Musical Review",
+      "description": "Encore Karaoke with a special musical review.",
+      "imagePath": "event-flyer/encore-karaoke.png"
     }
   ],
   "committees": [

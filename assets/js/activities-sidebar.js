@@ -81,6 +81,226 @@
     return h12 + ":" + (min < 10 ? "0" : "") + min + ap;
   }
 
+  function formatExportDate(ymd) {
+    var dt = parseISODateLocal(ymd);
+    if (!dt) return String(ymd || "").trim();
+    return dt
+      .toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric", year: "numeric" })
+      .replace(/,/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function featuredEventExportName(ev) {
+    return String(ev.eventName || ev.title || ev.cardLine1 || ev.featureId || ev.id || "Featured event").trim();
+  }
+
+  function featuredEventExportLine(ev) {
+    var date = formatExportDate(ev.date);
+    var start = formatSlotTime(ev.startTime || "");
+    var end = formatSlotTime(ev.endTime || "");
+    var time = start && end ? start + " - " + end : start || end || "Time TBA";
+    return featuredEventExportName(ev) + " | " + date + " | " + time;
+  }
+
+  function sortedFeaturedEvents(data) {
+    var rows = (data.features || []).slice();
+    rows.sort(function (a, b) {
+      var da = parseISODateLocal(a.date);
+      var db = parseISODateLocal(b.date);
+      var ams = da ? da.getTime() : 0;
+      var bms = db ? db.getTime() : 0;
+      if (ams !== bms) return ams - bms;
+      return parseTimeToMinutes(a.startTime || "00:00") - parseTimeToMinutes(b.startTime || "00:00");
+    });
+    return rows;
+  }
+
+  function featuredEventsExportText(data) {
+    var rows = sortedFeaturedEvents(data);
+    var lines = ["McAllen Mobile Park Featured Events", "Event name | Date | Time", ""];
+    for (var i = 0; i < rows.length; i++) {
+      lines.push(featuredEventExportLine(rows[i]));
+    }
+    return lines.join("\r\n") + "\r\n";
+  }
+
+  function csvCell(value) {
+    var s = String(value == null ? "" : value);
+    if (/[",\r\n]/.test(s)) return '"' + s.replace(/"/g, '""') + '"';
+    return s;
+  }
+
+  function featuredEventsExportCsv(data) {
+    var rows = sortedFeaturedEvents(data);
+    var lines = [["Event Name", "Date", "Time"].map(csvCell).join(",")];
+    for (var i = 0; i < rows.length; i++) {
+      var ev = rows[i];
+      var start = formatSlotTime(ev.startTime || "");
+      var end = formatSlotTime(ev.endTime || "");
+      var time = start && end ? start + " - " + end : start || end || "Time TBA";
+      lines.push([featuredEventExportName(ev), formatExportDate(ev.date), time].map(csvCell).join(","));
+    }
+    return lines.join("\r\n") + "\r\n";
+  }
+
+  function downloadTextFile(filename, text, mimeType) {
+    var blob = new Blob([text], { type: mimeType || "text/plain;charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.setTimeout(function () {
+      URL.revokeObjectURL(url);
+    }, 0);
+  }
+
+  function ensureExportFormatDialog() {
+    var existing = document.getElementById("mmhp-export-format-dialog");
+    if (existing) return existing;
+
+    var dialog = document.createElement("dialog");
+    dialog.id = "mmhp-export-format-dialog";
+    dialog.className = "mmhp-export-format-dialog";
+    dialog.innerHTML =
+      '<div class="mmhp-export-format-panel">' +
+      '<h3 id="mmhp-export-format-title">Choose export format</h3>' +
+      '<p id="mmhp-export-format-desc">Download this export as a plain text file or a CSV for Excel and Google Sheets.</p>' +
+      '<div class="mmhp-export-format-actions">' +
+      '<button type="button" class="btn site-button" data-mmhp-export-format="txt">Text file</button>' +
+      '<button type="button" class="btn site-button" data-mmhp-export-format="csv">CSV file</button>' +
+      '<button type="button" class="btn site-button mmhp-export-format-cancel" data-mmhp-export-format="cancel">Cancel</button>' +
+      '</div>' +
+      '</div>';
+    dialog.setAttribute("aria-labelledby", "mmhp-export-format-title");
+    dialog.setAttribute("aria-describedby", "mmhp-export-format-desc");
+    document.body.appendChild(dialog);
+    return dialog;
+  }
+
+  function openExportFormatDialog(exporter) {
+    var dialog = ensureExportFormatDialog();
+    function onClick(event) {
+      var btn = event.target.closest ? event.target.closest("[data-mmhp-export-format]") : null;
+      if (!btn) return;
+      var format = btn.getAttribute("data-mmhp-export-format");
+      dialog.removeEventListener("click", onClick);
+      dialog.close();
+      if (format === "txt" || format === "csv") exporter(format);
+    }
+    dialog.addEventListener("click", onClick);
+    dialog.addEventListener("cancel", function cleanup() {
+      dialog.removeEventListener("click", onClick);
+      dialog.removeEventListener("cancel", cleanup);
+    });
+    dialog.showModal();
+  }
+
+  function bindFeaturedExportButton(button, data) {
+    if (!button || !data) return;
+    button.disabled = false;
+    button.addEventListener("click", function () {
+      openExportFormatDialog(function (format) {
+        if (format === "csv") {
+          downloadTextFile("mmhp-featured-events.csv", featuredEventsExportCsv(data), "text/csv;charset=utf-8");
+          return;
+        }
+        downloadTextFile("mmhp-featured-events.txt", featuredEventsExportText(data), "text/plain;charset=utf-8");
+      });
+    });
+  }
+
+  function activityExportEntries(act) {
+    var rd = act.recurrenceDetails || {};
+    var entries = [];
+    if (Array.isArray(rd.slots) && rd.slots.length > 0) {
+      for (var i = 0; i < rd.slots.length; i++) {
+        var slot = rd.slots[i] || {};
+        var w = String(slot.weekday || slot.day || "").trim();
+        var st = String(slot.startTime || slot.time || "").trim();
+        if (w || st) entries.push({ weekday: w || "Day TBA", startTime: st });
+      }
+      return entries;
+    }
+
+    var days = rd.weekdays || rd.daysOfWeek || [];
+    var stOne = String(rd.startTime || rd.time || "").trim();
+    if (Array.isArray(days) && days.length > 0) {
+      for (var j = 0; j < days.length; j++) {
+        entries.push({ weekday: String(days[j] || "").trim() || "Day TBA", startTime: stOne });
+      }
+      return entries;
+    }
+
+    entries.push({ weekday: "Day TBA", startTime: stOne });
+    return entries;
+  }
+
+  function activityExportLine(act, entry) {
+    var name = String(act.activityName || act.description || act.id || "Activity").trim();
+    var day = String(entry.weekday || "Day TBA").trim();
+    var time = formatSlotTime(entry.startTime || "") || "Time TBA";
+    var location = String(act.location || "").trim() || "Location TBA";
+    return name + " | " + day + " | " + time + " | " + location;
+  }
+
+  function sortedActivities(data) {
+    var rows = (data.activities || []).slice();
+    rows.sort(function (a, b) {
+      var an = String(a.activityName || a.description || "").trim().toLowerCase();
+      var bn = String(b.activityName || b.description || "").trim().toLowerCase();
+      return an < bn ? -1 : an > bn ? 1 : 0;
+    });
+    return rows;
+  }
+
+  function activitiesExportText(data) {
+    var rows = sortedActivities(data);
+    var lines = ["McAllen Mobile Park Activities", "Activity name | Day of week | Time | Hall/location", ""];
+    for (var i = 0; i < rows.length; i++) {
+      var entries = activityExportEntries(rows[i]);
+      for (var j = 0; j < entries.length; j++) {
+        lines.push(activityExportLine(rows[i], entries[j]));
+      }
+    }
+    return lines.join("\r\n") + "\r\n";
+  }
+
+  function activitiesExportCsv(data) {
+    var rows = sortedActivities(data);
+    var lines = [["Activity Name", "Day of Week", "Time", "Hall/Location", "Active"].map(csvCell).join(",")];
+    for (var i = 0; i < rows.length; i++) {
+      var entries = activityExportEntries(rows[i]);
+      for (var j = 0; j < entries.length; j++) {
+        var act = rows[i];
+        var name = String(act.activityName || act.description || act.id || "Activity").trim();
+        var day = String(entries[j].weekday || "Day TBA").trim();
+        var time = formatSlotTime(entries[j].startTime || "") || "Time TBA";
+        var location = String(act.location || "").trim() || "Location TBA";
+        var active = act.active === false ? "false" : "true";
+        lines.push([name, day, time, location, active].map(csvCell).join(","));
+      }
+    }
+    return lines.join("\r\n") + "\r\n";
+  }
+
+  function bindActivitiesExportButton(button, data) {
+    if (!button || !data) return;
+    button.disabled = false;
+    button.addEventListener("click", function () {
+      openExportFormatDialog(function (format) {
+        if (format === "csv") {
+          downloadTextFile("mmhp-activities.csv", activitiesExportCsv(data), "text/csv;charset=utf-8");
+          return;
+        }
+        downloadTextFile("mmhp-activities.txt", activitiesExportText(data), "text/plain;charset=utf-8");
+      });
+    });
+  }
+
   /** Left sidebar slot: line 1 = event name, line 2 = time + location. */
   function sidebarSlotTitleAndMeta(name, hhmm, location) {
     var n = String(name || "").trim();
@@ -783,6 +1003,15 @@
 
   function renderRecurringSchedule(data, list) {
     if (!list) return;
+    var exportButton = document.getElementById("mmhp-activities-export");
+
+    function appendExportButton() {
+      if (!exportButton) return;
+      var exportLi = document.createElement("li");
+      exportLi.className = "sidebar-schedule-export";
+      exportLi.appendChild(exportButton);
+      list.appendChild(exportLi);
+    }
 
     var buckets = [];
     for (var b = 0; b < 7; b++) buckets.push(new Map());
@@ -810,6 +1039,7 @@
       empty.className = "recurring-events-item";
       empty.textContent = "No recurring schedule in data.";
       list.appendChild(empty);
+      appendExportButton();
       list.setAttribute("aria-busy", "false");
       return;
     }
@@ -854,6 +1084,7 @@
       list.appendChild(dayLi);
     }
 
+    appendExportButton();
     list.setAttribute("aria-busy", "false");
   }
 
@@ -1043,8 +1274,10 @@
     var list = document.querySelector("aside.site-sidebar-left .recurring-events-list");
     var homeFeaturedGrid = document.querySelector(".page-home-featured-grid");
     var rightGrid = document.querySelector("aside.site-sidebar-right .featured-events-grid");
+    var featuredExportButton = document.getElementById("mmhp-featured-export");
+    var activitiesExportButton = document.getElementById("mmhp-activities-export");
 
-    if (!url || (!list && !homeFeaturedGrid && !rightGrid)) return;
+    if (!url || (!list && !homeFeaturedGrid && !rightGrid && !featuredExportButton && !activitiesExportButton)) return;
 
     var dataRef = null;
 
@@ -1061,6 +1294,8 @@
       })
       .then(function (data) {
         dataRef = data;
+        if (featuredExportButton) bindFeaturedExportButton(featuredExportButton, data);
+        if (activitiesExportButton) bindActivitiesExportButton(activitiesExportButton, data);
         if (list) renderRecurringSchedule(data, list);
         if (homeFeaturedGrid) {
           requestAnimationFrame(function () {
@@ -1124,6 +1359,14 @@
             art2.appendChild(p2);
             rightGrid.appendChild(art2);
           }
+        }
+        if (featuredExportButton) {
+          featuredExportButton.disabled = true;
+          featuredExportButton.textContent = "Export unavailable";
+        }
+        if (activitiesExportButton) {
+          activitiesExportButton.disabled = true;
+          activitiesExportButton.textContent = "Export unavailable";
         }
       });
   }

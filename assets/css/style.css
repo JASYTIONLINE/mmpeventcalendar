@@ -806,6 +806,66 @@
     font-weight: 600;
   }
 
+  .featured-events-export-btn {
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .recurring-events-export-btn {
+    display: block;
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .sidebar-schedule-export {
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--color-border);
+    list-style: none;
+  }
+
+  .mmhp-export-format-dialog {
+    width: min(24rem, calc(100vw - 2rem));
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-white);
+    box-shadow: 0 20px 50px rgba(47, 58, 64, 0.25);
+  }
+
+  .mmhp-export-format-dialog::backdrop {
+    background: rgba(47, 58, 64, 0.45);
+  }
+
+  .mmhp-export-format-panel {
+    padding: var(--space-lg);
+  }
+
+  .mmhp-export-format-panel h3 {
+    margin: 0 0 var(--space-sm);
+    color: var(--color-driftwood-dark);
+    text-align: left;
+  }
+
+  .mmhp-export-format-panel p {
+    margin: 0 0 var(--space-md);
+    color: var(--color-text-soft);
+  }
+
+  .mmhp-export-format-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: flex-end;
+  }
+
+  .mmhp-export-format-cancel {
+    background: var(--color-white);
+    color: var(--color-driftwood-dark);
+  }
+
   .featured-events-grid {
     display: flex;
     flex-direction: column;

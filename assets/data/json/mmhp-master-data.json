@@ -4706,7 +4706,10 @@
       "imagePath": "",
       "activityName": "Karaoke",
       "contactResidentId": "re0088",
-      "chairpersonId": "re0088"
+      "chairpersonId": "re0088",
+      "activeFrom": "01-01",
+      "activeTo": "12-31",
+      "active": true
     },
     {
       "id": "ac0002",
@@ -4721,27 +4724,34 @@
       "imagePath": "",
       "activityName": "DJ Karaoke",
       "contactResidentId": "re0088",
-      "chairpersonId": "re0088"
+      "chairpersonId": "re0088",
+      "activeFrom": "10-01",
+      "activeTo": "04-15",
+      "active": false
     },
     {
       "id": "ac0003",
-      "description": "Regular card playing group",
-      "location": "Hall A",
+      "description": "Bingo Night",
+      "location": "Hall B",
       "recurrenceType": "Recurring",
       "recurrenceDetails": {
         "weekdays": [
-          "Wednesday"
+          "Tuesday"
         ],
-        "startTime": "13:00"
+        "startTime": "19:00"
       },
       "keywords": [
-        "cards",
-        "social"
+        "bingo",
+        "social",
+        "prizes"
       ],
-      "imagePath": "",
-      "activityName": "Card Games",
+      "imagePath": "activity-flyer/tuesday-bingo-flyer-w.png",
+      "activityName": "Bingo",
       "contactResidentId": "re0000",
-      "chairpersonId": "re0000"
+      "chairpersonId": "re0000",
+      "activeFrom": "10-01",
+      "activeTo": "04-15",
+      "active": true
     },
     {
       "id": "ac0004",
@@ -4761,7 +4771,10 @@
       "imagePath": "",
       "activityName": "Pool / 8 Ball",
       "contactResidentId": "re0088",
-      "chairpersonId": "re0088"
+      "chairpersonId": "re0088",
+      "activeFrom": "10-01",
+      "activeTo": "04-15",
+      "active": false
     },
     {
       "id": "ac0006",
@@ -4783,7 +4796,10 @@
       "imagePath": "",
       "activityName": "Arts & Crafts",
       "contactResidentId": "re0097",
-      "chairpersonId": "re0097"
+      "chairpersonId": "re0097",
+      "activeFrom": "10-01",
+      "activeTo": "04-15",
+      "active": false
     },
     {
       "id": "ac0008",
@@ -4802,7 +4818,10 @@
       "imagePath": "",
       "activityName": "Book Club",
       "contactResidentId": "re0097",
-      "chairpersonId": "re0097"
+      "chairpersonId": "re0097",
+      "activeFrom": "10-01",
+      "activeTo": "04-15",
+      "active": false
     },
     {
       "id": "ac0010",
@@ -4821,7 +4840,10 @@
       "imagePath": "",
       "activityName": "Bible Study",
       "contactResidentId": "re0029",
-      "chairpersonId": "re0029"
+      "chairpersonId": "re0029",
+      "activeFrom": "10-01",
+      "activeTo": "04-15",
+      "active": false
     },
     {
       "id": "ac0011",
@@ -4840,7 +4862,10 @@
       "imagePath": "",
       "activityName": "Vespers",
       "contactResidentId": "re0029",
-      "chairpersonId": "re0029"
+      "chairpersonId": "re0029",
+      "activeFrom": "10-01",
+      "activeTo": "04-15",
+      "active": false
     },
     {
       "id": "ac0016",
@@ -4859,7 +4884,10 @@
       "imagePath": "",
       "activityName": "Kitchen Inventory",
       "contactResidentId": "re0036",
-      "chairpersonId": "re0036"
+      "chairpersonId": "re0036",
+      "activeFrom": "10-01",
+      "activeTo": "04-15",
+      "active": false
     },
     {
       "id": "ac0017",
@@ -4875,7 +4903,10 @@
       "imagePath": "",
       "activityName": "Dance",
       "contactResidentId": "re0011",
-      "chairpersonId": "re0011"
+      "chairpersonId": "re0011",
+      "activeFrom": "10-01",
+      "activeTo": "04-15",
+      "active": false
     },
     {
       "id": "ac0018",
@@ -4891,7 +4922,10 @@
       "imagePath": "",
       "activityName": "Theater",
       "contactResidentId": "re0011",
-      "chairpersonId": "re0011"
+      "chairpersonId": "re0011",
+      "activeFrom": "10-01",
+      "activeTo": "04-15",
+      "active": false
     },
     {
       "id": "ac0019",
@@ -4906,7 +4940,10 @@
       "imagePath": "",
       "activityName": "Comedy",
       "contactResidentId": "re0011",
-      "chairpersonId": "re0011"
+      "chairpersonId": "re0011",
+      "activeFrom": "10-01",
+      "activeTo": "04-15",
+      "active": false
     },
     {
       "id": "ac0020",
@@ -4922,7 +4959,10 @@
       "imagePath": "",
       "activityName": "Music Performance",
       "contactResidentId": "re0011",
-      "chairpersonId": "re0011"
+      "chairpersonId": "re0011",
+      "activeFrom": "10-01",
+      "activeTo": "04-15",
+      "active": false
     },
     {
       "id": "ac0021",
@@ -4938,7 +4978,10 @@
       "imagePath": "",
       "activityName": "Murder Mystery",
       "contactResidentId": "re0011",
-      "chairpersonId": "re0011"
+      "chairpersonId": "re0011",
+      "activeFrom": "10-01",
+      "activeTo": "04-15",
+      "active": false
     },
     {
       "id": "ac0022",
@@ -4954,7 +4997,10 @@
       "imagePath": "",
       "activityName": "Talent Show",
       "contactResidentId": "re0011",
-      "chairpersonId": "re0011"
+      "chairpersonId": "re0011",
+      "activeFrom": "10-01",
+      "activeTo": "04-15",
+      "active": false
     },
     {
       "id": "ac0023",
@@ -4977,7 +5023,59 @@
       "imagePath": "activity-flyer/ksw-wo -banner.jpg",
       "activityName": "Martial Arts Training",
       "contactResidentId": "re0018",
-      "chairpersonId": "re0018"
+      "chairpersonId": "re0018",
+      "activeFrom": "10-01",
+      "activeTo": "04-15",
+      "active": false
+    },
+    {
+      "id": "ac0024",
+      "description": "Horsecollar shuffle board games",
+      "location": "Shuffleboard Courts",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {
+        "weekdays": [
+          "Sunday"
+        ],
+        "startTime": "13:30"
+      },
+      "keywords": [
+        "shuffleboard",
+        "horsecollar",
+        "games"
+      ],
+      "imagePath": "",
+      "activityName": "Horsecollar Shuffle Board",
+      "contactResidentId": "re0025",
+      "chairpersonId": "re0025",
+      "activeFrom": "10-01",
+      "activeTo": "04-15",
+      "active": false
+    },
+    {
+      "id": "ac0025",
+      "description": "Mexican Train Dominoes games",
+      "location": "Hall A",
+      "recurrenceType": "Recurring",
+      "recurrenceDetails": {
+        "weekdays": [
+          "Tuesday",
+          "Friday"
+        ],
+        "startTime": "10:00"
+      },
+      "keywords": [
+        "dominoes",
+        "mexican train",
+        "games"
+      ],
+      "imagePath": "",
+      "activityName": "Mexican Train Dominoes",
+      "contactResidentId": "re0000",
+      "chairpersonId": "re0000",
+      "activeFrom": "01-01",
+      "activeTo": "12-31",
+      "active": true
     }
   ],
   "features": [
@@ -5276,6 +5374,411 @@
       "eventName": "St Patricks Day Party — Talent Show",
       "description": "Talent show with a focus on the green luck theme",
       "imagePath": "event-flyer/st-patty-party.jpg"
+    },
+    {
+      "featureId": "fe0020",
+      "id": "fe0020",
+      "date": "2026-05-02",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Dance Party with DJ Dana",
+      "cardLine2": "Dance",
+      "cardLine3": "May 2 2026",
+      "eventName": "Dance Party with DJ Dana — Dance",
+      "imagePath": "event-flyer/djdance.png"
+    },
+    {
+      "featureId": "fe0021",
+      "id": "fe0021",
+      "date": "2026-05-09",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Dance Party with DJ Dana",
+      "cardLine2": "Dance",
+      "cardLine3": "May 9 2026",
+      "eventName": "Dance Party with DJ Dana — Dance",
+      "imagePath": "event-flyer/djdance.png"
+    },
+    {
+      "featureId": "fe0022",
+      "id": "fe0022",
+      "date": "2026-05-16",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "May 16 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0023",
+      "id": "fe0023",
+      "date": "2026-05-23",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "May 23 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0024",
+      "id": "fe0024",
+      "date": "2026-05-30",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "May 30 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0025",
+      "id": "fe0025",
+      "date": "2026-06-06",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Jun 6 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0026",
+      "id": "fe0026",
+      "date": "2026-06-13",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Jun 13 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0027",
+      "id": "fe0027",
+      "date": "2026-06-20",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Jun 20 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0028",
+      "id": "fe0028",
+      "date": "2026-06-27",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Jun 27 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0029",
+      "id": "fe0029",
+      "date": "2026-07-04",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Jul 4 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0030",
+      "id": "fe0030",
+      "date": "2026-07-11",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Jul 11 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0031",
+      "id": "fe0031",
+      "date": "2026-07-18",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Jul 18 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0032",
+      "id": "fe0032",
+      "date": "2026-07-25",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Jul 25 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0033",
+      "id": "fe0033",
+      "date": "2026-08-01",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Aug 1 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0034",
+      "id": "fe0034",
+      "date": "2026-08-08",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Aug 8 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0035",
+      "id": "fe0035",
+      "date": "2026-08-15",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Aug 15 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0036",
+      "id": "fe0036",
+      "date": "2026-08-22",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Aug 22 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0037",
+      "id": "fe0037",
+      "date": "2026-08-29",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Aug 29 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0038",
+      "id": "fe0038",
+      "date": "2026-09-05",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Sep 5 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0039",
+      "id": "fe0039",
+      "date": "2026-09-12",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Sep 12 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0040",
+      "id": "fe0040",
+      "date": "2026-09-19",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Sep 19 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0041",
+      "id": "fe0041",
+      "date": "2026-09-26",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Sep 26 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0042",
+      "id": "fe0042",
+      "date": "2026-10-03",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Oct 3 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0043",
+      "id": "fe0043",
+      "date": "2026-10-10",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Oct 10 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0044",
+      "id": "fe0044",
+      "date": "2026-10-17",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Oct 17 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0045",
+      "id": "fe0045",
+      "date": "2026-10-24",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Oct 24 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
+    },
+    {
+      "featureId": "fe0046",
+      "id": "fe0046",
+      "date": "2026-10-31",
+      "startTime": "19:00",
+      "endTime": "",
+      "location": "Hall A",
+      "isActive": true,
+      "isFeatured": true,
+      "cardLine1": "Karaoke",
+      "cardLine2": "Karaoke",
+      "cardLine3": "Oct 31 2026",
+      "eventName": "Karaoke — Karaoke",
+      "imagePath": "event-flyer/karaoke.png"
     }
   ],
   "committees": [

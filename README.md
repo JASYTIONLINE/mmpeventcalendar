@@ -76,6 +76,7 @@ Source HTML for recurring-activity landings (same path depth as the folder link 
 
 - [arts-and-crafts.html](contents/activity-flyer/arts-and-crafts.html)
 - [bible-study.html](contents/activity-flyer/bible-study.html)
+- [bingo.html](contents/activity-flyer/bingo.html)
 - [book-club.html](contents/activity-flyer/book-club.html)
 - [card-games.html](contents/activity-flyer/card-games.html)
 - [kitchen-inventory.html](contents/activity-flyer/kitchen-inventory.html)

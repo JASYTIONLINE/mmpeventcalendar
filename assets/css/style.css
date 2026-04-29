@@ -1662,8 +1662,9 @@
 
   /* Featured under calendar: fill each row with as many square cards as fit */
   body.page-home .page-home-featured .featured-events-grid {
+    --home-featured-card-min: 19.2rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19.2rem), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--home-featured-card-min)), 1fr));
     gap: 0.65rem;
     max-width: 100%;
     overflow: visible;

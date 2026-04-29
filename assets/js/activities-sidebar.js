@@ -587,6 +587,31 @@
     };
   }
 
+  function cssLengthToPx(value, contextEl) {
+    var raw = String(value || "").trim();
+    if (!raw) return 0;
+    var n = parseFloat(raw);
+    if (!Number.isFinite(n)) return 0;
+    if (/rem$/i.test(raw)) {
+      var rootFont = parseFloat(window.getComputedStyle(document.documentElement).fontSize);
+      return n * (Number.isFinite(rootFont) ? rootFont : 16);
+    }
+    if (/em$/i.test(raw)) {
+      var font = parseFloat(window.getComputedStyle(contextEl || document.body).fontSize);
+      return n * (Number.isFinite(font) ? font : 16);
+    }
+    return n;
+  }
+
+  function homeFeaturedColumnCount(grid) {
+    var styles = window.getComputedStyle(grid);
+    var width = grid.getBoundingClientRect().width || grid.clientWidth || 0;
+    var gap = parseFloat(styles.columnGap || styles.gap) || 0;
+    var minWidth = cssLengthToPx(styles.getPropertyValue("--home-featured-card-min"), grid);
+    if (!width || !minWidth) return 1;
+    return Math.max(1, Math.floor((width + gap) / (minWidth + gap)));
+  }
+
   function renderHomeFeaturedMonth(data, grid, jsonUrl) {
     if (!grid) return;
     var main = document.querySelector("body.page-home .site-main");
@@ -648,7 +673,12 @@
         controls.yearNext.disabled = findGroupInYear(year + 1, group.items[0].dt.getMonth()) < 0;
       }
       grid.setAttribute("aria-label", "Featured events for " + group.label);
-      renderFeaturedFromEnriched(group.items, grid, jsonUrl, group.imageOffset);
+      var displayItems = group.items.slice();
+      var minCards = homeFeaturedColumnCount(grid);
+      for (var fill = state.index + 1; displayItems.length < minCards && fill < groups.length; fill++) {
+        displayItems = displayItems.concat(groups[fill].items);
+      }
+      renderFeaturedFromEnriched(displayItems, grid, jsonUrl, group.imageOffset);
     }
 
     if (controls) {

@@ -160,11 +160,18 @@
     return String(ev.eventName || ev.title || ev.cardLine1 || ev.featureId || ev.id || "Featured event").trim();
   }
 
+  function featuredEventTimeRange(ev) {
+    var start = formatSlotTime(ev.startTime || "");
+    var endLabel = ev.endTimeLabel != null ? String(ev.endTimeLabel).trim() : "";
+    var end = formatSlotTime(ev.endTime || "");
+    if (start && endLabel) return start + " \u2013 " + endLabel;
+    if (start && end) return start + " - " + end;
+    return start || end || "Time TBA";
+  }
+
   function featuredEventExportLine(ev) {
     var date = formatExportDate(ev.date);
-    var start = formatSlotTime(ev.startTime || "");
-    var end = formatSlotTime(ev.endTime || "");
-    var time = start && end ? start + " - " + end : start || end || "Time TBA";
+    var time = featuredEventTimeRange(ev);
     return featuredEventExportName(ev) + " | " + date + " | " + time;
   }
 
@@ -201,9 +208,7 @@
     var lines = [["Event Name", "Date", "Time"].map(csvCell).join(",")];
     for (var i = 0; i < rows.length; i++) {
       var ev = rows[i];
-      var start = formatSlotTime(ev.startTime || "");
-      var end = formatSlotTime(ev.endTime || "");
-      var time = start && end ? start + " - " + end : start || end || "Time TBA";
+      var time = featuredEventTimeRange(ev);
       lines.push([featuredEventExportName(ev), formatExportDate(ev.date), time].map(csvCell).join(","));
     }
     return lines.join("\r\n") + "\r\n";

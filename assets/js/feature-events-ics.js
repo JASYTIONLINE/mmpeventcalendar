@@ -185,8 +185,13 @@
 
     var timePill = document.querySelector(".feature-events-time-pill");
     if (timePill) {
+      var endLabel = escapeText(f.endTimeLabel);
       var end = escapeText(f.endTime);
-      var visibleTime = end ? formatTime12(start) + "-" + formatTime12(end) : formatTime12(start);
+      var visibleTime = endLabel
+        ? formatTime12(start) + " \u2013 " + endLabel
+        : end
+          ? formatTime12(start) + " - " + formatTime12(end)
+          : formatTime12(start);
       var loc = escapeText(f.location || "Hall A");
       timePill.textContent = [visibleTime, loc].filter(Boolean).join(" · ");
     }

@@ -16,10 +16,10 @@ const START_DATE = "2026-09-05";
 
 const KARAOKE = {
   cardLine1: "Karaoke with DJ Kushman",
-  cardLine2: "Sat 7–10 PM · Hall A",
+  cardLine2: "Sat 7–10 PM · Hall B",
   eventName: "Saturday Karaoke with DJ Kushman",
   adCopy:
-    "Saturday karaoke is back for this night with DJ Kushman! Join neighbors in Hall A from 7:00 to 10:00 PM for music, singing, dancing, and friends. Grab the mic, make a request, and enjoy a fun McAllen Mobile Park evening together.",
+    "Saturday karaoke is back for this night with DJ Kushman! Join neighbors in Hall B from 7:00 to 10:00 PM for music, singing, dancing, and friends. Grab the mic, make a request, and enjoy a fun McAllen Mobile Park evening together.",
   imagePath: "event-flyer/dj-kushman-karaoke-sq.png",
   imagePathFlyer: "event-flyer/dj-kushman-karaoke.png",
   stem: "dj-kushman-karaoke",
@@ -28,7 +28,7 @@ const KARAOKE = {
 
 const DANCE = {
   cardLine1: "Saturday Dance",
-  cardLine2: "DJ Kushman",
+  cardLine2: "Sat 7–10 PM · Hall B",
   eventName: "Saturday Dance with DJ Kushman",
   adCopy:
     "Saturday Dance with DJ Kushman brings neighbors together for a familiar McAllen Mobile Park evening of music, dancing, and friends. This is the Saturday evening dance event used when karaoke is not scheduled; check the date and time for the current scheduled night.",
@@ -186,12 +186,12 @@ function buildPage({ date, featureId, cfg }) {
             <a class="feature-events-directions" href="https://maps.app.goo.gl/6st9THqUttarC7vUA" target="_blank" rel="noopener noreferrer">Get Directions</a>
           </div>
           <time datetime="${date}T19:00">${escapeHtml(formatLongDate(date))}</time>
-          <p class="feature-events-time-pill" aria-label="Event time">7:00 PM - 10:00 PM · Hall A</p>
+          <p class="feature-events-time-pill" aria-label="Event time">7:00 PM - 10:00 PM · Hall B</p>
           <p class="feature-events-invite">${escapeHtml(cfg.invite)}</p>
         </div>
         <p class="feature-events-loc">
           <strong>Location</strong>
-          McAllen Mobile Park · Hall A<br>
+          McAllen Mobile Park · Hall B<br>
           4900 N Mc Coll Rd, McAllen, TX
         </p>
       </div>
@@ -224,7 +224,7 @@ function applyFeature(f, date, cfg, featureId) {
   f.date = date;
   f.startTime = "19:00";
   f.endTime = "22:00";
-  f.location = "Hall A";
+  f.location = "Hall B";
   f.isActive = true;
   f.isFeatured = true;
   f.cardLine1 = cfg.cardLine1;
